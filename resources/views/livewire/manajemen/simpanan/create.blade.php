@@ -197,7 +197,7 @@
                                 <span class="text-danger">*</span>
                             </label>
 
-                            <div class="input-group shadow-sm rounded overflow-hidden" wire:ignore>
+                            <div class="input-group shadow-sm rounded overflow-hidden">
 
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-primary text-white border-0 px-3">
@@ -205,59 +205,28 @@
                                     </span>
                                 </div>
 
-                                <input type="text" id="rupiah"
+                                <input type="number" wire:model.blur="jumlah"
                                     class="form-control border-0 @error('jumlah') is-invalid @enderror"
-                                    placeholder="Masukkan jumlah simpanan">
+                                    placeholder="Masukkan jumlah simpanan"
+                                    min="100000">
 
                             </div>
 
                             {{-- PREVIEW --}}
                             @if ($jumlah)
                                 <div class="mt-2">
-
-                                    <small class="text-muted">
-                                        Nominal Simpanan
-                                    </small>
-
+                                    <small class="text-muted">Nominal Simpanan</small>
                                     <div class="font-weight-bold text-success" style="font-size: 18px;">
-
                                         Rp {{ number_format($jumlah, 0, ',', '.') }}
-
                                     </div>
-
                                 </div>
                             @endif
 
                             @error('jumlah')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
 
                         </div>
-
-                        {{-- FORMAT RUPIAH --}}
-                        <script>
-                            document.addEventListener('livewire:init', () => {
-
-                                function initRupiahCreate() {
-                                    const rupiah = document.getElementById('rupiah');
-                                    if (!rupiah) return;
-
-                                    const fresh = rupiah.cloneNode(true);
-                                    rupiah.parentNode.replaceChild(fresh, rupiah);
-                                    fresh.value = '';
-
-                                    fresh.addEventListener('input', function() {
-                                        let angka = this.value.replace(/[^0-9]/g, '');
-                                        @this.set('jumlah', angka);
-                                        this.value = new Intl.NumberFormat('id-ID').format(angka);
-                                    });
-                                }
-
-                                Livewire.on('openCreate', () => setTimeout(initRupiahCreate, 100));
-                            });
-                        </script>
 
                     </div>
 

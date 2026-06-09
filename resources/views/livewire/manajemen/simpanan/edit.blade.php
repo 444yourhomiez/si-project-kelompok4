@@ -215,55 +215,37 @@
                             <div class="col-md-12 mb-3">
 
                                 <label class="font-weight-bold">
-
                                     Jumlah Simpanan
                                     <span class="text-danger">*</span>
-
                                 </label>
 
-                                <div class="input-group shadow-sm rounded overflow-hidden" wire:ignore>
+                                <div class="input-group shadow-sm rounded overflow-hidden">
 
                                     <div class="input-group-prepend">
-
                                         <span class="input-group-text bg-primary text-white border-0 px-3">
-
                                             Rp
-
                                         </span>
-
                                     </div>
 
-                                    <input type="text" id="rupiahEdit"
+                                    <input type="number" wire:model.blur="jumlah"
                                         class="form-control border-0 @error('jumlah') is-invalid @enderror"
-                                        placeholder="Masukkan jumlah simpanan">
+                                        placeholder="Masukkan jumlah simpanan"
+                                        min="1">
 
                                 </div>
 
                                 {{-- PREVIEW --}}
                                 @if ($jumlah)
                                     <div class="mt-2">
-
-                                        <small class="text-muted">
-
-                                            Nominal Simpanan
-
-                                        </small>
-
+                                        <small class="text-muted">Nominal Simpanan</small>
                                         <div class="font-weight-bold text-success" style="font-size:18px;">
-
                                             Rp {{ number_format((float) $jumlah, 0, ',', '.') }}
-
                                         </div>
-
                                     </div>
                                 @endif
 
                                 @error('jumlah')
-                                    <small class="text-danger">
-
-                                        {{ $message }}
-
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
 
                             </div>
@@ -300,28 +282,6 @@
         <script>
             document.addEventListener('livewire:init', () => {
 
-                function initRupiahEdit() {
-                    const rupiah = document.getElementById('rupiahEdit');
-                    if (!rupiah) return;
-
-                    // Hapus listener lama
-                    const fresh = rupiah.cloneNode(true);
-                    rupiah.parentNode.replaceChild(fresh, rupiah);
-
-                    // Format nilai awal dari Livewire
-                    const jumlah = @this.get('jumlah');
-                    if (jumlah) {
-                        fresh.value = new Intl.NumberFormat('id-ID').format(jumlah);
-                    }
-
-                    fresh.addEventListener('input', function() {
-                        let value = this.value.replace(/[^0-9]/g, '');
-                        @this.set('jumlah', value);
-                        this.value = new Intl.NumberFormat('id-ID').format(value);
-                    });
-                }
-
-                Livewire.on('openEdit', () => setTimeout(initRupiahEdit, 100));
                 Livewire.on('show-confirm-update', (event) => {
 
                     Swal.fire({
