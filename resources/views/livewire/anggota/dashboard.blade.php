@@ -1,0 +1,607 @@
+<div>
+
+    <div class="content-wrapper">
+
+        {{-- HEADER --}}
+        <section class="content-header">
+
+            <div class="container-fluid">
+
+                <div class="row mb-2">
+
+                    <div class="col-sm-6">
+
+                        <h1>
+
+                            <i class="nav-icon fas fa-th-large mr-2"></i>
+
+                            @yield('title')
+
+                        </h1>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <ol class="breadcrumb float-sm-right">
+
+                            <li class="breadcrumb-item">
+
+                                <a href="#">
+
+                                    <i class="nav-icon fas fa-th-large mr-1"></i>
+
+                                    Dashboard
+
+                                </a>
+
+                            </li>
+
+                            <li class="breadcrumb-item active">
+
+                                <i class="nav-icon fas fa-th-large mr-1"></i>
+
+                                @yield('title')
+
+                            </li>
+
+                        </ol>
+
+                    </div>
+
+                </div>
+
+                {{-- WELCOME --}}
+                <div class="welcome-card mb-2 mt-3">
+
+                    <h4 class="mb-1 font-weight-bold">
+
+                        Selamat Datang,
+                        {{ auth()->user()->nama_user }}
+
+                    </h4>
+
+                    <p class="mb-0">
+
+                        Berikut adalah ringkasan keuangan Anda
+                        di Koperasi Motekar
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        {{-- CONTENT --}}
+        <section  class="content">
+
+            {{-- CARD --}}
+            <div class="row">
+
+                {{-- TOTAL SIMPANAN --}}
+                <div class="col-md-4">
+
+                    <div class="card card-widget widget-user-2">
+
+                        <div class="widget-user-header d-flex align-items-center justify-content-between">
+
+                            {{-- TEXT --}}
+                            <div>
+
+                                <div class="card-label mb-3">
+
+                                    Total Simpanan
+
+                                </div>
+
+                                <div class="card-number">
+
+                                    Rp {{ number_format($total_simpanan, 0, ',', '.') }}
+
+                                </div>
+
+                            </div>
+
+                            {{-- ICON --}}
+                            <div>
+
+                                <a href="#">
+
+                                    <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
+                                        style="width:60px; height:60px;">
+
+                                        <i class="fas fa-wallet text-orange" style="font-size:30px;"></i>
+
+                                    </div>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        {{-- DETAIL --}}
+                        <div class="card-footer p-2">
+
+                            <ul class="nav flex-column">
+
+                                {{-- WAJIB --}}
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-success mr-2 px-2 py-1">
+
+                                                Wajib
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp {{ number_format($simpanan_wajib, 0, ',', '.') }}
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                                {{-- POKOK --}}
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-primary mr-2 px-2 py-1">
+
+                                                Pokok
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp {{ number_format($simpanan_pokok, 0, ',', '.') }}
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                                {{-- SUKARELA --}}
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-info mr-2 px-2 py-1">
+
+                                                Sukarela
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp {{ number_format($simpanan_sukarela, 0, ',', '.') }}
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- TOTAL PINJAMAN --}}
+                <div class="col-md-4">
+
+                    <div class="card card-widget widget-user-2">
+
+                        <div class="widget-user-header d-flex align-items-center justify-content-between">
+
+                            {{-- TEXT --}}
+                            <div>
+
+                                <div class="card-label mb-3">
+
+                                    Total Pinjaman
+
+                                </div>
+
+                                <div class="card-number">
+
+                                    Rp 2.500.000
+
+                                </div>
+
+                            </div>
+
+                            {{-- ICON --}}
+                            <div>
+
+                                <a href="#">
+
+                                    <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
+                                        style="width:60px; height:60px;">
+
+                                        <i class="fas fa-hand-holding-usd text-danger" style="font-size:30px;"></i>
+
+                                    </div>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer p-2">
+
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-success mr-2 px-2 py-1">
+
+                                                Pribadi
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp 2.000.000
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-primary mr-2 px-2 py-1">
+
+                                                Khusus
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp 500.000
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- SISA CICILAN --}}
+                <div class="col-md-4">
+
+                    <div class="card card-widget widget-user-2">
+
+                        <div class="widget-user-header d-flex align-items-center justify-content-between">
+
+                            {{-- TEXT --}}
+                            <div>
+
+                                <div class="card-label mb-3">
+
+                                    Sisa Cicilan Pinjaman
+
+                                </div>
+
+                                <div class="card-number">
+
+                                    Rp 1.200.000
+
+                                </div>
+
+                            </div>
+
+                            {{-- ICON --}}
+                            <div>
+
+                                <a href="#">
+
+                                    <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
+                                        style="width:60px; height:60px;">
+
+                                        <i class="fas fa-chart-line text-purple" style="font-size:30px;"></i>
+
+                                    </div>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer p-2">
+
+                            <ul class="nav flex-column">
+
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-success mr-2 px-2 py-1">
+
+                                                Pribadi
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp 850.000
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                                <li class="nav-item">
+
+                                    <a href="#"
+                                        class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
+
+                                        <div class="d-flex align-items-center">
+
+                                            <span class="badge bg-primary mr-2 px-2 py-1">
+
+                                                Khusus
+
+                                            </span>
+
+                                        </div>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp 350.000
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {{-- TRANSAKSI --}}
+            <div class="card shadow-sm border-0">
+
+                {{-- HEADER --}}
+                <div class="card-header bg-white border-0 pt-4">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+                        <div>
+
+                            <h4 class="font-weight-bold mb-1">
+
+                                <i class="fas fa-history text-primary mr-2"></i>
+
+                                Transaksi Terbaru
+
+                            </h4>
+
+                            <small class="text-muted">
+
+                                Aktivitas transaksi koperasi terbaru secara realtime
+
+                            </small>
+
+                        </div>
+
+                        <div>
+
+                            {{-- <a href="#" class="btn btn-primary btn-sm shadow-sm px-3">
+
+                                <i class="fas fa-eye mr-1"></i>
+
+                                Lihat Semua
+
+                            </a> --}}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- TABLE --}}
+                <div class="table-responsive">
+
+                    <table class="table table-modern-list mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Tanggal</th>
+                                <th>Jenis Transaksi</th>
+                                <th>Status</th>
+                                <th>Nominal</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @forelse ($transaksi_terbaru as $transaksi)
+                                <tr>
+
+                                    {{-- TANGGAL --}}
+                                    <td>
+
+                                        <div class="table-title">
+
+                                            {{ $transaksi->tanggal->translatedFormat('d M Y') }}
+
+                                        </div>
+
+                                        <div class="table-subtitle">
+
+                                            {{ $transaksi->created_at->diffForHumans() }}
+
+                                        </div>
+
+                                    </td>
+
+                                    {{-- JENIS --}}
+                                    <td>
+
+                                        @if ($transaksi->jenis_simpanan == 'wajib')
+                                            <span class="badge-status-success">
+
+                                                <i class="fas fa-wallet"></i>
+
+                                                Simpanan Wajib
+
+                                            </span>
+                                        @elseif ($transaksi->jenis_simpanan == 'pokok')
+                                            <span class="badge-status-primary">
+
+                                                <i class="fas fa-wallet"></i>
+
+                                                Simpanan Pokok
+
+                                            </span>
+                                        @elseif ($transaksi->jenis_simpanan == 'sukarela')
+                                            <span class="badge-status-info">
+
+                                                <i class="fas fa-wallet"></i>
+
+                                                Simpanan Sukarela
+
+                                            </span>
+                                        @endif
+
+                                    </td>
+
+                                    {{-- STATUS --}}
+                                    <td>
+
+                                        <span class="badge-status-success">
+
+                                            <i class="fas fa-check-circle"></i>
+
+                                            Berhasil
+
+                                        </span>
+
+                                    </td>
+
+                                    {{-- NOMINAL --}}
+                                    <td>
+
+                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+
+                                            Rp {{ number_format($transaksi->jumlah, 0, ',', '.') }}
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="4" class="text-center py-5">
+
+                                        <div class="empty-state">
+
+                                            <i class="fas fa-folder-open"></i>
+
+                                            <h5>
+
+                                                Belum ada transaksi
+
+                                            </h5>
+
+                                            <p>
+
+                                                Data transaksi terbaru
+                                                akan tampil di sini
+
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
