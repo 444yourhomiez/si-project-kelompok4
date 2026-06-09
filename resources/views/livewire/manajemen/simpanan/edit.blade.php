@@ -301,29 +301,25 @@
         <script>
             document.addEventListener('livewire:init', () => {
 
-                const rupiah = document.getElementById('rupiahEdit');
+                function initRupiahEdit() {
+                    const rupiah = document.getElementById('rupiahEdit');
+                    if (!rupiah || rupiah._rupiahInit) return;
+                    rupiah._rupiahInit = true;
 
-                // AUTO FORMAT SAAT MODAL DIBUKA
-                if (@this.get('jumlah')) {
+                    if (@this.get('jumlah')) {
+                        rupiah.value = new Intl.NumberFormat('id-ID').format(@this.get('jumlah'));
+                    }
 
-                    rupiah.value = new Intl.NumberFormat('id-ID')
-                        .format(@this.get('jumlah'));
-
+                    rupiah.addEventListener('input', function(e) {
+                        let value = this.value.replace(/[^0-9]/g, '');
+                        @this.set('jumlah', value);
+                        this.value = new Intl.NumberFormat('id-ID').format(value);
+                    });
                 }
 
-                // FORMAT REALTIME
-                rupiah.addEventListener('input', function(e) {
-
-                    let value = this.value.replace(/[^0-9]/g, '');
-
-                    @this.set('jumlah', value);
-
-                    this.value = new Intl.NumberFormat('id-ID')
-                        .format(value);
-
-                });
-
-                // SWEET ALERT
+                // Init saat pertama, dan setiap openEdit (modal dibuka)
+                Livewire.on('openEdit', () => setTimeout(initRupiahEdit, 50));
+                initRupiahEdit();
                 Livewire.on('show-confirm-update', (event) => {
 
                     Swal.fire({

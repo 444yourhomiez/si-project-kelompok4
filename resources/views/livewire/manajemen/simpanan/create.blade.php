@@ -238,33 +238,31 @@
 
                         {{-- FORMAT RUPIAH --}}
                         <script>
-                            document.addEventListener('livewire:init', () => {
-
+                            function initRupiahInput() {
                                 const rupiah = document.getElementById('rupiah');
+                                if (!rupiah || rupiah._rupiahInit) return;
+                                rupiah._rupiahInit = true;
 
-                                // FORMAT SAAT KETIK
                                 rupiah.addEventListener('input', function() {
-
                                     let angka = this.value.replace(/[^0-9]/g, '');
-
-                                    // KIRIM KE LIVEWIRE
                                     @this.set('jumlah', angka);
-
-                                    // FORMAT RUPIAH
-                                    this.value = new Intl.NumberFormat(
-                                        'id-ID'
-                                    ).format(angka);
-
+                                    this.value = new Intl.NumberFormat('id-ID').format(angka);
                                 });
+                            }
 
-                                // RESET SAAT MODAL DIBUKA
+                            document.addEventListener('livewire:init', () => {
+                                initRupiahInput();
+
                                 Livewire.on('openCreate', () => {
-
-                                    rupiah.value = '';
-
+                                    const rupiah = document.getElementById('rupiah');
+                                    if (rupiah) rupiah.value = '';
+                                    // Re-init jika belum terpasang
+                                    setTimeout(initRupiahInput, 50);
                                 });
-
                             });
+
+                            // Fallback: juga jalankan saat navigasi
+                            document.addEventListener('livewire:navigated', initRupiahInput);
                         </script>
 
                     </div>
