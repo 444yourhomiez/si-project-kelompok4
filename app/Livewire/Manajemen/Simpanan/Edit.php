@@ -309,20 +309,13 @@ class Edit extends Component
 
                 'title' => 'Edit Simpanan',
 
-                'anggota' => Anggota::where(function ($query) {
-
-                    $query->where(
-                        'nama_anggota',
-                        'like',
-                        '%' . $this->search . '%'
-                    )
-
-                        ->orWhere(
-                            'no_ktp',
-                            'like',
-                            '%' . $this->search . '%'
-                        );
-                })
+                'anggota' => Anggota::whereHas('user', function ($q) {
+                        $q->where('status', 'disetujui');
+                    })
+                    ->where(function ($query) {
+                        $query->where('nama_anggota', 'like', '%' . $this->search . '%')
+                            ->orWhere('no_ktp', 'like', '%' . $this->search . '%');
+                    })
                     ->limit(5)
                     ->get(),
 

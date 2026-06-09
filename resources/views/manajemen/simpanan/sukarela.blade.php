@@ -21,7 +21,7 @@
     @livewire('manajemen.simpanan.delete')
 
     <script>
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:init', () => {
 
             // CREATE
             Livewire.on('closeCreateModal', () => {

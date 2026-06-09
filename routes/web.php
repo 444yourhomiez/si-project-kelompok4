@@ -65,7 +65,6 @@ Route::middleware(['auth', 'role:manajemen'])
         Route::view('/pinjaman/khusus', 'manajemen.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/pinjaman/pribadi', 'manajemen.pinjaman.pribadi')->name('pinjaman.pribadi');
         Route::view('/anggota', 'manajemen.anggota.index')->name('anggota.index');
-        Route::view('/anggota', 'manajemen.anggota.index')->name('anggota.index');
         Route::view('/anggota/total', 'manajemen.anggota.total')->name('anggota.total');
         Route::view('/anggota/disetujui', 'manajemen.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'manajemen.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
