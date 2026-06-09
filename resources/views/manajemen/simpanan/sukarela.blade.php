@@ -26,7 +26,7 @@
             // CREATE
             Livewire.on('closeCreateModal', () => {
 
-                $('#createModalSimpanan').modal('hide');
+                bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
 
                 Swal.fire({
                     title: "Sukses",
@@ -40,7 +40,7 @@
             // EDIT
             Livewire.on('closeEditModal', () => {
 
-                $('#editModalSimpanan').modal('hide');
+                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
 
                 Swal.fire({
                     title: "Sukses",
@@ -54,7 +54,7 @@
             // DELETE
             Livewire.on('closeDeleteModal', () => {
 
-                $('#deleteModalSimpanan').modal('hide');
+                bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
 
                 Swal.fire({
                     title: "Sukses",

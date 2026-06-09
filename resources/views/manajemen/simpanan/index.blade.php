@@ -24,46 +24,19 @@
     <script>
         document.addEventListener('livewire:init', () => {
 
-            // CREATE
             Livewire.on('closeCreateModal', () => {
-
-                $('#createModalSimpanan').modal('hide');
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Ditambah",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+                bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
+                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Ditambah", icon: "success", confirmButtonText: "OK" });
             });
 
-            // EDIT
             Livewire.on('closeEditModal', () => {
-
-                $('#editModalSimpanan').modal('hide');
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Diperbarui",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
+                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Diperbarui", icon: "success", confirmButtonText: "OK" });
             });
 
-            // DELETE
             Livewire.on('closeDeleteModal', () => {
-
-                $('#deleteModalSimpanan').modal('hide');
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Dihapus",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+                bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
+                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Dihapus", icon: "success", confirmButtonText: "OK" });
             });
 
         });

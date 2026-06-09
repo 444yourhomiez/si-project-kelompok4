@@ -411,7 +411,7 @@
 
                 Livewire.on('closeEditModal', () => {
 
-                    $('#editModalAnggota').modal('hide');
+                    bootstrap.Modal.getInstance(document.getElementById('editModalAnggota'))?.hide();
 
                     Swal.fire({
                         title: "Sukses",

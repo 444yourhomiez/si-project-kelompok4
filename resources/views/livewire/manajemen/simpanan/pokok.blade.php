@@ -368,7 +368,7 @@
 
                 Livewire.on('closeCreateModal', () => {
 
-                    $('#createModal').modal('hide');
+                    bootstrap.Modal.getInstance(document.getElementById('createModal'))?.hide();
 
                     Swal.fire({
                         title: "Sukses",
@@ -391,7 +391,7 @@
 
                 Livewire.on('closeEditModal', () => {
 
-                    $('#editModalSimpanan').modal('hide');
+                    bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
 
                     Swal.fire({
                         title: "Sukses",

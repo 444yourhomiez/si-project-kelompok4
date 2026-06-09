@@ -17,7 +17,7 @@
             'closeUbahPasswordManajemenModal',
             () => {
 
-                $('#ubahPasswordManajemenModal').modal('hide');
+                bootstrap.Modal.getInstance(document.getElementById('ubahPasswordManajemenModal'))?.hide();
 
                 Swal.fire({
 
