@@ -221,7 +221,7 @@
 
                                 </label>
 
-                                <div class="input-group shadow-sm rounded overflow-hidden">
+                                <div class="input-group shadow-sm rounded overflow-hidden" wire:ignore>
 
                                     <div class="input-group-prepend">
 
@@ -235,8 +235,7 @@
 
                                     <input type="text" id="rupiahEdit"
                                         class="form-control border-0 @error('jumlah') is-invalid @enderror"
-                                        placeholder="Masukkan jumlah simpanan"
-                                        value="{{ $jumlah ? number_format((float) $jumlah, 0, ',', '.') : '' }}">
+                                        placeholder="Masukkan jumlah simpanan">
 
                                 </div>
 
@@ -305,7 +304,7 @@
                     const rupiah = document.getElementById('rupiahEdit');
                     if (!rupiah) return;
 
-                    // Clone untuk hapus semua listener lama
+                    // Hapus listener lama
                     const fresh = rupiah.cloneNode(true);
                     rupiah.parentNode.replaceChild(fresh, rupiah);
 

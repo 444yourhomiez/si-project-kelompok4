@@ -313,8 +313,7 @@
 
         <script>
             document.addEventListener('livewire:init', () => {
-
-                Livewire.on('show-confirm-update', (event) => {
+                Livewire.on('show-confirm-update',
 
                     Swal.fire({
 
