@@ -303,23 +303,26 @@
 
                 function initRupiahEdit() {
                     const rupiah = document.getElementById('rupiahEdit');
-                    if (!rupiah || rupiah._rupiahInit) return;
-                    rupiah._rupiahInit = true;
+                    if (!rupiah) return;
 
-                    if (@this.get('jumlah')) {
-                        rupiah.value = new Intl.NumberFormat('id-ID').format(@this.get('jumlah'));
+                    // Clone untuk hapus semua listener lama
+                    const fresh = rupiah.cloneNode(true);
+                    rupiah.parentNode.replaceChild(fresh, rupiah);
+
+                    // Format nilai awal dari Livewire
+                    const jumlah = @this.get('jumlah');
+                    if (jumlah) {
+                        fresh.value = new Intl.NumberFormat('id-ID').format(jumlah);
                     }
 
-                    rupiah.addEventListener('input', function(e) {
+                    fresh.addEventListener('input', function() {
                         let value = this.value.replace(/[^0-9]/g, '');
                         @this.set('jumlah', value);
                         this.value = new Intl.NumberFormat('id-ID').format(value);
                     });
                 }
 
-                // Init saat pertama, dan setiap openEdit (modal dibuka)
-                Livewire.on('openEdit', () => setTimeout(initRupiahEdit, 50));
-                initRupiahEdit();
+                Livewire.on('openEdit', () => setTimeout(initRupiahEdit, 100));
                 Livewire.on('show-confirm-update', (event) => {
 
                     Swal.fire({

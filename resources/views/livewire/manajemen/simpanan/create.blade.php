@@ -238,31 +238,25 @@
 
                         {{-- FORMAT RUPIAH --}}
                         <script>
-                            function initRupiahInput() {
-                                const rupiah = document.getElementById('rupiah');
-                                if (!rupiah || rupiah._rupiahInit) return;
-                                rupiah._rupiahInit = true;
-
-                                rupiah.addEventListener('input', function() {
-                                    let angka = this.value.replace(/[^0-9]/g, '');
-                                    @this.set('jumlah', angka);
-                                    this.value = new Intl.NumberFormat('id-ID').format(angka);
-                                });
-                            }
-
                             document.addEventListener('livewire:init', () => {
-                                initRupiahInput();
 
-                                Livewire.on('openCreate', () => {
+                                function initRupiahCreate() {
                                     const rupiah = document.getElementById('rupiah');
-                                    if (rupiah) rupiah.value = '';
-                                    // Re-init jika belum terpasang
-                                    setTimeout(initRupiahInput, 50);
-                                });
-                            });
+                                    if (!rupiah) return;
 
-                            // Fallback: juga jalankan saat navigasi
-                            document.addEventListener('livewire:navigated', initRupiahInput);
+                                    const fresh = rupiah.cloneNode(true);
+                                    rupiah.parentNode.replaceChild(fresh, rupiah);
+                                    fresh.value = '';
+
+                                    fresh.addEventListener('input', function() {
+                                        let angka = this.value.replace(/[^0-9]/g, '');
+                                        @this.set('jumlah', angka);
+                                        this.value = new Intl.NumberFormat('id-ID').format(angka);
+                                    });
+                                }
+
+                                Livewire.on('openCreate', () => setTimeout(initRupiahCreate, 100));
+                            });
                         </script>
 
                     </div>
