@@ -238,7 +238,7 @@
 
                         {{-- FORMAT RUPIAH --}}
                         <script>
-                            document.addEventListener('livewire:initialized', () => {
+                            document.addEventListener('livewire:init', () => {
 
                                 const rupiah = document.getElementById('rupiah');
 

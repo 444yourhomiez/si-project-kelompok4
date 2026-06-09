@@ -73,7 +73,7 @@ class Edit extends Component
                 Anggota::find($this->anggota_id)?->user
             )->id,
 
-            'no_hp' => 'required|numeric|digits:12|unique:anggota,no_hp,' . optional(
+            'no_hp' => 'required|numeric|digits_between:10,13|unique:anggota,no_hp,' . optional(
                 Anggota::find($this->anggota_id)
             )->id,
 
@@ -104,7 +104,7 @@ class Edit extends Component
             'no_hp.required' => 'No HP wajib diisi',
             'no_hp.unique' => 'No HP sudah digunakan',
             'no_hp.numeric' => 'No HP harus angka',
-            'no_hp.digits' => 'No HP harus 12 digit',
+            'no_hp.digits_between' => 'No HP harus 10 - 13 digit',
 
             // ALAMAT
             'alamat.required' => 'Alamat tidak boleh kosong',
@@ -196,7 +196,7 @@ class Edit extends Component
                 Anggota::find($this->anggota_id)?->user
             )->id,
 
-            'no_hp' => 'required|numeric|digits:12|unique:anggota,no_hp,' . optional(
+            'no_hp' => 'required|numeric|digits_between:10,13|unique:anggota,no_hp,' . optional(
                 Anggota::find($this->anggota_id)
             )->id,
 
@@ -218,7 +218,7 @@ class Edit extends Component
             'no_hp.required' => 'No HP wajib diisi',
             'no_hp.unique' => 'No HP sudah digunakan',
             'no_hp.numeric' => 'No HP harus angka',
-            'no_hp.digits' => 'No HP harus 12 digit',
+            'no_hp.digits_between' => 'No HP harus 10 - 13 digit',
 
             'alamat.required' => 'Alamat tidak boleh kosong',
         ]);

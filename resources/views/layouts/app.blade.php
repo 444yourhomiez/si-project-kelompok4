@@ -44,6 +44,7 @@
     {{-- Pesan Berhasil Login --}}
     @if (session('success'))
         <script>
+            document.addEventListener('livewire:navigated', function() {}, { once: true });
             Swal.fire({
                 title: 'Sukses',
                 text: '{{ session('success') }}',
@@ -57,16 +58,13 @@
 
     {{-- Logout Confirmation --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
+        function initLogout() {
             const logoutBtn = document.getElementById('btn-logout');
-
             if (logoutBtn) {
-
-                logoutBtn.addEventListener('click', function(e) {
-
+                // Hapus listener lama agar tidak menumpuk
+                logoutBtn.replaceWith(logoutBtn.cloneNode(true));
+                document.getElementById('btn-logout').addEventListener('click', function(e) {
                     e.preventDefault();
-
                     Swal.fire({
                         title: 'Yakin mau logout?',
                         text: 'Session akan diakhiri',
@@ -75,18 +73,18 @@
                         confirmButtonText: 'Ya, Logout',
                         cancelButtonText: 'Batal'
                     }).then((result) => {
-
                         if (result.isConfirmed) {
                             document.getElementById('logout-form').submit();
                         }
-
                     });
-
                 });
-
             }
+        }
 
-        });
+        // Jalan saat load biasa
+        document.addEventListener('DOMContentLoaded', initLogout);
+        // Jalan setiap selesai wire:navigate
+        document.addEventListener('livewire:navigated', initLogout);
     </script>
     {{-- Logout Confirmation --}}
 

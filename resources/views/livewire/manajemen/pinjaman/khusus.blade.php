@@ -364,7 +364,7 @@
 
         {{-- CLOSE MODAL CREATE --}}
         {{-- <script>
-            document.addEventListener('livewire:initialized', () => {
+            document.addEventListener('livewire:init', () => {
 
                 Livewire.on('closeCreateModal', () => {
 
@@ -387,7 +387,7 @@
 
         {{-- CLOSE MODAL EDIT --}}
         {{-- <script>
-            document.addEventListener('livewire:initialized', () => {
+            document.addEventListener('livewire:init', () => {
 
                 Livewire.on('closeEditModal', () => {
 

@@ -21,7 +21,7 @@ class DetailAnggotaMenunggu extends Component
     {
         // AMBIL KODE TERAKHIR
         $lastAnggota = Anggota::whereNotNull('kode_anggota')
-            ->orderByDesc('kode_anggota')
+            ->orderByRaw('CAST(SUBSTRING(kode_anggota, 3) AS UNSIGNED) DESC')
             ->first();
 
         $number = 1;

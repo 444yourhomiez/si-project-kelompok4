@@ -19,7 +19,7 @@
 
     {{-- CLOSE MODAL --}}
     <script>
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:init', () => {
 
             // EDIT
             Livewire.on('closeEditModal', () => {

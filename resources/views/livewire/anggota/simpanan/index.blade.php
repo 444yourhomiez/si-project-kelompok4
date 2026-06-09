@@ -161,7 +161,7 @@
 
     {{-- Close Modal --}}
     <script>
-        document.addEventListener('livewire:initialized', () => {
+        document.addEventListener('livewire:init', () => {
             Livewire.on('closeCreateModal', () => {
                 $('#createModal').modal('hide');
 

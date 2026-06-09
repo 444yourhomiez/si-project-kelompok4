@@ -299,7 +299,7 @@
         </div>
 
         <script>
-            document.addEventListener('livewire:initialized', () => {
+            document.addEventListener('livewire:init', () => {
 
                 const rupiah = document.getElementById('rupiahEdit');
 

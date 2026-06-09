@@ -407,7 +407,7 @@
 
         {{-- CLOSE MODAL --}}
         <script>
-            document.addEventListener('livewire:initialized', () => {
+            document.addEventListener('livewire:init', () => {
 
                 Livewire.on('closeEditModal', () => {
 
