@@ -161,16 +161,14 @@
 
     {{-- Close Modal --}}
     <script>
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('closeCreateModal', () => {
-                $('#createModal').modal('hide');
+        Livewire.on('closeCreateModal', () => {
+            $('#createModal').modal('hide');
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Ditambah",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Ditambah",
+                icon: "success",
+                confirmButtonText: "OK"
             });
         });
     </script>

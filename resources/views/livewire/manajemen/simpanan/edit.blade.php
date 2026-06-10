@@ -212,59 +212,44 @@
                             </div>
 
                             {{-- JUMLAH --}}
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-3"
+                                x-data="{
+                                    jumlah: $wire.entangle('jumlah'),
+                                    display: '',
+                                    init() {
+                                        this.display = this.jumlah ? String(this.jumlah).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        this.$watch('jumlah', val => {
+                                            this.display = val ? String(val).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        });
+                                    },
+                                    format(e) {
+                                        let raw = e.target.value.replace(/\./g, '').replace(/\D/g, '');
+                                        this.display = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        this.jumlah = raw ? parseInt(raw) : '';
+                                    }
+                                }">
 
                                 <label class="font-weight-bold">
-
                                     Jumlah Simpanan
                                     <span class="text-danger">*</span>
-
                                 </label>
 
                                 <div class="input-group shadow-sm rounded overflow-hidden">
 
                                     <div class="input-group-prepend">
-
                                         <span class="input-group-text bg-primary text-white border-0 px-3">
-
                                             Rp
-
                                         </span>
-
                                     </div>
 
-                                    <input type="text" id="rupiahEdit"
+                                    <input type="text" x-model="display" @input="format($event)"
                                         class="form-control border-0 @error('jumlah') is-invalid @enderror"
-                                        placeholder="Masukkan jumlah simpanan"
-                                        value="{{ $jumlah ? number_format((float) $jumlah, 0, ',', '.') : '' }}">
+                                        placeholder="Masukkan jumlah simpanan">
 
                                 </div>
 
-                                {{-- PREVIEW --}}
-                                @if ($jumlah)
-                                    <div class="mt-2">
-
-                                        <small class="text-muted">
-
-                                            Nominal Simpanan
-
-                                        </small>
-
-                                        <div class="font-weight-bold text-success" style="font-size:18px;">
-
-                                            Rp {{ number_format((float) $jumlah, 0, ',', '.') }}
-
-                                        </div>
-
-                                    </div>
-                                @endif
-
                                 @error('jumlah')
-                                    <small class="text-danger">
-
-                                        {{ $message }}
-
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
 
                             </div>
@@ -298,199 +283,150 @@
 
         </div>
 
-        <script>
-            document.addEventListener('livewire:init', () => {
+    <script>
+        Livewire.on('show-confirm-update', (event) => {
+            Swal.fire({
+                title: 'Update Simpanan',
+                html: `
+                <div style="text-align:left;">
+                    <div style="
+                        font-size:14px;
+                        color:#6c757d;
+                        margin-bottom:14px;
+                    ">
+                        Anda akan memperbarui data simpanan berikut:
+                    </div>
 
-                const rupiah = document.getElementById('rupiahEdit');
+                    <div style="
+                        background:#ffffff;
+                        border:1px solid #e9ecef;
+                        border-radius:14px;
+                        padding:16px;
+                        margin-bottom:18px;
+                        box-shadow:0 2px 10px rgba(0,0,0,.03);
+                    ">
 
-                // AUTO FORMAT SAAT MODAL DIBUKA
-                if (@this.get('jumlah')) {
-
-                    rupiah.value = new Intl.NumberFormat('id-ID')
-                        .format(@this.get('jumlah'));
-
-                }
-
-                // FORMAT REALTIME
-                rupiah.addEventListener('input', function(e) {
-
-                    let value = this.value.replace(/[^0-9]/g, '');
-
-                    @this.set('jumlah', value);
-
-                    this.value = new Intl.NumberFormat('id-ID')
-                        .format(value);
-
-                });
-
-                // SWEET ALERT
-                Livewire.on('show-confirm-update', (event) => {
-
-                    Swal.fire({
-
-                        title: 'Update Simpanan',
-
-                        html: `
-
-                        <div style="text-align:left;">
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                            margin-bottom:14px;
+                        ">
 
                             <div style="
-                                font-size:14px;
-                                color:#6c757d;
-                                margin-bottom:14px;
+                                width:45px;
+                                height:45px;
+                                border-radius:12px;
+                                background:#e0f2fe;
+
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+
+                                color:#0369a1;
+                                font-size:18px;
                             ">
-                                Anda akan memperbarui data simpanan berikut:
+                                <i class='fas fa-wallet'></i>
                             </div>
 
-                            <div style="
-                                background:#ffffff;
-                                border:1px solid #e9ecef;
-                                border-radius:14px;
-                                padding:16px;
-                                margin-bottom:18px;
-                                box-shadow:0 2px 10px rgba(0,0,0,.03);
-                            ">
+                            <div>
 
                                 <div style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    margin-bottom:14px;
+                                    font-size:15px;
+                                    font-weight:600;
+                                    color:#212529;
+                                    margin-bottom:2px;
                                 ">
-
-                                    <div style="
-                                        width:45px;
-                                        height:45px;
-                                        border-radius:12px;
-                                        background:#e0f2fe;
-
-                                        display:flex;
-                                        align-items:center;
-                                        justify-content:center;
-
-                                        color:#0369a1;
-                                        font-size:18px;
-                                    ">
-                                        <i class='fas fa-wallet'></i>
-                                    </div>
-
-                                    <div>
-
-                                        <div style="
-                                            font-size:15px;
-                                            font-weight:600;
-                                            color:#212529;
-                                            margin-bottom:2px;
-                                        ">
-                                            ${event.anggota}
-                                        </div>
-
-                                        <div style="
-                                            font-size:12px;
-                                            color:#6c757d;
-                                        ">
-                                            Data simpanan anggota
-                                        </div>
-
-                                    </div>
-
+                                    ${event.anggota}
                                 </div>
 
                                 <div style="
-                                    display:grid;
-                                    grid-template-columns:110px 1fr;
-                                    row-gap:8px;
-                                    column-gap:10px;
-                                    font-size:13px;
+                                    font-size:12px;
+                                    color:#6c757d;
                                 ">
-
-                                    <div style="color:#6c757d;">
-                                        Jenis
-                                    </div>
-
-                                    <div style="color:#212529;">
-                                        ${event.kode}
-                                    </div>
-
-                                    <div style="color:#6c757d;">
-                                        Jumlah
-                                    </div>
-
-                                    <div style="color:#212529;">
-                                        ${event.ktp}
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div style="
-                                font-size:13px;
-                                font-weight:600;
-                                color:#495057;
-                                margin-bottom:10px;
-                            ">
-                                Perubahan Data:
-                            </div>
-
-                            <div style="
-                                background:#f8f9fa;
-                                border:1px solid #e9ecef;
-                                border-radius:14px;
-                                padding:14px;
-                            ">
-
-                                <div style="
-                                    display:grid;
-                                    grid-template-columns:110px 1fr;
-                                    row-gap:10px;
-                                    column-gap:10px;
-
-                                    font-size:13px;
-                                    color:#343a40;
-                                    line-height:1.6;
-                                ">
-
-                                    ${event.message}
-
+                                    Data simpanan anggota
                                 </div>
 
                             </div>
 
                         </div>
 
-                    `,
+                        <div style="
+                            display:grid;
+                            grid-template-columns:110px 1fr;
+                            row-gap:8px;
+                            column-gap:10px;
+                            font-size:13px;
+                        ">
 
-                        icon: 'question',
+                            <div style="color:#6c757d;">
+                                Jenis
+                            </div>
 
-                        showCancelButton: true,
+                            <div style="color:#212529;">
+                                ${event.kode}
+                            </div>
 
-                        confirmButtonColor: '#0d6efd',
+                            <div style="color:#6c757d;">
+                                Jumlah
+                            </div>
 
-                        cancelButtonColor: '#6c757d',
+                            <div style="color:#212529;">
+                                ${event.ktp}
+                            </div>
 
-                        confirmButtonText: 'Ya, Update',
+                        </div>
 
-                        cancelButtonText: 'Batal',
+                    </div>
 
-                        reverseButtons: true
+                    <div style="
+                        font-size:13px;
+                        font-weight:600;
+                        color:#495057;
+                        margin-bottom:10px;
+                    ">
+                        Perubahan Data:
+                    </div>
 
-                    }).then((result) => {
+                    <div style="
+                        background:#f8f9fa;
+                        border:1px solid #e9ecef;
+                        border-radius:14px;
+                        padding:14px;
+                    ">
 
-                        if (result.isConfirmed) {
+                        <div style="
+                            display:grid;
+                            grid-template-columns:110px 1fr;
+                            row-gap:10px;
+                            column-gap:10px;
 
-                            Livewire.dispatch('prosesUpdate');
+                            font-size:13px;
+                            color:#343a40;
+                            line-height:1.6;
+                        ">
 
-                        }
+                            ${event.message}
 
-                    });
+                        </div>
 
-                });
+                    </div>
 
+                </div>
+            `,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#0d6efd',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Update',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('prosesUpdate');
+                }
             });
-        </script>
-
-    </div>
-
+        });
+    </script>
 
 </div>

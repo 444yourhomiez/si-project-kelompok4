@@ -13,19 +13,19 @@ class Edit extends Component
         'prosesUpdate' => 'update',
     ];
 
-    public $anggota_id;
+    public ?int $anggota_id = null;
 
-    public $kode_anggota;
-    public $nama_anggota;
-    public $no_ktp;
-    public $email;
-    public $no_hp;
-    public $alamat;
-    public $status;
+    public ?string $kode_anggota = null;
+    public ?string $nama_anggota = null;
+    public ?string $no_ktp = null;
+    public ?string $email = null;
+    public ?string $no_hp = null;
+    public ?string $alamat = null;
+    public ?string $status = null;
 
-    public $oldData = [];
+    public array $oldData = [];
 
-    public function edit($id)
+    public function edit(int $id)
     {
         $anggota = Anggota::with('user')->findOrFail($id);
 

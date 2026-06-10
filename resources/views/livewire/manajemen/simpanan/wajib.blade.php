@@ -310,7 +310,7 @@
                                             </button>
 
                                             {{-- HAPUS --}}
-                                            <button wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                            <button onclick="Livewire.dispatch('openDelete', { id: {{ $item->id }} })"
                                                 class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
                                                 data-target="#deleteModalSimpanan">
 
@@ -364,19 +364,15 @@
 
         {{-- CLOSE MODAL CREATE --}}
         <script>
-            document.addEventListener('livewire:init', () => {
+            Livewire.on('closeCreateModal', () => {
 
-                Livewire.on('closeCreateModal', () => {
+                $('#createModal').modal('hide');
 
-                    $('#createModal').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Wajib Berhasil Ditambah",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Wajib Berhasil Ditambah",
+                    icon: "success",
+                    confirmButtonText: "OK"
                 });
 
             });
@@ -387,19 +383,15 @@
 
         {{-- CLOSE MODAL EDIT --}}
         <script>
-            document.addEventListener('livewire:init', () => {
+            Livewire.on('closeEditModal', () => {
 
-                Livewire.on('closeEditModal', () => {
+                $('#editModalSimpanan').modal('hide');
 
-                    $('#editModalSimpanan').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Berhasil Diperbarui",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Berhasil Diperbarui",
+                    icon: "success",
+                    confirmButtonText: "OK"
                 });
 
             });

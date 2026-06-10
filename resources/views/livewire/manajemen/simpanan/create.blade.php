@@ -190,14 +190,22 @@
                         </div>
 
                         {{-- JUMLAH --}}
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-12 mb-3"
+                            x-data="{
+                                display: '{{ $jumlah ? number_format($jumlah, 0, ',', '.') : '' }}',
+                                format(e) {
+                                    let raw = e.target.value.replace(/\./g, '').replace(/\D/g, '');
+                                    this.display = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                    $wire.set('jumlah', raw ? parseInt(raw) : '');
+                                }
+                            }">
 
                             <label class="font-weight-bold">
                                 Jumlah Simpanan
                                 <span class="text-danger">*</span>
                             </label>
 
-                            <div class="input-group shadow-sm rounded overflow-hidden" wire:ignore>
+                            <div class="input-group shadow-sm rounded overflow-hidden">
 
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-primary text-white border-0 px-3">
@@ -205,67 +213,17 @@
                                     </span>
                                 </div>
 
-                                <input type="text" id="rupiah"
+                                <input type="text" x-model="display" @input="format($event)"
                                     class="form-control border-0 @error('jumlah') is-invalid @enderror"
                                     placeholder="Masukkan jumlah simpanan">
 
                             </div>
 
-                            {{-- PREVIEW --}}
-                            @if ($jumlah)
-                                <div class="mt-2">
-
-                                    <small class="text-muted">
-                                        Nominal Simpanan
-                                    </small>
-
-                                    <div class="font-weight-bold text-success" style="font-size: 18px;">
-
-                                        Rp {{ number_format($jumlah, 0, ',', '.') }}
-
-                                    </div>
-
-                                </div>
-                            @endif
-
                             @error('jumlah')
-                                <small class="text-danger">
-                                    {{ $message }}
-                                </small>
+                                <small class="text-danger">{{ $message }}</small>
                             @enderror
 
                         </div>
-
-                        {{-- FORMAT RUPIAH --}}
-                        <script>
-                            document.addEventListener('livewire:init', () => {
-
-                                const rupiah = document.getElementById('rupiah');
-
-                                // FORMAT SAAT KETIK
-                                rupiah.addEventListener('input', function() {
-
-                                    let angka = this.value.replace(/[^0-9]/g, '');
-
-                                    // KIRIM KE LIVEWIRE
-                                    @this.set('jumlah', angka);
-
-                                    // FORMAT RUPIAH
-                                    this.value = new Intl.NumberFormat(
-                                        'id-ID'
-                                    ).format(angka);
-
-                                });
-
-                                // RESET SAAT MODAL DIBUKA
-                                Livewire.on('openCreate', () => {
-
-                                    rupiah.value = '';
-
-                                });
-
-                            });
-                        </script>
 
                     </div>
 

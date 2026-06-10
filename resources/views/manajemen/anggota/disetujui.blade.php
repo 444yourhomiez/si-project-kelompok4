@@ -19,34 +19,30 @@
 
     {{-- CLOSE MODAL --}}
     <script>
-        document.addEventListener('livewire:init', () => {
+        // EDIT
+        Livewire.on('closeEditModal', () => {
 
-            // EDIT
-            Livewire.on('closeEditModal', () => {
+            $('#editModalAnggota').modal('hide');
 
-                $('#editModalAnggota').modal('hide');
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Data Anggota Berhasil Diedit",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+            Swal.fire({
+                title: "Sukses",
+                text: "Data Anggota Berhasil Diedit",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
-            // DELETE
-            Livewire.on('closeDeleteModal', () => {
+        });
 
-                $('#deleteModalAnggota').modal('hide');
+        // DELETE
+        Livewire.on('closeDeleteModal', () => {
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Data Anggota Berhasil Dihapus",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            $('#deleteModalAnggota').modal('hide');
 
+            Swal.fire({
+                title: "Sukses",
+                text: "Data Anggota Berhasil Dihapus",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
         });

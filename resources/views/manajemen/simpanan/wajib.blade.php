@@ -21,48 +21,44 @@
     @livewire('manajemen.simpanan.delete')
 
     <script>
-        document.addEventListener('livewire:init', () => {
+        // CREATE
+        Livewire.on('closeCreateModal', () => {
 
-            // CREATE
-            Livewire.on('closeCreateModal', () => {
+            $('#createModalSimpanan').modal('hide');
 
-                $('#createModalSimpanan').modal('hide');
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Ditambah",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Ditambah",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
-            // EDIT
-            Livewire.on('closeEditModal', () => {
+        });
 
-                $('#editModalSimpanan').modal('hide');
+        // EDIT
+        Livewire.on('closeEditModal', () => {
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Diperbarui",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            $('#editModalSimpanan').modal('hide');
 
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Diperbarui",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
-            // DELETE
-            Livewire.on('closeDeleteModal', () => {
+        });
 
-                $('#deleteModalSimpanan').modal('hide');
+        // DELETE
+        Livewire.on('closeDeleteModal', () => {
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Dihapus",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            $('#deleteModalSimpanan').modal('hide');
 
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Dihapus",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
         });
