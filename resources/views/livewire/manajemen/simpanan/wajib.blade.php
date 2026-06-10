@@ -310,7 +310,7 @@
                                             </button>
 
                                             {{-- HAPUS --}}
-                                            <button wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                            <button onclick="Livewire.dispatch('openDelete', { id: {{ $item->id }} })"
                                                 class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
                                                 data-target="#deleteModalSimpanan">
 
@@ -366,7 +366,7 @@
         <script>
             Livewire.on('closeCreateModal', () => {
 
-                bootstrap.Modal.getInstance(document.getElementById('createModal'))?.hide();
+                $('#createModal').modal('hide');
 
                 Swal.fire({
                     title: "Sukses",
@@ -385,7 +385,7 @@
         <script>
             Livewire.on('closeEditModal', () => {
 
-                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
+                $('#editModalSimpanan').modal('hide');
 
                 Swal.fire({
                     title: "Sukses",

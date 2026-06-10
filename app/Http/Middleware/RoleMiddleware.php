@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, string $role)
     {
         if (!auth()->check() || strtolower(auth()->user()->role) != strtolower($role)) {
             abort(403);

@@ -212,7 +212,22 @@
                             </div>
 
                             {{-- JUMLAH --}}
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-3"
+                                x-data="{
+                                    jumlah: $wire.entangle('jumlah'),
+                                    display: '',
+                                    init() {
+                                        this.display = this.jumlah ? String(this.jumlah).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        this.$watch('jumlah', val => {
+                                            this.display = val ? String(val).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        });
+                                    },
+                                    format(e) {
+                                        let raw = e.target.value.replace(/\./g, '').replace(/\D/g, '');
+                                        this.display = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                        this.jumlah = raw ? parseInt(raw) : '';
+                                    }
+                                }">
 
                                 <label class="font-weight-bold">
                                     Jumlah Simpanan
@@ -227,22 +242,11 @@
                                         </span>
                                     </div>
 
-                                    <input type="number" wire:model.blur="jumlah"
+                                    <input type="text" x-model="display" @input="format($event)"
                                         class="form-control border-0 @error('jumlah') is-invalid @enderror"
-                                        placeholder="Masukkan jumlah simpanan"
-                                        min="1">
+                                        placeholder="Masukkan jumlah simpanan">
 
                                 </div>
-
-                                {{-- PREVIEW --}}
-                                @if ($jumlah)
-                                    <div class="mt-2">
-                                        <small class="text-muted">Nominal Simpanan</small>
-                                        <div class="font-weight-bold text-success" style="font-size:18px;">
-                                            Rp {{ number_format((float) $jumlah, 0, ',', '.') }}
-                                        </div>
-                                    </div>
-                                @endif
 
                                 @error('jumlah')
                                     <small class="text-danger">{{ $message }}</small>

@@ -7,9 +7,9 @@ use App\Models\Anggota;
 
 class DetailAnggotaMenunggu extends Component
 {
-    public $anggota;
+    public ?Anggota $anggota = null;
 
-    public function mount($id)
+    public function mount(int $id)
     {
         $this->anggota = Anggota::with([
             'user'

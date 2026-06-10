@@ -17,7 +17,7 @@
             'closeUbahPasswordPengawasModal',
             () => {
 
-                bootstrap.Modal.getInstance(document.getElementById('ubahPasswordPengawasModal'))?.hide();
+                $('#ubahPasswordPengawasModal').modal('hide');
 
                 Swal.fire({
 

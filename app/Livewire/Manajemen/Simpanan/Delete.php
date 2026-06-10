@@ -3,6 +3,7 @@
 namespace App\Livewire\Manajemen\Simpanan;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\Simpanan;
 
 class Delete extends Component
@@ -11,10 +12,7 @@ class Delete extends Component
 
     public $simpanan;
 
-    protected $listeners = [
-        'openDelete'
-    ];
-
+    #[On('openDelete')]
     public function openDelete($id)
     {
         $this->simpanan = Simpanan::with(

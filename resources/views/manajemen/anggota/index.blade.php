@@ -22,7 +22,7 @@
         // EDIT
         Livewire.on('closeEditModal', () => {
 
-            bootstrap.Modal.getInstance(document.getElementById('editModalAnggota'))?.hide();
+            $('#editModalAnggota').modal('hide');
 
             Swal.fire({
                 title: "Sukses",
@@ -36,7 +36,7 @@
         // DELETE
         Livewire.on('closeDeleteModal', () => {
 
-            bootstrap.Modal.getInstance(document.getElementById('deleteModalAnggota'))?.hide();
+            $('#deleteModalAnggota').modal('hide');
 
             Swal.fire({
                 title: "Sukses",

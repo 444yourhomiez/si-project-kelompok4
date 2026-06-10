@@ -17,7 +17,7 @@
             'closeUbahPasswordAnggotaModal',
             () => {
 
-                bootstrap.Modal.getInstance(document.getElementById('ubahPasswordAnggotaModal'))?.hide();
+                $('#ubahPasswordAnggotaModal').modal('hide');
 
                 Swal.fire({
 

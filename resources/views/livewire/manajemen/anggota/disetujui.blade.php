@@ -409,7 +409,7 @@
         <script>
             Livewire.on('closeEditModal', () => {
 
-                bootstrap.Modal.getInstance(document.getElementById('editModalAnggota'))?.hide();
+                $('#editModalAnggota').modal('hide');
 
                 Swal.fire({
                     title: "Sukses",

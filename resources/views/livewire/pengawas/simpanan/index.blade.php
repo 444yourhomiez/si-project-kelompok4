@@ -163,7 +163,7 @@
     <script>
         document.addEventListener('livewire:init', () => {
             Livewire.on('closeCreateModal', () => {
-                bootstrap.Modal.getInstance(document.getElementById('createModal'))?.hide();
+                $('#createModal').modal('hide');
 
                 Swal.fire({
                     title: "Sukses",
