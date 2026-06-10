@@ -4,9 +4,12 @@ namespace App\Livewire\Manajemen\Simpanan;
 
 use App\Models\Simpanan;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Wajib extends Component
 {
+    use WithPagination;
+
     protected $listeners = [
 
         'dataKoperasiUpdated' => '$refresh'

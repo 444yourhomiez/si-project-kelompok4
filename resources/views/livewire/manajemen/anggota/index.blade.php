@@ -266,8 +266,8 @@
 
                                     <select wire:model.live="sortDirection" class="form-control sort-mini-select">
 
-                                        <option value="desc">DESC</option>
-                                        <option value="asc">ASC</option>
+                                        <option value="desc">Z - A</option>
+                                        <option value="asc">A - Z</option>
 
                                     </select>
                                 </div>
@@ -317,10 +317,10 @@
 
                         </thead>
 
-                        <tbody wire:key="anggota-table-{{ $paginate }}">
+                        <tbody>
 
                             @forelse ($anggota as $item)
-                                <tr>
+                                <tr wire:key="anggota-{{ $item->id }}">
 
                                     {{-- ID ANGGOTA --}}
                                     <td class="font-weight-bold">
@@ -480,7 +480,9 @@
 
                                     </td>
 
-                                @empty
+                                </tr>
+
+                            @empty
 
                                 <tr>
 

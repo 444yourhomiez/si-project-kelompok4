@@ -155,25 +155,6 @@
     </section>
     <!-- /.content -->
 
-    {{-- Create Modal --}}
-    @livewire('manajemen.simpanan.create')
-    {{-- Create Modal --}}
-
-    {{-- Close Modal --}}
-    <script>
-        Livewire.on('closeCreateModal', () => {
-            $('#createModal').modal('hide');
-
-            Swal.fire({
-                title: "Sukses",
-                text: "Simpanan Berhasil Ditambah",
-                icon: "success",
-                confirmButtonText: "OK"
-            });
-        });
-    </script>
-    {{-- Close Modal --}}
-
 </div>
 
 </div>

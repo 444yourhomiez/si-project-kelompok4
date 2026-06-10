@@ -2,8 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="{{ route('pengawas.dashboard') }}" class="brand-link">
-          <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar"
-              class="brand-image img-circle">
+          <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar" class="brand-image img-circle">
           <span class="brand-text font-weight-light ml-1">Koperasi Motekar</span>
       </a>
 
@@ -26,54 +25,218 @@
                   </li>
 
                   {{-- SIMPANAN --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.simpanan.index') }}" class="nav-link @yield('menuPengawasSimpanan')">
+                  <li class="nav-item has-treeview @yield('menuPengawasSimpananOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuPengawasSimpanan')">
+
                           <i class="nav-icon fas fa-wallet"></i>
+
                           <p>
                               Simpanan
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
-                  </li> --}}
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- SEMUA --}}
+                          <li class="nav-item">
+                              <a wire:navigate href="{{ route('pengawas.simpanan.index') }}"
+                                  class="nav-link @yield('menuPengawasSimpananSemua')">
+
+                                  <p>Daftar Simpanan</p>
+
+                              </a>
+                          </li>
+
+                          {{-- WAJIB --}}
+                          <li class="nav-item">
+                              <a wire:navigate href="{{ route('pengawas.simpanan.wajib') }}"
+                                  class="nav-link @yield('menuPengawasSimpananWajib')">
+
+                                  <p>Simpanan Wajib</p>
+
+                              </a>
+                          </li>
+
+                          {{-- POKOK --}}
+                          <li class="nav-item">
+                              <a wire:navigate href="{{ route('pengawas.simpanan.pokok') }}"
+                                  class="nav-link @yield('menuPengawasSimpananPokok')">
+
+                                  <p>Simpanan Pokok</p>
+
+                              </a>
+                          </li>
+
+                          {{-- SUKARELA --}}
+                          <li class="nav-item">
+                              <a wire:navigate href="{{ route('pengawas.simpanan.sukarela') }}"
+                                  class="nav-link @yield('menuPengawasSimpananSukarela')">
+
+                                  <p>Simpanan Sukarela</p>
+
+                              </a>
+                          </li>
+
+                      </ul>
+
+                  </li>
 
                   {{-- PINJAMAN --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.pinjaman.index') }}" class="nav-link @yield('menuPengawasPinjaman')">
+                  <li class="nav-item has-treeview @yield('menuPengawasPinjamanOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuPengawasPinjaman')">
+
                           <i class="nav-icon fas fa-hand-holding-usd"></i>
+
                           <p>
                               Pinjaman
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
-                  </li> --}}
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR PINJAMAN --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.pinjaman.index') }}"
+                                  class="nav-link @yield('menuPengawasPinjamanSemua')">
+
+
+                                  <p>
+                                      Daftar Pinjaman
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- PRIBADI --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.pinjaman.pribadi') }}"
+                                  class="nav-link @yield('menuPengawasPinjamanPribadi')">
+
+
+                                  <p>
+                                      Pinjaman Pribadi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- KHUSUS --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.pinjaman.khusus') }}"
+                                  class="nav-link @yield('menuPengawasPinjamanKhusus')">
+
+
+                                  <p>
+                                      Pinjaman Khusus
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
 
                   {{-- ANGGOTA --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.anggota.index') }}" class="nav-link @yield('menuPengawasAnggota')">
+                  <li class="nav-item has-treeview @yield('menuPengawasAnggotaOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuPengawasAnggota')">
+
                           <i class="nav-icon fas fa-users"></i>
+
                           <p>
                               Anggota
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
-                  </li> --}}
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR ANGGOTA --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.anggota.index') }}"
+                                  class="nav-link @yield('menuPengawasAnggotaSemua')">
+
+                                  <p>
+                                      Daftar Anggota
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- DISETUJUI --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.anggota.disetujui') }}"
+                                  class="nav-link @yield('menuPengawasAnggotaDisetujui')">
+
+                                  <p>
+                                      Anggota Disetujui
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- MENUNGGU --}}
+                          <li class="nav-item">
+
+                              <a wire:navigate href="{{ route('pengawas.anggota.menunggu') }}"
+                                  class="nav-link @yield('menuPengawasAnggotaMenunggu')">
+
+                                  <p>
+                                      Menunggu Verifikasi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
 
                   {{-- REKAPITULASI HARIAN --}}
-                  {{-- <li class="nav-item">
+                  <li class="nav-item">
                       <a wire:navigate href="{{ route('pengawas.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
                           <i class="nav-icon fas fa-calendar-day"></i>
                           <p>
                               Rekapitulasi Harian
                           </p>
                       </a>
-                  </li> --}}
+                  </li>
 
                   {{-- LAPORAN --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.laporan.index') }}" class="nav-link @yield('menuPengawasLaporan')">
+                  <li class="nav-item">
+                      <a wire:navigate href="{{ route('pengawas.laporan.index') }}"
+                          class="nav-link @yield('menuPengawasLaporan')">
                           <i class="nav-icon fas fa-file-invoice"></i>
                           <p>
                               Laporan
                           </p>
                       </a>
-                  </li> --}}
+                  </li>
 
                   {{-- PROFILE --}}
                   <li class="nav-item">

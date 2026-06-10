@@ -312,168 +312,171 @@
         </div>
 
         <script>
-            Livewire.on('show-confirm-update',
+            document.addEventListener('livewire:init', () => {
 
-                Swal.fire({
+                Livewire.on('show-confirm-update', (event) => {
 
-                    title: 'Update Data Simpanan Anggota',
+                    Swal.fire({
 
-                    html: `
+                        title: 'Update Data Anggota',
 
-                        <div style="text-align:left;">
+                        html: `
+
+                <div style="text-align:left;">
+
+                    <div style="
+                        font-size:14px;
+                        color:#6c757d;
+                        margin-bottom:14px;
+                    ">
+                        Anda akan memperbarui data anggota berikut:
+                    </div>
+
+                    <div style="
+                        background:#ffffff;
+                        border:1px solid #e9ecef;
+                        border-radius:14px;
+                        padding:16px;
+                        margin-bottom:18px;
+                        box-shadow:0 2px 10px rgba(0,0,0,.03);
+                    ">
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                            margin-bottom:14px;
+                        ">
 
                             <div style="
-                                font-size:14px;
-                                color:#6c757d;
-                                margin-bottom:14px;
+                                width:45px;
+                                height:45px;
+                                border-radius:12px;
+                                background:#fff3cd;
+
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+
+                                color:#856404;
+                                font-size:18px;
                             ">
-                                Anda akan memperbarui data anggota berikut:
+                                <i class='fas fa-user-edit'></i>
                             </div>
 
-                            <div style="
-                                background:#ffffff;
-                                border:1px solid #e9ecef;
-                                border-radius:14px;
-                                padding:16px;
-                                margin-bottom:18px;
-                                box-shadow:0 2px 10px rgba(0,0,0,.03);
-                            ">
+                            <div>
 
                                 <div style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:12px;
-                                    margin-bottom:14px;
+                                    font-size:15px;
+                                    font-weight:600;
+                                    color:#212529;
+                                    margin-bottom:2px;
                                 ">
-
-                                    <div style="
-                                        width:45px;
-                                        height:45px;
-                                        border-radius:12px;
-                                        background:#fff3cd;
-
-                                        display:flex;
-                                        align-items:center;
-                                        justify-content:center;
-
-                                        color:#856404;
-                                        font-size:18px;
-                                    ">
-                                        <i class='fas fa-user-edit'></i>
-                                    </div>
-
-                                    <div>
-
-                                        <div style="
-                                            font-size:15px;
-                                            font-weight:600;
-                                            color:#212529;
-                                            margin-bottom:2px;
-                                        ">
-                                            ${event.anggota}
-                                        </div>
-
-                                        <div style="
-                                            font-size:12px;
-                                            color:#6c757d;
-                                        ">
-                                            Data anggota koperasi
-                                        </div>
-
-                                    </div>
-
+                                    ${event.anggota}
                                 </div>
 
                                 <div style="
-                                    display:grid;
-                                    grid-template-columns:110px 1fr;
-                                    row-gap:8px;
-                                    column-gap:10px;
-                                    font-size:13px;
+                                    font-size:12px;
+                                    color:#6c757d;
                                 ">
-
-                                    <div style="color:#6c757d;">
-                                        Kode Anggota
-                                    </div>
-
-                                    <div style="color:#212529;">
-                                        ${event.kode}
-                                    </div>
-
-                                    <div style="color:#6c757d;">
-                                        Nomor KTP
-                                    </div>
-
-                                    <div style="color:#212529;">
-                                        ${event.ktp}
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div style="
-                                font-size:13px;
-                                font-weight:600;
-                                color:#495057;
-                                margin-bottom:10px;
-                            ">
-                                Perubahan Data:
-                            </div>
-
-                            <div style="
-                                background:#f8f9fa;
-                                border:1px solid #e9ecef;
-                                border-radius:14px;
-                                padding:14px;
-                            ">
-
-                                <div style="
-                                    display:grid;
-                                    grid-template-columns:110px 1fr;
-                                    row-gap:10px;
-                                    column-gap:10px;
-
-                                    font-size:13px;
-                                    color:#343a40;
-                                    line-height:1.6;
-                                ">
-
-                                    ${event.message}
-
+                                    Data anggota koperasi
                                 </div>
 
                             </div>
 
                         </div>
 
-                    `,
+                        <div style="
+                            display:grid;
+                            grid-template-columns:110px 1fr;
+                            row-gap:8px;
+                            column-gap:10px;
+                            font-size:13px;
+                        ">
 
-                    icon: 'question',
+                            <div style="color:#6c757d;">
+                                Kode Anggota
+                            </div>
 
-                    showCancelButton: true,
+                            <div style="color:#212529;">
+                                ${event.kode}
+                            </div>
 
-                    confirmButtonColor: '#f0ad4e',
-                    cancelButtonColor: '#6c757d',
+                            <div style="color:#6c757d;">
+                                Nomor KTP
+                            </div>
 
-                    confirmButtonText: 'Ya, Update',
-                    cancelButtonText: 'Batal',
+                            <div style="color:#212529;">
+                                ${event.ktp}
+                            </div>
 
-                    reverseButtons: true
+                        </div>
 
-                }).then((result) => {
+                    </div>
 
-                    if (result.isConfirmed) {
+                    <div style="
+                        font-size:13px;
+                        font-weight:600;
+                        color:#495057;
+                        margin-bottom:10px;
+                    ">
+                        Perubahan Data:
+                    </div>
 
-                        Livewire.dispatch('prosesUpdate');
+                    <div style="
+                        background:#f8f9fa;
+                        border:1px solid #e9ecef;
+                        border-radius:14px;
+                        padding:14px;
+                    ">
 
-                    }
+                        <div style="
+                            display:grid;
+                            grid-template-columns:110px 1fr;
+                            row-gap:10px;
+                            column-gap:10px;
+
+                            font-size:13px;
+                            color:#343a40;
+                            line-height:1.6;
+                        ">
+
+                            ${event.message}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `,
+
+                        icon: 'question',
+
+                        showCancelButton: true,
+
+                        confirmButtonColor: '#f0ad4e',
+                        cancelButtonColor: '#6c757d',
+
+                        confirmButtonText: 'Ya, Update',
+                        cancelButtonText: 'Batal',
+
+                        reverseButtons: true
+
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+
+                            Livewire.dispatch('prosesUpdate');
+
+                        }
+
+                    });
 
                 });
 
-            );
+            });
         </script>
-
     </div>
 
 </div>

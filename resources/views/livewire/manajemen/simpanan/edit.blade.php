@@ -212,22 +212,21 @@
                             </div>
 
                             {{-- JUMLAH --}}
-                            <div class="col-md-12 mb-3"
-                                x-data="{
-                                    jumlah: $wire.entangle('jumlah'),
-                                    display: '',
-                                    init() {
-                                        this.display = this.jumlah ? String(this.jumlah).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
-                                        this.$watch('jumlah', val => {
-                                            this.display = val ? String(val).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
-                                        });
-                                    },
-                                    format(e) {
-                                        let raw = e.target.value.replace(/\./g, '').replace(/\D/g, '');
-                                        this.display = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
-                                        this.jumlah = raw ? parseInt(raw) : '';
-                                    }
-                                }">
+                            <div class="col-md-12 mb-3" x-data="{
+                                jumlah: $wire.entangle('jumlah'),
+                                display: '',
+                                init() {
+                                    this.display = this.jumlah ? String(this.jumlah).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                    this.$watch('jumlah', val => {
+                                        this.display = val ? String(val).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                    });
+                                },
+                                format(e) {
+                                    let raw = e.target.value.replace(/\./g, '').replace(/\D/g, '');
+                                    this.display = raw ? raw.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+                                    this.jumlah = raw ? parseInt(raw) : '';
+                                }
+                            }">
 
                                 <label class="font-weight-bold">
                                     Jumlah Simpanan
@@ -283,11 +282,14 @@
 
         </div>
 
-    <script>
-        Livewire.on('show-confirm-update', (event) => {
-            Swal.fire({
-                title: 'Update Simpanan',
-                html: `
+        <script>
+            document.addEventListener('livewire:init', () => {
+
+
+                Livewire.on('show-confirm-update', (event) => {
+                    Swal.fire({
+                        title: 'Update Simpanan',
+                        html: `
                 <div style="text-align:left;">
                     <div style="
                         font-size:14px;
@@ -414,19 +416,20 @@
 
                 </div>
             `,
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#0d6efd',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Update',
-                cancelButtonText: 'Batal',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('prosesUpdate');
-                }
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0d6efd',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, Update',
+                        cancelButtonText: 'Batal',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Livewire.dispatch('prosesUpdate');
+                        }
+                    });
+                });
             });
-        });
-    </script>
+        </script>
 
-</div>
+    </div>

@@ -221,12 +221,12 @@
                             <h4 class="font-weight-bold mb-1">
 
                                 <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
-                                Daftar Pinjaman Khusus
+                                Daftar Pinjaman
 
                             </h4>
 
                             <small class="text-muted">
-                                Data transaksi pinjaman khusus anggota koperasi
+                                Data transaksi pinjaman anggota koperasi
                             </small>
 
                         </div>
@@ -267,8 +267,8 @@
 
                                     <select wire:model.live="sortDirection" class="form-control sort-mini-select">
 
-                                        <option value="desc">DESC</option>
-                                        <option value="asc">ASC</option>
+                                        <option value="desc">Z - A</option>
+                                        <option value="asc">A - Z</option>
 
                                     </select>
                                 </div>

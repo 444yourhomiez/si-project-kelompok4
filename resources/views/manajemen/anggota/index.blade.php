@@ -10,7 +10,7 @@
 
     {{-- INDEX --}}
     @livewire('manajemen.anggota.index')
-    
+
     {{-- EDIT MODAL --}}
     @livewire('manajemen.anggota.edit')
 
@@ -20,31 +20,33 @@
     {{-- CLOSE MODAL --}}
     <script>
         // EDIT
-        Livewire.on('closeEditModal', () => {
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('closeEditModal', () => {
 
-            $('#editModalAnggota').modal('hide');
+                $('#editModalAnggota').modal('hide');
 
-            Swal.fire({
-                title: "Sukses",
-                text: "Data Anggota Berhasil Diedit",
-                icon: "success",
-                confirmButtonText: "OK"
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Anggota Berhasil Diedit",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+
             });
 
-        });
+            // DELETE
+            Livewire.on('closeDeleteModal', () => {
 
-        // DELETE
-        Livewire.on('closeDeleteModal', () => {
+                $('#deleteModalAnggota').modal('hide');
 
-            $('#deleteModalAnggota').modal('hide');
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Anggota Berhasil Dihapus",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
 
-            Swal.fire({
-                title: "Sukses",
-                text: "Data Anggota Berhasil Dihapus",
-                icon: "success",
-                confirmButtonText: "OK"
             });
-
         });
     </script>
 
