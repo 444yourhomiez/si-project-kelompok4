@@ -21,48 +21,44 @@
     @livewire('manajemen.simpanan.delete')
 
     <script>
-        document.addEventListener('livewire:init', () => {
+        // CREATE
+        Livewire.on('closeCreateModal', () => {
 
-            // CREATE
-            Livewire.on('closeCreateModal', () => {
+            bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
 
-                bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
-
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Ditambah",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
-
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Ditambah",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
-            // EDIT
-            Livewire.on('closeEditModal', () => {
+        });
 
-                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
+        // EDIT
+        Livewire.on('closeEditModal', () => {
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Diperbarui",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
 
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Diperbarui",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
-            // DELETE
-            Livewire.on('closeDeleteModal', () => {
+        });
 
-                bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
+        // DELETE
+        Livewire.on('closeDeleteModal', () => {
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Simpanan Berhasil Dihapus",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+            bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
 
+            Swal.fire({
+                title: "Sukses",
+                text: "Simpanan Berhasil Dihapus",
+                icon: "success",
+                confirmButtonText: "OK"
             });
 
         });

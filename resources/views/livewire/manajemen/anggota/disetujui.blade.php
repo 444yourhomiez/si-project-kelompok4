@@ -407,19 +407,15 @@
 
         {{-- CLOSE MODAL --}}
         <script>
-            document.addEventListener('livewire:init', () => {
+            Livewire.on('closeEditModal', () => {
 
-                Livewire.on('closeEditModal', () => {
+                bootstrap.Modal.getInstance(document.getElementById('editModalAnggota'))?.hide();
 
-                    bootstrap.Modal.getInstance(document.getElementById('editModalAnggota'))?.hide();
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Data Anggota Berhasil Diedit",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Data Anggota Berhasil Diedit",
+                    icon: "success",
+                    confirmButtonText: "OK"
                 });
 
             });

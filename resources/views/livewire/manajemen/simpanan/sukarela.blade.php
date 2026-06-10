@@ -364,19 +364,15 @@
 
         {{-- CLOSE MODAL CREATE --}}
         <script>
-            document.addEventListener('livewire:init', () => {
+            Livewire.on('closeCreateModal', () => {
 
-                Livewire.on('closeCreateModal', () => {
+                bootstrap.Modal.getInstance(document.getElementById('createModal'))?.hide();
 
-                    bootstrap.Modal.getInstance(document.getElementById('createModal'))?.hide();
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Sukarela Berhasil Ditambah",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Sukarela Berhasil Ditambah",
+                    icon: "success",
+                    confirmButtonText: "OK"
                 });
 
             });
@@ -387,19 +383,15 @@
 
         {{-- CLOSE MODAL EDIT --}}
         <script>
-            document.addEventListener('livewire:init', () => {
+            Livewire.on('closeEditModal', () => {
 
-                Livewire.on('closeEditModal', () => {
+                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
 
-                    bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Berhasil Diperbarui",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Berhasil Diperbarui",
+                    icon: "success",
+                    confirmButtonText: "OK"
                 });
 
             });

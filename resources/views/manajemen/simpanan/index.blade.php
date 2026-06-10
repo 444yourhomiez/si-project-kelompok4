@@ -22,23 +22,19 @@
 
     {{-- CLOSE MODAL --}}
     <script>
-        document.addEventListener('livewire:init', () => {
+        Livewire.on('closeCreateModal', () => {
+            bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
+            Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Ditambah", icon: "success", confirmButtonText: "OK" });
+        });
 
-            Livewire.on('closeCreateModal', () => {
-                bootstrap.Modal.getInstance(document.getElementById('createModalSimpanan'))?.hide();
-                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Ditambah", icon: "success", confirmButtonText: "OK" });
-            });
+        Livewire.on('closeEditModal', () => {
+            bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
+            Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Diperbarui", icon: "success", confirmButtonText: "OK" });
+        });
 
-            Livewire.on('closeEditModal', () => {
-                bootstrap.Modal.getInstance(document.getElementById('editModalSimpanan'))?.hide();
-                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Diperbarui", icon: "success", confirmButtonText: "OK" });
-            });
-
-            Livewire.on('closeDeleteModal', () => {
-                bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
-                Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Dihapus", icon: "success", confirmButtonText: "OK" });
-            });
-
+        Livewire.on('closeDeleteModal', () => {
+            bootstrap.Modal.getInstance(document.getElementById('deleteModalSimpanan'))?.hide();
+            Swal.fire({ title: "Sukses", text: "Simpanan Berhasil Dihapus", icon: "success", confirmButtonText: "OK" });
         });
     </script>
 

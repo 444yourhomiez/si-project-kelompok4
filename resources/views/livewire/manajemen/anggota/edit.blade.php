@@ -312,101 +312,72 @@
         </div>
 
         <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('show-confirm-update',
+            Livewire.on('show-confirm-update',
 
-                    Swal.fire({
+                Swal.fire({
 
-                        title: 'Update Data Simpanan Anggota',
+                    title: 'Update Data Simpanan Anggota',
 
-                        html: `
+                    html: `
 
-                            <div style="text-align:left;">
+                        <div style="text-align:left;">
+
+                            <div style="
+                                font-size:14px;
+                                color:#6c757d;
+                                margin-bottom:14px;
+                            ">
+                                Anda akan memperbarui data anggota berikut:
+                            </div>
+
+                            <div style="
+                                background:#ffffff;
+                                border:1px solid #e9ecef;
+                                border-radius:14px;
+                                padding:16px;
+                                margin-bottom:18px;
+                                box-shadow:0 2px 10px rgba(0,0,0,.03);
+                            ">
 
                                 <div style="
-                                    font-size:14px;
-                                    color:#6c757d;
+                                    display:flex;
+                                    align-items:center;
+                                    gap:12px;
                                     margin-bottom:14px;
                                 ">
-                                    Anda akan memperbarui data anggota berikut:
-                                </div>
-
-                                <div style="
-                                    background:#ffffff;
-                                    border:1px solid #e9ecef;
-                                    border-radius:14px;
-                                    padding:16px;
-                                    margin-bottom:18px;
-                                    box-shadow:0 2px 10px rgba(0,0,0,.03);
-                                ">
 
                                     <div style="
+                                        width:45px;
+                                        height:45px;
+                                        border-radius:12px;
+                                        background:#fff3cd;
+
                                         display:flex;
                                         align-items:center;
-                                        gap:12px;
-                                        margin-bottom:14px;
+                                        justify-content:center;
+
+                                        color:#856404;
+                                        font-size:18px;
                                     ">
+                                        <i class='fas fa-user-edit'></i>
+                                    </div>
+
+                                    <div>
 
                                         <div style="
-                                            width:45px;
-                                            height:45px;
-                                            border-radius:12px;
-                                            background:#fff3cd;
-
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:center;
-
-                                            color:#856404;
-                                            font-size:18px;
+                                            font-size:15px;
+                                            font-weight:600;
+                                            color:#212529;
+                                            margin-bottom:2px;
                                         ">
-                                            <i class='fas fa-user-edit'></i>
+                                            ${event.anggota}
                                         </div>
 
-                                        <div>
-
-                                            <div style="
-                                                font-size:15px;
-                                                font-weight:600;
-                                                color:#212529;
-                                                margin-bottom:2px;
-                                            ">
-                                                ${event.anggota}
-                                            </div>
-
-                                            <div style="
-                                                font-size:12px;
-                                                color:#6c757d;
-                                            ">
-                                                Data anggota koperasi
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div style="
-                                        display:grid;
-                                        grid-template-columns:110px 1fr;
-                                        row-gap:8px;
-                                        column-gap:10px;
-                                        font-size:13px;
-                                    ">
-
-                                        <div style="color:#6c757d;">
-                                            Kode Anggota
-                                        </div>
-
-                                        <div style="color:#212529;">
-                                            ${event.kode}
-                                        </div>
-
-                                        <div style="color:#6c757d;">
-                                            Nomor KTP
-                                        </div>
-
-                                        <div style="color:#212529;">
-                                            ${event.ktp}
+                                        <div style="
+                                            font-size:12px;
+                                            color:#6c757d;
+                                        ">
+                                            Data anggota koperasi
                                         </div>
 
                                     </div>
@@ -414,67 +385,93 @@
                                 </div>
 
                                 <div style="
+                                    display:grid;
+                                    grid-template-columns:110px 1fr;
+                                    row-gap:8px;
+                                    column-gap:10px;
                                     font-size:13px;
-                                    font-weight:600;
-                                    color:#495057;
-                                    margin-bottom:10px;
-                                ">
-                                    Perubahan Data:
-                                </div>
-
-                                <div style="
-                                    background:#f8f9fa;
-                                    border:1px solid #e9ecef;
-                                    border-radius:14px;
-                                    padding:14px;
                                 ">
 
-                                    <div style="
-                                        display:grid;
-                                        grid-template-columns:110px 1fr;
-                                        row-gap:10px;
-                                        column-gap:10px;
+                                    <div style="color:#6c757d;">
+                                        Kode Anggota
+                                    </div>
 
-                                        font-size:13px;
-                                        color:#343a40;
-                                        line-height:1.6;
-                                    ">
+                                    <div style="color:#212529;">
+                                        ${event.kode}
+                                    </div>
 
-                                        ${event.message}
+                                    <div style="color:#6c757d;">
+                                        Nomor KTP
+                                    </div>
 
+                                    <div style="color:#212529;">
+                                        ${event.ktp}
                                     </div>
 
                                 </div>
 
                             </div>
 
-                        `,
+                            <div style="
+                                font-size:13px;
+                                font-weight:600;
+                                color:#495057;
+                                margin-bottom:10px;
+                            ">
+                                Perubahan Data:
+                            </div>
 
-                        icon: 'question',
+                            <div style="
+                                background:#f8f9fa;
+                                border:1px solid #e9ecef;
+                                border-radius:14px;
+                                padding:14px;
+                            ">
 
-                        showCancelButton: true,
+                                <div style="
+                                    display:grid;
+                                    grid-template-columns:110px 1fr;
+                                    row-gap:10px;
+                                    column-gap:10px;
 
-                        confirmButtonColor: '#f0ad4e',
-                        cancelButtonColor: '#6c757d',
+                                    font-size:13px;
+                                    color:#343a40;
+                                    line-height:1.6;
+                                ">
 
-                        confirmButtonText: 'Ya, Update',
-                        cancelButtonText: 'Batal',
+                                    ${event.message}
 
-                        reverseButtons: true
+                                </div>
 
-                    }).then((result) => {
+                            </div>
 
-                        if (result.isConfirmed) {
+                        </div>
 
-                            Livewire.dispatch('prosesUpdate');
+                    `,
 
-                        }
+                    icon: 'question',
 
-                    });
+                    showCancelButton: true,
+
+                    confirmButtonColor: '#f0ad4e',
+                    cancelButtonColor: '#6c757d',
+
+                    confirmButtonText: 'Ya, Update',
+                    cancelButtonText: 'Batal',
+
+                    reverseButtons: true
+
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+
+                        Livewire.dispatch('prosesUpdate');
+
+                    }
 
                 });
 
-            });
+            );
         </script>
 
     </div>
