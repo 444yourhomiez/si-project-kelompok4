@@ -20,45 +20,41 @@
     {{-- DELETE --}}
     @livewire('manajemen.simpanan.delete')
 
+    {{-- CLOSE MODAL --}}
     <script>
-        // CREATE
-        Livewire.on('closeCreateModal', () => {
+        document.addEventListener('livewire:init', () => {
 
-            $('#createModalSimpanan').modal('hide');
+            Livewire.on('closeCreateModal', () => {
+                $('#createModalSimpanan').modal('hide');
 
-            Swal.fire({
-                title: "Sukses",
-                text: "Simpanan Berhasil Ditambah",
-                icon: "success",
-                confirmButtonText: "OK"
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Berhasil Ditambah",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
             });
 
-        });
+            Livewire.on('closeEditModal', () => {
+                $('#editModalSimpanan').modal('hide');
 
-        // EDIT
-        Livewire.on('closeEditModal', () => {
-
-            $('#editModalSimpanan').modal('hide');
-
-            Swal.fire({
-                title: "Sukses",
-                text: "Simpanan Berhasil Diperbarui",
-                icon: "success",
-                confirmButtonText: "OK"
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Berhasil Diperbarui",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
             });
 
-        });
+            Livewire.on('closeDeleteModal', () => {
+                $('#deleteModalSimpanan').modal('hide');
 
-        // DELETE
-        Livewire.on('closeDeleteModal', () => {
-
-            $('#deleteModalSimpanan').modal('hide');
-
-            Swal.fire({
-                title: "Sukses",
-                text: "Simpanan Berhasil Dihapus",
-                icon: "success",
-                confirmButtonText: "OK"
+                Swal.fire({
+                    title: "Sukses",
+                    text: "Simpanan Berhasil Dihapus",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
             });
 
         });

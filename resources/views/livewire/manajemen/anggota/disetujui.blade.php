@@ -178,8 +178,8 @@
 
                                     <select wire:model.live="sortDirection" class="form-control sort-mini-select">
 
-                                        <option value="desc">DESC</option>
-                                        <option value="asc">ASC</option>
+                                        <option value="desc">Z - A</option>
+                                        <option value="asc">A - Z</option>
 
                                     </select>
                                 </div>
@@ -231,7 +231,7 @@
 
                         </thead>
 
-                        <tbody>
+                        <tbody wire:key="anggota-table-{{ $paginate }}">
 
                             @forelse ($anggota as $item)
                                 <tr wire:key="anggota-{{ $item->id }}">
@@ -407,17 +407,19 @@
 
         {{-- CLOSE MODAL --}}
         <script>
-            Livewire.on('closeEditModal', () => {
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('closeEditModal', () => {
 
-                $('#editModalAnggota').modal('hide');
+                    $('#editModalAnggota').modal('hide');
 
-                Swal.fire({
-                    title: "Sukses",
-                    text: "Data Anggota Berhasil Diedit",
-                    icon: "success",
-                    confirmButtonText: "OK"
+                    Swal.fire({
+                        title: "Sukses",
+                        text: "Data Anggota Berhasil Diedit",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    });
+
                 });
-
             });
         </script>
 

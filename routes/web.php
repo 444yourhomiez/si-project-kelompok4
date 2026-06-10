@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Manajemen\Anggota\Index;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -65,7 +64,6 @@ Route::middleware(['auth', 'role:manajemen'])
         Route::view('/pinjaman/khusus', 'manajemen.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/pinjaman/pribadi', 'manajemen.pinjaman.pribadi')->name('pinjaman.pribadi');
         Route::view('/anggota', 'manajemen.anggota.index')->name('anggota.index');
-        Route::view('/anggota/total', 'manajemen.anggota.total')->name('anggota.total');
         Route::view('/anggota/disetujui', 'manajemen.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'manajemen.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
         Route::view('/anggota/menunggu', 'manajemen.anggota.menunggu')->name('anggota.menunggu');
@@ -85,8 +83,17 @@ Route::middleware(['auth', 'role:pengawas'])
 
         Route::view('/dashboard', 'pengawas.dashboard')->name('dashboard');
         Route::view('/simpanan', 'pengawas.simpanan.index')->name('simpanan.index');
+        Route::view('/simpanan/pokok', 'pengawas.simpanan.pokok')->name('simpanan.pokok');
+        Route::view('/simpanan/sukarela', 'pengawas.simpanan.sukarela')->name('simpanan.sukarela');
+        Route::view('/simpanan/wajib', 'pengawas.simpanan.wajib')->name('simpanan.wajib');
         Route::view('/pinjaman', 'pengawas.pinjaman.index')->name('pinjaman.index');
-        Route::get('/anggota', Index::class)->name('anggota.index');
+        Route::view('/pinjaman/khusus', 'pengawas.pinjaman.khusus')->name('pinjaman.khusus');
+        Route::view('/pinjaman/pribadi', 'pengawas.pinjaman.pribadi')->name('pinjaman.pribadi');
+        Route::view('/anggota', 'pengawas.anggota.index')->name('anggota.index');
+        Route::view('/anggota/disetujui', 'pengawas.anggota.disetujui')->name('anggota.disetujui');
+        Route::view('/anggota/disetujui/{id}', 'pengawas.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
+        Route::view('/anggota/menunggu', 'pengawas.anggota.menunggu')->name('anggota.menunggu');
+        Route::view('/anggota/menunggu/{id}', 'pengawas.anggota.detail-anggota-menunggu')->name('anggota.detail-anggota-menunggu');
         Route::view('/rekap', 'pengawas.rekap.index')->name('rekap.index');
         Route::view('/laporan', 'pengawas.laporan.index')->name('laporan.index');
         Route::view('/profile', 'pengawas.profile.index')->name('profile.index')->middleware('auth');

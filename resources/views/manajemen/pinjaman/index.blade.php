@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pinjaman')
+@section('title', 'Daftar Pinjaman')
 
 @section('menuManajemenPinjamanSemua', 'active')
 @section('menuManajemenPinjamanOpen', 'menu-open')

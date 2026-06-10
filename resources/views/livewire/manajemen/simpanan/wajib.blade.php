@@ -179,8 +179,8 @@
 
                                     <select wire:model.live="sortDirection" class="form-control sort-mini-select">
 
-                                        <option value="desc">DESC</option>
-                                        <option value="asc">ASC</option>
+                                        <option value="desc">Z - A</option>
+                                        <option value="asc">A - Z</option>
 
                                     </select>
                                 </div>
@@ -233,7 +233,7 @@
                         <tbody>
 
                             @forelse ($simpananWajib as $item)
-                                <tr>
+                                <tr wire:key="simpanan-{{ $item->id }}">
 
                                     {{-- TANGGAL --}}
                                     <td>
@@ -310,7 +310,7 @@
                                             </button>
 
                                             {{-- HAPUS --}}
-                                            <button onclick="Livewire.dispatch('openDelete', { id: {{ $item->id }} })"
+                                            <button onclick="$dispatch('openDelete', { id: {{ $item->id }} })"
                                                 class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
                                                 data-target="#deleteModalSimpanan">
 

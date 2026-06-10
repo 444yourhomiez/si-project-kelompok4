@@ -8,6 +8,8 @@ class Index extends Component
 {
     public function render()
     {
-        return view('livewire.pengawas.rekap.index');
+        return view('livewire.manajemen.rekap.index', [
+            'title' => 'Rekapitulasi Harian',
+        ]);
     }
 }

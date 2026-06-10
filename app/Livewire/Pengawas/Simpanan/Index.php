@@ -48,7 +48,7 @@ class Index extends Component
             ->paginate($this->paginate);
 
         return view('livewire.pengawas.simpanan.index', [
-            'title'          => 'Monitoring Simpanan',
+            'title'          => 'Daftar Simpanan',
             'simpanan'       => $simpanan,
             'wajib'          => $wajib,
             'pokok'          => $pokok,

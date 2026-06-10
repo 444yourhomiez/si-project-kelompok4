@@ -152,8 +152,8 @@
                                 <div class="position-relative sort-mini-box" style="max-width:95px;">
                                     <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
                                     <select wire:model.live="sortDirection" class="form-control sort-mini-select">
-                                        <option value="desc">DESC</option>
-                                        <option value="asc">ASC</option>
+                                        <option value="desc">Z - A</option>
+                                        <option value="asc">A - Z</option>
                                     </select>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                                 <th>ID Anggota</th>
                                 <th>Nama Anggota</th>
                                 <th>Jenis Simpanan</th>
-                                <th>Nominal</th>
+                                <th class="text-center">Nominal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,10 +209,12 @@
                                             <span class="badge-status-info">Sukarela</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <span class="badge-nominal">
-                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
-                                        </span>
+                                    <td class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <span class="badge-nominal">
+                                                Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+                                            </span>
+                                        </div>
                                     </td>
                                 </tr>
                             @empty

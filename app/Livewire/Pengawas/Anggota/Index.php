@@ -44,7 +44,7 @@ class Index extends Component
             ->paginate($this->paginate);
 
         return view('livewire.pengawas.anggota.index', [
-            'title'           => 'Monitoring Anggota',
+            'title'           => 'Daftar Anggota',
             'anggota'         => $anggota,
             'totalAnggota'    => User::where('role', 'anggota')->count(),
             'anggotaDisetujui'=> User::where('role', 'anggota')->where('status', 'disetujui')->count(),
