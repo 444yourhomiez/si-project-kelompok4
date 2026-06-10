@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Component
 {
@@ -13,58 +15,111 @@ class Login extends Component
     public function login()
     {
         $this->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+
+            // EMAIL
+            'email' => 'required|email|regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/',
+
+            // PASSWORD
+            'password' => 'required',
+
+        ], [
+
+            // EMAIL
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Email yang Anda masukkan tidak sesuai',
+            'email.regex' => 'Email yang Anda masukkan tidak sesuai',
+
+            // PASSWORD
+            'password.required' => 'Password wajib diisi',
+
         ]);
 
-        if (Auth::attempt([
-            'email' => $this->email,
-            'password' => $this->password,
-        ])) {
+        // CEK EMAIL
+        $user = User::where(
+            'email',
+            $this->email
+        )->first();
 
-            $user = auth()->user();
+        if (!$user) {
 
-            // 🔥 ROLE ANGGOTA
-            if ($user->role == 'anggota') {
+            $this->addError(
+                'email',
+                'Email tidak terdaftar'
+            );
 
-                // 🔴 DITOLAK
-                if ($user->status == 'ditolak') {
-                    Auth::logout();
-                    session()->flash('error', 'Akun Anda ditolak');
-                    return;
-                }
-
-                // 🟡 MENUNGGU
-                if ($user->status == 'menunggu') {
-                    return redirect()->route('menunggu');
-                }
-
-                // 🟢 DISETUJUI (INI YANG KURANG!)
-                if ($user->status == 'disetujui') {
-                    return redirect()
-                    ->route('anggota.dashboard')
-                    ->with('success', 'Selamat anda berhasil login');
-                }
-            }
-
-            // 🔥 ROLE LAIN
-            if ($user->role == 'manajemen') {
-                return redirect()
-                ->route('manajemen.dashboard')
-                ->with('success', 'Selamat anda berhasil login');
-            }
-
-            if ($user->role == 'pengawas') {
-                return redirect()
-                ->route('pengawas.dashboard')
-                ->with('success', 'Selamat anda berhasil login');
-            }
-
-            // fallback (jaga-jaga)
-            return redirect('/');
+            return;
         }
 
-        session()->flash('error', 'Email atau password salah');
+        // CEK PASSWORD
+        if (!Hash::check(
+            $this->password,
+            $user->password
+        )) {
+
+            $this->addError(
+                'password',
+                'Password yang Anda masukkan salah'
+            );
+
+            return;
+        }
+
+        Auth::login($user);
+
+        // ROLE ANGGOTA
+        if ($user->role == 'anggota') {
+
+            if ($user->status == 'ditolak') {
+
+                Auth::logout();
+
+                $this->addError(
+                    'email',
+                    'Akun Anda ditolak'
+                );
+
+                return;
+            }
+
+            if ($user->status == 'menunggu') {
+
+                return redirect()->route('menunggu');
+            }
+
+            if ($user->status == 'disetujui') {
+
+                return redirect()
+                    ->route('anggota.dashboard')
+                    ->with(
+                        'success',
+                        'Selamat anda berhasil login'
+                    );
+            }
+        }
+
+        // ROLE MANAJEMEN
+        if ($user->role == 'manajemen') {
+
+            return redirect()
+                ->route('manajemen.dashboard')
+                ->with(
+                    'success',
+                    'Selamat anda berhasil login'
+                );
+        }
+
+        // ROLE PENGAWAS
+        if ($user->role == 'pengawas') {
+
+            return redirect()
+                ->route('pengawas.dashboard')
+                ->with(
+                    'success',
+                    'Selamat anda berhasil login'
+                );
+        }
+
+        return redirect('/');
     }
 
     public function render()
