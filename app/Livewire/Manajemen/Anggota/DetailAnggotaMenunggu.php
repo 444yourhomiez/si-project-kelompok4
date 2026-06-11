@@ -74,18 +74,19 @@ class DetailAnggotaMenunggu extends Component
     // TOLAK
     public function tolak()
     {
-        // UPDATE STATUS DULU
-        $this->anggota->user->update([
+        $user = $this->anggota->user;
 
-            'status' => 'ditolak'
+        // hapus anggota dulu
+        $this->anggota->delete();
 
-        ]);
+        // baru user
+        $user?->delete();
 
         $this->dispatch('refreshAnggota');
 
         session()->flash(
             'success',
-            'Pengajuan anggota berhasil ditolak'
+            'Pengajuan anggota ditolak dan data berhasil dihapus'
         );
 
         return redirect()->route(

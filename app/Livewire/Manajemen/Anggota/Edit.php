@@ -2,12 +2,19 @@
 
 namespace App\Livewire\Manajemen\Anggota;
 
-use Livewire\Component;
-use App\Models\Anggota;
 use App\Livewire\Manajemen\Anggota\Index;
+use App\Models\Anggota;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class Edit extends Component
 {
+    #[On('refreshAnggota')]
+    public function resetEditState()
+    {
+        $this->reset();
+    }
+
     protected $listeners = [
         'openEdit' => 'edit',
         'prosesUpdate' => 'update',
@@ -87,7 +94,7 @@ class Edit extends Component
         return [
 
             // NAMA
-            'nama_anggota.required' =>'Nama anggota wajib diisi',
+            'nama_anggota.required' => 'Nama anggota wajib diisi',
 
             // KTP
             'no_ktp.required' => 'No KTP wajib diisi',

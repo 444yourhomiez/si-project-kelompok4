@@ -17,7 +17,7 @@ return new class extends Migration
     $table->foreignId('anggota_id')->constrained('anggota')->onDelete('cascade');
 
     $table->enum('jenis_simpanan', ['wajib', 'pokok', 'sukarela']);
-    $table->integer('jumlah');
+    $table->decimal('jumlah', 30, 0);
     $table->date('tanggal');
 
     $table->timestamps();

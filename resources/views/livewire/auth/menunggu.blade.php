@@ -1,4 +1,4 @@
-<div wire:poll.3s="checkStatus" wire:key="status-{{ $status }}" class="login-wrapper">
+<div wire:poll.3s="checkStatus" class="login-wrapper">
 
     <div class="login-container">
 
@@ -76,14 +76,11 @@
 
                         <div class="col-6">
                             <small>Status</small>
-                            <span
-                                class="badge 
-                            {{ $status == 'disetujui' ? 'bg-success' : ($status == 'ditolak' ? 'bg-danger' : 'bg-warning') }}">
+                            <span class="badge {{ $status == 'disetujui' ? 'bg-success' : ($status == 'ditolak' ? 'bg-danger' : 'bg-warning') }}">
                                 {{ ucfirst($status) }}
                             </span>
                         </div>
 
-                        {{-- 🔥 JADWAL --}}
                         @if ($anggota && $anggota->jadwal)
                             <div class="col-12 mt-2">
                                 <small>Jadwal Wawancara</small>
@@ -97,7 +94,6 @@
                     </div>
                 </div>
 
-                {{-- LOADING REALTIME --}}
                 @if ($status == 'menunggu')
                     <div class="text-center mt-2">
                         <small class="text-muted">
@@ -107,7 +103,6 @@
                     </div>
                 @endif
 
-                {{-- ACTION --}}
                 @if ($status == 'disetujui')
                     <a href="{{ route('login') }}" class="btn btn-success w-100 mt-3">
                         <i class="fas fa-sign-in-alt mr-1"></i>

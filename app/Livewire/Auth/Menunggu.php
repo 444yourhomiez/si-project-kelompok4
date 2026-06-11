@@ -29,10 +29,11 @@ class Menunggu extends Component
     // =========================
     public function checkStatus()
     {
-        $this->loadUser();
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
-        // 🔥 paksa Livewire re-render
-        $this->dispatch('$refresh');
+        $this->loadUser();
     }
 
     // =========================
@@ -40,14 +41,15 @@ class Menunggu extends Component
     // =========================
     public function loadUser()
     {
-        $user = User::with('anggota.jadwal')->find(Auth::id());
+        $user = User::with('anggota.jadwal')
+            ->find(Auth::id());
 
         if (!$user) {
+            $this->user = null;
+            $this->status = null;
+            $this->anggota = null;
             return;
         }
-
-        // 🔥 paksa refresh dari DB
-        $user->refresh();
 
         $this->user = $user;
         $this->status = $user->status;

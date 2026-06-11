@@ -477,7 +477,7 @@
                                             </button>
 
                                             {{-- HAPUS --}}
-                                            <button onclick="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                            <button wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
                                                 class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
                                                 data-target="#deleteModalSimpanan">
 

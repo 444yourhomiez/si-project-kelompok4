@@ -47,13 +47,13 @@ class Create extends Component
         $this->validate([
             'anggota_id' => 'required',
             'jenis_simpanan' => 'required',
-            'jumlah' => 'required|numeric|min:100000',
+            'jumlah' => 'required|numeric|min:50000',
         ], [
             'anggota_id.required' => 'Nama - No KTP Harus Dipilih',
             'jenis_simpanan.required' => 'Jenis Simpanan Harus Dipilih',
             'jumlah.required' => 'Jumlah Wajib Diisi',
             'jumlah.numeric' => 'Jumlah Harus Angka',
-            'jumlah.min' => 'Minimal 100.000',
+            'jumlah.min' => 'Minimal 50.000',
         ]);
 
         Simpanan::create([

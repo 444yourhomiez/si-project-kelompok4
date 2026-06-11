@@ -13,7 +13,7 @@
 
                         <h1>
 
-                            <i class="nav-icon fas fa-users mr-2"></i>
+                            <i class="nav-icon fas fa-user?s mr-2"></i>
                             {{ $title }}
 
                         </h1>
@@ -37,7 +37,7 @@
 
                             <li class="breadcrumb-item active text-success">
 
-                                <i class="nav-icon fas fa-users mr-1"></i>
+                                <i class="nav-icon fas fa-user?s mr-1"></i>
                                 {{ $title }}
 
                             </li>
@@ -86,7 +86,7 @@
 
                                 <a href="{{ route('pengawas.anggota.index') }}" class="card-icon bg-primary text-white">
 
-                                    <i class="fas fa-users"></i>
+                                    <i class="fas fa-user?s"></i>
 
                                 </a>
 
@@ -139,7 +139,7 @@
                                 <a href="{{ route('pengawas.anggota.disetujui') }}"
                                     class="card-icon bg-success text-white">
 
-                                    <i class="fas fa-user-check"></i>
+                                    <i class="fas fa-user?-check"></i>
 
                                 </a>
 
@@ -187,7 +187,7 @@
                                 <a href="{{ route('pengawas.anggota.menunggu') }}"
                                     class="card-icon bg-warning text-white">
 
-                                    <i class="fas fa-user-clock"></i>
+                                    <i class="fas fa-user?-clock"></i>
 
                                 </a>
 
@@ -219,7 +219,7 @@
 
                             <h4 class="mb-1 font-weight-bold">
 
-                                <i class="fas fa-users mr-2"></i>
+                                <i class="fas fa-user?s mr-2"></i>
                                 Daftar Anggota
 
                             </h4>
@@ -397,21 +397,21 @@
                                     {{-- STATUS --}}
                                     <td>
 
-                                        @if ($item->user->status == 'menunggu')
+                                        @if ($item->user?->status == 'menunggu')
                                             <span class="badge-status-warning">
 
                                                 <i class="fas fa-clock mr-1"></i>
                                                 Menunggu Verifikasi
 
                                             </span>
-                                        @elseif ($item->user->status == 'disetujui')
+                                        @elseif ($item->user?->status == 'disetujui')
                                             <span class="badge-status-success">
 
                                                 <i class="fas fa-check-circle mr-1"></i>
                                                 Disetujui
 
                                             </span>
-                                        @elseif ($item->user->status == 'ditolak')
+                                        @elseif ($item->user?->status == 'ditolak')
                                             <span class="badge-status-danger">
 
                                                 <i class="fas fa-times-circle mr-1"></i>
@@ -421,7 +421,7 @@
                                         @else
                                             <span class="badge-status-secondary">
 
-                                                {{ $item->user->status }}
+                                                {{ $item->user?->status }}
 
                                             </span>
                                         @endif
@@ -434,7 +434,7 @@
                                         <div class="d-flex align-items-center justify-content-center">
 
                                             {{-- JIKA MASIH MENUNGGU --}}
-                                            @if ($item->user->status == 'menunggu')
+                                            @if ($item->user?->status == 'menunggu')
                                                 {{-- DETAIL --}}
                                                 <a href="{{ route('pengawas.anggota.detail-anggota-menunggu', $item->id) }}"
                                                     class="btn btn-light table-action-btn shadow-sm"
@@ -496,7 +496,7 @@
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
 
                         <div class="footer-info">
-                            <i class="fas fa-users mr-1"></i>
+                            <i class="fas fa-user?s mr-1"></i>
                             Menampilkan data anggota koperasi
                         </div>
 

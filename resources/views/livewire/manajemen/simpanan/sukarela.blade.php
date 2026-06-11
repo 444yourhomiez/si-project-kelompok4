@@ -310,7 +310,7 @@
                                             </button>
 
                                             {{-- HAPUS --}}
-                                            <button onclick="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                            <button wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
                                                 class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
                                                 data-target="#deleteModalSimpanan">
 
@@ -358,48 +358,6 @@
             </div>
 
         </section>
-
-        {{-- CREATE MODAL --}}
-        @livewire('manajemen.simpanan.create')
-
-        {{-- CLOSE MODAL CREATE --}}
-        <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('closeCreateModal', () => {
-
-                    $('#createModal').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Sukarela Berhasil Ditambah",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
-                });
-            });
-        </script>
-
-        {{-- EDIT MODAL --}}
-        @livewire('manajemen.simpanan.edit')
-
-        {{-- CLOSE MODAL EDIT --}}
-        <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('closeEditModal', () => {
-
-                    $('#editModalSimpanan').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Simpanan Berhasil Diperbarui",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
-                });
-            });
-        </script>
 
     </div>
 

@@ -40,8 +40,7 @@ class Index extends Component
     {
         $data = array(
 
-            'anggota' => Anggota::query()
-
+            'anggota' => Anggota::with('user')
                 ->when($this->search, function ($query) {
 
                     $query->where(function ($q) {
@@ -55,17 +54,16 @@ class Index extends Component
                 ->when($this->sortBy == 'kode_anggota', function ($query) {
 
                     $query->orderByRaw("
-                        CASE
-                            WHEN kode_anggota IS NULL
-                            OR kode_anggota = ''
-                            THEN 999999
-
-                            ELSE CAST(
-                                SUBSTRING_INDEX(kode_anggota, '-', -1)
-                                AS UNSIGNED
-                            )
-                        END {$this->sortDirection}
-                    ");
+            CASE
+                WHEN kode_anggota IS NULL
+                OR kode_anggota = ''
+                THEN 999999
+                ELSE CAST(
+                    SUBSTRING_INDEX(kode_anggota, '-', -1)
+                    AS UNSIGNED
+                )
+            END {$this->sortDirection}
+        ");
                 }, function ($query) {
 
                     $query->orderBy(
@@ -76,7 +74,9 @@ class Index extends Component
 
                 ->paginate($this->paginate),
 
-            'totalAnggota' => User::where('role', 'anggota')->count(),
+            'totalAnggota' => User::where('role', 'anggota')
+                ->where('status', '!=', 'ditolak')
+                ->count(),
 
             'anggotaDisetujui' => User::where('role', 'anggota')
                 ->where('status', 'disetujui')

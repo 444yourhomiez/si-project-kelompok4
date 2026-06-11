@@ -102,7 +102,7 @@ class Edit extends Component
             'required',
 
             'jumlah' =>
-            'required|numeric|min:1',
+            'required|numeric|min:50000',
 
         ];
     }
@@ -124,7 +124,7 @@ class Edit extends Component
             'Jumlah simpanan harus angka',
 
             'jumlah.min' =>
-            'Jumlah simpanan minimal 1',
+            'Jumlah simpanan minimal 50.000',
 
         ];
     }
@@ -310,8 +310,8 @@ class Edit extends Component
                 'title' => 'Edit Simpanan',
 
                 'anggota' => Anggota::whereHas('user', function ($q) {
-                        $q->where('status', 'disetujui');
-                    })
+                    $q->where('status', 'disetujui');
+                })
                     ->where(function ($query) {
                         $query->where('nama_anggota', 'like', '%' . $this->search . '%')
                             ->orWhere('no_ktp', 'like', '%' . $this->search . '%');
