@@ -16,7 +16,7 @@
 
                   {{-- DASHBOARD --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('manajemen.dashboard') }}" class="nav-link @yield('menuManajemenDashboard')">
+                      <a  href="{{ route('manajemen.dashboard') }}" class="nav-link @yield('menuManajemenDashboard')">
                           <i class="nav-icon fas fa-th-large"></i>
                           <p>
                               Dashboard
@@ -44,7 +44,7 @@
 
                           {{-- SEMUA --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('manajemen.simpanan.index') }}"
+                              <a  href="{{ route('manajemen.simpanan.index') }}"
                                   class="nav-link @yield('menuManajemenSimpananSemua')">
 
                                   <p>Daftar Simpanan</p>
@@ -54,7 +54,7 @@
 
                           {{-- WAJIB --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('manajemen.simpanan.wajib') }}"
+                              <a  href="{{ route('manajemen.simpanan.wajib') }}"
                                   class="nav-link @yield('menuManajemenSimpananWajib')">
 
                                   <p>Simpanan Wajib</p>
@@ -64,7 +64,7 @@
 
                           {{-- POKOK --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('manajemen.simpanan.pokok') }}"
+                              <a  href="{{ route('manajemen.simpanan.pokok') }}"
                                   class="nav-link @yield('menuManajemenSimpananPokok')">
 
                                   <p>Simpanan Pokok</p>
@@ -74,7 +74,7 @@
 
                           {{-- SUKARELA --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('manajemen.simpanan.sukarela') }}"
+                              <a  href="{{ route('manajemen.simpanan.sukarela') }}"
                                   class="nav-link @yield('menuManajemenSimpananSukarela')">
 
                                   <p>Simpanan Sukarela</p>
@@ -107,7 +107,7 @@
                           {{-- DAFTAR PINJAMAN --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.pinjaman.index') }}"
+                              <a  href="{{ route('manajemen.pinjaman.index') }}"
                                   class="nav-link @yield('menuManajemenPinjamanSemua')">
 
 
@@ -122,7 +122,7 @@
                           {{-- PRIBADI --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.pinjaman.pribadi') }}"
+                              <a  href="{{ route('manajemen.pinjaman.pribadi') }}"
                                   class="nav-link @yield('menuManajemenPinjamanPribadi')">
 
 
@@ -137,7 +137,7 @@
                           {{-- KHUSUS --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.pinjaman.khusus') }}"
+                              <a  href="{{ route('manajemen.pinjaman.khusus') }}"
                                   class="nav-link @yield('menuManajemenPinjamanKhusus')">
 
 
@@ -174,7 +174,7 @@
                           {{-- DAFTAR ANGGOTA --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.anggota.index') }}"
+                              <a  href="{{ route('manajemen.anggota.index') }}"
                                   class="nav-link @yield('menuManajemenAnggotaSemua')">
 
                                   <p>
@@ -188,7 +188,7 @@
                           {{-- DISETUJUI --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.anggota.disetujui') }}"
+                              <a  href="{{ route('manajemen.anggota.disetujui') }}"
                                   class="nav-link @yield('menuManajemenAnggotaDisetujui')">
 
                                   <p>
@@ -202,7 +202,7 @@
                           {{-- MENUNGGU --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('manajemen.anggota.menunggu') }}"
+                              <a  href="{{ route('manajemen.anggota.menunggu') }}"
                                   class="nav-link @yield('menuManajemenAnggotaMenunggu')">
 
                                   <p>
@@ -219,7 +219,7 @@
 
                   {{-- REKAPITULASI HARIAN --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('manajemen.rekap.index') }}" class="nav-link @yield('menuManajemenRekap')">
+                      <a  href="{{ route('manajemen.rekap.index') }}" class="nav-link @yield('menuManajemenRekap')">
                           <i class="nav-icon fas fa-calendar-day"></i>
                           <p>
                               Rekapitulasi Harian
@@ -229,7 +229,7 @@
 
                   {{-- LAPORAN --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('manajemen.laporan.index') }}"
+                      <a  href="{{ route('manajemen.laporan.index') }}"
                           class="nav-link @yield('menuManajemenLaporan')">
                           <i class="nav-icon fas fa-file-invoice"></i>
                           <p>
@@ -240,7 +240,7 @@
 
                   {{-- PROFILE --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('manajemen.profile.index') }}"
+                      <a  href="{{ route('manajemen.profile.index') }}"
                           class="nav-link @yield('menuManajemenProfile')">
                           <i class="nav-icon fas fa-user"></i>
                           <p>

@@ -17,7 +17,7 @@
 
                   {{-- DASHBOARD --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.dashboard') }}" class="nav-link @yield('menuAnggotaDashboard')">
+                      <a href="{{ route('anggota.dashboard') }}" class="nav-link @yield('menuAnggotaDashboard')">
                           <i class="nav-icon fas fa-th-large"></i>
                           <p>
                               Dashboard
@@ -27,7 +27,7 @@
 
                   {{-- SIMPANAN --}}
                   {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.simpanan.index') }}"
+                      <a href="{{ route('anggota.simpanan.index') }}"
                           class="nav-link @yield('menuAnggotaSimpanan')">
                           <i class="nav-icon fas fa-wallet"></i>
                           <p>
@@ -38,7 +38,7 @@
 
                   {{-- PINJAMAN --}}
                   {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.pinjaman.index') }}"
+                      <a href="{{ route('anggota.pinjaman.index') }}"
                           class="nav-link @yield('menuAnggotaPinjaman')">
                           <i class="nav-icon fas fa-hand-holding-usd"></i>
                           <p>
@@ -49,7 +49,7 @@
 
                   {{-- PROFILE --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.profile.index') }}"
+                      <a href="{{ route('anggota.profile.index') }}"
                           class="nav-link @yield('menuAnggotaProfile')">
                           <i class="nav-icon fas fa-user"></i>
                           <p>

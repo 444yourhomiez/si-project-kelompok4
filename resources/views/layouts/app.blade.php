@@ -44,7 +44,6 @@
     {{-- Pesan Berhasil Login --}}
     @if (session('success'))
         <script>
-            document.addEventListener('livewire:navigated', function() {}, { once: true });
             Swal.fire({
                 title: 'Sukses',
                 text: '{{ session('success') }}',
@@ -54,39 +53,38 @@
             });
         </script>
     @endif
-    {{-- Pesan Berhasil Login --}}
 
     {{-- Logout Confirmation --}}
     <script>
-        function initLogout() {
-            const logoutBtn = document.getElementById('btn-logout');
-            if (logoutBtn) {
-                // Hapus listener lama agar tidak menumpuk
-                logoutBtn.replaceWith(logoutBtn.cloneNode(true));
-                document.getElementById('btn-logout').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: 'Yakin mau logout?',
-                        text: 'Session akan diakhiri',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Ya, Logout',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            document.getElementById('logout-form').submit();
-                        }
-                    });
-                });
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // Jalan saat load biasa
-        document.addEventListener('DOMContentLoaded', initLogout);
-        // Jalan setiap selesai wire:navigate
-        document.addEventListener('livewire:navigated', initLogout);
+            const logoutBtn = document.getElementById('btn-logout');
+
+            if (!logoutBtn) return;
+
+            logoutBtn.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Yakin mau logout?',
+                    text: 'Session akan diakhiri',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Logout',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+                        document.getElementById('logout-form').submit();
+                    }
+
+                });
+
+            });
+
+        });
     </script>
-    {{-- Logout Confirmation --}}
 
 </body>
 

@@ -16,7 +16,7 @@
 
                   {{-- DASHBOARD --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.dashboard') }}" class="nav-link @yield('menuPengawasDashboard')">
+                      <a  href="{{ route('pengawas.dashboard') }}" class="nav-link @yield('menuPengawasDashboard')">
                           <i class="nav-icon fas fa-th-large"></i>
                           <p>
                               Dashboard
@@ -44,7 +44,7 @@
 
                           {{-- SEMUA --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('pengawas.simpanan.index') }}"
+                              <a  href="{{ route('pengawas.simpanan.index') }}"
                                   class="nav-link @yield('menuPengawasSimpananSemua')">
 
                                   <p>Daftar Simpanan</p>
@@ -54,7 +54,7 @@
 
                           {{-- WAJIB --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('pengawas.simpanan.wajib') }}"
+                              <a  href="{{ route('pengawas.simpanan.wajib') }}"
                                   class="nav-link @yield('menuPengawasSimpananWajib')">
 
                                   <p>Simpanan Wajib</p>
@@ -64,7 +64,7 @@
 
                           {{-- POKOK --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('pengawas.simpanan.pokok') }}"
+                              <a  href="{{ route('pengawas.simpanan.pokok') }}"
                                   class="nav-link @yield('menuPengawasSimpananPokok')">
 
                                   <p>Simpanan Pokok</p>
@@ -74,7 +74,7 @@
 
                           {{-- SUKARELA --}}
                           <li class="nav-item">
-                              <a wire:navigate href="{{ route('pengawas.simpanan.sukarela') }}"
+                              <a  href="{{ route('pengawas.simpanan.sukarela') }}"
                                   class="nav-link @yield('menuPengawasSimpananSukarela')">
 
                                   <p>Simpanan Sukarela</p>
@@ -107,7 +107,7 @@
                           {{-- DAFTAR PINJAMAN --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.pinjaman.index') }}"
+                              <a  href="{{ route('pengawas.pinjaman.index') }}"
                                   class="nav-link @yield('menuPengawasPinjamanSemua')">
 
 
@@ -122,7 +122,7 @@
                           {{-- PRIBADI --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.pinjaman.pribadi') }}"
+                              <a  href="{{ route('pengawas.pinjaman.pribadi') }}"
                                   class="nav-link @yield('menuPengawasPinjamanPribadi')">
 
 
@@ -137,7 +137,7 @@
                           {{-- KHUSUS --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.pinjaman.khusus') }}"
+                              <a  href="{{ route('pengawas.pinjaman.khusus') }}"
                                   class="nav-link @yield('menuPengawasPinjamanKhusus')">
 
 
@@ -174,7 +174,7 @@
                           {{-- DAFTAR ANGGOTA --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.anggota.index') }}"
+                              <a  href="{{ route('pengawas.anggota.index') }}"
                                   class="nav-link @yield('menuPengawasAnggotaSemua')">
 
                                   <p>
@@ -188,7 +188,7 @@
                           {{-- DISETUJUI --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.anggota.disetujui') }}"
+                              <a  href="{{ route('pengawas.anggota.disetujui') }}"
                                   class="nav-link @yield('menuPengawasAnggotaDisetujui')">
 
                                   <p>
@@ -202,7 +202,7 @@
                           {{-- MENUNGGU --}}
                           <li class="nav-item">
 
-                              <a wire:navigate href="{{ route('pengawas.anggota.menunggu') }}"
+                              <a  href="{{ route('pengawas.anggota.menunggu') }}"
                                   class="nav-link @yield('menuPengawasAnggotaMenunggu')">
 
                                   <p>
@@ -219,7 +219,7 @@
 
                   {{-- REKAPITULASI HARIAN --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
+                      <a  href="{{ route('pengawas.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
                           <i class="nav-icon fas fa-calendar-day"></i>
                           <p>
                               Rekapitulasi Harian
@@ -229,7 +229,7 @@
 
                   {{-- LAPORAN --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.laporan.index') }}"
+                      <a  href="{{ route('pengawas.laporan.index') }}"
                           class="nav-link @yield('menuPengawasLaporan')">
                           <i class="nav-icon fas fa-file-invoice"></i>
                           <p>
@@ -240,7 +240,7 @@
 
                   {{-- PROFILE --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('pengawas.profile.index') }}"
+                      <a  href="{{ route('pengawas.profile.index') }}"
                           class="nav-link @yield('menuPengawasProfile')">
                           <i class="nav-icon fas fa-user"></i>
                           <p>
