@@ -6,7 +6,6 @@ use App\Models\Anggota;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\On;
 
 class Index extends Component
 {
@@ -14,13 +13,16 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    protected $listeners = [
+        'refreshAnggota' => 'refreshAnggota',
+    ];
+
     public $kode_anggota, $nama_anggota, $no_ktp;
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
     public $paginate = 10;
     public $search = '';
 
-    #[On('refreshAnggota')]
     public function refreshAnggota()
     {
         $this->resetPage();

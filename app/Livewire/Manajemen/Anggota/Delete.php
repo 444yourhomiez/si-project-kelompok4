@@ -38,6 +38,11 @@ class Delete extends Component
             $anggota->user?->delete();
         }
 
+        $this->reset([
+            'anggota',
+            'idDelete'
+        ]);
+
         // REFRESH TABLE
         $this->dispatch(
             'refreshAnggota'

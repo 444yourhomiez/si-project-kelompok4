@@ -3,16 +3,18 @@
 namespace App\Livewire\Manajemen\Simpanan;
 
 use Livewire\Component;
-use Livewire\Attributes\On;
 use App\Models\Simpanan;
 
 class Delete extends Component
 {
+    protected $listeners = [
+        'openDelete'
+    ];
+
     public $idDelete;
 
     public $simpanan;
 
-    #[On('openDelete')]
     public function openDelete($id)
     {
         $this->simpanan = Simpanan::with(
@@ -30,6 +32,11 @@ class Delete extends Component
 
             $simpanan->delete();
         }
+
+        $this->reset([
+            'simpanan',
+            'idDelete'
+        ]);
 
         $this->dispatch(
             'dataKoperasiUpdated'

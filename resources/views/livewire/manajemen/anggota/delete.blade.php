@@ -159,7 +159,7 @@
 
                                 <div class="font-weight-bold text-dark">
 
-                                    {{ $anggota->user->email ?? '-' }}
+                                    {{ $anggota->user?->email ?? '-' }}
 
                                 </div>
 
@@ -185,7 +185,7 @@
 
                                 <div>
 
-                                    @if(($anggota->user->status ?? '') == 'disetujui')
+                                    @if(($anggota->user?->status ?? '') == 'disetujui')
 
                                         <span class="badge badge-success px-3 py-2">
 
@@ -193,7 +193,7 @@
 
                                         </span>
 
-                                    @elseif(($anggota->user->status ?? '') == 'menunggu')
+                                    @elseif(($anggota->user?->status ?? '') == 'menunggu')
 
                                         <span class="badge badge-warning px-3 py-2">
 

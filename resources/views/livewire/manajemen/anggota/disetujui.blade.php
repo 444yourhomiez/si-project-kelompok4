@@ -402,26 +402,6 @@
             </div>
 
         </section>
-        {{-- EDIT MODAL --}}
-        @livewire('manajemen.anggota.edit')
-
-        {{-- CLOSE MODAL --}}
-        <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('closeEditModal', () => {
-
-                    $('#editModalAnggota').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Data Anggota Berhasil Diedit",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    });
-
-                });
-            });
-        </script>
 
     </div>
 

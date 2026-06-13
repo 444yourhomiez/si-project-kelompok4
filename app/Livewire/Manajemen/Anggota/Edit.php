@@ -4,18 +4,12 @@ namespace App\Livewire\Manajemen\Anggota;
 
 use App\Livewire\Manajemen\Anggota\Index;
 use App\Models\Anggota;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    #[On('refreshAnggota')]
-    public function resetEditState()
-    {
-        $this->reset();
-    }
-
     protected $listeners = [
+        'refreshAnggota' => 'resetEditState',
         'openEdit' => 'edit',
         'prosesUpdate' => 'update',
     ];
