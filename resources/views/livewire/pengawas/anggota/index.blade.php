@@ -13,7 +13,7 @@
 
                         <h1>
 
-                            <i class="nav-icon fas fa-user?s mr-2"></i>
+                            <i class="nav-icon fas fa-users mr-2"></i>
                             {{ $title }}
 
                         </h1>
@@ -37,7 +37,7 @@
 
                             <li class="breadcrumb-item active text-success">
 
-                                <i class="nav-icon fas fa-user?s mr-1"></i>
+                                <i class="nav-icon fas fa-users mr-1"></i>
                                 {{ $title }}
 
                             </li>
@@ -86,7 +86,7 @@
 
                                 <a href="{{ route('pengawas.anggota.index') }}" class="card-icon bg-primary text-white">
 
-                                    <i class="fas fa-user?s"></i>
+                                    <i class="fas fa-users"></i>
 
                                 </a>
 
@@ -139,7 +139,7 @@
                                 <a href="{{ route('pengawas.anggota.disetujui') }}"
                                     class="card-icon bg-success text-white">
 
-                                    <i class="fas fa-user?-check"></i>
+                                    <i class="fas fa-user-check"></i>
 
                                 </a>
 
@@ -187,7 +187,7 @@
                                 <a href="{{ route('pengawas.anggota.menunggu') }}"
                                     class="card-icon bg-warning text-white">
 
-                                    <i class="fas fa-user?-clock"></i>
+                                    <i class="fas fa-user-clock"></i>
 
                                 </a>
 
@@ -219,7 +219,7 @@
 
                             <h4 class="mb-1 font-weight-bold">
 
-                                <i class="fas fa-user?s mr-2"></i>
+                                <i class="fas fa-users mr-2"></i>
                                 Daftar Anggota
 
                             </h4>

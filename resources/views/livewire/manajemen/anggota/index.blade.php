@@ -398,21 +398,21 @@
                                     {{-- STATUS --}}
                                     <td>
 
-                                        @if ($item->user->status == 'menunggu')
+                                        @if ($item->user?->status == 'menunggu')
                                             <span class="badge-status-warning">
 
                                                 <i class="fas fa-clock mr-1"></i>
                                                 Menunggu Verifikasi
 
                                             </span>
-                                        @elseif ($item->user->status == 'disetujui')
+                                        @elseif ($item->user?->status == 'disetujui')
                                             <span class="badge-status-success">
 
                                                 <i class="fas fa-check-circle mr-1"></i>
                                                 Disetujui
 
                                             </span>
-                                        @elseif ($item->user->status == 'ditolak')
+                                        @elseif ($item->user?->status == 'ditolak')
                                             <span class="badge-status-danger">
 
                                                 <i class="fas fa-times-circle mr-1"></i>
@@ -422,7 +422,7 @@
                                         @else
                                             <span class="badge-status-secondary">
 
-                                                {{ $item->user->status }}
+                                                {{ $item->user?->status }}
 
                                             </span>
                                         @endif
@@ -435,7 +435,7 @@
                                         <div class="d-flex align-items-center justify-content-center">
 
                                             {{-- JIKA MASIH MENUNGGU --}}
-                                            @if ($item->user->status == 'menunggu')
+                                            @if ($item->user?->status == 'menunggu')
                                                 {{-- DETAIL --}}
                                                 <a href="{{ route('manajemen.anggota.detail-anggota-menunggu', $item->id) }}"
                                                     class="btn btn-light table-action-btn shadow-sm"
