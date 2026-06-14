@@ -285,13 +285,67 @@
                   </li>
 
                   {{-- REKAPITULASI HARIAN --}}
-                  <li class="nav-item">
-                      <a  href="{{ route('pengawas.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
+                  <li class="nav-item has-treeview @yield('menuPengawasRekapOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuPengawasRekap')">
+
                           <i class="nav-icon fas fa-calendar-day"></i>
+
                           <p>
                               Rekapitulasi Harian
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- REKAPITULASI HARI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.rekap.index') }}"
+                                  class="nav-link @yield('menuPengawasRekapSemua')">
+
+                                  <p>
+                                      Daftar Rekapitulasi Harian
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- DUM --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.rekap.dum') }}"
+                                  class="nav-link @yield('menuPengawasRekapDum')">
+
+                                  <p>
+                                      DUM
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- DUK --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.rekap.duk') }}"
+                                  class="nav-link @yield('menuPengawasRekapDuk')">
+
+                                  <p>
+                                      DUK
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
                   </li>
 
                   {{-- LAPORAN --}}

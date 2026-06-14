@@ -124,84 +124,22 @@
             <div class="card table-modern border-0 shadow-sm">
 
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0 pt-4 pb-3">
+                <div class="card-header bg-white border-0">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
 
-                        <div class="mb-3 mb-md-0">
+                        <div>
 
                             <h4 class="font-weight-bold mb-1">
 
-                                <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
-                                Daftar Pinjaman Khusus
+                                <i class="fas fa-wallet mr-2"></i>
+                                Riwayat Pinjaman Khusus Anggota
 
                             </h4>
 
                             <small class="text-muted">
-                                Data transaksi pinjaman khusus anggota koperasi
+                                Data transaksi pinjaman anggota koperasi
                             </small>
-
-                        </div>
-
-                        <div class="d-flex align-items-center">
-
-                            {{-- SEARCH --}}
-                            <div class="search-modern mr-2">
-
-                                <i class="fas fa-search search-modern-icon"></i>
-
-                                <input type="text" wire:model.live="search" class="form-control search-modern-input"
-                                    placeholder="Cari pinjaman...">
-
-                            </div>
-
-                            {{-- SORT --}}
-                            <div class="d-flex align-items-center mr-2" style="gap:10px;">
-
-                                {{-- SORT BY --}}
-                                <div class="position-relative sort-mini-box">
-                                    <i class="fas fa-sliders-h sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortBy" class="form-control sort-mini-select">
-
-                                        <option value="created_at">Terbaru</option>
-
-                                        <option value="nama_anggota">Nama</option>
-
-                                        <option value="jumlah">Nominal</option>
-
-                                    </select>
-                                </div>
-
-                                {{-- DIRECTION --}}
-                                <div class="position-relative sort-mini-box" style="max-width:95px;">
-                                    <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortDirection" class="form-control sort-mini-select">
-
-                                        <option value="desc">Z - A</option>
-                                        <option value="asc">A - Z</option>
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            {{-- PAGINATION --}}
-                            <div class="position-relative pagination-mini-box">
-
-                                <i class="fas fa-table pagination-mini-icon"></i>
-
-                                <select wire:model.live="paginate" class="form-control pagination-mini-select">
-
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
-
-                                </select>
-
-                            </div>
 
                         </div>
 
@@ -210,197 +148,217 @@
                 </div>
 
                 {{-- TABLE --}}
-                <div class="table-responsive">
+                <div class="card-body">
 
-                    <table class="table table-modern-list mb-0">
+                    <div class="row mb-3 align-items-end">
 
-                        <thead>
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                            <tr>
+                            <label>Cari Pinjaman</label>
 
-                                <th>Tanggal</th>
-                                <th>ID Anggota</th>
-                                <th>Nama Anggota</th>
-                                <th>Nominal</th>
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari Pinjaman...">
 
-                            </tr>
+                        </div>
 
-                        </thead>
+                        {{-- SORT BY --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                        {{-- <tbody> --}}
+                            <label>Urutkan</label>
 
-                            {{-- @forelse ($pinjamanKhusus as $item) --}}
-                                {{-- <tr> --}}
+                            <select wire:model.live="sortBy" class="form-control">
 
-                                    {{-- TANGGAL --}}
-                                    {{-- <td>
+                                <option value="created_at">Terbaru</option>
+                                <option value="nama_anggota">Nama</option>
+                                <option value="jumlah">Nominal</option>
+
+                            </select>
+
+                        </div>
+
+                        {{-- SORT DIRECTION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+
+                            <label>Arah</label>
+
+                            <select wire:model.live="sortDirection" class="form-control">
+
+                                <option value="desc">Z - A</option>
+                                <option value="asc">A - Z</option>
+
+                            </select>
+
+                        </div>
+
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
+
+                            <label>Data</label>
+
+                            <select wire:model.live="paginate" class="form-control">
+
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover">
+
+                            <thead class="bg-dark text-white">
+
+                                <tr>
+
+                                    <th>Tanggal</th>
+                                    <th>ID Anggota</th>
+                                    <th>Nama Anggota</th>
+                                    <th>Nominal</th>
+
+                                    <th class="text-center" style="width:120px;">
+                                        <i class="fas fa-cog"></i>
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>
 
                                         <div class="font-weight-bold">
-
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-
+                                            15 Jun 2026
                                         </div>
 
                                         <small class="text-muted">
-
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
-
+                                            Hari ini
                                         </small>
 
-                                    </td> --}}
+                                    </td>
 
-                                    {{-- ID ANGGOTA --}}
-                                    {{-- <td class="font-weight-bold">
+                                    <td class="font-weight-bold">
+                                        AG001
+                                    </td>
 
-                                        {{ $item->anggota->kode_anggota ?? '-' }}
-
-                                    </td> --}}
-
-                                    {{-- NAMA --}}
-                                    {{-- <td>
+                                    <td>
 
                                         <div class="font-weight-bold">
-
-                                            {{ $item->anggota->nama_anggota ?? '-' }}
-
+                                            Budi Santoso
                                         </div>
 
-                                        <div class="table-subtitle">
+                                        <small class="text-muted">
+                                            3201234567890123
+                                        </small>
 
-                                            {{ $item->no_ktp }}
+                                    </td>
 
-                                        </div>
+                                    <td class="font-weight-bold text-dark">
 
-                                    </td> --}}
+                                        Rp 5.000.000
 
-                                    {{-- NOMINAL --}}
-                                    {{-- <td>
+                                    </td>
 
-                                        <span class="badge-nominal">
+                                    <td>
 
-                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+                                        <div class="d-flex align-items-center justify-content-center">
 
-                                        </span>
-
-                                    </td> --}}
-
-                                    {{-- AKSI --}}
-                                    {{-- <td> --}}
-
-                                        {{-- <div class="d-flex align-items-center justify-content-center"> --}}
-
-                                            {{-- DETAIL --}}
-                                            {{-- <a href="#" class="btn btn-light table-action-btn mr-1 shadow-sm">
-
-                                                <i class="fas fa-eye text-primary"></i>
-
-                                            </a> --}}
-
-                                            {{-- EDIT --}}
-                                            {{-- <button wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
-                                                class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                data-toggle="modal" data-target="#editModalPinjaman"
-                                                title="Edit Anggota">
+                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
 
                                                 <i class="fas fa-edit text-warning"></i>
 
-                                            </button> --}}
+                                            </button>
 
-                                            {{-- HAPUS --}}
-                                            {{-- <button wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
-                                                class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
-                                                data-target="#deleteModalPinjaman">
+                                            <button class="btn btn-light table-action-btn shadow-sm">
 
                                                 <i class="fas fa-trash text-danger"></i>
 
-                                            </button> --}}
-
-                                        {{-- </div> --}}
-
-                                    {{-- </td> --}}
-
-                                {{-- </tr> --}}
-
-                            {{-- @empty --}}
-
-                                {{-- <tr>
-
-                                    <td colspan="3" class="text-center py-5">
-
-                                        <div class="empty-state">
-
-                                            <i class="fas fa-folder-open"></i>
-
-                                            <h5>
-                                                Belum ada data pinjaman khusus
-                                            </h5>
-
-                                            <p>
-                                                Data pinjaman khusus akan tampil di sini
-                                            </p>
+                                            </button>
 
                                         </div>
 
                                     </td>
 
-                                </tr> --}}
-                            {{-- @endforelse --}}
+                                </tr>
 
-                        {{-- </tbody> --}}
+                                <tr>
 
-                    </table>
+                                    <td>
+
+                                        <div class="font-weight-bold">
+                                            12 Jun 2026
+                                        </div>
+
+                                        <small class="text-muted">
+                                            3 hari lalu
+                                        </small>
+
+                                    </td>
+
+                                    <td class="font-weight-bold">
+                                        AG002
+                                    </td>
+
+                                    <td>
+
+                                        <div class="font-weight-bold">
+                                            Siti Aminah
+                                        </div>
+
+                                        <small class="text-muted">
+                                            3201234567890124
+                                        </small>
+
+                                    </td>
+
+                                    <td class="font-weight-bold text-dark">
+
+                                        Rp 3.500.000
+
+                                    </td>
+
+                                    <td>
+
+                                        <div class="d-flex align-items-center justify-content-center">
+
+                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
+
+                                                <i class="fas fa-edit text-warning"></i>
+
+                                            </button>
+
+                                            <button class="btn btn-light table-action-btn shadow-sm">
+
+                                                <i class="fas fa-trash text-danger"></i>
+
+                                            </button>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
             </div>
 
         </section>
-
-        {{-- CREATE MODAL --}}
-        {{-- @livewire('pengawas.simpanan.create') --}}
-
-        {{-- CLOSE MODAL CREATE --}}
-        {{-- <script>
-            document.addEventListener('livewire:init', () => {
-
-                Livewire.on('closeCreateModal', () => {
-
-                    $('#createModal').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Pinjaman Khusus Berhasil Ditambah",
-                        icon: "primary",
-                        confirmButtonText: "OK"
-                    });
-
-                });
-
-            });
-        </script> --}}
-
-        {{-- EDIT MODAL --}}
-        {{-- @livewire('pengawas.simpanan.edit') --}}
-
-        {{-- CLOSE MODAL EDIT --}}
-        {{-- <script>
-            document.addEventListener('livewire:init', () => {
-
-                Livewire.on('closeEditModal', () => {
-
-                    $('#editModalPinjaman').modal('hide');
-
-                    Swal.fire({
-                        title: "Sukses",
-                        text: "Pinjaman Khusus Berhasil Diperbarui",
-                        icon: "primary",
-                        confirmButtonText: "OK"
-                    });
-
-                });
-
-            });
-        </script> --}}
 
     </div>
 

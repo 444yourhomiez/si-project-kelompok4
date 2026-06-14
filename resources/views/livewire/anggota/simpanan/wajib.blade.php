@@ -118,11 +118,11 @@
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
 
-                <div class="card-header bg-white border-0 pt-4 pb-3">
+                <div class="card-header bg-white border-0">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
 
-                        <div class="mb-3 mb-md-0">
+                        <div>
 
                             <h4 class="font-weight-bold mb-1">
 
@@ -132,72 +132,8 @@
                             </h4>
 
                             <small class="text-muted">
-                                Riwayat transaksi simpanan wajib pribadi
+                                Data transaksi simpanan wajib
                             </small>
-
-                        </div>
-
-                        <div class="d-flex align-items-center">
-
-                            <div class="search-modern mr-2">
-
-                                <i class="fas fa-search search-modern-icon"></i>
-
-                                <input type="text"
-                                    wire:model.live="search"
-                                    class="form-control search-modern-input"
-                                    placeholder="Cari nominal...">
-
-                            </div>
-
-                            <div class="d-flex align-items-center mr-2" style="gap:10px;">
-
-                                <div class="position-relative sort-mini-box">
-
-                                    <i class="fas fa-sliders-h sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortBy"
-                                        class="form-control sort-mini-select">
-
-                                        <option value="created_at">Terbaru</option>
-                                        <option value="jumlah">Nominal</option>
-
-                                    </select>
-
-                                </div>
-
-                                <div class="position-relative sort-mini-box"
-                                    style="max-width:95px;">
-
-                                    <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortDirection"
-                                        class="form-control sort-mini-select">
-
-                                        <option value="desc">Z - A</option>
-                                        <option value="asc">A - Z</option>
-
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                            <div class="position-relative pagination-mini-box">
-
-                                <i class="fas fa-table pagination-mini-icon"></i>
-
-                                <select wire:model.live="paginate"
-                                    class="form-control pagination-mini-select">
-
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
-
-                                </select>
-
-                            </div>
 
                         </div>
 
@@ -205,88 +141,119 @@
 
                 </div>
 
-                <div class="table-responsive">
+                {{-- TABLE --}}
+                <div class="card-body">
 
-                    <table class="table table-modern-list mb-0">
+                    <div class="row mb-3 align-items-end">
 
-                        <thead>
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                            <tr>
+                            <label>Cari Simpanan</label>
 
-                                <th>Tanggal</th>
-                                <th class="text-center">Nominal</th>
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari simpanan...">
 
-                            </tr>
+                        </div>
 
-                        </thead>
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                        <tbody>
+                            <label>Data</label>
 
-                            @forelse ($simpananWajib as $item)
+                            <select wire:model.live="paginate" class="form-control">
+
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover mb-0">
+
+                            <thead class="bg-dark text-white">
 
                                 <tr>
 
-                                    <td>
+                                    <th>Tanggal</th>
+                                    <th>Nominal</th>
 
-                                        <div class="font-weight-bold">
+                                </tr>
 
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                            </thead>
 
-                                        </div>
+                            <tbody>
 
-                                        <small class="text-muted">
+                                @forelse ($simpananWajib as $item)
+                                    <tr>
 
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+                                        {{-- TANGGAL --}}
+                                        <td>
 
-                                        </small>
+                                            <div class="font-weight-bold">
 
-                                    </td>
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
 
-                                    <td class="text-center">
+                                            </div>
 
-                                        <div class="d-flex align-items-center justify-content-center">
+                                            <small class="text-muted">
 
-                                            <span class="badge-nominal">
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- NOMINAL --}}
+                                        <td>
+
+                                            <span class="font-weight-bold text-dark">
 
                                                 Rp {{ number_format($item->jumlah, 0, ',', '.') }}
 
                                             </span>
 
-                                        </div>
+                                        </td>
 
-                                    </td>
+                                    </tr>
 
-                                </tr>
+                                @empty
 
-                            @empty
+                                    <tr>
 
-                                <tr>
+                                        <td colspan="2" class="text-center py-5">
 
-                                    <td colspan="2" class="text-center py-5">
+                                            <div class="empty-state">
 
-                                        <div class="empty-state">
+                                                <i class="fas fa-folder-open"></i>
 
-                                            <i class="fas fa-folder-open"></i>
+                                                <h5>
+                                                    Belum ada data simpanan Wajib
+                                                </h5>
 
-                                            <h5>
-                                                Belum ada data simpanan wajib
-                                            </h5>
+                                                <p>
+                                                    Data simpanan Wajib akan tampil di sini
+                                                </p>
 
-                                            <p>
-                                                Data simpanan wajib akan tampil di sini
-                                            </p>
+                                            </div>
 
-                                        </div>
+                                        </td>
 
-                                    </td>
+                                    </tr>
+                                @endforelse
 
-                                </tr>
+                            </tbody>
 
-                            @endforelse
+                        </table>
 
-                        </tbody>
-
-                    </table>
+                    </div>
 
                 </div>
 
@@ -297,7 +264,7 @@
                         <div class="footer-info">
 
                             <i class="fas fa-wallet mr-1"></i>
-                            Menampilkan riwayat simpanan wajib pribadi
+                            Menampilkan riwayat simpanan Wajib pribadi
 
                         </div>
 

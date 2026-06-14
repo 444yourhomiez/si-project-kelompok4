@@ -15,8 +15,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.dashboard') }}"
-                                    class="text-muted breadcrumb-green">
+                                <a href="{{ route('anggota.dashboard') }}" class="text-muted breadcrumb-green">
                                     <i class="fas fa-th-large mr-1"></i>
                                     Dashboard
                                 </a>
@@ -45,7 +44,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="card-label mb-2">
-                                        Total Simpanan 
+                                        Total Simpanan Saya
                                     </div>
 
                                     <div class="card-number">
@@ -53,7 +52,7 @@
                                     </div>
 
                                     <small class="text-muted">
-                                        Akumulasi seluruh simpanan yang  miliki
+                                        Akumulasi seluruh simpanan yang saya miliki
                                     </small>
                                 </div>
 
@@ -93,7 +92,7 @@
                                     </div>
 
                                     <small class="text-muted">
-                                        Total simpanan wajib 
+                                        Total simpanan wajib saya
                                     </small>
                                 </div>
 
@@ -129,7 +128,7 @@
                                     </div>
 
                                     <small class="text-muted">
-                                        Total simpanan pokok 
+                                        Total simpanan pokok saya
                                     </small>
                                 </div>
 
@@ -165,7 +164,7 @@
                                     </div>
 
                                     <small class="text-muted">
-                                        Total simpanan sukarela 
+                                        Total simpanan sukarela saya
                                     </small>
                                 </div>
 
@@ -188,45 +187,22 @@
             {{-- TABEL --}}
             <div class="card table-modern border-0 shadow-sm">
 
-                <div class="card-header bg-white border-0 py-4">
+                <div class="card-header bg-white border-0">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
 
                         <div>
+
                             <h4 class="font-weight-bold mb-1">
+
                                 <i class="fas fa-wallet mr-2"></i>
-                                Riwayat Simpanan 
+                                Riwayat Simpanan Anggota
+
                             </h4>
 
                             <small class="text-muted">
-                                Riwayat transaksi simpanan pribadi
+                                Data transaksi simpanan anggota koperasi
                             </small>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-
-                            <div class="search-modern mr-2">
-                                <i class="fas fa-search search-modern-icon"></i>
-
-                                <input type="text"
-                                    wire:model.live="search"
-                                    class="form-control search-modern-input"
-                                    placeholder="Cari jenis simpanan...">
-                            </div>
-
-                            <div class="position-relative pagination-mini-box">
-                                <i class="fas fa-table pagination-mini-icon"></i>
-
-                                <select wire:model.live="paginate"
-                                    class="form-control pagination-mini-select">
-
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
-
-                                </select>
-                            </div>
 
                         </div>
 
@@ -234,83 +210,124 @@
 
                 </div>
 
-                <div class="table-responsive">
+                <div class="card-body">
 
-                    <table class="table table-modern-list mb-0">
+                    <div class="row mb-3 align-items-end">
 
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Jenis Simpanan</th>
-                                <th class="text-center">Nominal</th>
-                            </tr>
-                        </thead>
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                        <tbody>
+                            <label>Cari Simpanan</label>
 
-                            @forelse ($simpanan as $item)
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari simpanan...">
+
+                        </div>
+
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
+
+                            <label>Data</label>
+
+                            <select wire:model.live="paginate" class="form-control">
+
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover mb-0">
+
+                            <thead class="bg-dark text-white">
 
                                 <tr>
 
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                                        </div>
-
-                                        <small class="text-muted">
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
-                                        </small>
-                                    </td>
-
-                                    <td>
-                                        @if ($item->jenis_simpanan == 'wajib')
-                                            <span class="badge-status-success">
-                                                Wajib
-                                            </span>
-                                        @elseif ($item->jenis_simpanan == 'pokok')
-                                            <span class="badge-status-primary">
-                                                Pokok
-                                            </span>
-                                        @else
-                                            <span class="badge-status-info">
-                                                Sukarela
-                                            </span>
-                                        @endif
-                                    </td>
-
-                                    <td class="text-center">
-                                        <span class="badge-nominal">
-                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
-                                        </span>
-                                    </td>
+                                    <th>Tanggal</th>
+                                    <th>Jenis Simpanan</th>
+                                    <th>Nominal</th>
 
                                 </tr>
 
-                            @empty
+                            </thead>
 
-                                <tr>
-                                    <td colspan="3" class="text-center py-5">
+                            <tbody>
 
-                                        <div class="empty-state">
-                                            <i class="fas fa-folder-open"></i>
+                                @forelse ($simpanan as $item)
+                                    <tr>
 
-                                            <h5>
-                                                Belum ada data simpanan
-                                            </h5>
+                                        {{-- TANGGAL --}}
+                                        <td>
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                                            </div>
 
-                                            <p>
-                                                Riwayat simpanan akan tampil di sini
-                                            </p>
-                                        </div>
+                                            <small class="text-muted">
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+                                            </small>
+                                        </td>
 
-                                    </td>
-                                </tr>
+                                        {{-- JENIS SIMPANAN --}}
+                                        <td>
+                                            @if ($item->jenis_simpanan == 'wajib')
+                                                <span class="badge badge-success">
+                                                    <i class="fas fa-wallet mr-1"></i>
+                                                    Simpanan Wajib
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'pokok')
+                                                <span class="badge badge-primary">
+                                                    <i class="fas fa-wallet mr-1"></i>
+                                                    Simpanan Pokok
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'sukarela')
+                                                <span class="badge badge-info">
+                                                    <i class="fas fa-wallet mr-1"></i>
+                                                    Simpanan Sukarela
+                                                </span>
+                                            @endif
+                                        </td>
 
-                            @endforelse
+                                        {{-- NOMINAL --}}
+                                        <td>
+                                            <span class="font-weight-bold text-dark">
+                                                Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+                                            </span>
+                                        </td>
 
-                        </tbody>
+                                    </tr>
 
-                    </table>
+                                @empty
+                                    <tr>
+
+                                        <td colspan="3" class="text-center py-5">
+                                            <div class="empty-state">
+                                                <i class="fas fa-folder-open"></i>
+                                                <h5>
+                                                    Belum ada data simpanan
+                                                </h5>
+
+                                                <p>
+                                                    Riwayat simpanan akan tampil di sini
+                                                </p>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 

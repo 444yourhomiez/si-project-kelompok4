@@ -56,7 +56,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="{{ route('manajemen.anggota.index') }}">
+                                <a href="{{ route('pengawas.anggota.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-users text-primary" style="font-size:30px;"></i>
@@ -70,7 +70,7 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="{{ route('manajemen.anggota.disetujui') }}"
+                                    <a href="{{ route('pengawas.anggota.disetujui') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -84,7 +84,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('manajemen.anggota.menunggu') }}"
+                                    <a href="{{ route('pengawas.anggota.menunggu') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -117,7 +117,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="{{ route('manajemen.simpanan.index') }}">
+                                <a href="{{ route('pengawas.simpanan.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-wallet text-orange" style="font-size:30px;"></i>
@@ -131,7 +131,7 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="{{ route('manajemen.simpanan.wajib') }}"
+                                    <a href="{{ route('pengawas.simpanan.wajib') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -146,7 +146,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('manajemen.simpanan.pokok') }}"
+                                    <a href="{{ route('pengawas.simpanan.pokok') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -161,7 +161,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('manajemen.simpanan.sukarela') }}"
+                                    <a href="{{ route('pengawas.simpanan.sukarela') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -193,7 +193,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="#">
+                                <a href="{{ route ('pengawas.pinjaman.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-hand-holding-usd text-danger" style="font-size:30px;"></i>
@@ -207,7 +207,7 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route ('pengawas.pinjaman.pribadi') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -221,7 +221,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route ('pengawas.pinjaman.khusus') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -252,7 +252,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="#">
+                                <a href="{{ route ('pengawas.rekap.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-chart-line text-purple" style="font-size:30px;"></i>
@@ -266,11 +266,11 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route ('pengawas.rekap.dum') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
-                                            <span class="badge bg-orange mr-2 px-2 py-1">Simpanan</span>
+                                            <span class="badge bg-success mr-2 px-2 py-1">DUM</span>
                                         </div>
 
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
@@ -280,11 +280,11 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route ('pengawas.rekap.duk') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
-                                            <span class="badge bg-danger mr-2 px-2 py-1">Pinjaman</span>
+                                            <span class="badge bg-danger mr-2 px-2 py-1">DUK</span>
                                         </div>
 
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
@@ -313,24 +313,18 @@
                         <div>
 
                             <h4 class="font-weight-bold mb-1">
+
                                 <i class="fas fa-history text-primary mr-2"></i>
+
                                 Transaksi Terbaru
+
                             </h4>
 
                             <small class="text-muted">
-                                Aktivitas transaksi koperasi terbaru secara realtime
+
+                                Aktivitas simpanan dan pinjaman terbaru
+
                             </small>
-
-                        </div>
-
-                        <div>
-
-                            {{-- <a href="#" class="btn btn-primary btn-sm shadow-sm px-3">
-
-                                <i class="fas fa-eye mr-1"></i>
-                                Lihat Semua
-
-                            </a> --}}
 
                         </div>
 
@@ -339,149 +333,148 @@
                 </div>
 
                 {{-- TABLE --}}
-                <div class="table-responsive">
+                <div class="card-body">
 
-                    <table class="table table-modern-list mb-0">
+                    <div class="table-responsive">
 
-                        <thead>
+                        <table class="table table-bordered table-hover mb-0">
 
-                            <tr>
+                            <thead class="bg-dark text-white">
 
-                                <th>Tanggal</th>
-                                <th>NIK</th>
-                                <th>Nama Anggota</th>
-                                <th>Jenis Transaksi</th>
-                                <th>Nominal</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @forelse ($transaksiTerbaru as $item)
                                 <tr>
 
-                                    {{-- TANGGAL --}}
-                                    <td>
+                                    <th>Tanggal</th>
+                                    <th>ID Anggota</th>
+                                    <th>Nama Anggota</th>
+                                    <th>Jenis Transaksi</th>
+                                    <th>Nominal</th>
+                                    <th>Keterangan</th>
 
-                                        <div class="table-title">
+                                </tr>
 
-                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                            </thead>
 
-                                        </div>
+                            <tbody>
 
-                                        <div class="table-subtitle">
+                                @forelse ($transaksiTerbaru as $item)
+                                    <tr>
 
-                                            {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                        {{-- TANGGAL --}}
+                                        <td>
 
-                                        </div>
+                                            <div class="font-weight-bold">
 
-                                    </td>
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
 
-                                    {{-- NIK --}}
-                                    <td>
+                                            </div>
 
-                                        <div class="table-title">
+                                            <small class="text-muted">
 
-                                            {{ $item->anggota->no_ktp ?? '-' }}
+                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
 
-                                        </div>
+                                            </small>
 
-                                    </td>
+                                        </td>
 
-                                    {{-- NAMA --}}
-                                    <td>
+                                        {{-- ID ANGGOTA --}}
+                                        <td class="font-weight-bold">
 
-                                        <div class="table-title">
+                                            {{ $item->anggota->kode_anggota ?? '-' }}
 
-                                            {{ $item->anggota->nama_anggota ?? '-' }}
+                                        </td>
 
-                                        </div>
+                                        {{-- NAMA + NIK --}}
+                                        <td>
 
-                                        <div class="table-subtitle">
+                                            <div class="font-weight-bold">
 
-                                            Anggota Koperasi
+                                                {{ $item->anggota->nama_anggota ?? '-' }}
 
-                                        </div>
+                                            </div>
 
-                                    </td>
+                                            <small class="text-muted">
 
-                                    {{-- JENIS --}}
-                                    <td>
+                                                {{ $item->anggota->no_ktp ?? '-' }}
 
-                                        @if ($item->jenis_simpanan == 'wajib')
-                                            <span class="badge-status-success">
+                                            </small>
 
-                                                <i class="fas fa-wallet"></i>
-                                                Simpanan Wajib
+                                        </td>
 
-                                            </span>
-                                        @elseif ($item->jenis_simpanan == 'pokok')
-                                            <span class="badge-status-primary">
+                                        {{-- JENIS SIMPANAN --}}
+                                        <td>
 
-                                                <i class="fas fa-wallet"></i>
-                                                Simpanan Pokok
+                                            @if ($item->jenis_simpanan == 'pokok')
+                                                <span class="badge badge-primary">
 
-                                            </span>
-                                        @elseif ($item->jenis_simpanan == 'sukarela')
-                                            <span class="badge-status-info">
+                                                    Simpanan Pokok
 
-                                                <i class="fas fa-wallet"></i>
-                                                Simpanan Sukarela
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'wajib')
+                                                <span class="badge badge-success">
 
-                                            </span>
-                                        @else
-                                            <span class="badge-status-secondary">
+                                                    Simpanan Wajib
 
-                                                {{ $item->jenis_simpanan }}
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'sukarela')
+                                                <span class="badge badge-info">
 
-                                            </span>
-                                        @endif
+                                                    Simpanan Sukarela
 
-                                    </td>
+                                                </span>
+                                            @endif
 
-                                    {{-- NOMINAL --}}
-                                    <td>
+                                        </td>
 
-                                        <span class="font-weight-bold text-dark" style="font-size:15px;">
+                                        {{-- NOMINAL --}}
+                                        <td class="font-weight-bold text-dark">
 
                                             Rp {{ number_format($item->jumlah, 0, ',', '.') }}
 
-                                        </span>
+                                        </td>
 
-                                    </td>
+                                        {{-- KETERANGAN --}}
+                                        <td>
 
-                                </tr>
+                                            <small class="text-muted">
 
-                            @empty
+                                                Transaksi simpanan {{ $item->jenis_simpanan }}
 
-                                <tr>
+                                            </small>
 
-                                    <td colspan="5" class="text-center py-5">
+                                        </td>
 
-                                        <div class="empty-state">
+                                    </tr>
 
-                                            <i class="fas fa-folder-open"></i>
+                                @empty
 
-                                            <h5>
-                                                Belum ada transaksi
-                                            </h5>
+                                    <tr>
 
-                                            <p>
-                                                Data transaksi terbaru akan tampil di sini
-                                            </p>
+                                        <td colspan="6" class="text-center py-5">
 
-                                        </div>
+                                            <div class="empty-state">
 
-                                    </td>
+                                                <i class="fas fa-folder-open"></i>
 
-                                </tr>
-                            @endforelse
+                                                <h5>
+                                                    Belum ada transaksi
+                                                </h5>
 
-                        </tbody>
+                                                <p>
+                                                    Data transaksi terbaru akan tampil di sini
+                                                </p>
 
-                    </table>
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
