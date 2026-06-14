@@ -27,7 +27,7 @@ class Pribadi extends Component
     {
         return view('livewire.manajemen.pinjaman.pribadi', [
 
-            'title' => 'Daftar Pinjaman Pribadi',
+            'title' => 'Pinjaman Pribadi',
 
         ]);
     }

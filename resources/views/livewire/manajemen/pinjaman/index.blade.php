@@ -57,7 +57,7 @@
 
             <div class="row mb4">
 
-                {{-- TOTAL ANGGOTA --}}
+                {{-- TOTAL PINJAMAN --}}
                 <div class="col-md-12 col-sm-6 col-12">
 
                     <div class="card card-box card-danger-soft h-100">
@@ -221,7 +221,7 @@
                             <h4 class="font-weight-bold mb-1">
 
                                 <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
-                                Daftar Pinjaman
+                                Riwayat Pinjaman
 
                             </h4>
 

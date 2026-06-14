@@ -2,76 +2,37 @@
 
     <div class="content-wrapper">
 
-        {{-- HEADER --}}
         <section class="content-header">
-
             <div class="container-fluid">
-
                 <div class="row mb-2">
-
                     <div class="col-sm-6">
-
                         <h1>
-
                             <i class="nav-icon fas fa-th-large mr-2"></i>
-
                             @yield('title')
-
                         </h1>
-
                     </div>
-
                     <div class="col-sm-6">
-
                         <ol class="breadcrumb float-sm-right">
-
-                            <li class="breadcrumb-item">
-
-                                <a href="#">
-
-                                    <i class="nav-icon fas fa-th-large mr-1"></i>
-
-                                    Dashboard
-
-                                </a>
-
-                            </li>
-
-                            <li class="breadcrumb-item active">
+                            <li class="breadcrumb-item active text-success">
 
                                 <i class="nav-icon fas fa-th-large mr-1"></i>
-
                                 @yield('title')
 
                             </li>
-
                         </ol>
-
                     </div>
-
                 </div>
 
-                {{-- WELCOME --}}
                 <div class="welcome-card mb-2 mt-3">
-
                     <h4 class="mb-1 font-weight-bold">
-
-                        Selamat Datang,
-                        {{ auth()->user()->nama_user }}
-
+                        Selamat Datang, {{ auth()->user()->nama_user }}
                     </h4>
-
                     <p class="mb-0">
-
-                        Berikut adalah ringkasan keuangan Anda
-                        di Koperasi Motekar
-
+                        Berikut informasi penting terkait pengelolaan Koperasi Motekar
                     </p>
-
                 </div>
 
-            </div>
-
+            </div><!-- /.container-fluid -->
         </section>
 
         {{-- CONTENT --}}

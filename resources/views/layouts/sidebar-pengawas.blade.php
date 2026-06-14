@@ -153,6 +153,73 @@
 
                   </li>
 
+                  {{-- CICILAN --}}
+                  <li class="nav-item has-treeview @yield('menuPengawasCicilanOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuPengawasCicilan')">
+
+                          <i class="fas fa-money-bill-wave"></i>
+
+                          <p>
+                              Cicilan
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+
+                      </a>
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR PINJAMAN --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.cicilan.index') }}"
+                                  class="nav-link @yield('menuPengawasCicilanSemua')">
+
+
+                                  <p>
+                                      Daftar Cicilan
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- PRIBADI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.cicilan.pribadi') }}"
+                                  class="nav-link @yield('menuPengawasCicilanPribadi')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Pribadi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- KHUSUS --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('pengawas.cicilan.khusus') }}"
+                                  class="nav-link @yield('menuPengawasCicilanKhusus')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Khusus
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
+
                   {{-- ANGGOTA --}}
                   <li class="nav-item has-treeview @yield('menuPengawasAnggotaOpen')">
 

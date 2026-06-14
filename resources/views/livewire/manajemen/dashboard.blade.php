@@ -193,7 +193,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="#">
+                                <a href="{{ route('manajemen.pinjaman.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-hand-holding-usd text-danger" style="font-size:30px;"></i>
@@ -207,7 +207,7 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route('manajemen.pinjaman.pribadi') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -221,7 +221,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route('manajemen.pinjaman.khusus') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
@@ -252,7 +252,7 @@
 
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="#">
+                                <a href="{{ route('manajemen.rekap.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-chart-line text-purple" style="font-size:30px;"></i>
@@ -266,11 +266,11 @@
                             <ul class="nav flex-column">
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route('manajemen.rekap.dum') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
-                                            <span class="badge bg-orange mr-2 px-2 py-1">Simpanan</span>
+                                            <span class="badge bg-success mr-2 px-2 py-1">DUM</span>
                                         </div>
 
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
@@ -280,11 +280,11 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#"
+                                    <a href="{{ route('manajemen.rekap.duk') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
 
                                         <div class="d-flex align-items-center">
-                                            <span class="badge bg-danger mr-2 px-2 py-1">Pinjaman</span>
+                                            <span class="badge bg-danger mr-2 px-2 py-1">DUK</span>
                                         </div>
 
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp

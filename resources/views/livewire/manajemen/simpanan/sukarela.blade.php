@@ -133,7 +133,7 @@
                             <h4 class="font-weight-bold mb-1">
 
                                 <i class="fas fa-wallet mr-2"></i>
-                                Daftar Simpanan Sukarela
+                                Riwayat Simpanan Sukarela
 
                             </h4>
 

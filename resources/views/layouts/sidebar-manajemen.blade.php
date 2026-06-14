@@ -153,6 +153,73 @@
 
                   </li>
 
+                  {{-- CICILAN --}}
+                  <li class="nav-item has-treeview @yield('menuManajemenCicilanOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuManajemenCicilan')">
+
+                          <i class="fas fa-money-bill-wave"></i>
+
+                          <p>
+                              Cicilan
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+
+                      </a>
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR PINJAMAN --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.cicilan.index') }}"
+                                  class="nav-link @yield('menuManajemenCicilanSemua')">
+
+
+                                  <p>
+                                      Daftar Cicilan
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- PRIBADI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.cicilan.pribadi') }}"
+                                  class="nav-link @yield('menuManajemenCicilanPribadi')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Pribadi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- KHUSUS --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.cicilan.khusus') }}"
+                                  class="nav-link @yield('menuManajemenCicilanKhusus')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Khusus
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
+
                   {{-- ANGGOTA --}}
                   <li class="nav-item has-treeview @yield('menuManajemenAnggotaOpen')">
 
@@ -218,13 +285,67 @@
                   </li>
 
                   {{-- REKAPITULASI HARIAN --}}
-                  <li class="nav-item">
-                      <a  href="{{ route('manajemen.rekap.index') }}" class="nav-link @yield('menuManajemenRekap')">
+                  <li class="nav-item has-treeview @yield('menuManajemenRekapOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuManajemenRekap')">
+
                           <i class="nav-icon fas fa-calendar-day"></i>
+
                           <p>
                               Rekapitulasi Harian
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- REKAPITULASI HARI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.rekap.index') }}"
+                                  class="nav-link @yield('menuManajemenRekapSemua')">
+
+                                  <p>
+                                      Daftar Rekapitulasi Harian
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- DUM --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.rekap.dum') }}"
+                                  class="nav-link @yield('menuManajemenRekapDum')">
+
+                                  <p>
+                                      DUM
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- DUK --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('manajemen.rekap.duk') }}"
+                                  class="nav-link @yield('menuManajemenRekapDuk')">
+
+                                  <p>
+                                      DUK
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
                   </li>
 
                   {{-- LAPORAN --}}

@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Rekapitulasi Harian')
+@section('title', 'Daftar Rekap')
+
+@section('menuManajemenRekapSemua', 'active')
+@section('menuManajemenRekapOpen', 'menu-open')
 @section('menuManajemenRekap', 'active')
 
 @section('content')

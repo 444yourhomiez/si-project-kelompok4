@@ -133,7 +133,7 @@
                             <h4 class="font-weight-bold mb-1">
 
                                 <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
-                                Daftar Pinjaman Khusus
+                                Riwayat Pinjaman Khusus
 
                             </h4>
 
