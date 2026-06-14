@@ -8,6 +8,8 @@ class Dum extends Component
 {
     public function render()
     {
-        return view('livewire.manajemen.rekap.dum');
+        return view('livewire.manajemen.rekap.dum', [
+            'title' => 'DUM (Data Uang Masuk)',
+        ]);
     }
 }

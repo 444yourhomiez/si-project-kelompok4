@@ -212,13 +212,13 @@
             <div class="card table-modern border-0 shadow-sm">
 
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0 py-4">
+                <div class="card-header bg-white border-0">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
 
                         <div>
 
-                            <h4 class="mb-1 font-weight-bold">
+                            <h4 class="font-weight-bold mb-1">
 
                                 <i class="fas fa-users mr-2"></i>
                                 Daftar Anggota
@@ -226,69 +226,8 @@
                             </h4>
 
                             <small class="text-muted">
-                                Kelola data anggota koperasi
+                                Data anggota koperasi
                             </small>
-
-                        </div>
-
-                        <div class="d-flex align-items-center">
-
-                            {{-- SEARCH --}}
-                            <div class="search-modern mr-2">
-
-                                <i class="fas fa-search search-modern-icon"></i>
-
-                                <input type="text" wire:model.live="search" class="form-control search-modern-input"
-                                    placeholder="Cari anggota...">
-
-                            </div>
-
-                            {{-- SORT --}}
-                            <div class="d-flex align-items-center mr-2" style="gap:10px;">
-
-                                {{-- SORT BY --}}
-                                <div class="position-relative sort-mini-box">
-                                    <i class="fas fa-sliders-h sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortBy" class="form-control sort-mini-select">
-
-                                        <option value="created_at">Terbaru</option>
-                                        <option value="nama_anggota">Nama</option>
-                                        <option value="no_ktp">No KTP</option>
-                                        <option value="kode_anggota">Kode</option>
-
-                                    </select>
-                                </div>
-
-                                {{-- DIRECTION --}}
-                                <div class="position-relative sort-mini-box" style="max-width:95px;">
-                                    <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
-
-                                    <select wire:model.live="sortDirection" class="form-control sort-mini-select">
-
-                                        <option value="desc">Z - A</option>
-                                        <option value="asc">A - Z</option>
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            {{-- PAGINATION --}}
-                            <div class="position-relative pagination-mini-box">
-
-                                <i class="fas fa-table pagination-mini-icon"></i>
-
-                                <select wire:model.live="paginate" class="form-control pagination-mini-select">
-
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
-
-                                </select>
-
-                            </div>
 
                         </div>
 
@@ -297,219 +236,268 @@
                 </div>
 
                 {{-- TABLE --}}
-                <div class="table-responsive">
+                <div class="card-body">
 
-                    <table class="table table-modern-list mb-0">
+                    <div class="row mb-3 align-items-end">
 
-                        <thead>
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                            <tr>
-                                <th>ID Anggota</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>No Telepon</th>
-                                <th>Tanggal Daftar</th>
-                                <th>Status</th>
-                                <th class="text-center" style="width:120px;">
-                                    <i class="fas fa-cog text-dark"></i>
-                                </th>
-                            </tr>
+                            <label>Cari Anggota</label>
 
-                        </thead>
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari Anggota...">
 
-                        <tbody>
+                        </div>
 
-                            @forelse ($anggota as $item)
-                                <tr wire:key="anggota-{{ $item->id }}">
+                        {{-- SORT BY --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                                    {{-- ID ANGGOTA --}}
-                                    <td class="font-weight-bold">
+                            <label>Urutkan</label>
 
-                                        @if ($item->kode_anggota)
-                                            {{ $item->kode_anggota }}
-                                        @else
-                                            <span class="text-muted">
+                            <select wire:model.live="sortBy" class="form-control">
 
-                                                Belum Tersedia
+                                <option value="created_at">Terbaru</option>
+                                <option value="nama_anggota">Nama</option>
+                                <option value="no_ktp">No KTP</option>
+                                <option value="kode_anggota">Kode</option>
 
-                                            </span>
-                                        @endif
+                            </select>
 
-                                    </td>
+                        </div>
 
-                                    {{-- NAMA --}}
-                                    <td>
+                        {{-- SORT DIRECTION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                                        <div class="table-title">
+                            <label>Arah</label>
 
-                                            {{ $item->nama_anggota }}
+                            <select wire:model.live="sortDirection" class="form-control">
 
-                                        </div>
+                                <option value="desc">Z - A</option>
+                                <option value="asc">A - Z</option>
 
-                                        <div class="table-subtitle">
+                            </select>
 
-                                            {{ $item->no_ktp }}
+                        </div>
 
-                                        </div>
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                                    </td>
+                            <label>Data</label>
 
-                                    {{-- ALAMAT --}}
-                                    <td style="max-width:250px;">
+                            <select wire:model.live="paginate" class="form-control">
 
-                                        <span class="text-muted">
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
 
-                                            {{ $item->alamat }}
+                            </select>
 
-                                        </span>
+                        </div>
 
-                                    </td>
+                    </div>
 
-                                    {{-- TELEPON --}}
-                                    <td>
+                    <div class="table-responsive">
 
-                                        <span class="badge-phone">
+                        <table class="table table-bordered table-hover">
 
-                                            <i class="fas fa-phone-alt mr-1"></i>
-
-                                            {{ $item->no_hp }}
-
-                                        </span>
-
-                                    </td>
-
-                                    {{-- TANGGAL --}}
-                                    <td>
-
-                                        <div class="font-weight-bold">
-
-                                            {{ $item->tanggal_daftar_format }}
-
-                                        </div>
-
-                                        <small class="text-muted">
-
-                                            {{ $item->tanggal_daftar_human }}
-
-                                        </small>
-
-                                    </td>
-
-                                    {{-- STATUS --}}
-                                    <td>
-
-                                        @if ($item->user->status == 'menunggu')
-                                            <span class="badge-status-warning">
-
-                                                <i class="fas fa-clock mr-1"></i>
-                                                Menunggu Verifikasi
-
-                                            </span>
-                                        @elseif ($item->user->status == 'disetujui')
-                                            <span class="badge-status-success">
-
-                                                <i class="fas fa-check-circle mr-1"></i>
-                                                Disetujui
-
-                                            </span>
-                                        @elseif ($item->user->status == 'ditolak')
-                                            <span class="badge-status-danger">
-
-                                                <i class="fas fa-times-circle mr-1"></i>
-                                                Ditolak
-
-                                            </span>
-                                        @else
-                                            <span class="badge-status-secondary">
-
-                                                {{ $item->user->status }}
-
-                                            </span>
-                                        @endif
-
-                                    </td>
-
-                                    {{-- AKSI --}}
-                                    <td>
-
-                                        <div class="d-flex align-items-center justify-content-center">
-
-                                            {{-- JIKA MASIH MENUNGGU --}}
-                                            @if ($item->user->status == 'menunggu')
-                                                {{-- DETAIL --}}
-                                                <a href="{{ route('manajemen.anggota.detail-anggota-menunggu', $item->id) }}"
-                                                    class="btn btn-light table-action-btn shadow-sm"
-                                                    title="Lihat Detail">
-
-                                                    <i class="fas fa-eye text-primary"></i>
-
-                                                </a>
-                                            @else
-                                                {{-- DETAIL --}}
-                                                <a href="{{ route('manajemen.anggota.detail-anggota-disetujui', $item->id) }}"
-                                                    class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                    title="Lihat Detail">
-
-                                                    <i class="fas fa-eye text-primary"></i>
-
-                                                </a>
-
-                                                {{-- EDIT --}}
-                                                <button
-                                                    wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
-                                                    class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                    data-toggle="modal" data-target="#editModalAnggota"
-                                                    title="Edit Anggota">
-
-                                                    <i class="fas fa-edit text-warning"></i>
-
-                                                </button>
-
-                                                {{-- HAPUS --}}
-                                                <button
-                                                    wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
-                                                    class="btn btn-light table-action-btn shadow-sm"
-                                                    data-toggle="modal" data-target="#deleteModalAnggota">
-
-                                                    <i class="fas fa-trash text-danger"></i>
-
-                                                </button>
-                                            @endif
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                            @empty
+                            <thead class="bg-dark text-white">
 
                                 <tr>
 
-                                    <td colspan="7" class="text-center py-5">
+                                    <th>ID Anggota</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th>No Telepon</th>
+                                    <th>Tanggal Daftar</th>
+                                    <th>Status</th>
 
-                                        <div class="empty-state">
-
-                                            <i class="fas fa-folder-open"></i>
-
-                                            <h5>
-                                                Data anggota tidak ditemukan
-                                            </h5>
-
-                                            <p>
-                                                Coba gunakan kata kunci lain
-                                            </p>
-
-                                        </div>
-
-                                    </td>
+                                    <th class="text-center" style="width:120px;">
+                                        <i class="fas fa-cog"></i>
+                                    </th>
 
                                 </tr>
-                            @endforelse
 
-                        </tbody>
+                            </thead>
 
-                    </table>
+                            <tbody>
+
+                                @forelse ($anggota as $item)
+                                    <tr wire:key="anggota-{{ $item->id }}">
+
+                                        {{-- ID ANGGOTA --}}
+                                        <td class="font-weight-bold">
+
+                                            @if ($item->kode_anggota)
+                                                {{ $item->kode_anggota }}
+                                            @else
+                                                <span class="text-muted">
+                                                    Belum Tersedia
+                                                </span>
+                                            @endif
+
+                                        </td>
+
+                                        {{-- NAMA --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ $item->nama_anggota }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ $item->no_ktp }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- ALAMAT --}}
+                                        <td style="max-width:250px;">
+
+                                            <div style="white-space:normal; line-height:1.5;">
+
+                                                {{ $item->alamat }}
+
+                                            </div>
+
+                                        </td>
+
+                                        {{-- TELEPON --}}
+                                        <td>
+
+                                            <span class="font-weight-bold text-primary">
+
+                                                {{ $item->no_hp }}
+
+                                            </span>
+
+                                        </td>
+
+                                        {{-- TANGGAL --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ $item->tanggal_daftar_format }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ $item->tanggal_daftar_human }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- STATUS --}}
+                                        <td>
+
+                                            @if ($item->user?->status == 'menunggu')
+                                                <span class="badge badge-warning">
+
+                                                    <i class="fas fa-clock mr-1"></i>
+                                                    Menunggu
+
+                                                </span>
+                                            @elseif ($item->user?->status == 'disetujui')
+                                                <span class="badge badge-success">
+
+                                                    <i class="fas fa-check-circle mr-1"></i>
+                                                    Disetujui
+
+                                                </span>
+                                            @elseif ($item->user?->status == 'ditolak')
+                                                <span class="badge badge-danger">
+
+                                                    <i class="fas fa-times-circle mr-1"></i>
+                                                    Ditolak
+
+                                                </span>
+                                            @endif
+
+                                        </td>
+
+                                        {{-- AKSI --}}
+                                        <td>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                @if ($item->user?->status == 'menunggu')
+                                                    <a href="{{ route('manajemen.anggota.detail-anggota-menunggu', $item->id) }}"
+                                                        class="btn btn-light table-action-btn shadow-sm">
+
+                                                        <i class="fas fa-eye text-primary"></i>
+
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('manajemen.anggota.detail-anggota-disetujui', $item->id) }}"
+                                                        class="btn btn-light table-action-btn mr-1 shadow-sm">
+
+                                                        <i class="fas fa-eye text-primary"></i>
+
+                                                    </a>
+
+                                                    <button
+                                                        wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
+                                                        class="btn btn-light table-action-btn mr-1 shadow-sm"
+                                                        data-toggle="modal" data-target="#editModalAnggota">
+
+                                                        <i class="fas fa-edit text-warning"></i>
+
+                                                    </button>
+
+                                                    <button
+                                                        wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                                        class="btn btn-light table-action-btn shadow-sm"
+                                                        data-toggle="modal" data-target="#deleteModalAnggota">
+
+                                                        <i class="fas fa-trash text-danger"></i>
+
+                                                    </button>
+                                                @endif
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+
+                                        <td colspan="7" class="text-center py-5">
+
+                                            <div class="empty-state">
+
+                                                <i class="fas fa-folder-open"></i>
+
+                                                <h5>
+                                                    Data anggota tidak ditemukan
+                                                </h5>
+
+                                                <p>
+                                                    Coba gunakan kata kunci lain
+                                                </p>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 

@@ -11,6 +11,10 @@ class Disetujui extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    
+    protected $listeners = [
+        'refreshAnggota' => '$refresh',
+    ];
 
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';

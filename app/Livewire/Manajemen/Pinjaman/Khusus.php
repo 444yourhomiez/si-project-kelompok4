@@ -27,7 +27,7 @@ class Khusus extends Component
     {
         return view('livewire.manajemen.pinjaman.khusus', [
 
-            'title' => 'Daftar Pinjaman Khusus',
+            'title' => 'Pinjaman Khusus',
 
         ]);
     }

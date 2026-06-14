@@ -258,16 +258,16 @@
             <div class="card table-modern border-0 shadow-sm">
 
                 <!-- HEADER -->
-                <div class="card-header bg-white border-0 py-4">
+                <div class="card-header bg-white border-0">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex justify-content-between align-items-center">
 
                         <div>
 
                             <h4 class="font-weight-bold mb-1">
 
                                 <i class="fas fa-wallet mr-2"></i>
-                                Daftar Simpanan Anggota
+                                Riwayat Simpanan Anggota
 
                             </h4>
 
@@ -277,75 +277,78 @@
 
                         </div>
 
-                        <div class="d-flex align-items-center">
+                    </div>
 
-                            {{-- SEARCH --}}
-                            <div class="search-modern mr-2">
+                </div>
 
-                                <i class="fas fa-search search-modern-icon"></i>
+                <!-- TABLE -->
+                <div class="card-body">
 
-                                <input type="text" wire:model.live="search" class="form-control search-modern-input"
-                                    placeholder="Cari simpanan...">
+                    <div class="row mb-3 align-items-end">
 
-                            </div>
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
 
-                            {{-- SORT --}}
-                            <div class="d-flex align-items-center mr-2" style="gap:10px;">
+                            <label>Cari Simpanan</label>
 
-                                {{-- SORT BY --}}
-                                <div class="position-relative sort-mini-box">
-                                    <i class="fas fa-sliders-h sort-mini-icon"></i>
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari simpanan...">
 
-                                    <select wire:model.live="sortBy" class="form-control sort-mini-select">
+                        </div>
 
-                                        <option value="created_at">Terbaru</option>
+                        {{-- SORT BY --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                                        <option value="nama_anggota">Nama</option>
+                            <label>Urutkan</label>
 
-                                        <option value="jenis_simpanan">Jenis</option>
+                            <select wire:model.live="sortBy" class="form-control">
 
-                                        <option value="jumlah">Nominal</option>
+                                <option value="created_at">Terbaru</option>
+                                <option value="nama_anggota">Nama</option>
+                                <option value="jumlah">Nominal</option>
 
-                                    </select>
-                                </div>
+                            </select>
 
-                                {{-- DIRECTION --}}
-                                <div class="position-relative sort-mini-box" style="max-width:95px;">
-                                    <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
+                        </div>
 
-                                    <select wire:model.live="sortDirection" class="form-control sort-mini-select">
+                        {{-- SORT DIRECTION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                                        <option value="desc">Z - A</option>
-                                        <option value="asc">A - Z</option>
+                            <label>Arah</label>
 
-                                    </select>
-                                </div>
+                            <select wire:model.live="sortDirection" class="form-control">
 
-                            </div>
+                                <option value="desc">Z - A</option>
+                                <option value="asc">A - Z</option>
 
-                            {{-- PAGINATION --}}
-                            <div class="position-relative pagination-mini-box">
+                            </select>
 
-                                <i class="fas fa-table pagination-mini-icon"></i>
+                        </div>
 
-                                <select wire:model.live="paginate" class="form-control pagination-mini-select">
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
 
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
+                            <label>Data</label>
 
-                                </select>
+                            <select wire:model.live="paginate" class="form-control">
 
-                            </div>
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
 
-                            <!-- BUTTON -->
-                            <button wire:click="$dispatch('openCreate')" class="btn modern-add-btn ml-3"
+                            </select>
+
+                        </div>
+
+                        {{-- BUTTON --}}
+                        <div class="col-lg-2 col-md-12 col-6 mb-2">
+
+                            <button wire:click="$dispatch('openCreate')" class="btn btn-primary btn-block"
                                 data-toggle="modal" data-target="#createModalSimpanan">
 
-                                <i class="fas fa-plus"></i>
-
-                                <span>Tambah Simpanan</span>
+                                <i class="fas fa-plus mr-1"></i>
+                                Tambah Simpanan
 
                             </button>
 
@@ -353,178 +356,169 @@
 
                     </div>
 
-                </div>
+                    <div class="table-responsive">
 
-                <!-- TABLE -->
-                <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
 
-                    <table class="table table-modern-list mb-0">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Tanggal</th>
-                                <th>ID Anggota</th>
-                                <th>Nama Anggota</th>
-                                <th>Jenis Simpanan</th>
-                                <th>Nominal</th>
-                                <th class="text-center" style="width:120px;">
-                                    <i class="fas fa-cog text-dark"></i>
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @forelse ($simpanan as $item)
-                                <tr wire:key="simpanan-{{ $item->id }}">
-
-                                    <!-- TANGGAL -->
-                                    <td>
-
-                                        <div class="font-weight-bold">
-
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-
-                                        </div>
-
-                                        <small class="text-muted">
-
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
-
-                                        </small>
-
-                                    </td>
-
-                                    {{-- ID ANGGOTA --}}
-                                    <td class="font-weight-bold">
-
-                                        {{ $item->anggota->kode_anggota ?? '-' }}
-
-                                    </td>
-
-                                    <!-- NAMA -->
-                                    <td>
-
-                                        <div class="font-weight-bold">
-
-                                            {{ $item->anggota->nama_anggota ?? '-' }}
-
-                                        </div>
-
-                                        <div class="table-subtitle">
-
-                                            {{ $item->no_ktp }}
-
-                                        </div>
-
-                                    </td>
-
-                                    <!-- JENIS -->
-                                    <td>
-
-                                        @if ($item->jenis_simpanan == 'wajib')
-                                            <span class="badge-status-success">
-                                                Wajib
-                                            </span>
-                                        @elseif ($item->jenis_simpanan == 'pokok')
-                                            <span class="badge-status-primary">
-                                                Pokok
-                                            </span>
-                                        @else
-                                            <span class="badge-status-info">
-                                                Sukarela
-                                            </span>
-                                        @endif
-
-                                    </td>
-
-                                    <!-- NOMINAL -->
-                                    <td>
-
-                                        <span class="badge-nominal">
-
-                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
-
-                                        </span>
-
-                                    </td>
-
-                                    {{-- AKSI --}}
-                                    <td>
-
-                                        <div class="d-flex align-items-center justify-content-center">
-
-                                            {{-- DETAIL --}}
-                                            {{-- <a href="#"
-                                                    class="btn btn-light table-action-btn mr-1 shadow-sm">
-
-                                                    <i class="fas fa-eye text-primary"></i>
-
-                                                </a> --}}
-
-                                            {{-- EDIT --}}
-                                            <button wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
-                                                class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                data-toggle="modal" data-target="#editModalSimpanan"
-                                                title="Edit Anggota">
-
-                                                <i class="fas fa-edit text-warning"></i>
-
-                                            </button>
-
-                                            {{-- HAPUS --}}
-                                            <button onclick="$dispatch('openDelete', { id: {{ $item->id }} })"
-                                                class="btn btn-light table-action-btn shadow-sm" data-toggle="modal"
-                                                data-target="#deleteModalSimpanan">
-
-                                                <i class="fas fa-trash text-danger"></i>
-
-                                            </button>
-
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-
-                            @empty
+                            <thead class="bg-dark text-white">
 
                                 <tr>
 
-                                    <td colspan="4" class="text-center py-5">
+                                    <th>Tanggal</th>
+                                    <th>ID Anggota</th>
+                                    <th>Nama Anggota</th>
+                                    <th>Jenis Simpanan</th>
+                                    <th>Nominal</th>
 
-                                        <div class="empty-state">
-
-                                            <i class="fas fa-folder-open"></i>
-
-                                            <h5>
-                                                Belum ada data simpanan
-                                            </h5>
-
-                                            <p>
-                                                Data transaksi simpanan akan tampil di sini
-                                            </p>
-
-                                        </div>
-
-                                    </td>
+                                    <th class="text-center" style="width:120px;">
+                                        <i class="fas fa-cog"></i>
+                                    </th>
 
                                 </tr>
-                            @endforelse
 
-                        </tbody>
+                            </thead>
 
-                    </table>
+                            <tbody>
+
+                                @forelse ($simpanan as $item)
+                                    <tr wire:key="simpanan-{{ $item->id }}">
+
+                                        {{-- TANGGAL --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- ID ANGGOTA --}}
+                                        <td class="font-weight-bold">
+
+                                            {{ $item->anggota->kode_anggota ?? '-' }}
+
+                                        </td>
+
+                                        {{-- NAMA ANGGOTA --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ $item->anggota->nama_anggota ?? '-' }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ $item->anggota->no_ktp ?? '-' }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- JENIS SIMPANAN --}}
+                                        <td>
+
+                                            @if ($item->jenis_simpanan == 'wajib')
+                                                <span class="badge badge-success">
+                                                    Wajib
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'pokok')
+                                                <span class="badge badge-primary">
+                                                    Pokok
+                                                </span>
+                                            @else
+                                                <span class="badge badge-info">
+                                                    Sukarela
+                                                </span>
+                                            @endif
+
+                                        </td>
+
+                                        {{-- NOMINAL --}}
+                                        <td class="font-weight-bold text-dark">
+
+                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+
+                                        </td>
+
+                                        {{-- AKSI --}}
+                                        <td>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                {{-- EDIT --}}
+                                                <button
+                                                    wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
+                                                    class="btn btn-light table-action-btn mr-1 shadow-sm"
+                                                    data-toggle="modal" data-target="#editModalSimpanan"
+                                                    title="Edit Simpanan">
+
+                                                    <i class="fas fa-edit text-warning"></i>
+
+                                                </button>
+
+                                                {{-- HAPUS --}}
+                                                <button
+                                                    wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
+                                                    class="btn btn-light table-action-btn shadow-sm"
+                                                    data-toggle="modal" data-target="#deleteModalSimpanan"
+                                                    title="Hapus Simpanan">
+
+                                                    <i class="fas fa-trash text-danger"></i>
+
+                                                </button>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+
+                                        <td colspan="6" class="text-center py-5">
+
+                                            <div class="empty-state">
+
+                                                <i class="fas fa-folder-open"></i>
+
+                                                <h5>
+                                                    Belum ada data simpanan
+                                                </h5>
+
+                                                <p>
+                                                    Data transaksi simpanan akan tampil di sini
+                                                </p>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </section>    
+        </section>
 
     </div>
 

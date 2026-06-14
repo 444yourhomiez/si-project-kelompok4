@@ -2,8 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="{{ route('anggota.dashboard') }}" class="brand-link">
-          <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar"
-              class="brand-image img-circle">
+          <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar" class="brand-image img-circle">
           <span class="brand-text font-weight-light ml-1">Koperasi Motekar</span>
       </a>
 
@@ -17,7 +16,7 @@
 
                   {{-- DASHBOARD --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.dashboard') }}" class="nav-link @yield('menuAnggotaDashboard')">
+                      <a href="{{ route('anggota.dashboard') }}" class="nav-link @yield('menuAnggotaDashboard')">
                           <i class="nav-icon fas fa-th-large"></i>
                           <p>
                               Dashboard
@@ -26,31 +25,200 @@
                   </li>
 
                   {{-- SIMPANAN --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.simpanan.index') }}"
-                          class="nav-link @yield('menuAnggotaSimpanan')">
+                  <li class="nav-item has-treeview @yield('menuAnggotaSimpananOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuAnggotaSimpanan')">
+
                           <i class="nav-icon fas fa-wallet"></i>
+
                           <p>
                               Simpanan
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
-                  </li> --}}
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- SEMUA --}}
+                          <li class="nav-item">
+                              <a href="{{ route('anggota.simpanan.index') }}" class="nav-link @yield('menuAnggotaSimpananSemua')">
+
+                                  <p>Daftar Simpanan</p>
+
+                              </a>
+                          </li>
+
+                          {{-- WAJIB --}}
+                          <li class="nav-item">
+                              <a href="{{ route('anggota.simpanan.wajib') }}" class="nav-link @yield('menuAnggotaSimpananWajib')">
+
+                                  <p>Simpanan Wajib</p>
+
+                              </a>
+                          </li>
+
+                          {{-- POKOK --}}
+                          <li class="nav-item">
+                              <a href="{{ route('anggota.simpanan.pokok') }}" class="nav-link @yield('menuAnggotaSimpananPokok')">
+
+                                  <p>Simpanan Pokok</p>
+
+                              </a>
+                          </li>
+
+                          {{-- SUKARELA --}}
+                          <li class="nav-item">
+                              <a href="{{ route('anggota.simpanan.sukarela') }}" class="nav-link @yield('menuAnggotaSimpananSukarela')">
+
+                                  <p>Simpanan Sukarela</p>
+
+                              </a>
+                          </li>
+
+                      </ul>
+
+                  </li>
 
                   {{-- PINJAMAN --}}
-                  {{-- <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.pinjaman.index') }}"
-                          class="nav-link @yield('menuAnggotaPinjaman')">
+                  <li class="nav-item has-treeview @yield('menuAnggotaPinjamanOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuAnggotaPinjaman')">
+
                           <i class="nav-icon fas fa-hand-holding-usd"></i>
+
                           <p>
                               Pinjaman
+                              <i class="right fas fa-angle-left"></i>
                           </p>
+
                       </a>
-                  </li> --}}
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR PINJAMAN --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.pinjaman.index') }}"
+                                  class="nav-link @yield('menuAnggotaPinjamanSemua')">
+
+
+                                  <p>
+                                      Daftar Pinjaman
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- PRIBADI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.pinjaman.pribadi') }}"
+                                  class="nav-link @yield('menuAnggotaPinjamanPribadi')">
+
+
+                                  <p>
+                                      Pinjaman Pribadi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- KHUSUS --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.pinjaman.khusus') }}"
+                                  class="nav-link @yield('menuAnggotaPinjamanKhusus')">
+
+
+                                  <p>
+                                      Pinjaman Khusus
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
+
+                  {{-- CICILAN --}}
+                  <li class="nav-item has-treeview @yield('menuAnggotaCicilanOpen')">
+
+                      {{-- PARENT --}}
+                      <a href="#" class="nav-link @yield('menuAnggotaCicilan')">
+
+                          <i class="fas fa-money-bill-wave"></i>
+
+                          <p>
+                              Cicilan
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+
+                      </a>
+
+                      {{-- SUB MENU --}}
+                      <ul class="nav nav-treeview">
+
+                          {{-- DAFTAR PINJAMAN --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.cicilan.index') }}"
+                                  class="nav-link @yield('menuAnggotaCicilanSemua')">
+
+
+                                  <p>
+                                      Daftar Cicilan
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- PRIBADI --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.cicilan.pribadi') }}"
+                                  class="nav-link @yield('menuAnggotaCicilanPribadi')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Pribadi
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                          {{-- KHUSUS --}}
+                          <li class="nav-item">
+
+                              <a  href="{{ route('anggota.cicilan.khusus') }}"
+                                  class="nav-link @yield('menuAnggotaCicilanKhusus')">
+
+
+                                  <p>
+                                      Cicilan Pinjaman Khusus
+                                  </p>
+
+                              </a>
+
+                          </li>
+
+                      </ul>
+
+                  </li>
 
                   {{-- PROFILE --}}
                   <li class="nav-item">
-                      <a wire:navigate href="{{ route('anggota.profile.index') }}"
-                          class="nav-link @yield('menuAnggotaProfile')">
+                      <a href="{{ route('anggota.profile.index') }}" class="nav-link @yield('menuAnggotaProfile')">
                           <i class="nav-icon fas fa-user"></i>
                           <p>
                               Profile

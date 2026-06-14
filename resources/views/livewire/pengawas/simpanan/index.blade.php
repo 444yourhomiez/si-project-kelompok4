@@ -121,127 +121,215 @@
 
             <div class="card table-modern border-0 shadow-sm">
 
-                <div class="card-header bg-white border-0 py-4">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <!-- HEADER -->
+                <div class="card-header bg-white border-0">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
                         <div>
+
                             <h4 class="font-weight-bold mb-1">
+
                                 <i class="fas fa-wallet mr-2"></i>
-                                Daftar Simpanan Anggota
+                                Riwayat Simpanan Anggota
+
                             </h4>
-                            <small class="text-muted">Data transaksi simpanan anggota koperasi</small>
-                        </div>
 
-                        <div class="d-flex align-items-center">
-
-                            <div class="search-modern mr-2">
-                                <i class="fas fa-search search-modern-icon"></i>
-                                <input type="text" wire:model.live="search" class="form-control search-modern-input"
-                                    placeholder="Cari simpanan...">
-                            </div>
-
-                            <div class="d-flex align-items-center mr-2" style="gap:10px;">
-                                <div class="position-relative sort-mini-box">
-                                    <i class="fas fa-sliders-h sort-mini-icon"></i>
-                                    <select wire:model.live="sortBy" class="form-control sort-mini-select">
-                                        <option value="created_at">Terbaru</option>
-                                        <option value="nama_anggota">Nama</option>
-                                        <option value="jenis_simpanan">Jenis</option>
-                                        <option value="jumlah">Nominal</option>
-                                    </select>
-                                </div>
-                                <div class="position-relative sort-mini-box" style="max-width:95px;">
-                                    <i class="fas fa-arrow-down-short-wide sort-mini-icon"></i>
-                                    <select wire:model.live="sortDirection" class="form-control sort-mini-select">
-                                        <option value="desc">Z - A</option>
-                                        <option value="asc">A - Z</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="position-relative pagination-mini-box">
-                                <i class="fas fa-table pagination-mini-icon"></i>
-                                <select wire:model.live="paginate" class="form-control pagination-mini-select">
-                                    <option value="10">10 Data</option>
-                                    <option value="25">25 Data</option>
-                                    <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
-                                </select>
-                            </div>
+                            <small class="text-muted">
+                                Data transaksi simpanan anggota koperasi
+                            </small>
 
                         </div>
+
                     </div>
+
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-modern-list mb-0">
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>ID Anggota</th>
-                                <th>Nama Anggota</th>
-                                <th>Jenis Simpanan</th>
-                                <th class="text-center">Nominal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($simpanan as $item)
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                                        </div>
-                                        <small class="text-muted">
-                                            {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        {{ $item->anggota->kode_anggota ?? '-' }}
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">{{ $item->anggota->nama_anggota ?? '-' }}</div>
-                                    </td>
-                                    <td>
-                                        @if ($item->jenis_simpanan == 'wajib')
-                                            <span class="badge-status-success">Wajib</span>
-                                        @elseif ($item->jenis_simpanan == 'pokok')
-                                            <span class="badge-status-primary">Pokok</span>
-                                        @else
-                                            <span class="badge-status-info">Sukarela</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <span class="badge-nominal">
-                                                Rp {{ number_format($item->jumlah, 0, ',', '.') }}
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-5">
-                                        <div class="empty-state">
-                                            <i class="fas fa-folder-open"></i>
-                                            <h5>Belum ada data simpanan</h5>
-                                            <p>Data transaksi simpanan akan tampil di sini</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                <!-- TABLE -->
+                <div class="card-body">
 
-                <div class="card-footer modern-footer">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div class="footer-info">
-                            <i class="fas fa-wallet mr-1"></i>
-                            Menampilkan data simpanan anggota koperasi
+                    <div class="row mb-3 align-items-end">
+
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
+
+                            <label>Cari Simpanan</label>
+
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari simpanan...">
+
                         </div>
-                        <div class="modern-pagination">
-                            {{ $simpanan->links() }}
+
+                        {{-- SORT BY --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+
+                            <label>Urutkan</label>
+
+                            <select wire:model.live="sortBy" class="form-control">
+
+                                <option value="created_at">Terbaru</option>
+                                <option value="nama_anggota">Nama</option>
+                                <option value="jumlah">Nominal</option>
+
+                            </select>
+
                         </div>
+
+                        {{-- SORT DIRECTION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+
+                            <label>Arah</label>
+
+                            <select wire:model.live="sortDirection" class="form-control">
+
+                                <option value="desc">Z - A</option>
+                                <option value="asc">A - Z</option>
+
+                            </select>
+
+                        </div>
+
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-4 col-md-12 mb-2">
+
+                            <label>Data</label>
+
+                            <select wire:model.live="paginate" class="form-control">
+
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
+
+                            </select>
+
+                        </div>
+
                     </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover">
+
+                            <thead class="bg-dark text-white">
+
+                                <tr>
+
+                                    <th>Tanggal</th>
+                                    <th>ID Anggota</th>
+                                    <th>Nama Anggota</th>
+                                    <th>Jenis Simpanan</th>
+                                    <th>Nominal</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @forelse ($simpanan as $item)
+                                    <tr wire:key="simpanan-{{ $item->id }}">
+
+                                        {{-- TANGGAL --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- ID ANGGOTA --}}
+                                        <td class="font-weight-bold">
+
+                                            {{ $item->anggota->kode_anggota ?? '-' }}
+
+                                        </td>
+
+                                        {{-- NAMA ANGGOTA --}}
+                                        <td>
+
+                                            <div class="font-weight-bold">
+
+                                                {{ $item->anggota->nama_anggota ?? '-' }}
+
+                                            </div>
+
+                                            <small class="text-muted">
+
+                                                {{ $item->anggota->no_ktp ?? '-' }}
+
+                                            </small>
+
+                                        </td>
+
+                                        {{-- JENIS SIMPANAN --}}
+                                        <td>
+
+                                            @if ($item->jenis_simpanan == 'wajib')
+                                                <span class="badge badge-success">
+                                                    Wajib
+                                                </span>
+                                            @elseif ($item->jenis_simpanan == 'pokok')
+                                                <span class="badge badge-primary">
+                                                    Pokok
+                                                </span>
+                                            @else
+                                                <span class="badge badge-info">
+                                                    Sukarela
+                                                </span>
+                                            @endif
+
+                                        </td>
+
+                                        {{-- NOMINAL --}}
+                                        <td class="font-weight-bold text-dark">
+
+                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+
+                                        </td>
+
+                                    </tr>
+
+                                @empty
+
+                                    <tr>
+
+                                        <td colspan="6" class="text-center py-5">
+
+                                            <div class="empty-state">
+
+                                                <i class="fas fa-folder-open"></i>
+
+                                                <h5>
+                                                    Belum ada data simpanan
+                                                </h5>
+
+                                                <p>
+                                                    Data transaksi simpanan akan tampil di sini
+                                                </p>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
                 </div>
 
             </div>

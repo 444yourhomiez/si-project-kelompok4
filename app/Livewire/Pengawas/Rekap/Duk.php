@@ -8,6 +8,8 @@ class Duk extends Component
 {
     public function render()
     {
-        return view('livewire.pengawas.rekap.duk');
+        return view('livewire.pengawas.rekap.duk', [
+            'title' => 'DUK (Data Uang Keluar)',
+        ]);
     }
 }

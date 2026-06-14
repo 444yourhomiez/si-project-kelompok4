@@ -21,10 +21,8 @@
         .hero {
             min-height: 100vh;
             background:
-                linear-gradient(
-                    rgba(0, 0, 0, 0.55),
-                    rgba(0, 0, 0, 0.35)
-                ),
+                linear-gradient(rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.35)),
                 url('{{ asset('images/background_motekar.png') }}');
             background-size: cover;
             background-position: center;
@@ -78,8 +76,18 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand font-weight-bold" href="#">
+            <a class="navbar-brand font-weight-bold d-flex align-items-center" href="#">
+
+                <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar"
+                    style="
+            width:40px;
+            height:40px;
+            object-fit:contain;
+            margin-right:10px;
+        ">
+
                 Koperasi Motekar
+
             </a>
 
             <div class="ml-auto">
@@ -87,8 +95,7 @@
                     Login
                 </a>
 
-                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}"
-                    class="btn btn-success btn-sm">
+                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}" class="btn btn-success btn-sm">
                     Register
                 </a>
             </div>
@@ -107,8 +114,7 @@
                     mendukung kebutuhan anggota koperasi secara digital.
                 </p>
 
-                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}"
-                    class="btn btn-success">
+                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}" class="btn btn-success">
                     Daftar Sekarang jadi Anggota
                 </a>
             </div>
