@@ -10,7 +10,6 @@ import { renderImage } from './renderImage.js'
 import { renderPopup } from './renderPopup.js'
 import { renderProgressSteps } from './renderProgressSteps.js'
 import { renderTitle } from './renderTitle.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -18,17 +17,14 @@ import { renderTitle } from './renderTitle.js'
 export const render = (instance, params) => {
   renderPopup(instance, params)
   renderContainer(instance, params)
-
   renderProgressSteps(instance, params)
   renderIcon(instance, params)
   renderImage(instance, params)
   renderTitle(instance, params)
   renderCloseButton(instance, params)
-
   renderContent(instance, params)
   renderActions(instance, params)
   renderFooter(instance, params)
-
   const popup = getPopup()
   if (typeof params.didRender === 'function' && popup) {
     params.didRender(popup)

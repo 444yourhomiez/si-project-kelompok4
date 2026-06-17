@@ -1,7 +1,5 @@
 <div>
-
     <div>
-
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -30,16 +28,12 @@
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
-
             <!-- Main content -->
             <section class="content">
-
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-
                         <div class="d-flex justify-content-between align-items-center">
-
                             <div>
                                 <form class="form-inline my-2 my-lg-0">
                                     <input class="form-control-sm mr-sm-2" type="search" placeholder="Search"
@@ -48,7 +42,6 @@
                                         type="submit">Search</button>
                                 </form>
                             </div>
-
                             <div class="btn-group dropleft">
                                 <button type="button" class="btn btn-sm btn-warning dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,24 +59,17 @@
                                     </a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                     <!-- CARD BODY -->
                     <div class="card-body">
                         LAPORAN KEUANGAN
                     </div>
-
                 </div>
                 <!-- /.card -->
-
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
     </div>
-
-
 </div>

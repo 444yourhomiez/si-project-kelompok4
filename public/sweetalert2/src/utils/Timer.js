@@ -7,10 +7,8 @@ export default class Timer {
     this.callback = callback
     this.remaining = delay
     this.running = false
-
     this.start()
   }
-
   /**
    * @returns {number}
    */
@@ -22,7 +20,6 @@ export default class Timer {
     }
     return this.remaining
   }
-
   /**
    * @returns {number}
    */
@@ -34,7 +31,6 @@ export default class Timer {
     }
     return this.remaining
   }
-
   /**
    * @param {number} n
    * @returns {number}
@@ -50,7 +46,6 @@ export default class Timer {
     }
     return this.remaining
   }
-
   /**
    * @returns {number}
    */
@@ -61,7 +56,6 @@ export default class Timer {
     }
     return this.remaining
   }
-
   /**
    * @returns {boolean}
    */

@@ -2,7 +2,6 @@ import { clickConfirm } from './staticMethods/dom.js'
 import { DismissReason } from './utils/DismissReason.js'
 import * as dom from './utils/dom/index.js'
 import { callIfFunction, isFirefox } from './utils/utils.js'
-
 /**
  * @param {GlobalState} globalState
  */
@@ -17,7 +16,6 @@ export const removeKeydownHandler = (globalState) => {
     globalState.keydownHandlerAdded = false
   }
 }
-
 /**
  * @param {GlobalState} globalState
  * @param {SweetAlertOptions} innerParams
@@ -41,7 +39,6 @@ export const addKeydownHandler = (globalState, innerParams, dismissWith) => {
     }
   }
 }
-
 /**
  * @param {number} index
  * @param {number} increment
@@ -52,40 +49,31 @@ export const setFocus = (index, increment) => {
   // search for visible elements and select the next possible match
   if (focusableElements.length) {
     index = index + increment
-
     // shift + tab when .swal2-popup is focused
     if (index === -2) {
       index = focusableElements.length - 1
     }
-
     // rollover to first item
     if (index === focusableElements.length) {
       index = 0
-
       // go to last item
     } else if (index === -1) {
       index = focusableElements.length - 1
     }
-
     focusableElements[index].focus()
-
     // don't prevent default for iframes (Firefox fix)
     // https://github.com/sweetalert2/sweetalert2/issues/2931
     if (isFirefox() && focusableElements[index] instanceof HTMLIFrameElement) {
       return false
     }
-
     return true
   }
   // no visible focusable elements, focus the popup
   dom.getPopup()?.focus()
   return true
 }
-
 const arrowKeysNextButton = ['ArrowRight', 'ArrowDown']
-
 const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp']
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {KeyboardEvent} event
@@ -95,7 +83,6 @@ const keydownHandler = (innerParams, event, dismissWith) => {
   if (!innerParams) {
     return // This instance has already been destroyed
   }
-
   // Ignore keydown during IME composition
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event#ignoring_keydown_during_ime_composition
   // https://github.com/sweetalert2/sweetalert2/issues/720
@@ -103,32 +90,26 @@ const keydownHandler = (innerParams, event, dismissWith) => {
   if (event.isComposing || event.keyCode === 229) {
     return
   }
-
   if (innerParams.stopKeydownPropagation) {
     event.stopPropagation()
   }
-
   // ENTER
   if (event.key === 'Enter') {
     handleEnter(event, innerParams)
   }
-
   // TAB
   else if (event.key === 'Tab') {
     handleTab(event)
   }
-
   // ARROWS - switch focus between buttons
   else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(event.key)) {
     handleArrows(event.key)
   }
-
   // ESC
   else if (event.key === 'Escape') {
     handleEsc(event, innerParams, dismissWith)
   }
 }
-
 /**
  * @param {KeyboardEvent} event
  * @param {SweetAlertOptions} innerParams
@@ -138,30 +119,24 @@ const handleEnter = (event, innerParams) => {
   if (!callIfFunction(innerParams.allowEnterKey)) {
     return
   }
-
   const popup = dom.getPopup()
   if (!popup || !innerParams.input) {
     return
   }
-
   const input = dom.getInput(popup, innerParams.input)
-
   if (event.target && input && event.target instanceof HTMLElement && event.target.outerHTML === input.outerHTML) {
     if (['textarea', 'file'].includes(innerParams.input)) {
       return // do not submit
     }
-
     clickConfirm()
     event.preventDefault()
   }
 }
-
 /**
  * @param {KeyboardEvent} event
  */
 const handleTab = (event) => {
   const targetElement = event.target
-
   const focusableElements = dom.getFocusableElements()
   let btnIndex = -1
   for (let i = 0; i < focusableElements.length; i++) {
@@ -170,28 +145,22 @@ const handleTab = (event) => {
       break
     }
   }
-
   // don't prevent default for iframes (Firefox fix)
   // https://github.com/sweetalert2/sweetalert2/issues/2931
   let shouldPreventDefault = true
-
   // Cycle to the next button
   if (!event.shiftKey) {
     shouldPreventDefault = setFocus(btnIndex, 1)
   }
-
   // Cycle to the prev button
   else {
     shouldPreventDefault = setFocus(btnIndex, -1)
   }
-
   event.stopPropagation()
-
   if (shouldPreventDefault) {
     event.preventDefault()
   }
 }
-
 /**
  * @param {string} key
  */
@@ -226,7 +195,6 @@ const handleArrows = (key) => {
     buttonToFocus.focus()
   }
 }
-
 /**
  * @param {KeyboardEvent} event
  * @param {SweetAlertOptions} innerParams

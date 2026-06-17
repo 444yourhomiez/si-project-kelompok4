@@ -67,7 +67,6 @@
     0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075),
     1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075);
 }
-
 [data-swal2-theme=dark] {
   --swal2-dark-theme-black: #19191a;
   --swal2-dark-theme-white: #e1e1e1;
@@ -83,7 +82,6 @@
   --swal2-validation-message-color: var(--swal2-dark-theme-white);
   --swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7);
 }
-
 @media (prefers-color-scheme: dark) {
   [data-swal2-theme=auto] {
     --swal2-dark-theme-black: #19191a;
@@ -167,7 +165,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
     position: static !important;
   }
 }
-
 div:where(.swal2-container) {
   display: grid;
   position: fixed;
@@ -645,7 +642,6 @@ div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line {
   margin: 0 -1px;
   background: #2778c4;
 }
-
 div:where(.swal2-icon) {
   position: relative;
   box-sizing: content-box;
@@ -811,23 +807,18 @@ div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long] {
     animation: swal2-rotate-success-circular-line 4.25s ease-in;
   }
 }
-
 [class^=swal2] {
   -webkit-tap-highlight-color: transparent;
 }
-
 .swal2-show {
   animation: var(--swal2-show-animation);
 }
-
 .swal2-hide {
   animation: var(--swal2-hide-animation);
 }
-
 .swal2-noanimation {
   transition: none;
 }
-
 .swal2-scrollbar-measure {
   position: absolute;
   top: -9999px;
@@ -835,7 +826,6 @@ div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long] {
   height: 50px;
   overflow: scroll;
 }
-
 .swal2-rtl .swal2-close {
   margin-right: initial;
   margin-left: 0;
@@ -844,7 +834,6 @@ div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long] {
   right: 0;
   left: auto;
 }
-
 .swal2-toast {
   box-sizing: border-box;
   grid-column: 1/4 !important;
@@ -1009,7 +998,6 @@ div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long] {
 .swal2-toast.swal2-hide {
   animation: var(--swal2-toast-hide-animation);
 }
-
 @keyframes swal2-show {
   0% {
     transform: translate3d(0, -50px, 0) scale(0.9);

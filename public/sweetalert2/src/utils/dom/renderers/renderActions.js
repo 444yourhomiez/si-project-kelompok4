@@ -1,7 +1,6 @@
 import { swalClasses } from '../../classes.js'
 import * as dom from '../../dom/index.js'
 import { capitalizeFirstLetter } from '../../utils.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -12,25 +11,20 @@ export const renderActions = (instance, params) => {
   if (!actions || !loader) {
     return
   }
-
   // Actions (buttons) wrapper
   if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
     dom.hide(actions)
   } else {
     dom.show(actions)
   }
-
   // Custom class
   dom.applyCustomClass(actions, params, 'actions')
-
   // Render all the buttons
   renderButtons(actions, loader, params)
-
   // Loader
   dom.setInnerHtml(loader, params.loaderHtml || '')
   dom.applyCustomClass(loader, params, 'loader')
 }
-
 /**
  * @param {HTMLElement} actions
  * @param {HTMLElement} loader
@@ -43,13 +37,11 @@ function renderButtons(actions, loader, params) {
   if (!confirmButton || !denyButton || !cancelButton) {
     return
   }
-
   // Render buttons
   renderButton(confirmButton, 'confirm', params)
   renderButton(denyButton, 'deny', params)
   renderButton(cancelButton, 'cancel', params)
   handleButtonsStyling(confirmButton, denyButton, cancelButton, params)
-
   if (params.reverseButtons) {
     if (params.toast) {
       actions.insertBefore(cancelButton, confirmButton)
@@ -61,7 +53,6 @@ function renderButtons(actions, loader, params) {
     }
   }
 }
-
 /**
  * @param {HTMLElement} confirmButton
  * @param {HTMLElement} denyButton
@@ -73,9 +64,7 @@ function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
     dom.removeClass([confirmButton, denyButton, cancelButton], swalClasses.styled)
     return
   }
-
   dom.addClass([confirmButton, denyButton, cancelButton], swalClasses.styled)
-
   // Apply custom background colors and outline colors to action buttons
   /** @type {[HTMLElement, string, string | undefined][]} */
   const buttons = [
@@ -90,7 +79,6 @@ function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
     applyOutlineColor(button)
   })
 }
-
 /**
  * @param {HTMLElement} button
  */
@@ -106,7 +94,6 @@ function applyOutlineColor(button) {
     buttonStyle.getPropertyValue('--swal2-outline').replace(/ rgba\(.*/, ` ${outlineColor}`)
   )
 }
-
 /**
  * @param {HTMLElement} button
  * @param {'confirm' | 'deny' | 'cancel'} buttonType
@@ -114,11 +101,9 @@ function applyOutlineColor(button) {
  */
 function renderButton(button, buttonType, params) {
   const buttonName = /** @type {'Confirm' | 'Deny' | 'Cancel'} */ (capitalizeFirstLetter(buttonType))
-
   dom.toggle(button, params[`show${buttonName}Button`], 'inline-block')
   dom.setInnerHtml(button, params[`${buttonType}ButtonText`] || '') // Set caption text
   button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`] || '') // ARIA label
-
   // Add buttons custom classes
   button.className = swalClasses[buttonType]
   dom.applyCustomClass(button, params, `${buttonType}Button`)

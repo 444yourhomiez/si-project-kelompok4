@@ -1,11 +1,9 @@
 // Source: https://gist.github.com/mudge/5830382?permalink_comment_id=2691957#gistcomment-2691957
-
 export default class EventEmitter {
   constructor() {
     /** @type {Events} */
     this.events = {}
   }
-
   /**
    * @param {string} eventName
    * @returns {EventHandlers}
@@ -18,7 +16,6 @@ export default class EventEmitter {
     }
     return this.events[eventName]
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -29,7 +26,6 @@ export default class EventEmitter {
       currentHandlers.push(eventHandler)
     }
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -45,7 +41,6 @@ export default class EventEmitter {
     }
     this.on(eventName, onceFn)
   }
-
   /**
    * @param {string} eventName
    * @param {...any} args
@@ -65,7 +60,6 @@ export default class EventEmitter {
       }
     )
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -77,7 +71,6 @@ export default class EventEmitter {
       currentHandlers.splice(index, 1)
     }
   }
-
   /**
    * @param {string} eventName
    */
@@ -87,7 +80,6 @@ export default class EventEmitter {
       this.events[eventName].length = 0
     }
   }
-
   reset() {
     this.events = {}
   }

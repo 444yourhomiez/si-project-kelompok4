@@ -1,92 +1,63 @@
 <?php
-
 namespace App\Livewire\Pengawas\Simpanan;
-
 use App\Models\Simpanan;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 class Wajib extends Component
 {
     use WithPagination;
-
     protected $listeners = [
-
-        'dataKoperasiUpdated' => '$refresh'
-
+        'dataKoperasiUpdated' => '$refresh',
     ];
-
     public $search = '';
-
     public $paginate = 10;
-
     public $sortBy = 'created_at';
-
     public $sortDirection = 'desc';
-
     public function render()
     {
         $simpananWajib = Simpanan::query()
-
             ->with('anggota.user')
-
             ->join('anggota', 'simpanan.anggota_id', '=', 'anggota.id')
-
             ->select('simpanan.*')
-
             ->where('jenis_simpanan', 'wajib')
-
             ->when($this->search, function ($query) {
-
                 $query->where(function ($q) {
-
                     $q->where(
                         'anggota.nama_anggota',
                         'like',
-                        '%' . $this->search . '%'
+                        '%'.$this->search.'%'
                     )
-
                         ->orWhere(
                             'anggota.kode_anggota',
                             'like',
-                            '%' . $this->search . '%'
+                            '%'.$this->search.'%'
                         )
-
                         ->orWhere(
                             'simpanan.jumlah',
                             'like',
-                            '%' . $this->search . '%'
+                            '%'.$this->search.'%'
                         );
                 });
             })
-
             ->when($this->sortBy == 'nama_anggota', function ($query) {
-
                 $query->orderBy(
                     'anggota.nama_anggota',
                     $this->sortDirection
                 );
             }, function ($query) {
-
                 $query->orderBy(
                     $this->sortBy,
                     $this->sortDirection
                 );
             })
-
             ->paginate($this->paginate);
-
         return view('livewire.pengawas.simpanan.wajib', [
-
             'title' => 'Simpanan Wajib',
-
             'simpananWajib' => $simpananWajib,
-
             'total_wajib' => Simpanan::where(
                 'jenis_simpanan',
                 'wajib'
             )->sum('jumlah'),
-
         ]);
     }
 }

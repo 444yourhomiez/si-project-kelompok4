@@ -2,7 +2,6 @@ import privateProps from '../../../privateProps.js'
 import { iconTypes, swalClasses } from '../../classes.js'
 import * as dom from '../../dom/index.js'
 import { error } from '../../utils.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -13,42 +12,32 @@ export const renderIcon = (instance, params) => {
   if (!icon) {
     return
   }
-
   // if the given icon already rendered, apply the styling without re-rendering the icon
   if (innerParams && params.icon === innerParams.icon) {
     // Custom or default content
     setContent(icon, params)
-
     applyStyles(icon, params)
     return
   }
-
   if (!params.icon && !params.iconHtml) {
     dom.hide(icon)
     return
   }
-
   if (params.icon && Object.keys(iconTypes).indexOf(params.icon) === -1) {
     error(`Unknown icon! Expected "success", "error", "warning", "info" or "question", got "${params.icon}"`)
     dom.hide(icon)
     return
   }
-
   dom.show(icon)
-
   // Custom or default content
   setContent(icon, params)
-
   applyStyles(icon, params)
-
   // Animate icon
   dom.addClass(icon, params.showClass && params.showClass.icon)
-
   // Re-adjust the success icon on system theme change
   const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: dark)')
   colorSchemeQueryList.addEventListener('change', adjustSuccessIconBackgroundColor)
 }
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -60,17 +49,13 @@ const applyStyles = (icon, params) => {
     }
   }
   dom.addClass(icon, params.icon && iconTypes[params.icon])
-
   // Icon color
   setColor(icon, params)
-
   // Success icon background color
   adjustSuccessIconBackgroundColor()
-
   // Custom class
   dom.applyCustomClass(icon, params, 'icon')
 }
-
 // Adjust success icon background color to match the popup background color
 const adjustSuccessIconBackgroundColor = () => {
   const popup = dom.getPopup()
@@ -84,7 +69,6 @@ const adjustSuccessIconBackgroundColor = () => {
     successIconParts[i].style.backgroundColor = popupBackgroundColor
   }
 }
-
 /**
  *
  * @param {SweetAlertOptions} params
@@ -97,14 +81,12 @@ const successIconHtml = (params) => `
   ${params.animation ? '<div class="swal2-success-fix"></div>' : ''}
   ${params.animation ? '<div class="swal2-success-circular-line-right"></div>' : ''}
 `
-
 const errorIconHtml = `
   <span class="swal2-x-mark">
     <span class="swal2-x-mark-line-left"></span>
     <span class="swal2-x-mark-line-right"></span>
   </span>
 `
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -130,12 +112,10 @@ const setContent = (icon, params) => {
     }
     newContent = iconContent(defaultIconHtml[params.icon])
   }
-
   if (oldContent.trim() !== newContent.trim()) {
     dom.setInnerHtml(icon, newContent)
   }
 }
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -156,7 +136,6 @@ const setColor = (icon, params) => {
   }
   dom.setStyle(icon, '.swal2-success-ring', 'border-color', params.iconColor)
 }
-
 /**
  * @param {string} content
  * @returns {string}

@@ -4,7 +4,6 @@ import { isNodeEnv } from '../isNodeEnv.js'
 import { error } from '../utils.js'
 import { addClass, getDirectChildByClass, removeClass, setInnerHtml } from './domUtils.js'
 import { getContainer, getPopup } from './getters.js'
-
 const sweetHTML = `
  <div aria-labelledby="${swalClasses.title}" aria-describedby="${swalClasses['html-container']}" class="${swalClasses.popup}" tabindex="-1">
    <button type="button" class="${swalClasses.close}"></button>
@@ -39,7 +38,6 @@ const sweetHTML = `
    </div>
  </div>
 `.replace(/(^|\n)\s*/g, '')
-
 /**
  * @returns {boolean}
  */
@@ -48,7 +46,6 @@ const resetOldContainer = () => {
   if (!oldContainer) {
     return false
   }
-
   oldContainer.remove()
   removeClass(
     [document.documentElement, document.body],
@@ -59,22 +56,18 @@ const resetOldContainer = () => {
       swalClasses['has-column'],
     ]
   )
-
   return true
 }
-
 const resetValidationMessage = () => {
   if (globalState.currentInstance) {
     globalState.currentInstance.resetValidationMessage()
   }
 }
-
 const addInputChangeListeners = () => {
   const popup = getPopup()
   if (!popup) {
     return
   }
-
   const input = getDirectChildByClass(popup, swalClasses.input)
   const file = getDirectChildByClass(popup, swalClasses.file)
   /** @type {HTMLInputElement | null} */
@@ -85,7 +78,6 @@ const addInputChangeListeners = () => {
   /** @type {HTMLInputElement | null} */
   const checkbox = popup.querySelector(`.${swalClasses.checkbox} input`)
   const textarea = getDirectChildByClass(popup, swalClasses.textarea)
-
   if (input) {
     input.oninput = resetValidationMessage
   }
@@ -101,20 +93,17 @@ const addInputChangeListeners = () => {
   if (textarea) {
     textarea.oninput = resetValidationMessage
   }
-
   if (range && rangeOutput) {
     range.oninput = () => {
       resetValidationMessage()
       rangeOutput.value = range.value
     }
-
     range.onchange = () => {
       resetValidationMessage()
       rangeOutput.value = range.value
     }
   }
 }
-
 /**
  * @param {string | HTMLElement} target
  * @returns {HTMLElement}
@@ -129,7 +118,6 @@ const getTarget = (target) => {
   }
   return target
 }
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -138,14 +126,12 @@ const setupAccessibility = (params) => {
   if (!popup) {
     return
   }
-
   popup.setAttribute('role', params.toast ? 'alert' : 'dialog')
   popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive')
   if (!params.toast) {
     popup.setAttribute('aria-modal', 'true')
   }
 }
-
 /**
  * @param {HTMLElement} targetElement
  */
@@ -155,7 +141,6 @@ const setupRTL = (targetElement) => {
     globalState.isRTL = true
   }
 }
-
 /**
  * Add modal + backdrop to DOM
  *
@@ -164,29 +149,23 @@ const setupRTL = (targetElement) => {
 export const init = (params) => {
   // Clean up the old popup container if it exists
   const oldContainerExisted = resetOldContainer()
-
   if (isNodeEnv()) {
     error('SweetAlert2 requires document to initialize')
     return
   }
-
   const container = document.createElement('div')
   container.className = swalClasses.container
   if (oldContainerExisted) {
     addClass(container, swalClasses['no-transition'])
   }
   setInnerHtml(container, sweetHTML)
-
   container.dataset['swal2Theme'] = params.theme
-
   const targetElement = getTarget(params.target || 'body')
   targetElement.appendChild(container)
-
   if (params.topLayer) {
     container.setAttribute('popover', '')
     container.showPopover()
   }
-
   setupAccessibility(params)
   setupRTL(targetElement)
   addInputChangeListeners()

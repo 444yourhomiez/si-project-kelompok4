@@ -1,6 +1,5 @@
 import { DismissReason } from './utils/DismissReason.js'
 import { callIfFunction } from './utils/utils.js'
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache
@@ -13,14 +12,11 @@ export const handlePopupClick = (innerParams, domCache, dismissWith) => {
     // Ignore click events that had mousedown on the popup but mouseup on the container
     // This can happen when the user drags a slider
     handleModalMousedown(domCache)
-
     // Ignore click events that had mousedown on the container but mouseup on the popup
     handleContainerMousedown(domCache)
-
     handleModalClick(innerParams, domCache, dismissWith)
   }
 }
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache
@@ -35,7 +31,6 @@ const handleToastClick = (innerParams, domCache, dismissWith) => {
     dismissWith(DismissReason.close)
   }
 }
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @returns {boolean}
@@ -48,9 +43,7 @@ const isAnyButtonShown = (innerParams) => {
     innerParams.showCloseButton
   )
 }
-
 let ignoreOutsideClick = false
-
 /**
  * @param {DomCache} domCache
  */
@@ -66,7 +59,6 @@ const handleModalMousedown = (domCache) => {
     }
   }
 }
-
 /**
  * @param {DomCache} domCache
  */
@@ -85,7 +77,6 @@ const handleContainerMousedown = (domCache) => {
     }
   }
 }
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache

@@ -1,7 +1,6 @@
 import privateProps from '../privateProps.js'
 import { swalClasses } from '../utils/classes.js'
 import * as dom from '../utils/dom/index.js'
-
 /**
  * Show block with validation message
  *
@@ -17,7 +16,6 @@ export function showValidationMessage(error) {
     dom.addClass(domCache.validationMessage, params.customClass.validationMessage)
   }
   dom.show(domCache.validationMessage)
-
   const input = this.getInput()
   if (input) {
     input.setAttribute('aria-invalid', 'true')
@@ -26,7 +24,6 @@ export function showValidationMessage(error) {
     dom.addClass(input, swalClasses.inputerror)
   }
 }
-
 /**
  * Hide block with validation message
  *
@@ -37,7 +34,6 @@ export function resetValidationMessage() {
   if (domCache.validationMessage) {
     dom.hide(domCache.validationMessage)
   }
-
   const input = this.getInput()
   if (input) {
     input.removeAttribute('aria-invalid')

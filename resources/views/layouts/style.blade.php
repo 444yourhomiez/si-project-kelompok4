@@ -11,7 +11,5 @@
   <link rel="stylesheet"
       href="{{ asset('adminlte3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('adminlte3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-
-  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">

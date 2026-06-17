@@ -1,15 +1,12 @@
 //
 // Component: Forms
 //
-
 .form-group {
   &.has-icon {
     position: relative;
-
     .form-control {
       padding-right: 35px;
     }
-
     .form-icon {
       background-color: transparent;
       border: 0;
@@ -23,7 +20,6 @@
     }
   }
 }
-
 // Button groups
 .btn-group-vertical {
   .btn {
@@ -33,7 +29,6 @@
     }
   }
 }
-
 // Support icons in form-control
 .form-control-feedback {
   &.fa,
@@ -47,7 +42,6 @@
     line-height: $input-height;
   }
 }
-
 .input-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback {
   &.fa,
@@ -61,7 +55,6 @@
     line-height: $input-height-lg;
   }
 }
-
 .form-group-lg {
   .form-control + .form-control-feedback {
     &.fa,
@@ -76,7 +69,6 @@
     }
   }
 }
-
 .input-sm + .form-control-feedback,
 .input-group-sm + .form-control-feedback {
   &.fa,
@@ -90,7 +82,6 @@
     line-height: $input-height-sm;
   }
 }
-
 .form-group-sm {
   .form-control + .form-control-feedback {
     &.fa,
@@ -105,11 +96,9 @@
     }
   }
 }
-
 label:not(.form-check-label):not(.custom-file-label) {
   font-weight: $font-weight-bold;
 }
-
 .warning-feedback {
   @include font-size($form-feedback-font-size);
   color: theme-color("warning");
@@ -117,7 +106,6 @@ label:not(.form-check-label):not(.custom-file-label) {
   margin-top: $form-feedback-margin-top;
   width: 100%;
 }
-
 .warning-tooltip {
   @include border-radius($form-feedback-tooltip-border-radius);
   @include font-size($form-feedback-tooltip-font-size);
@@ -132,11 +120,9 @@ label:not(.form-check-label):not(.custom-file-label) {
   top: 100%;
   z-index: 5;
 }
-
 .form-control {
   &.is-warning {
     border-color: theme-color("warning");
-
     @if $enable-validation-icons {
       // padding-right: $input-height-inner;
       // background-image: none;
@@ -144,19 +130,16 @@ label:not(.form-check-label):not(.custom-file-label) {
       // background-position: center right $input-height-inner-quarter;
       // background-size: $input-height-inner-half $input-height-inner-half;
     }
-
     &:focus {
       border-color: theme-color("warning");
       box-shadow: 0 0 0 $input-focus-width rgba(theme-color("warning"), .25);
     }
-
     ~ .warning-feedback,
     ~ .warning-tooltip {
       display: block;
     }
   }
 }
-
 // stylelint-disable-next-line selector-no-qualifying-type
 textarea.form-control {
   &.is-warning {
@@ -166,29 +149,23 @@ textarea.form-control {
     }
   }
 }
-
 .custom-select {
   &.is-warning {
     border-color: theme-color("warning");
-
     @if $enable-validation-icons {
       // padding-right: $custom-select-feedback-icon-padding-right;
       // background: $custom-select-background, none $custom-select-bg no-repeat $custom-select-feedback-icon-position / $custom-select-feedback-icon-size;
     }
-
     &:focus {
       border-color: theme-color("warning");
       box-shadow: 0 0 0 $input-focus-width rgba(theme-color("warning"), .25);
     }
-
     ~ .warning-feedback,
     ~ .warning-tooltip {
       display: block;
     }
   }
 }
-
-
 .form-control-file {
   &.is-warning {
     ~ .warning-feedback,
@@ -197,64 +174,53 @@ textarea.form-control {
     }
   }
 }
-
 .form-check-input {
   &.is-warning {
     ~ .form-check-label {
       color: theme-color("warning");
     }
-
     ~ .warning-feedback,
     ~ .warning-tooltip {
       display: block;
     }
   }
 }
-
 .custom-control-input.is-warning {
   ~ .custom-control-label {
     color: theme-color("warning");
-
     &::before {
       border-color: theme-color("warning");
     }
   }
-
   ~ .warning-feedback,
   ~ .warning-tooltip {
     display: block;
   }
-
   &:checked {
     ~ .custom-control-label::before {
       @include gradient-bg(lighten(theme-color("warning"), 10%));
       border-color: lighten(theme-color("warning"), 10%);
     }
   }
-
   &:focus {
     ~ .custom-control-label::before {
       box-shadow: 0 0 0 $input-focus-width rgba(theme-color("warning"), .25);
     }
-
     &:not(:checked) ~ .custom-control-label::before {
       border-color: theme-color("warning");
     }
   }
 }
-
 // custom file
 .custom-file-input {
   &.is-warning {
     ~ .custom-file-label {
       border-color: theme-color("warning");
     }
-
     ~ .warning-feedback,
     ~ .warning-tooltip {
       display: block;
     }
-
     &:focus {
       ~ .custom-file-label {
         border-color: theme-color("warning");
@@ -263,14 +229,12 @@ textarea.form-control {
     }
   }
 }
-
 // body.text-sm support
 body.text-sm {
   .input-group-text {
     font-size: $font-size-sm;
   }
 }
-
 // custom .form-control styles
 .form-control,
 .custom-select {
@@ -280,7 +244,6 @@ body.text-sm {
     border-right: 0;
     border-radius: 0;
     box-shadow: inherit;
-
     &.border-width-2 {
       border-bottom-width: 2px;
     }
@@ -289,38 +252,31 @@ body.text-sm {
     }
   }
 }
-
 // custom switch color variations
 .custom-switch {
   @each $name, $color in $theme-colors {
     @include custom-switch-variant($name, $color);
   }
-
   @each $name, $color in $colors {
     @include custom-switch-variant($name, $color);
   }
 }
-
 // custom range color variations
 .custom-range {
   @each $name, $color in $theme-colors {
     @include custom-range-variant($name, $color);
   }
-
   @each $name, $color in $colors {
     @include custom-range-variant($name, $color);
   }
 }
-
 // custom control input variations
 @each $name, $color in $theme-colors {
   @include custom-control-input-variant($name, $color);
 }
-
 @each $name, $color in $colors {
   @include custom-control-input-variant($name, $color);
 }
-
 .custom-control-input-outline {
   ~ .custom-control-label::before {
     background-color: transparent !important;
@@ -330,7 +286,6 @@ body.text-sm {
     @include gradient-bg(transparent);
   }
 }
-
 .navbar-dark {
   .btn-navbar,
   .form-control-navbar {
@@ -346,7 +301,6 @@ body.text-sm {
       background-color: lighten($sidebar-dark-bg, 10%);
     }
   }
-
   .form-control-navbar + .input-group-prepend,
   .form-control-navbar + .input-group-append {
     > .btn-navbar {
@@ -357,7 +311,6 @@ body.text-sm {
     }
   }
 }
-
 @include dark-mode () {
   .form-control:not(.form-control-navbar):not(.form-control-sidebar),
   .custom-select,
@@ -378,26 +331,21 @@ body.text-sm {
     color: $white;
     border-color: $gray-600;
   }
-
   .custom-select {
     background: $dark $custom-select-dark-background;
-
     &[multiple]{
       background: $dark;
     }
   }
-
   .input-group-text {
     border-color: $gray-600;
   }
-
   .custom-control-input:disabled ~ .custom-control-label::before,
   .custom-control-input[disabled] ~ .custom-control-label::before {
     background-color: lighten($dark, 5%);
     border-color: $gray-600;
     color: $white;
   }
-
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -409,7 +357,6 @@ body.text-sm {
   select:-webkit-autofill:focus {
     -webkit-text-fill-color: $white;
   }
-
   .custom-range {
     &::-webkit-slider-runnable-track {
       background-color: lighten($dark, 7.5%);
@@ -420,31 +367,25 @@ body.text-sm {
     &::-ms-track {
       background-color: lighten($dark, 7.5%);
     }
-
     @each $name, $color in $theme-colors-alt {
       @include custom-range-variant($name, $color);
     }
-
     @each $name, $color in $colors-alt {
       @include custom-range-variant($name, $color);
     }
   }
-
   // custom switch color variations
   .custom-switch {
     @each $name, $color in $theme-colors-alt {
       @include custom-switch-variant($name, $color);
     }
-
     @each $name, $color in $colors-alt {
       @include custom-switch-variant($name, $color);
     }
   }
-
   @each $name, $color in $theme-colors-alt {
     @include custom-control-input-variant($name, $color);
   }
-
   @each $name, $color in $colors-alt {
     @include custom-control-input-variant($name, $color);
   }

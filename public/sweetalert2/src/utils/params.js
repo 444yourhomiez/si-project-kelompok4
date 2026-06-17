@@ -1,5 +1,4 @@
 import { warn, warnAboutDeprecation } from '../utils/utils.js'
-
 export const defaultParams = {
   title: '',
   titleText: '',
@@ -94,7 +93,6 @@ export const defaultParams = {
   scrollbarPadding: true,
   topLayer: false,
 }
-
 export const updatableParams = [
   'allowEscapeKey',
   'allowOutsideClick',
@@ -142,12 +140,10 @@ export const updatableParams = [
   'theme',
   'willClose',
 ]
-
 /** @type {Record<string, string | undefined>} */
 export const deprecatedParams = {
   allowEnterKey: undefined,
 }
-
 const toastIncompatibleParams = [
   'allowOutsideClick',
   'allowEnterKey',
@@ -160,7 +156,6 @@ const toastIncompatibleParams = [
   'heightAuto',
   'keydownListenerCapture',
 ]
-
 /**
  * Is valid parameter
  *
@@ -170,7 +165,6 @@ const toastIncompatibleParams = [
 export const isValidParameter = (paramName) => {
   return Object.prototype.hasOwnProperty.call(defaultParams, paramName)
 }
-
 /**
  * Is valid parameter for Swal.update() method
  *
@@ -180,7 +174,6 @@ export const isValidParameter = (paramName) => {
 export const isUpdatableParameter = (paramName) => {
   return updatableParams.indexOf(paramName) !== -1
 }
-
 /**
  * Is deprecated parameter
  *
@@ -190,7 +183,6 @@ export const isUpdatableParameter = (paramName) => {
 export const isDeprecatedParameter = (paramName) => {
   return deprecatedParams[paramName]
 }
-
 /**
  * @param {string} param
  */
@@ -199,7 +191,6 @@ const checkIfParamIsValid = (param) => {
     warn(`Unknown parameter "${param}"`)
   }
 }
-
 /**
  * @param {string} param
  */
@@ -208,7 +199,6 @@ const checkIfToastParamIsValid = (param) => {
     warn(`The parameter "${param}" is incompatible with toasts`)
   }
 }
-
 /**
  * @param {string} param
  */
@@ -218,7 +208,6 @@ const checkIfParamIsDeprecated = (param) => {
     warnAboutDeprecation(param, isDeprecated)
   }
 }
-
 /**
  * Show relevant warnings for given params
  *
@@ -228,7 +217,6 @@ export const showWarningsForParams = (params) => {
   if (params.backdrop === false && params.allowOutsideClick) {
     warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`')
   }
-
   if (
     params.theme &&
     ![
@@ -254,16 +242,12 @@ export const showWarningsForParams = (params) => {
   ) {
     warn(`Invalid theme "${params.theme}"`)
   }
-
   for (const param in params) {
     checkIfParamIsValid(param)
-
     if (params.toast) {
       checkIfToastParamIsValid(param)
     }
-
     checkIfParamIsDeprecated(param)
   }
 }
-
 export default defaultParams

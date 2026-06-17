@@ -1,7 +1,6 @@
 //
 // Component: Dropdown
 //
-
 // General Dropdown Rules
 //.dropdown-item {
 //  &:first-of-type {
@@ -11,59 +10,48 @@
 //    @include border-bottom-radius($border-radius);
 //  }
 //}
-
 .text-sm {
   .dropdown-menu {
     font-size: $font-size-sm !important;
   }
-
   .dropdown-toggle::after {
     vertical-align: .2rem;
   }
 }
-
 .dropdown-item-title {
   font-size: $font-size-base;
   margin: 0;
 }
-
 .dropdown-icon {
   &::after {
     margin-left: 0;
   }
 }
-
 // Dropdown Sizes
 .dropdown-menu-lg {
   max-width: 300px;
   min-width: 280px;
   padding: 0;
-
   .dropdown-divider {
     margin: 0;
   }
-
   .dropdown-item {
     padding: $dropdown-padding-y $dropdown-item-padding-x;
   }
-
   p {
     margin: 0;
     white-space: normal;
   }
 }
-
 // Dropdown Submenu
 .dropdown-submenu {
   position: relative;
-
   > a::after {
     @include caret-right ();
     float: right;
     margin-left: .5rem;
     margin-top: .5rem;
   }
-
   > .dropdown-menu {
     left: 100%;
     margin-left: 0;
@@ -71,7 +59,6 @@
     top: 0;
   }
 }
-
 // Dropdown Hover
 .dropdown-hover {
   &:hover,
@@ -83,28 +70,22 @@
     }
   }
 }
-
-
 // Dropdown Sizes
 .dropdown-menu-xl {
   max-width: 420px;
   min-width: 360px;
   padding: 0;
-
   .dropdown-divider {
     margin: 0;
   }
-
   .dropdown-item {
     padding: $dropdown-padding-y $dropdown-item-padding-x;
   }
-
   p {
     margin: 0;
     white-space: normal;
   }
 }
-
 // Dropdown header and footer
 .dropdown-footer,
 .dropdown-header {
@@ -113,14 +94,12 @@
   padding: .5rem $dropdown-item-padding-x;
   text-align: center;
 }
-
 // Add fade animation to dropdown menus by appending
 // the class .animated-dropdown-menu to the .dropdown-menu ul (or ol)
 .open:not(.dropup) > .animated-dropdown-menu {
   @include animation(flipInX .7s both);
   backface-visibility: visible !important;
 }
-
 // Fix dropdown menu in navbars
 .navbar-custom-menu > .navbar-nav {
   > li {
@@ -132,7 +111,6 @@
     }
   }
 }
-
 @include media-breakpoint-down(sm) {
   .navbar-custom-menu > .navbar-nav {
     float: right;
@@ -148,29 +126,24 @@
     }
   }
 }
-
 // User Menu
 .navbar-nav > .user-menu {
   > .nav-link::after {
     content: none;
   }
-
   > .dropdown-menu {
     @include border-top-radius(0);
     padding: 0;
     width: 280px;
-
     &,
     > .user-body {
       @include border-bottom-radius(4px);
     }
-
     // Header menu
     > li.user-header {
       height: 175px;
       padding: 10px;
       text-align: center;
-
       // User image
       > img {
         z-index: 5;
@@ -180,27 +153,23 @@
         border-color: transparent;
         border-color: rgba(255, 255, 255, .2);
       }
-
       > p {
         z-index: 5;
         font-size: 17px;
         //text-shadow: 2px 2px 3px #333333;
         margin-top: 10px;
-
         > small {
           display: block;
           font-size: 12px;
         }
       }
     }
-
     // Menu Body
     > .user-body {
       @include clearfix ();
       border-bottom: 1px solid $gray-700;
       border-top: 1px solid $gray-300;
       padding: 15px;
-
       a {
         @include media-breakpoint-up(sm) {
           background-color: $white !important;
@@ -208,16 +177,13 @@
         }
       }
     }
-
     // Menu Footer
     > .user-footer {
       @include clearfix ();
       background-color: $gray-100;
       padding: 10px;
-
       .btn-default {
         color: $gray-600;
-
         &:hover {
           @include media-breakpoint-up(sm) {
             background-color: $gray-100;
@@ -226,7 +192,6 @@
       }
     }
   }
-
   .user-image {
     @include media-breakpoint-up(sm) {
       float: none;
@@ -234,7 +199,6 @@
       margin-right: .4rem;
       margin-top: -8px;
     }
-
     border-radius: 50%;
     float: left;
     height: $sidebar-user-image-width;
@@ -243,7 +207,6 @@
     width: $sidebar-user-image-width;
   }
 }
-
 @include dark-mode () {
   .dropdown-menu {
     background-color: $dark;
@@ -251,7 +214,6 @@
   }
   .dropdown-item {
     color: $white;
-
     &:focus,
     &:hover {
       background-color: lighten($dark, 5%);
@@ -260,15 +222,12 @@
   .dropdown-divider {
     border-color: $gray-600;
   }
-
   .navbar-nav > .user-menu > .dropdown-menu {
     > .user-footer {
       background-color: lighten($dark, 2.5%);
       color: $white;
-
       .btn-default {
         color: $white;
-
         &:hover,
         &:focus {
           background-color: lighten($dark, 5%);
@@ -285,7 +244,6 @@
     > .user-body a {
       background-color: transparent !important;
       color: $white !important;
-
       &:hover,
       &:focus {
         color: $gray-400 !important;

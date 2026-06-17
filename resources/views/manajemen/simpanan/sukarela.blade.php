@@ -1,32 +1,22 @@
 @extends('layouts.app')
-
 @section('title', 'Simpanan Sukarela')
-
 @section('menuManajemenSimpanan', 'active')
 @section('menuManajemenSimpananSukarela', 'active')
 @section('menuManajemenSimpananOpen', 'menu-open')
-
 @section('content')
-
     {{-- INDEX SUKARELA --}}
     @livewire('manajemen.simpanan.sukarela')
-
     {{-- CREATE --}}
     @livewire('manajemen.simpanan.create')
-
     {{-- EDIT --}}
     @livewire('manajemen.simpanan.edit')
-
     {{-- DELETE --}}
     @livewire('manajemen.simpanan.delete')
-
     {{-- CLOSE MODAL --}}
     <script>
         document.addEventListener('livewire:init', () => {
-
             Livewire.on('closeCreateModal', () => {
                 $('#createModalSimpanan').modal('hide');
-
                 Swal.fire({
                     title: "Sukses",
                     text: "Simpanan Berhasil Ditambah",
@@ -34,10 +24,8 @@
                     confirmButtonText: "OK"
                 });
             });
-
             Livewire.on('closeEditModal', () => {
                 $('#editModalSimpanan').modal('hide');
-
                 Swal.fire({
                     title: "Sukses",
                     text: "Simpanan Berhasil Diperbarui",
@@ -45,10 +33,8 @@
                     confirmButtonText: "OK"
                 });
             });
-
             Livewire.on('closeDeleteModal', () => {
                 $('#deleteModalSimpanan').modal('hide');
-
                 Swal.fire({
                     title: "Sukses",
                     text: "Simpanan Berhasil Dihapus",
@@ -56,8 +42,6 @@
                     confirmButtonText: "OK"
                 });
             });
-
         });
     </script>
-    
 @endsection

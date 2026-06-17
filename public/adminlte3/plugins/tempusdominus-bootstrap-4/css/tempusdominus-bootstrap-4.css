@@ -3,7 +3,6 @@
  * Copyright 2016-2020 Jonathan Peterson and contributors
  * Licensed under MIT (https://github.com/tempusdominus/bootstrap-3/blob/master/LICENSE)
  */
-
 .sr-only, .bootstrap-datetimepicker-widget table th.next::after, .bootstrap-datetimepicker-widget table th.prev::after, .bootstrap-datetimepicker-widget .picker-switch::after, .bootstrap-datetimepicker-widget .btn[data-action=today]::after, .bootstrap-datetimepicker-widget .btn[data-action=clear]::after, .bootstrap-datetimepicker-widget .btn[data-action=togglePeriod]::after, .bootstrap-datetimepicker-widget .btn[data-action=showMinutes]::after, .bootstrap-datetimepicker-widget .btn[data-action=showHours]::after, .bootstrap-datetimepicker-widget .btn[data-action=decrementMinutes]::after, .bootstrap-datetimepicker-widget .btn[data-action=decrementHours]::after, .bootstrap-datetimepicker-widget .btn[data-action=incrementMinutes]::after, .bootstrap-datetimepicker-widget .btn[data-action=incrementHours]::after {
   position: absolute;
   width: 1px;
@@ -14,16 +13,13 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-
 body.tempusdominus-bootstrap-datetimepicker-widget-day-click,
 body.tempusdominus-bootstrap-datetimepicker-widget-day-click * {
   cursor: pointer !important;
 }
-
 body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
   position: relative !important;
 }
-
 .tempusdominus-bootstrap-datetimepicker-widget-day-click-glass-panel {
   position: absolute;
   z-index: 999999999999;
@@ -33,11 +29,9 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
   bottom: 0;
   cursor: pointer !important;
 }
-
 .bootstrap-datetimepicker-widget .datepicker-days tbody td {
   cursor: pointer;
 }
-
 .bootstrap-datetimepicker-widget {
   list-style: none;
 }
@@ -326,7 +320,6 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
 .bootstrap-datetimepicker-widget.bootstrap-datetimepicker-widget-readonly table td [data-action=togglePeriod]:hover {
   background: none;
 }
-
 .input-group [data-toggle=datetimepicker] {
   cursor: pointer;
 }

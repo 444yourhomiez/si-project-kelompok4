@@ -1,7 +1,6 @@
 import globalState from '../globalState.js'
 import privateMethods from '../privateMethods.js'
 import privateProps from '../privateProps.js'
-
 /**
  * Dispose the current SweetAlert2 instance
  * @this {SweetAlert}
@@ -9,25 +8,21 @@ import privateProps from '../privateProps.js'
 export function _destroy() {
   const domCache = privateProps.domCache.get(this)
   const innerParams = privateProps.innerParams.get(this)
-
   if (!innerParams) {
     disposeWeakMaps(this) // The WeakMaps might have been partly destroyed, we must recall it to dispose any remaining WeakMaps #2335
     return // This instance has already been destroyed
   }
-
   // Check if there is another Swal closing
   if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
     globalState.swalCloseEventFinishedCallback()
     delete globalState.swalCloseEventFinishedCallback
   }
-
   if (typeof innerParams.didDestroy === 'function') {
     innerParams.didDestroy()
   }
   globalState.eventEmitter?.emit('didDestroy')
   disposeSwal(this)
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -42,7 +37,6 @@ const disposeSwal = (instance) => {
   // Unset currentInstance
   delete globalState.currentInstance
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -54,7 +48,6 @@ const disposeWeakMaps = (instance) => {
   } else {
     unsetWeakMaps(privateMethods, instance)
     unsetWeakMaps(privateProps, instance)
-
     // @ts-ignore
     delete instance.isAwaitingPromise
     // Unset instance methods
@@ -92,7 +85,6 @@ const disposeWeakMaps = (instance) => {
     delete instance._destroy
   }
 }
-
 /**
  * @param {Record<string, WeakMap<any, any>>} obj
  * @param {SweetAlert} instance

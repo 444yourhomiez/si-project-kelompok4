@@ -1,16 +1,12 @@
 /* global Chart:false */
-
 $(function () {
   'use strict'
-
   var ticksStyle = {
     fontColor: '#495057',
     fontStyle: 'bold'
   }
-
   var mode = 'index'
   var intersect = true
-
   var $salesChart = $('#sales-chart')
   // eslint-disable-next-line no-unused-vars
   var salesChart = new Chart($salesChart, {
@@ -54,14 +50,12 @@ $(function () {
           },
           ticks: $.extend({
             beginAtZero: true,
-
             // Include a dollar sign in the ticks
             callback: function (value) {
               if (value >= 1000) {
                 value /= 1000
                 value += 'k'
               }
-
               return '$' + value
             }
           }, ticksStyle)
@@ -76,7 +70,6 @@ $(function () {
       }
     }
   })
-
   var $visitorsChart = $('#visitors-chart')
   // eslint-disable-next-line no-unused-vars
   var visitorsChart = new Chart($visitorsChart, {
@@ -143,5 +136,4 @@ $(function () {
     }
   })
 })
-
 // lgtm [js/unused-local-variable]

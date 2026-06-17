@@ -1,13 +1,11 @@
 //
 // Mixins: Navbar
 //
-
 // Navbar Variant
 @mixin navbar-variant($name, $color) {
   .navbar-#{$name} {
     background-color: $color;
     color: color-yiq($color);
-
     &.navbar-light {
       .form-control-navbar {
         &::placeholder {
@@ -19,7 +17,6 @@
           border-color: darken($color, 9%);
           color: rgba($gray-800, .8);
         }
-
         &:focus {
           &::placeholder {
             color: $gray-800;
@@ -44,7 +41,6 @@
           border-color: lighten($color, 9%);
           color: rgba($white, .8);
         }
-
         &:focus {
           &::placeholder {
             color: $white;

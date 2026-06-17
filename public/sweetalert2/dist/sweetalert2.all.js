@@ -7,7 +7,6 @@
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Sweetalert2 = factory());
 })(this, (function () { 'use strict';
-
   function _assertClassBrand(e, t, n) {
     if ("function" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n;
     throw new TypeError("Private element is not present on this object");
@@ -24,9 +23,7 @@
   function _classPrivateFieldSet2(s, a, r) {
     return s.set(_assertClassBrand(s, a), r), r;
   }
-
   const RESTORE_FOCUS_TIMEOUT = 100;
-
   /** @type {GlobalState} */
   const globalState = {};
   const focusPreviousActiveElement = () => {
@@ -37,7 +34,6 @@
       document.body.focus();
     }
   };
-
   /**
    * Restore previous active (focused) element
    *
@@ -55,38 +51,30 @@
         focusPreviousActiveElement();
         resolve();
       }, RESTORE_FOCUS_TIMEOUT); // issues/900
-
       window.scrollTo(x, y);
     });
   };
-
   const swalPrefix = 'swal2-';
-
   /**
    * @typedef {Record<SwalClass, string>} SwalClasses
    */
-
   /**
    * @typedef {'success' | 'warning' | 'info' | 'question' | 'error'} SwalIcon
    * @typedef {Record<SwalIcon, string>} SwalIcons
    */
-
   /** @type {SwalClass[]} */
   const classNames = ['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'show', 'hide', 'close', 'title', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error', 'draggable', 'dragging'];
   const swalClasses = classNames.reduce((acc, className) => {
     acc[className] = swalPrefix + className;
     return acc;
   }, /** @type {SwalClasses} */{});
-
   /** @type {SwalIcon[]} */
   const icons = ['success', 'warning', 'info', 'question', 'error'];
   const iconTypes = icons.reduce((acc, icon) => {
     acc[icon] = swalPrefix + icon;
     return acc;
   }, /** @type {SwalIcons} */{});
-
   const consolePrefix = 'SweetAlert2:';
-
   /**
    * Capitalize the first letter of a string
    *
@@ -94,7 +82,6 @@
    * @returns {string}
    */
   const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
-
   /**
    * Standardize console warnings
    *
@@ -103,7 +90,6 @@
   const warn = message => {
     console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`);
   };
-
   /**
    * Standardize console errors
    *
@@ -112,7 +98,6 @@
   const error = message => {
     console.error(`${consolePrefix} ${message}`);
   };
-
   /**
    * Private global state for `warnOnce`
    *
@@ -120,7 +105,6 @@
    * @private
    */
   const previousWarnOnceMessages = [];
-
   /**
    * Show a console warning, but only if it hasn't already been shown
    *
@@ -132,7 +116,6 @@
       warn(message);
     }
   };
-
   /**
    * Show a one-time console warning about deprecated params/methods
    *
@@ -142,7 +125,6 @@
   const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
     warnOnce(`"${deprecatedParam}" is deprecated and will be removed in the next major release.${useInstead ? ` Use "${useInstead}" instead.` : ''}`);
   };
-
   /**
    * If `arg` is a function, call it (with no arguments or context) and return the result.
    * Otherwise, just pass the value through
@@ -151,37 +133,31 @@
    * @returns {*}
    */
   const callIfFunction = arg => typeof arg === 'function' ? arg() : arg;
-
   /**
    * @param {*} arg
    * @returns {boolean}
    */
   const hasToPromiseFn = arg => arg && typeof arg.toPromise === 'function';
-
   /**
    * @param {*} arg
    * @returns {Promise<*>}
    */
   const asPromise = arg => hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg);
-
   /**
    * @param {*} arg
    * @returns {boolean}
    */
   const isPromise = arg => arg && Promise.resolve(arg) === arg;
-
   /**
    * @returns {boolean}
    */
   const isFirefox = () => navigator.userAgent.includes('Firefox');
-
   /**
    * Gets the popup container which contains the backdrop and the popup itself.
    *
    * @returns {HTMLElement | null}
    */
   const getContainer = () => document.body.querySelector(`.${swalClasses.container}`);
-
   /**
    * @param {string} selectorString
    * @returns {HTMLElement | null}
@@ -190,7 +166,6 @@
     const container = getContainer();
     return container ? container.querySelector(selectorString) : null;
   };
-
   /**
    * @param {string} className
    * @returns {HTMLElement | null}
@@ -198,92 +173,74 @@
   const elementByClass = className => {
     return elementBySelector(`.${className}`);
   };
-
   /**
    * @returns {HTMLElement | null}
    */
   const getPopup = () => elementByClass(swalClasses.popup);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getIcon = () => elementByClass(swalClasses.icon);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getIconContent = () => elementByClass(swalClasses['icon-content']);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getTitle = () => elementByClass(swalClasses.title);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getHtmlContainer = () => elementByClass(swalClasses['html-container']);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getImage = () => elementByClass(swalClasses.image);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getProgressSteps = () => elementByClass(swalClasses['progress-steps']);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getValidationMessage = () => elementByClass(swalClasses['validation-message']);
-
   /**
    * @returns {HTMLButtonElement | null}
    */
   const getConfirmButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`));
-
   /**
    * @returns {HTMLButtonElement | null}
    */
   const getCancelButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`));
-
   /**
    * @returns {HTMLButtonElement | null}
    */
   const getDenyButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`));
-
   /**
    * @returns {HTMLElement | null}
    */
   const getInputLabel = () => elementByClass(swalClasses['input-label']);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getLoader = () => elementBySelector(`.${swalClasses.loader}`);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getActions = () => elementByClass(swalClasses.actions);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getFooter = () => elementByClass(swalClasses.footer);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar']);
-
   /**
    * @returns {HTMLElement | null}
    */
   const getCloseButton = () => elementByClass(swalClasses.close);
-
   // https://github.com/jkup/focusable/blob/master/index.js
   const focusable = `
   a[href],
@@ -323,20 +280,17 @@
       }
       return 0;
     });
-
     /** @type {NodeListOf<HTMLElement>} */
     const otherFocusableElements = popup.querySelectorAll(focusable);
     const otherFocusableElementsFiltered = Array.from(otherFocusableElements).filter(el => el.getAttribute('tabindex') !== '-1');
     return [...new Set(focusableElementsWithTabindexSorted.concat(otherFocusableElementsFiltered))].filter(el => isVisible$1(el));
   };
-
   /**
    * @returns {boolean}
    */
   const isModal = () => {
     return hasClass(document.body, swalClasses.shown) && !hasClass(document.body, swalClasses['toast-shown']) && !hasClass(document.body, swalClasses['no-backdrop']);
   };
-
   /**
    * @returns {boolean}
    */
@@ -347,7 +301,6 @@
     }
     return hasClass(popup, swalClasses.toast);
   };
-
   /**
    * @returns {boolean}
    */
@@ -358,7 +311,6 @@
     }
     return popup.hasAttribute('data-loading');
   };
-
   /**
    * Securely set innerHTML of an element
    * https://github.com/sweetalert2/sweetalert2/issues/1926
@@ -389,7 +341,6 @@
       }
     }
   };
-
   /**
    * @param {HTMLElement} elem
    * @param {string} className
@@ -407,7 +358,6 @@
     }
     return true;
   };
-
   /**
    * @param {HTMLElement} elem
    * @param {SweetAlertOptions} params
@@ -419,7 +369,6 @@
       }
     });
   };
-
   /**
    * @param {HTMLElement} elem
    * @param {SweetAlertOptions} params
@@ -440,7 +389,6 @@
     }
     addClass(elem, customClass);
   };
-
   /**
    * @param {HTMLElement} popup
    * @param {import('./renderers/renderInput').InputClass | SweetAlertInput} inputClass
@@ -465,13 +413,11 @@
         return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.input}`);
     }
   };
-
   /**
    * @param {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} input
    */
   const focusInput = input => {
     input.focus();
-
     // place cursor at end of text in text input
     if (input.type !== 'file') {
       // http://stackoverflow.com/a/2345915
@@ -480,7 +426,6 @@
       input.value = val;
     }
   };
-
   /**
    * @param {HTMLElement | HTMLElement[] | null} target
    * @param {string | string[] | readonly string[] | undefined} classList
@@ -502,7 +447,6 @@
       });
     });
   };
-
   /**
    * @param {HTMLElement | HTMLElement[] | null} target
    * @param {string | string[] | readonly string[] | undefined} classList
@@ -510,7 +454,6 @@
   const addClass = (target, classList) => {
     toggleClass(target, classList, true);
   };
-
   /**
    * @param {HTMLElement | HTMLElement[] | null} target
    * @param {string | string[] | readonly string[] | undefined} classList
@@ -518,7 +461,6 @@
   const removeClass = (target, classList) => {
     toggleClass(target, classList, false);
   };
-
   /**
    * Get direct child of an element by class name
    *
@@ -535,7 +477,6 @@
       }
     }
   };
-
   /**
    * @param {HTMLElement} elem
    * @param {string} property
@@ -551,7 +492,6 @@
       elem.style.removeProperty(property);
     }
   };
-
   /**
    * @param {HTMLElement | null} elem
    * @param {string} display
@@ -562,7 +502,6 @@
     }
     elem.style.display = display;
   };
-
   /**
    * @param {HTMLElement | null} elem
    */
@@ -572,7 +511,6 @@
     }
     elem.style.display = 'none';
   };
-
   /**
    * @param {HTMLElement | null} elem
    * @param {string} display
@@ -588,7 +526,6 @@
       subtree: true
     });
   };
-
   /**
    * @param {HTMLElement} parent
    * @param {string} selector
@@ -602,7 +539,6 @@
       el.style.setProperty(property, value);
     }
   };
-
   /**
    * @param {HTMLElement} elem
    * @param {boolean | string | null | undefined} condition
@@ -615,7 +551,6 @@
       hide(elem);
     }
   };
-
   /**
    * borrowed from jquery $(elem).is(':visible') implementation
    *
@@ -623,18 +558,15 @@
    * @returns {boolean}
    */
   const isVisible$1 = elem => Boolean(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
-
   /**
    * @returns {boolean}
    */
   const allButtonsAreHidden = () => !isVisible$1(getConfirmButton()) && !isVisible$1(getDenyButton()) && !isVisible$1(getCancelButton());
-
   /**
    * @param {HTMLElement} elem
    * @returns {boolean}
    */
   const isScrollable = elem => Boolean(elem.scrollHeight > elem.clientHeight);
-
   /**
    * @param {HTMLElement} element
    * @param {HTMLElement} stopElement
@@ -650,7 +582,6 @@
     }
     return false;
   };
-
   /**
    * borrowed from https://stackoverflow.com/a/46352119
    *
@@ -663,7 +594,6 @@
     const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
     return animDuration > 0 || transDuration > 0;
   };
-
   /**
    * @param {number} timer
    * @param {boolean} reset
@@ -696,14 +626,12 @@
     const timerProgressBarPercent = timerProgressBarWidth / timerProgressBarFullWidth * 100;
     timerProgressBar.style.width = `${timerProgressBarPercent}%`;
   };
-
   /**
    * Detect Node env
    *
    * @returns {boolean}
    */
   const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined';
-
   const sweetHTML = `
  <div aria-labelledby="${swalClasses.title}" aria-describedby="${swalClasses['html-container']}" class="${swalClasses.popup}" tabindex="-1">
    <button type="button" class="${swalClasses.close}"></button>
@@ -738,7 +666,6 @@
    </div>
  </div>
 `.replace(/(^|\n)\s*/g, '');
-
   /**
    * @returns {boolean}
    */
@@ -799,7 +726,6 @@
       };
     }
   };
-
   /**
    * @param {string | HTMLElement} target
    * @returns {HTMLElement}
@@ -814,7 +740,6 @@
     }
     return target;
   };
-
   /**
    * @param {SweetAlertOptions} params
    */
@@ -829,7 +754,6 @@
       popup.setAttribute('aria-modal', 'true');
     }
   };
-
   /**
    * @param {HTMLElement} targetElement
    */
@@ -839,7 +763,6 @@
       globalState.isRTL = true;
     }
   };
-
   /**
    * Add modal + backdrop to DOM
    *
@@ -869,7 +792,6 @@
     setupRTL(targetElement);
     addInputChangeListeners();
   };
-
   /**
    * @param {HTMLElement | object | string} param
    * @param {HTMLElement} target
@@ -879,18 +801,15 @@
     if (param instanceof HTMLElement) {
       target.appendChild(param);
     }
-
     // Object
     else if (typeof param === 'object') {
       handleObject(param, target);
     }
-
     // Plain string
     else if (param) {
       setInnerHtml(target, param);
     }
   };
-
   /**
    * @param {object} param
    * @param {HTMLElement} target
@@ -900,13 +819,11 @@
     if ('jquery' in param) {
       handleJqueryElem(target, param);
     }
-
     // For other objects use their string representation
     else {
       setInnerHtml(target, param.toString());
     }
   };
-
   /**
    * @param {HTMLElement} target
    * @param {any} elem
@@ -921,7 +838,6 @@
       target.appendChild(elem.cloneNode(true));
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -932,25 +848,20 @@
     if (!actions || !loader) {
       return;
     }
-
     // Actions (buttons) wrapper
     if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
       hide(actions);
     } else {
       show(actions);
     }
-
     // Custom class
     applyCustomClass(actions, params, 'actions');
-
     // Render all the buttons
     renderButtons(actions, loader, params);
-
     // Loader
     setInnerHtml(loader, params.loaderHtml || '');
     applyCustomClass(loader, params, 'loader');
   };
-
   /**
    * @param {HTMLElement} actions
    * @param {HTMLElement} loader
@@ -963,7 +874,6 @@
     if (!confirmButton || !denyButton || !cancelButton) {
       return;
     }
-
     // Render buttons
     renderButton(confirmButton, 'confirm', params);
     renderButton(denyButton, 'deny', params);
@@ -980,7 +890,6 @@
       }
     }
   }
-
   /**
    * @param {HTMLElement} confirmButton
    * @param {HTMLElement} denyButton
@@ -993,7 +902,6 @@
       return;
     }
     addClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
-
     // Apply custom background colors and outline colors to action buttons
     /** @type {[HTMLElement, string, string | undefined][]} */
     const buttons = [[confirmButton, 'confirm', params.confirmButtonColor], [denyButton, 'deny', params.denyButtonColor], [cancelButton, 'cancel', params.cancelButtonColor]];
@@ -1004,7 +912,6 @@
       applyOutlineColor(button);
     });
   }
-
   /**
    * @param {HTMLElement} button
    */
@@ -1017,7 +924,6 @@
     const outlineColor = buttonStyle.backgroundColor.replace(/rgba?\((\d+), (\d+), (\d+).*/, 'rgba($1, $2, $3, 0.5)');
     button.style.setProperty('--swal2-action-button-focus-box-shadow', buttonStyle.getPropertyValue('--swal2-outline').replace(/ rgba\(.*/, ` ${outlineColor}`));
   }
-
   /**
    * @param {HTMLElement} button
    * @param {'confirm' | 'deny' | 'cancel'} buttonType
@@ -1028,12 +934,10 @@
     toggle(button, params[`show${buttonName}Button`], 'inline-block');
     setInnerHtml(button, params[`${buttonType}ButtonText`] || ''); // Set caption text
     button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`] || ''); // ARIA label
-
     // Add buttons custom classes
     button.className = swalClasses[buttonType];
     applyCustomClass(button, params, `${buttonType}Button`);
   }
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1044,13 +948,11 @@
       return;
     }
     setInnerHtml(closeButton, params.closeButtonHtml || '');
-
     // Custom class
     applyCustomClass(closeButton, params, 'closeButton');
     toggle(closeButton, params.showCloseButton);
     closeButton.setAttribute('aria-label', params.closeButtonAriaLabel || '');
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1063,11 +965,9 @@
     handleBackdropParam(container, params.backdrop);
     handlePositionParam(container, params.position);
     handleGrowParam(container, params.grow);
-
     // Custom class
     applyCustomClass(container, params, 'container');
   };
-
   /**
    * @param {HTMLElement} container
    * @param {SweetAlertOptions['backdrop']} backdrop
@@ -1079,7 +979,6 @@
       addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
     }
   }
-
   /**
    * @param {HTMLElement} container
    * @param {SweetAlertOptions['position']} position
@@ -1095,7 +994,6 @@
       addClass(container, swalClasses.center);
     }
   }
-
   /**
    * @param {HTMLElement} container
    * @param {SweetAlertOptions['grow']} grow
@@ -1106,7 +1004,6 @@
     }
     addClass(container, swalClasses[`grow-${grow}`]);
   }
-
   /**
    * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
    * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
@@ -1116,19 +1013,14 @@
    * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
    *   then we can use that language feature.
    */
-
   var privateProps = {
     innerParams: new WeakMap(),
     domCache: new WeakMap(),
     focusedElement: new WeakMap()
   };
-
   /// <reference path="../../../../sweetalert2.d.ts"/>
-
-
   /** @type {InputClass[]} */
   const inputClasses = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1145,10 +1037,8 @@
       if (!inputContainer) {
         return;
       }
-
       // set attributes
       setAttributes(inputClass, params.inputAttributes);
-
       // set class
       inputContainer.className = swalClasses[inputClass];
       if (rerender) {
@@ -1163,7 +1053,6 @@
       setCustomClass(params);
     }
   };
-
   /**
    * @param {SweetAlertOptions} params
    */
@@ -1181,7 +1070,6 @@
     }
     const input = renderInputType[params.input](inputContainer, params);
     show(inputContainer);
-
     // input autofocus
     if (params.inputAutoFocus) {
       setTimeout(() => {
@@ -1189,7 +1077,6 @@
       });
     }
   };
-
   /**
    * @param {HTMLInputElement} input
    */
@@ -1201,7 +1088,6 @@
       }
     }
   };
-
   /**
    * @param {InputClass} inputClass
    * @param {SweetAlertOptions['inputAttributes']} inputAttributes
@@ -1220,7 +1106,6 @@
       input.setAttribute(attr, inputAttributes[attr]);
     }
   };
-
   /**
    * @param {SweetAlertOptions} params
    */
@@ -1233,7 +1118,6 @@
       applyCustomClass(inputContainer, params, 'input');
     }
   };
-
   /**
    * @param {HTMLInputElement | HTMLTextAreaElement} input
    * @param {SweetAlertOptions} params
@@ -1243,7 +1127,6 @@
       input.placeholder = params.inputPlaceholder;
     }
   };
-
   /**
    * @param {Input} input
    * @param {Input} prependTo
@@ -1262,7 +1145,6 @@
       prependTo.insertAdjacentElement('beforebegin', label);
     }
   };
-
   /**
    * @param {SweetAlertInput} inputType
    * @returns {HTMLElement | undefined}
@@ -1274,7 +1156,6 @@
     }
     return getDirectChildByClass(popup, swalClasses[(/** @type {SwalClass} */inputType)] || swalClasses.input);
   };
-
   /**
    * @param {HTMLInputElement | HTMLOutputElement | HTMLTextAreaElement} input
    * @param {SweetAlertOptions['inputValue']} inputValue
@@ -1286,10 +1167,8 @@
       warn(`Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof inputValue}"`);
     }
   };
-
   /** @type {Record<SweetAlertInput, (input: Input | HTMLElement, params: SweetAlertOptions) => Input>} */
   const renderInputType = {};
-
   /**
    * @param {Input | HTMLElement} input
    * @param {SweetAlertOptions} params
@@ -1306,7 +1185,6 @@
     inputElement.type = /** @type {string} */params.input;
     return inputElement;
   };
-
   /**
    * @param {Input | HTMLElement} input
    * @param {SweetAlertOptions} params
@@ -1318,7 +1196,6 @@
     setInputPlaceholder(inputElement, params);
     return inputElement;
   };
-
   /**
    * @param {Input | HTMLElement} range
    * @param {SweetAlertOptions} params
@@ -1338,7 +1215,6 @@
     }
     return /** @type {Input} */range;
   };
-
   /**
    * @param {Input | HTMLElement} select
    * @param {SweetAlertOptions} params
@@ -1358,7 +1234,6 @@
     setInputLabel(selectElement, selectElement, params);
     return selectElement;
   };
-
   /**
    * @param {Input | HTMLElement} radio
    * @returns {Input}
@@ -1368,7 +1243,6 @@
     radioElement.textContent = '';
     return /** @type {Input} */radio;
   };
-
   /**
    * @param {Input | HTMLElement} checkboxContainer
    * @param {SweetAlertOptions} params
@@ -1395,7 +1269,6 @@
     }
     return checkbox;
   };
-
   /**
    * @param {Input | HTMLElement} textarea
    * @param {SweetAlertOptions} params
@@ -1406,13 +1279,11 @@
     checkAndSetInputValue(textareaElement, params.inputValue);
     setInputPlaceholder(textareaElement, params);
     setInputLabel(textareaElement, textareaElement, params);
-
     /**
      * @param {HTMLElement} el
      * @returns {number}
      */
     const getMargin = el => parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight);
-
     // https://github.com/sweetalert2/sweetalert2/issues/2291
     setTimeout(() => {
       // https://github.com/sweetalert2/sweetalert2/issues/1699
@@ -1445,7 +1316,6 @@
     });
     return textareaElement;
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1457,26 +1327,22 @@
     }
     showWhenInnerHtmlPresent(htmlContainer);
     applyCustomClass(htmlContainer, params, 'htmlContainer');
-
     // Content as HTML
     if (params.html) {
       parseHtmlToContainer(params.html, htmlContainer);
       show(htmlContainer, 'block');
     }
-
     // Content as plain text
     else if (params.text) {
       htmlContainer.textContent = params.text;
       show(htmlContainer, 'block');
     }
-
     // No content
     else {
       hide(htmlContainer);
     }
     renderInput(instance, params);
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1491,11 +1357,9 @@
     if (params.footer) {
       parseHtmlToContainer(params.footer, footer);
     }
-
     // Custom class
     applyCustomClass(footer, params, 'footer');
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1506,7 +1370,6 @@
     if (!icon) {
       return;
     }
-
     // if the given icon already rendered, apply the styling without re-rendering the icon
     if (innerParams && params.icon === innerParams.icon) {
       // Custom or default content
@@ -1524,19 +1387,15 @@
       return;
     }
     show(icon);
-
     // Custom or default content
     setContent(icon, params);
     applyStyles(icon, params);
-
     // Animate icon
     addClass(icon, params.showClass && params.showClass.icon);
-
     // Re-adjust the success icon on system theme change
     const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: dark)');
     colorSchemeQueryList.addEventListener('change', adjustSuccessIconBackgroundColor);
   };
-
   /**
    * @param {HTMLElement} icon
    * @param {SweetAlertOptions} params
@@ -1548,17 +1407,13 @@
       }
     }
     addClass(icon, params.icon && iconTypes[params.icon]);
-
     // Icon color
     setColor(icon, params);
-
     // Success icon background color
     adjustSuccessIconBackgroundColor();
-
     // Custom class
     applyCustomClass(icon, params, 'icon');
   };
-
   // Adjust success icon background color to match the popup background color
   const adjustSuccessIconBackgroundColor = () => {
     const popup = getPopup();
@@ -1572,7 +1427,6 @@
       successIconParts[i].style.backgroundColor = popupBackgroundColor;
     }
   };
-
   /**
    *
    * @param {SweetAlertOptions} params
@@ -1591,7 +1445,6 @@
     <span class="swal2-x-mark-line-right"></span>
   </span>
 `;
-
   /**
    * @param {HTMLElement} icon
    * @param {SweetAlertOptions} params
@@ -1621,7 +1474,6 @@
       setInnerHtml(icon, newContent);
     }
   };
-
   /**
    * @param {HTMLElement} icon
    * @param {SweetAlertOptions} params
@@ -1637,13 +1489,11 @@
     }
     setStyle(icon, '.swal2-success-ring', 'border-color', params.iconColor);
   };
-
   /**
    * @param {string} content
    * @returns {string}
    */
   const iconContent = content => `<div class="${swalClasses['icon-content']}">${content}</div>`;
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1658,26 +1508,21 @@
       return;
     }
     show(image, '');
-
     // Src, alt
     image.setAttribute('src', params.imageUrl);
     image.setAttribute('alt', params.imageAlt || '');
-
     // Width, height
     applyNumericalStyle(image, 'width', params.imageWidth);
     applyNumericalStyle(image, 'height', params.imageHeight);
-
     // Class
     image.className = swalClasses.image;
     applyCustomClass(image, params, 'image');
   };
-
   let dragging = false;
   let mousedownX = 0;
   let mousedownY = 0;
   let initialX = 0;
   let initialY = 0;
-
   /**
    * @param {HTMLElement} popup
    */
@@ -1689,7 +1534,6 @@
     document.body.addEventListener('touchmove', move);
     popup.addEventListener('touchend', up);
   };
-
   /**
    * @param {HTMLElement} popup
    */
@@ -1701,7 +1545,6 @@
     document.body.removeEventListener('touchmove', move);
     popup.removeEventListener('touchend', up);
   };
-
   /**
    * @param {MouseEvent | TouchEvent} event
    */
@@ -1721,7 +1564,6 @@
       addClass(popup, 'swal2-dragging');
     }
   };
-
   /**
    * @param {MouseEvent | TouchEvent} event
    */
@@ -1746,7 +1588,6 @@
     dragging = false;
     removeClass(popup, 'swal2-dragging');
   };
-
   /**
    * @param {MouseEvent | TouchEvent} event
    * @returns {{ clientX: number, clientY: number }}
@@ -1758,7 +1599,6 @@
       clientY: source.clientY
     };
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1769,7 +1609,6 @@
     if (!container || !popup) {
       return;
     }
-
     // Width
     // https://github.com/sweetalert2/sweetalert2/issues/2170
     if (params.toast) {
@@ -1782,21 +1621,17 @@
     } else {
       applyNumericalStyle(popup, 'width', params.width);
     }
-
     // Padding
     applyNumericalStyle(popup, 'padding', params.padding);
-
     // Color
     if (params.color) {
       popup.style.color = params.color;
     }
-
     // Background
     if (params.background) {
       popup.style.background = params.background;
     }
     hide(getValidationMessage());
-
     // Classes
     addClasses$1(popup, params);
     if (params.draggable && !params.toast) {
@@ -1807,7 +1642,6 @@
       removeDraggableListeners(popup);
     }
   };
-
   /**
    * @param {HTMLElement} popup
    * @param {SweetAlertOptions} params
@@ -1822,20 +1656,17 @@
     } else {
       addClass(popup, swalClasses.modal);
     }
-
     // Custom class
     applyCustomClass(popup, params, 'popup');
     // TODO: remove in the next major
     if (typeof params.customClass === 'string') {
       addClass(popup, params.customClass);
     }
-
     // Icon class (#1842)
     if (params.icon) {
       addClass(popup, swalClasses[`icon-${params.icon}`]);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1870,7 +1701,6 @@
       }
     });
   };
-
   /**
    * @param {string} step
    * @returns {HTMLLIElement}
@@ -1881,7 +1711,6 @@
     setInnerHtml(stepEl, step);
     return stepEl;
   };
-
   /**
    * @param {SweetAlertOptions} params
    * @returns {HTMLLIElement}
@@ -1894,7 +1723,6 @@
     }
     return lineEl;
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1912,11 +1740,9 @@
     if (params.titleText) {
       title.innerText = params.titleText;
     }
-
     // Custom class
     applyCustomClass(title, params, 'title');
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -1939,14 +1765,12 @@
     }
     (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didRender', popup);
   };
-
   /*
    * Global function to determine if SweetAlert2 popup is shown
    */
   const isVisible = () => {
     return isVisible$1(getPopup());
   };
-
   /*
    * Global function to click 'Confirm' button
    */
@@ -1954,7 +1778,6 @@
     var _dom$getConfirmButton;
     return (_dom$getConfirmButton = getConfirmButton()) === null || _dom$getConfirmButton === void 0 ? void 0 : _dom$getConfirmButton.click();
   };
-
   /*
    * Global function to click 'Deny' button
    */
@@ -1962,7 +1785,6 @@
     var _dom$getDenyButton;
     return (_dom$getDenyButton = getDenyButton()) === null || _dom$getDenyButton === void 0 ? void 0 : _dom$getDenyButton.click();
   };
-
   /*
    * Global function to click 'Cancel' button
    */
@@ -1970,7 +1792,6 @@
     var _dom$getCancelButton;
     return (_dom$getCancelButton = getCancelButton()) === null || _dom$getCancelButton === void 0 ? void 0 : _dom$getCancelButton.click();
   };
-
   /** @type {Record<DismissReason, DismissReason>} */
   const DismissReason = Object.freeze({
     cancel: 'cancel',
@@ -1979,7 +1800,6 @@
     esc: 'esc',
     timer: 'timer'
   });
-
   /**
    * @param {GlobalState} globalState
    */
@@ -1993,7 +1813,6 @@
       globalState.keydownHandlerAdded = false;
     }
   };
-
   /**
    * @param {GlobalState} globalState
    * @param {SweetAlertOptions} innerParams
@@ -2017,7 +1836,6 @@
       }
     }
   };
-
   /**
    * @param {number} index
    * @param {number} increment
@@ -2029,22 +1847,18 @@
     // search for visible elements and select the next possible match
     if (focusableElements.length) {
       index = index + increment;
-
       // shift + tab when .swal2-popup is focused
       if (index === -2) {
         index = focusableElements.length - 1;
       }
-
       // rollover to first item
       if (index === focusableElements.length) {
         index = 0;
-
         // go to last item
       } else if (index === -1) {
         index = focusableElements.length - 1;
       }
       focusableElements[index].focus();
-
       // don't prevent default for iframes (Firefox fix)
       // https://github.com/sweetalert2/sweetalert2/issues/2931
       if (isFirefox() && focusableElements[index] instanceof HTMLIFrameElement) {
@@ -2058,7 +1872,6 @@
   };
   const arrowKeysNextButton = ['ArrowRight', 'ArrowDown'];
   const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp'];
-
   /**
    * @param {SweetAlertOptions} innerParams
    * @param {KeyboardEvent} event
@@ -2068,7 +1881,6 @@
     if (!innerParams) {
       return; // This instance has already been destroyed
     }
-
     // Ignore keydown during IME composition
     // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event#ignoring_keydown_during_ime_composition
     // https://github.com/sweetalert2/sweetalert2/issues/720
@@ -2079,28 +1891,23 @@
     if (innerParams.stopKeydownPropagation) {
       event.stopPropagation();
     }
-
     // ENTER
     if (event.key === 'Enter') {
       handleEnter(event, innerParams);
     }
-
     // TAB
     else if (event.key === 'Tab') {
       handleTab(event);
     }
-
     // ARROWS - switch focus between buttons
     else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(event.key)) {
       handleArrows(event.key);
     }
-
     // ESC
     else if (event.key === 'Escape') {
       handleEsc(event, innerParams, dismissWith);
     }
   };
-
   /**
    * @param {KeyboardEvent} event
    * @param {SweetAlertOptions} innerParams
@@ -2123,7 +1930,6 @@
       event.preventDefault();
     }
   };
-
   /**
    * @param {KeyboardEvent} event
    */
@@ -2137,16 +1943,13 @@
         break;
       }
     }
-
     // don't prevent default for iframes (Firefox fix)
     // https://github.com/sweetalert2/sweetalert2/issues/2931
     let shouldPreventDefault = true;
-
     // Cycle to the next button
     if (!event.shiftKey) {
       shouldPreventDefault = setFocus(btnIndex, 1);
     }
-
     // Cycle to the prev button
     else {
       shouldPreventDefault = setFocus(btnIndex, -1);
@@ -2156,7 +1959,6 @@
       event.preventDefault();
     }
   };
-
   /**
    * @param {string} key
    */
@@ -2191,7 +1993,6 @@
       buttonToFocus.focus();
     }
   };
-
   /**
    * @param {KeyboardEvent} event
    * @param {SweetAlertOptions} innerParams
@@ -2203,7 +2004,6 @@
       dismissWith(DismissReason.esc);
     }
   };
-
   /**
    * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
    * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
@@ -2213,17 +2013,14 @@
    * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
    *   then we can use that language feature.
    */
-
   var privateMethods = {
     swalPromiseResolve: new WeakMap(),
     swalPromiseReject: new WeakMap()
   };
-
   // From https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/
   // Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
   // elements not within the active modal dialog will not be surfaced if a user opens a screen
   // reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
-
   const setAriaHidden = () => {
     const container = getContainer();
     const bodyChildren = Array.from(document.body.children);
@@ -2248,13 +2045,10 @@
       }
     });
   };
-
   // @ts-ignore
   const isSafariOrIOS = typeof window !== 'undefined' && Boolean(window.GestureEvent); // true for Safari desktop + all iOS browsers https://stackoverflow.com/a/70585394
-
   // @ts-ignore
   const isIOS = isSafariOrIOS && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
   /**
    * Fix iOS scrolling
    * http://stackoverflow.com/q/39626302
@@ -2267,7 +2061,6 @@
       lockBodyScroll();
     }
   };
-
   /**
    * https://github.com/sweetalert2/sweetalert2/issues/1246
    */
@@ -2294,7 +2087,6 @@
       }
     };
   };
-
   /**
    * @param {TouchEvent} event
    * @returns {boolean}
@@ -2325,7 +2117,6 @@
     }
     return false;
   };
-
   /**
    * https://github.com/sweetalert2/sweetalert2/issues/1786
    *
@@ -2337,7 +2128,6 @@
     // @ts-ignore - touchType is not a standard property
     event.touches[0].touchType === 'stylus');
   };
-
   /**
    * https://github.com/sweetalert2/sweetalert2/issues/1891
    *
@@ -2355,7 +2145,6 @@
       document.body.scrollTop = offset * -1;
     }
   };
-
   /**
    * Measure scrollbar width for padding body during modal show/hide
    * https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
@@ -2370,13 +2159,11 @@
     document.body.removeChild(scrollDiv);
     return scrollbarWidth;
   };
-
   /**
    * Remember state in cases where opening and handling a modal will fiddle with it.
    * @type {number | null}
    */
   let previousBodyPadding = null;
-
   /**
    * @param {string} initialBodyOverflow
    */
@@ -2399,7 +2186,6 @@
       previousBodyPadding = null;
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {HTMLElement} container
@@ -2413,7 +2199,6 @@
       restoreActiveElement(returnFocus).then(() => triggerDidCloseAndDispose(instance, didClose));
       removeKeydownHandler(globalState);
     }
-
     // workaround for https://github.com/sweetalert2/sweetalert2/issues/2088
     // for some reason removing the container in Safari will scroll the document to bottom
     if (isSafariOrIOS) {
@@ -2430,14 +2215,12 @@
     }
     removeBodyClasses();
   }
-
   /**
    * Remove SweetAlert2 classes from body
    */
   function removeBodyClasses() {
     removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown']]);
   }
-
   /**
    * Instance method to close sweetAlert
    *
@@ -2459,7 +2242,6 @@
       swalPromiseResolve(resolveValue);
     }
   }
-
   /**
    * @param {SweetAlert} instance
    * @returns {boolean}
@@ -2481,7 +2263,6 @@
     handlePopupAnimation(instance, popup, innerParams);
     return true;
   };
-
   /**
    * @param {Error | string} error
    * @this {SweetAlert}
@@ -2494,7 +2275,6 @@
       rejectPromise(error);
     }
   }
-
   /**
    * @param {SweetAlert} instance
    */
@@ -2508,7 +2288,6 @@
       }
     }
   };
-
   /**
    * @param {SweetAlertResult | undefined} resolveValue
    * @returns {SweetAlertResult}
@@ -2528,7 +2307,6 @@
       isDismissed: false
     }, resolveValue);
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {HTMLElement} popup
@@ -2550,7 +2328,6 @@
       removePopupAndResetState(instance, container, Boolean(innerParams.returnFocus), innerParams.didClose);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {HTMLElement} popup
@@ -2575,7 +2352,6 @@
     popup.addEventListener('animationend', swalCloseAnimationFinished);
     popup.addEventListener('transitionend', swalCloseAnimationFinished);
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {(() => void) | undefined} didClose
@@ -2593,7 +2369,6 @@
       }
     });
   };
-
   /**
    * Shows loader (spinner), this is useful with AJAX requests.
    * By default the loader be shown instead of the "Confirm" button.
@@ -2620,7 +2395,6 @@
     popup.setAttribute('aria-busy', 'true');
     popup.focus();
   };
-
   /**
    * @param {HTMLElement} popup
    * @param {HTMLButtonElement | null} [buttonToReplace]
@@ -2642,7 +2416,6 @@
     }
     addClass([popup, actions], swalClasses.loading);
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -2655,7 +2428,6 @@
       handleInputValue(instance, params);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} innerParams
@@ -2677,25 +2449,21 @@
         return innerParams.inputAutoTrim ? input.value.trim() : input.value;
     }
   };
-
   /**
    * @param {HTMLInputElement} input
    * @returns {number}
    */
   const getCheckboxValue = input => input.checked ? 1 : 0;
-
   /**
    * @param {HTMLInputElement} input
    * @returns {string | null}
    */
   const getRadioValue = input => input.checked ? input.value : null;
-
   /**
    * @param {HTMLInputElement} input
    * @returns {FileList | File | null}
    */
   const getFileValue = input => input.files && input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -2727,7 +2495,6 @@
       error(`Unexpected type of inputOptions! Expected object, Map or Promise, got ${typeof params.inputOptions}`);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertOptions} params
@@ -2751,7 +2518,6 @@
       instance.hideLoading();
     });
   };
-
   /**
    * @param {HTMLElement} popup
    * @param {InputOptionFlattened[]} inputOptions
@@ -2795,7 +2561,6 @@
     });
     select.focus();
   }
-
   /**
    * @param {HTMLElement} popup
    * @param {InputOptionFlattened[]} inputOptions
@@ -2829,7 +2594,6 @@
       radios[0].focus();
     }
   }
-
   /**
    * Converts `inputOptions` into an array of `[value, label]`s
    *
@@ -2841,7 +2605,6 @@
     const entries = inputOptions instanceof Map ? Array.from(inputOptions) : Object.entries(inputOptions);
     return entries.map(([key, value]) => [key, typeof value === 'object' ? formatInputOptions(value) : value]); // case of <optgroup>
   };
-
   /**
    * @param {string} optionValue
    * @param {SweetAlertInputValue} inputValue
@@ -2850,7 +2613,6 @@
   const isSelected = (optionValue, inputValue) => {
     return Boolean(inputValue) && inputValue !== null && inputValue !== undefined && inputValue.toString() === optionValue.toString();
   };
-
   /**
    * @param {SweetAlert} instance
    */
@@ -2863,7 +2625,6 @@
       confirm(instance, true);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    */
@@ -2876,7 +2637,6 @@
       deny(instance, false);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {(dismiss: DismissReason) => void} dismissWith
@@ -2885,7 +2645,6 @@
     instance.disableButtons();
     dismissWith(DismissReason.cancel);
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {'confirm' | 'deny'} type
@@ -2909,7 +2668,6 @@
       confirm(instance, inputValue);
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {SweetAlertInputValue} inputValue
@@ -2931,7 +2689,6 @@
       }
     });
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {*} value
@@ -2962,7 +2719,6 @@
       });
     }
   };
-
   /**
    * @param {SweetAlert} instance
    * @param {*} value
@@ -2973,7 +2729,6 @@
       value
     });
   };
-
   /**
    *
    * @param {SweetAlert} instance
@@ -2982,7 +2737,6 @@
   const rejectWith = (instance, error) => {
     instance.rejectPromise(error);
   };
-
   /**
    *
    * @param {SweetAlert} instance
@@ -3009,7 +2763,6 @@
       succeedWith(instance, value);
     }
   };
-
   /**
    * Hides loader and shows back the button which was hidden by .showLoading()
    * @this {SweetAlert}
@@ -3041,7 +2794,6 @@
     }
     privateProps.focusedElement.delete(this);
   }
-
   /**
    * @param {DomCache} domCache
    */
@@ -3054,7 +2806,6 @@
       hide(domCache.actions);
     }
   };
-
   /**
    * Gets the input DOM node, this method works with input parameter.
    *
@@ -3069,7 +2820,6 @@
     }
     return getInput$1(domCache.popup, innerParams.input);
   }
-
   /**
    * @param {SweetAlert} instance
    * @param {string[]} buttons
@@ -3081,7 +2831,6 @@
       domCache[button].disabled = disabled;
     });
   }
-
   /**
    * @param {HTMLInputElement | null} input
    * @param {boolean} disabled
@@ -3101,7 +2850,6 @@
       input.disabled = disabled;
     }
   }
-
   /**
    * Enable all the buttons
    * @this {SweetAlert}
@@ -3114,7 +2862,6 @@
     }
     privateProps.focusedElement.delete(this);
   }
-
   /**
    * Disable all the buttons
    * @this {SweetAlert}
@@ -3123,7 +2870,6 @@
     privateProps.focusedElement.set(this, document.activeElement);
     setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true);
   }
-
   /**
    * Enable the input field
    * @this {SweetAlert}
@@ -3131,7 +2877,6 @@
   function enableInput() {
     setInputDisabled(this.getInput(), false);
   }
-
   /**
    * Disable the input field
    * @this {SweetAlert}
@@ -3139,7 +2884,6 @@
   function disableInput() {
     setInputDisabled(this.getInput(), true);
   }
-
   /**
    * Show block with validation message
    *
@@ -3163,7 +2907,6 @@
       addClass(input, swalClasses.inputerror);
     }
   }
-
   /**
    * Hide block with validation message
    *
@@ -3181,7 +2924,6 @@
       removeClass(input, swalClasses.inputerror);
     }
   }
-
   const defaultParams = {
     title: '',
     titleText: '',
@@ -3277,13 +3019,11 @@
     topLayer: false
   };
   const updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'color', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'draggable', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'preConfirm', 'preDeny', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'theme', 'willClose'];
-
   /** @type {Record<string, string | undefined>} */
   const deprecatedParams = {
     allowEnterKey: undefined
   };
   const toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'draggable', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
-
   /**
    * Is valid parameter
    *
@@ -3293,7 +3033,6 @@
   const isValidParameter = paramName => {
     return Object.prototype.hasOwnProperty.call(defaultParams, paramName);
   };
-
   /**
    * Is valid parameter for Swal.update() method
    *
@@ -3303,7 +3042,6 @@
   const isUpdatableParameter = paramName => {
     return updatableParams.indexOf(paramName) !== -1;
   };
-
   /**
    * Is deprecated parameter
    *
@@ -3313,7 +3051,6 @@
   const isDeprecatedParameter = paramName => {
     return deprecatedParams[paramName];
   };
-
   /**
    * @param {string} param
    */
@@ -3322,7 +3059,6 @@
       warn(`Unknown parameter "${param}"`);
     }
   };
-
   /**
    * @param {string} param
    */
@@ -3331,7 +3067,6 @@
       warn(`The parameter "${param}" is incompatible with toasts`);
     }
   };
-
   /**
    * @param {string} param
    */
@@ -3341,7 +3076,6 @@
       warnAboutDeprecation(param, isDeprecated);
     }
   };
-
   /**
    * Show relevant warnings for given params
    *
@@ -3362,7 +3096,6 @@
       checkIfParamIsDeprecated(param);
     }
   };
-
   /**
    * Updates popup parameters.
    *
@@ -3393,7 +3126,6 @@
       }
     });
   }
-
   /**
    * @param {SweetAlertOptions} params
    * @returns {SweetAlertOptions}
@@ -3411,7 +3143,6 @@
     });
     return validUpdatableParams;
   };
-
   /**
    * Dispose the current SweetAlert2 instance
    * @this {SweetAlert}
@@ -3424,7 +3155,6 @@
       disposeWeakMaps(this); // The WeakMaps might have been partly destroyed, we must recall it to dispose any remaining WeakMaps #2335
       return; // This instance has already been destroyed
     }
-
     // Check if there is another Swal closing
     if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
       globalState.swalCloseEventFinishedCallback();
@@ -3436,7 +3166,6 @@
     (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didDestroy');
     disposeSwal(this);
   }
-
   /**
    * @param {SweetAlert} instance
    */
@@ -3451,7 +3180,6 @@
     // Unset currentInstance
     delete globalState.currentInstance;
   };
-
   /**
    * @param {SweetAlert} instance
    */
@@ -3463,7 +3191,6 @@
     } else {
       unsetWeakMaps(privateMethods, instance);
       unsetWeakMaps(privateProps, instance);
-
       // @ts-ignore
       delete instance.isAwaitingPromise;
       // Unset instance methods
@@ -3501,7 +3228,6 @@
       delete instance._destroy;
     }
   };
-
   /**
    * @param {Record<string, WeakMap<any, any>>} obj
    * @param {SweetAlert} instance
@@ -3511,7 +3237,6 @@
       obj[i].delete(instance);
     }
   };
-
   var instanceMethods = /*#__PURE__*/Object.freeze({
     __proto__: null,
     _destroy: _destroy,
@@ -3532,7 +3257,6 @@
     showValidationMessage: showValidationMessage,
     update: update
   });
-
   /**
    * @param {SweetAlertOptions} innerParams
    * @param {DomCache} domCache
@@ -3545,13 +3269,11 @@
       // Ignore click events that had mousedown on the popup but mouseup on the container
       // This can happen when the user drags a slider
       handleModalMousedown(domCache);
-
       // Ignore click events that had mousedown on the container but mouseup on the popup
       handleContainerMousedown(domCache);
       handleModalClick(innerParams, domCache, dismissWith);
     }
   };
-
   /**
    * @param {SweetAlertOptions} innerParams
    * @param {DomCache} domCache
@@ -3566,7 +3288,6 @@
       dismissWith(DismissReason.close);
     };
   };
-
   /**
    * @param {SweetAlertOptions} innerParams
    * @returns {boolean}
@@ -3575,7 +3296,6 @@
     return Boolean(innerParams.showConfirmButton || innerParams.showDenyButton || innerParams.showCancelButton || innerParams.showCloseButton);
   };
   let ignoreOutsideClick = false;
-
   /**
    * @param {DomCache} domCache
    */
@@ -3591,7 +3311,6 @@
       };
     };
   };
-
   /**
    * @param {DomCache} domCache
    */
@@ -3610,7 +3329,6 @@
       };
     };
   };
-
   /**
    * @param {SweetAlertOptions} innerParams
    * @param {DomCache} domCache
@@ -3627,19 +3345,16 @@
       }
     };
   };
-
   /**
    * @param {unknown} elem
    * @returns {boolean}
    */
   const isJqueryElement = elem => typeof elem === 'object' && elem !== null && 'jquery' in elem;
-
   /**
    * @param {unknown} elem
    * @returns {boolean}
    */
   const isElement = elem => elem instanceof Element || isJqueryElement(elem);
-
   /**
    * @param {ReadonlyArray<unknown>} args
    * @returns {SweetAlertOptions}
@@ -3661,7 +3376,6 @@
     }
     return /** @type {SweetAlertOptions} */params;
   };
-
   /**
    * Main method to create a new SweetAlert2 popup
    *
@@ -3672,7 +3386,6 @@
   function fire(...args) {
     return new this(...args);
   }
-
   /**
    * Returns an extended version of `Swal` containing `params` as defaults.
    * Useful for reusing Swal configuration.
@@ -3707,7 +3420,6 @@
     // @ts-ignore
     return MixinSwal;
   }
-
   /**
    * If `timer` parameter is set, returns number of milliseconds of timer remained.
    * Otherwise, returns undefined.
@@ -3717,7 +3429,6 @@
   const getTimerLeft = () => {
     return globalState.timeout && globalState.timeout.getTimerLeft();
   };
-
   /**
    * Stop timer. Returns number of milliseconds of timer remained.
    * If `timer` parameter isn't set, returns undefined.
@@ -3730,7 +3441,6 @@
       return globalState.timeout.stop();
     }
   };
-
   /**
    * Resume timer. Returns number of milliseconds of timer remained.
    * If `timer` parameter isn't set, returns undefined.
@@ -3744,7 +3454,6 @@
       return remaining;
     }
   };
-
   /**
    * Resume timer. Returns number of milliseconds of timer remained.
    * If `timer` parameter isn't set, returns undefined.
@@ -3755,7 +3464,6 @@
     const timer = globalState.timeout;
     return timer && (timer.running ? stopTimer() : resumeTimer());
   };
-
   /**
    * Increase timer. Returns number of milliseconds of an updated timer.
    * If `timer` parameter isn't set, returns undefined.
@@ -3770,7 +3478,6 @@
       return remaining;
     }
   };
-
   /**
    * Check if timer is running. Returns true if timer is running
    * or false if timer is paused or stopped.
@@ -3781,11 +3488,9 @@
   const isTimerRunning = () => {
     return Boolean(globalState.timeout && globalState.timeout.isRunning());
   };
-
   let bodyClickListenerAdded = false;
   /** @type {Record<string, any>} */
   const clickHandlers = {};
-
   /**
    * @this {any}
    * @param {string} attr
@@ -3797,7 +3502,6 @@
       bodyClickListenerAdded = true;
     }
   }
-
   /**
    * @param {MouseEvent} event
    */
@@ -3814,15 +3518,12 @@
       }
     }
   };
-
   // Source: https://gist.github.com/mudge/5830382?permalink_comment_id=2691957#gistcomment-2691957
-
   class EventEmitter {
     constructor() {
       /** @type {Events} */
       this.events = {};
     }
-
     /**
      * @param {string} eventName
      * @returns {EventHandlers}
@@ -3835,7 +3536,6 @@
       }
       return this.events[eventName];
     }
-
     /**
      * @param {string} eventName
      * @param {EventHandler} eventHandler
@@ -3846,7 +3546,6 @@
         currentHandlers.push(eventHandler);
       }
     }
-
     /**
      * @param {string} eventName
      * @param {EventHandler} eventHandler
@@ -3862,7 +3561,6 @@
       };
       this.on(eventName, onceFn);
     }
-
     /**
      * @param {string} eventName
      * @param {...any} args
@@ -3881,7 +3579,6 @@
         }
       });
     }
-
     /**
      * @param {string} eventName
      * @param {EventHandler} eventHandler
@@ -3893,7 +3590,6 @@
         currentHandlers.splice(index, 1);
       }
     }
-
     /**
      * @param {string} eventName
      */
@@ -3907,9 +3603,7 @@
       this.events = {};
     }
   }
-
   globalState.eventEmitter = new EventEmitter();
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -3919,7 +3613,6 @@
       globalState.eventEmitter.on(eventName, eventHandler);
     }
   };
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -3929,7 +3622,6 @@
       globalState.eventEmitter.once(eventName, eventHandler);
     }
   };
-
   /**
    * @param {string} [eventName]
    * @param {EventHandler} [eventHandler]
@@ -3938,7 +3630,6 @@
     if (!globalState.eventEmitter) {
       return;
     }
-
     // Remove all handlers for all events
     if (!eventName) {
       globalState.eventEmitter.reset();
@@ -3952,7 +3643,6 @@
       globalState.eventEmitter.removeAllListeners(eventName);
     }
   };
-
   var staticMethods = /*#__PURE__*/Object.freeze({
     __proto__: null,
     argsToParams: argsToParams,
@@ -3998,7 +3688,6 @@
     stopTimer: stopTimer,
     toggleTimer: toggleTimer
   });
-
   class Timer {
     /**
      * @param {() => void} callback
@@ -4010,7 +3699,6 @@
       this.running = false;
       this.start();
     }
-
     /**
      * @returns {number}
      */
@@ -4022,7 +3710,6 @@
       }
       return this.remaining;
     }
-
     /**
      * @returns {number}
      */
@@ -4034,7 +3721,6 @@
       }
       return this.remaining;
     }
-
     /**
      * @param {number} n
      * @returns {number}
@@ -4050,7 +3736,6 @@
       }
       return this.remaining;
     }
-
     /**
      * @returns {number}
      */
@@ -4061,7 +3746,6 @@
       }
       return this.remaining;
     }
-
     /**
      * @returns {boolean}
      */
@@ -4069,9 +3753,7 @@
       return this.running;
     }
   }
-
   const swalStringParams = ['swal-title', 'swal-html', 'swal-footer'];
-
   /**
    * @param {SweetAlertOptions} params
    * @returns {SweetAlertOptions}
@@ -4087,7 +3769,6 @@
     const result = Object.assign(getSwalParams(templateContent), getSwalFunctionParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {Record<string, string | boolean | number>}
@@ -4114,7 +3795,6 @@
     });
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {Record<string, () => void>}
@@ -4134,7 +3814,6 @@
     });
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {Record<string, string | boolean>}
@@ -4163,7 +3842,6 @@
     });
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {Pick<SweetAlertOptions, 'imageUrl' | 'imageWidth' | 'imageHeight' | 'imageAlt'>}
@@ -4186,7 +3864,6 @@
     }
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {object}
@@ -4207,7 +3884,6 @@
     }
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @returns {object}
@@ -4246,7 +3922,6 @@
     }
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    * @param {string[]} paramNames
@@ -4266,7 +3941,6 @@
     }
     return result;
   };
-
   /**
    * @param {DocumentFragment} templateContent
    */
@@ -4279,7 +3953,6 @@
       }
     });
   };
-
   /**
    * @param {HTMLElement} el
    * @param {string[]} allowedAttributes
@@ -4291,9 +3964,7 @@
       }
     });
   };
-
   const SHOW_CLASS_TIMEOUT = 10;
-
   /**
    * Open popup, add necessary classes and styles, fix scrollbar
    *
@@ -4313,7 +3984,6 @@
     const bodyStyles = window.getComputedStyle(document.body);
     const initialBodyOverflow = bodyStyles.overflowY;
     addClasses(container, popup, params);
-
     // scrolling is 'hidden' until animation is done, after that 'auto'
     setTimeout(() => {
       setScrollingVisibility(container, popup);
@@ -4322,7 +3992,6 @@
       fixScrollContainer(container, params.scrollbarPadding !== undefined ? params.scrollbarPadding : false, initialBodyOverflow);
       setAriaHidden();
     }
-
     // https://github.com/sweetalert2/sweetalert2/issues/2923
     if (isIOS && params.backdrop === false && popup.scrollHeight > container.clientHeight) {
       // remove pointer-events: none from container, it breaks scrolling tall popups in iOS
@@ -4337,7 +4006,6 @@
     }
     (_globalState$eventEmi2 = globalState.eventEmitter) === null || _globalState$eventEmi2 === void 0 || _globalState$eventEmi2.emit('didOpen', popup);
   };
-
   /**
    * @param {Event} event
    */
@@ -4353,11 +4021,9 @@
     popup.removeEventListener('animationend', swalOpenAnimationFinished);
     popup.removeEventListener('transitionend', swalOpenAnimationFinished);
     container.style.overflowY = 'auto';
-
     // no-transition is added in init() in case one swal is opened right after another
     removeClass(container, swalClasses['no-transition']);
   };
-
   /**
    * @param {HTMLElement} container
    * @param {HTMLElement} popup
@@ -4371,7 +4037,6 @@
       container.style.overflowY = 'auto';
     }
   };
-
   /**
    * @param {HTMLElement} container
    * @param {boolean} scrollbarPadding
@@ -4382,13 +4047,11 @@
     if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
       replaceScrollbarWithPadding(initialBodyOverflow);
     }
-
     // sweetalert2/issues/1247
     setTimeout(() => {
       container.scrollTop = 0;
     });
   };
-
   /**
    * @param {HTMLElement} container
    * @param {HTMLElement} popup
@@ -4420,7 +4083,6 @@
       addClass([document.documentElement, document.body], swalClasses['height-auto']);
     }
   };
-
   var defaultInputValidators = {
     /**
      * @param {string} string
@@ -4440,7 +4102,6 @@
       return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid URL');
     }
   };
-
   /**
    * @param {SweetAlertOptions} params
    */
@@ -4456,7 +4117,6 @@
       params.inputValidator = defaultInputValidators['url'];
     }
   }
-
   /**
    * @param {SweetAlertOptions} params
    */
@@ -4467,7 +4127,6 @@
       params.target = 'body';
     }
   }
-
   /**
    * Set type, text and actions on popup
    *
@@ -4475,20 +4134,17 @@
    */
   function setParameters(params) {
     setDefaultInputValidators(params);
-
     // showLoaderOnConfirm && preConfirm
     if (params.showLoaderOnConfirm && !params.preConfirm) {
       warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
     }
     validateCustomTargetElement(params);
-
     // Replace newlines with <br> in title
     if (typeof params.title === 'string') {
       params.title = params.title.split('\n').join('<br />');
     }
     init(params);
   }
-
   /** @type {SweetAlert} */
   let currentInstance;
   var _promise = /*#__PURE__*/new WeakMap();
@@ -4512,18 +4168,14 @@
         return;
       }
       currentInstance = this;
-
       // @ts-ignore
       const outerParams = Object.freeze(this.constructor.argsToParams(args));
-
       /** @type {Readonly<SweetAlertOptions>} */
       this.params = outerParams;
-
       /** @type {boolean} */
       this.isAwaitingPromise = false;
       _classPrivateFieldSet2(_promise, this, this._main(currentInstance.params));
     }
-
     /**
      * @param {any} userParams
      * @param {any} mixinParams
@@ -4549,13 +4201,11 @@
       const innerParams = prepareParams(userParams, mixinParams);
       setParameters(innerParams);
       Object.freeze(innerParams);
-
       // clear the previous timer
       if (globalState.timeout) {
         globalState.timeout.stop();
         delete globalState.timeout;
       }
-
       // clear the restore focus timeout
       clearTimeout(globalState.restoreFocusTimeout);
       const domCache = populateDomCache(currentInstance);
@@ -4563,7 +4213,6 @@
       privateProps.innerParams.set(currentInstance, innerParams);
       return swalPromise(currentInstance, domCache, innerParams);
     }
-
     // `catch` cannot be the name of a module export, so we define our thenable methods here instead
     /**
      * @param {any} onFulfilled
@@ -4572,7 +4221,6 @@
     then(onFulfilled) {
       return _classPrivateFieldGet2(_promise, this).then(onFulfilled);
     }
-
     /**
      * @param {any} onFinally
      */
@@ -4580,7 +4228,6 @@
       return _classPrivateFieldGet2(_promise, this).finally(onFinally);
     }
   }
-
   /**
    * @param {SweetAlert} instance
    * @param {DomCache} domCache
@@ -4621,14 +4268,12 @@
       openPopup(innerParams);
       setupTimer(globalState, innerParams, dismissWith);
       initFocus(domCache, innerParams);
-
       // Scroll container to top on open (#1247, #1946)
       setTimeout(() => {
         domCache.container.scrollTop = 0;
       });
     });
   };
-
   /**
    * @param {SweetAlertOptions} userParams
    * @param {SweetAlertOptions} mixinParams
@@ -4647,7 +4292,6 @@
     }
     return params;
   };
-
   /**
    * @param {SweetAlert} instance
    * @returns {DomCache}
@@ -4668,7 +4312,6 @@
     privateProps.domCache.set(instance, domCache);
     return domCache;
   };
-
   /**
    * @param {GlobalState} globalState
    * @param {SweetAlertOptions} innerParams
@@ -4694,7 +4337,6 @@
       }
     }
   };
-
   /**
    * Initialize focus in the popup:
    *
@@ -4726,7 +4368,6 @@
     }
     setFocus(-1, 1);
   };
-
   /**
    * @param {DomCache} domCache
    * @returns {boolean}
@@ -4741,7 +4382,6 @@
     }
     return false;
   };
-
   /**
    * @param {DomCache} domCache
    * @param {SweetAlertOptions} innerParams
@@ -4762,7 +4402,6 @@
     }
     return false;
   };
-
   // Assign instance methods from src/instanceMethods/*.js to prototype
   SweetAlert.prototype.disableButtons = disableButtons;
   SweetAlert.prototype.enableButtons = enableButtons;
@@ -4780,10 +4419,8 @@
   SweetAlert.prototype.rejectPromise = rejectPromise;
   SweetAlert.prototype.update = update;
   SweetAlert.prototype._destroy = _destroy;
-
   // Assign static methods from src/staticMethods/*.js to constructor
   Object.assign(SweetAlert, staticMethods);
-
   // Proxy to instance methods to constructor, for now, for backwards compatibility
   Object.keys(instanceMethods).forEach(key => {
     /**
@@ -4802,13 +4439,10 @@
   });
   SweetAlert.DismissReason = DismissReason;
   SweetAlert.version = '11.26.24';
-
   const Swal = SweetAlert;
   // @ts-ignore
   Swal.default = Swal;
-
   return Swal;
-
 }));
 if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert = this.Swal = this.SweetAlert = this.Sweetalert2}
 "undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,":root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.15s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-icon-animations: true;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border: 1px solid #d9d9d9;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.2s, box-shadow 0.2s;--swal2-input-hover-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-focus-border: 1px solid #b4dbed;--swal2-input-focus-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-footer-border-color: #eee;--swal2-footer-background: transparent;--swal2-footer-color: inherit;--swal2-timer-progress-bar-background: rgba(0, 0, 0, 0.3);--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.2s, box-shadow 0.2s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-actions-justify-content: center;--swal2-actions-width: auto;--swal2-actions-margin: 1.25em auto 0;--swal2-actions-padding: 0;--swal2-actions-border-radius: 0;--swal2-actions-background: transparent;--swal2-action-button-transition: background-color 0.2s, box-shadow 0.2s;--swal2-action-button-hover: black 10%;--swal2-action-button-active: black 10%;--swal2-confirm-button-box-shadow: none;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-confirm-button-color: #fff;--swal2-deny-button-box-shadow: none;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-deny-button-color: #fff;--swal2-cancel-button-box-shadow: none;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-cancel-button-color: #fff;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white);--swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:auto}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:\"top-start     top            top-end\" \"center-start  center         center-end\" \"bottom-start  bottom-center  bottom-end\";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem;container-name:swal2-popup}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;overflow-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:var(--swal2-actions-justify-content);width:var(--swal2-actions-width);margin:var(--swal2-actions-margin);padding:var(--swal2-actions-padding);border-radius:var(--swal2-actions-border-radius);background:var(--swal2-actions-background)}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-action-button-transition);border:none;box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);box-shadow:var(--swal2-confirm-button-box-shadow);color:var(--swal2-confirm-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):hover{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm):active{background-color:color-mix(in srgb, var(--swal2-confirm-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);box-shadow:var(--swal2-deny-button-box-shadow);color:var(--swal2-deny-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):hover{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny):active{background-color:color-mix(in srgb, var(--swal2-deny-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);box-shadow:var(--swal2-cancel-button-box-shadow);color:var(--swal2-cancel-button-color);font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):hover{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-hover))}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel):active{background-color:color-mix(in srgb, var(--swal2-cancel-button-background-color), var(--swal2-action-button-active))}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-styled)[disabled]:not(.swal2-loading){opacity:.4}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);background:var(--swal2-footer-background);color:var(--swal2-footer-color);font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:var(--swal2-timer-progress-bar-background)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;overflow-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:var(--swal2-input-border);border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):hover,div:where(.swal2-container) input:where(.swal2-file):hover,div:where(.swal2-container) textarea:where(.swal2-textarea):hover{box-shadow:var(--swal2-input-hover-box-shadow)}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:var(--swal2-input-focus-border);outline:none;box-shadow:var(--swal2-input-focus-box-shadow)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:\"!\";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:auto}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}@container swal2-popup style(--swal2-icon-animations:true){.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}100%{transform:translate3d(0, 0, 0) scale(1);opacity:1}}@keyframes swal2-hide{0%{transform:translate3d(0, 0, 0) scale(1);opacity:1}100%{transform:translate3d(0, -50px, 0) scale(0.9);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}");

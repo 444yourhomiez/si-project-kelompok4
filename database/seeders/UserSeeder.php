@@ -2,153 +2,147 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Anggota;
 use App\Models\JadwalWawancara;
-use Illuminate\Database\Seeder;
+use App\Models\User;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        $jadwalId = JadwalWawancara::first()?->id;
 
-        $jadwalIds = JadwalWawancara::pluck('id')->toArray();
+        // ==================================================
+        // USER 1
+        // SUDAH DISETUJUI
+        // BELUM 6 BULAN
+        // ==================================================
 
-        $kodeCounter = 1;
+        $user1 = User::create([
+            'nama_user' => 'Anggota Baru',
+            'email' => 'baru@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'anggota',
+            'status' => 'disetujui',
+        ]);
 
-        for ($i = 1; $i <= 100; $i++) {
+        Anggota::create([
+            'user_id' => $user1->id,
+            'jadwal_id' => $jadwalId,
 
-            // STATUS USER
-            $status = $faker->randomElement([
-                'disetujui',
-                'menunggu',
-            ]);
+            'kode_anggota' => 'A-000001',
 
-            // JENIS KELAMIN
-            $jk = $faker->randomElement([
-                'Laki-laki',
-                'Perempuan'
-            ]);
+            'nama_anggota' => 'Anggota Baru',
+            'no_ktp' => '3201000000000001',
+            'no_hp' => '081111111111',
 
-            $nama = $faker->name;
+            'alamat' => 'Cimahi',
+            'tempat_lahir' => 'Bandung',
+            'tanggal_lahir' => '2000-01-01',
 
-            // USER
-            $user = User::create([
+            'jenis_kelamin' => 'Laki-laki',
+            'agama' => 'Islam',
 
-                'nama_user' => $nama,
+            'nama_ibu_kandung' => 'Ibu Baru',
+            'nama_ahli_waris' => 'Ahli Waris Baru',
 
-                // SESUAI VALIDASI GMAIL
-                'email' => 'anggota' . $i . '@gmail.com',
+            'hubungan_ahli_waris' => 'Ayah',
 
-                'password' => Hash::make('password'),
+            'status_rumah' => 'Milik Sendiri',
 
-                'role' => 'anggota',
+            'penghasilan' => 'Rp 2.000.000 - Rp. 3.000.000',
 
-                'status' => $status,
+            // BELUM 6 BULAN
+            'tanggal_daftar' => now()->subMonths(3),
+        ]);
 
-            ]);
+        // ==================================================
+        // USER 2
+        // SUDAH DISETUJUI
+        // SUDAH > 6 BULAN
+        // ==================================================
 
-            // STATUS MENIKAH
-            $menikah = rand(0, 1);
+        $user2 = User::create([
+            'nama_user' => 'Anggota Lama',
+            'email' => 'lama@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'anggota',
+            'status' => 'disetujui',
+        ]);
 
-            // AHLI WARIS
-            $hubunganAhliWaris = $faker->randomElement([
-                'Ayah',
-                'Ibu',
-                'Suami',
-                'Istri',
-                'Anak',
-                'Saudara Kandung',
-                'Kakek',
-                'Nenek',
-                'Paman',
-                'Bibi',
-                'Lainnya'
-            ]);
+        Anggota::create([
+            'user_id' => $user2->id,
+            'jadwal_id' => $jadwalId,
 
-            // ANGGOTA
-            Anggota::create([
+            'kode_anggota' => 'A-000002',
 
-                'user_id' => $user->id,
+            'nama_anggota' => 'Anggota Lama',
+            'no_ktp' => '3201000000000002',
+            'no_hp' => '082222222222',
 
-                'jadwal_id' => $faker->randomElement($jadwalIds),
+            'alamat' => 'Bandung',
+            'tempat_lahir' => 'Bandung',
+            'tanggal_lahir' => '1998-01-01',
 
-                'kode_anggota' => $status == 'disetujui'
+            'jenis_kelamin' => 'Laki-laki',
+            'agama' => 'Islam',
 
-                    ? 'A-' . str_pad($kodeCounter++, 6, '0', STR_PAD_LEFT)
+            'nama_ibu_kandung' => 'Ibu Lama',
+            'nama_ahli_waris' => 'Ahli Waris Lama',
 
-                    : null,
+            'hubungan_ahli_waris' => 'Ibu',
 
-                // DATA UTAMA
-                'nama_anggota' => $nama,
+            'status_rumah' => 'Milik Sendiri',
 
-                'no_ktp' => $faker->unique()
-                    ->numerify('################'),
+            'penghasilan' => 'Diatas Rp 5.000.000',
 
-                // NO HP UNIQUE & CLEAN
-                'no_hp' => '08' . $faker->unique()
-                    ->numerify('##########'),
+            // SUDAH LEBIH DARI 6 BULAN
+            'tanggal_daftar' => now()->subMonths(8),
+        ]);
 
-                'alamat' => $faker->address,
+        // ==================================================
+        // USER 3
+        // BELUM DISETUJUI
+        // ==================================================
 
-                'tempat_lahir' => $faker->city,
+        $user3 = User::create([
+            'nama_user' => 'Calon Anggota',
+            'email' => 'calon@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'anggota',
+            'status' => 'menunggu',
+        ]);
 
-                // MINIMAL UMUR 17 TAHUN
-                'tanggal_lahir' => $faker->dateTimeBetween(
-                    '-50 years',
-                    '-17 years'
-                )->format('Y-m-d'),
+        Anggota::create([
+            'user_id' => $user3->id,
+            'jadwal_id' => $jadwalId,
 
-                'jenis_kelamin' => $jk,
+            'kode_anggota' => null,
 
-                'agama' => $faker->randomElement([
-                    'Islam',
-                    'Kristen',
-                    'Katolik',
-                    'Hindu',
-                    'Buddha',
-                    'Konghucu',
-                    'Lainnya'
-                ]),
+            'nama_anggota' => 'Calon Anggota',
+            'no_ktp' => '3201000000000003',
+            'no_hp' => '083333333333',
 
-                'nama_ibu_kandung' => $faker->name,
+            'alamat' => 'Cimahi',
+            'tempat_lahir' => 'Cimahi',
+            'tanggal_lahir' => '2001-01-01',
 
-                // DATA TAMBAHAN
-                'tanggal_kawin' => $menikah
-                    ? $faker->date()
-                    : null,
+            'jenis_kelamin' => 'Perempuan',
+            'agama' => 'Islam',
 
-                'nama_pasangan' => $menikah
-                    ? $faker->name
-                    : null,
+            'nama_ibu_kandung' => 'Ibu Calon',
+            'nama_ahli_waris' => 'Ahli Waris Calon',
 
-                'nama_ahli_waris' => $faker->name,
+            'hubungan_ahli_waris' => 'Ibu',
 
-                'hubungan_ahli_waris' => $hubunganAhliWaris,
+            'status_rumah' => 'Sewa',
 
-                'status_rumah' => $faker->randomElement([
-                    'Milik Sendiri',
-                    'Milik Keluarga',
-                    'Milik Perusahaan',
-                    'Sewa'
-                ]),
+            'penghasilan' => 'Rp 1.000.000 - Rp. 2.000.000',
 
-                'penghasilan' => $faker->randomElement([
-                    'Dibawah Rp 500.000',
-                    'Rp 500.000 - Rp. 1.000.000',
-                    'Rp 1.000.000 - Rp. 2.000.000',
-                    'Rp 2.000.000 - Rp. 3.000.000',
-                    'Rp 3.000.000 - Rp. 4.000.000',
-                    'Rp 4.000.000 - Rp. 5.000.000',
-                    'Diatas Rp 5.000.000',
-                ]),
-
-                'tanggal_daftar' => now(),
-
-            ]);
-        }
+            'tanggal_daftar' => now(),
+        ]);
     }
 }

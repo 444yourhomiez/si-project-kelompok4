@@ -2,7 +2,6 @@
 path_classifiers:
   plugins:
     - plugins/
-
 extraction:
   javascript:
     # https://lgtm.com/help/lgtm/javascript-extraction#customizing-index

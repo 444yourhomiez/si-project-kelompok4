@@ -1,10 +1,7 @@
 import { RESTORE_FOCUS_TIMEOUT } from './constants.js'
-
 /** @type {GlobalState} */
 const globalState = {}
-
 export default globalState
-
 const focusPreviousActiveElement = () => {
   if (globalState.previousActiveElement instanceof HTMLElement) {
     globalState.previousActiveElement.focus()
@@ -13,7 +10,6 @@ const focusPreviousActiveElement = () => {
     document.body.focus()
   }
 }
-
 /**
  * Restore previous active (focused) element
  *
@@ -27,12 +23,10 @@ export const restoreActiveElement = (returnFocus) => {
     }
     const x = window.scrollX
     const y = window.scrollY
-
     globalState.restoreFocusTimeout = setTimeout(() => {
       focusPreviousActiveElement()
       resolve()
     }, RESTORE_FOCUS_TIMEOUT) // issues/900
-
     window.scrollTo(x, y)
   })
 }

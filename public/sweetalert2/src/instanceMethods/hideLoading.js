@@ -1,7 +1,6 @@
 import privateProps from '../privateProps.js'
 import { swalClasses } from '../utils/classes.js'
 import * as dom from '../utils/dom/index.js'
-
 /**
  * Hides loader and shows back the button which was hidden by .showLoading()
  * @this {SweetAlert}
@@ -27,14 +26,12 @@ function hideLoading() {
   domCache.confirmButton.disabled = false
   domCache.denyButton.disabled = false
   domCache.cancelButton.disabled = false
-
   const focusedElement = privateProps.focusedElement.get(this)
   if (focusedElement instanceof HTMLElement && document.activeElement === document.body) {
     focusedElement.focus()
   }
   privateProps.focusedElement.delete(this)
 }
-
 /**
  * @param {DomCache} domCache
  */
@@ -47,5 +44,4 @@ const showRelatedButton = (domCache) => {
     dom.hide(domCache.actions)
   }
 }
-
 export { hideLoading, hideLoading as disableLoading }

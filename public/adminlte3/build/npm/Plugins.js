@@ -1,5 +1,4 @@
 'use strict'
-
 const Plugins = [
   // jQuery
   {
@@ -281,7 +280,6 @@ const Plugins = [
     from: 'node_modules/datatables.net-select-bs4/css',
     to: 'plugins/datatables-select/css'
   },
-
   // Fullcalendar
   {
     from: 'node_modules/fullcalendar/',
@@ -445,5 +443,4 @@ const Plugins = [
     to: 'plugins/uplot'
   }
 ]
-
 module.exports = Plugins

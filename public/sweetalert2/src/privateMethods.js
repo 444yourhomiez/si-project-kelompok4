@@ -7,7 +7,6 @@
  * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
  *   then we can use that language feature.
  */
-
 export default {
   swalPromiseResolve: new WeakMap(),
   swalPromiseReject: new WeakMap(),

@@ -1,17 +1,14 @@
 import { error } from '../utils/utils.js'
-
 /**
  * @param {unknown} elem
  * @returns {boolean}
  */
 const isJqueryElement = (elem) => typeof elem === 'object' && elem !== null && 'jquery' in elem
-
 /**
  * @param {unknown} elem
  * @returns {boolean}
  */
 const isElement = (elem) => elem instanceof Element || isJqueryElement(elem)
-
 /**
  * @param {ReadonlyArray<unknown>} args
  * @returns {SweetAlertOptions}

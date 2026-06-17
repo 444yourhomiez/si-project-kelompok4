@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Exceptions;
-
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
 class Handler extends ExceptionHandler
 {
     /**
@@ -17,7 +14,6 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-
     /**
      * Register the exception handling callbacks for the application.
      */

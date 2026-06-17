@@ -18,9 +18,7 @@ function _classPrivateFieldInitSpec(e, t, a) {
 function _classPrivateFieldSet2(s, a, r) {
   return s.set(_assertClassBrand(s, a), r), r;
 }
-
 const RESTORE_FOCUS_TIMEOUT = 100;
-
 /** @type {GlobalState} */
 const globalState = {};
 const focusPreviousActiveElement = () => {
@@ -31,7 +29,6 @@ const focusPreviousActiveElement = () => {
     document.body.focus();
   }
 };
-
 /**
  * Restore previous active (focused) element
  *
@@ -49,38 +46,30 @@ const restoreActiveElement = returnFocus => {
       focusPreviousActiveElement();
       resolve();
     }, RESTORE_FOCUS_TIMEOUT); // issues/900
-
     window.scrollTo(x, y);
   });
 };
-
 const swalPrefix = 'swal2-';
-
 /**
  * @typedef {Record<SwalClass, string>} SwalClasses
  */
-
 /**
  * @typedef {'success' | 'warning' | 'info' | 'question' | 'error'} SwalIcon
  * @typedef {Record<SwalIcon, string>} SwalIcons
  */
-
 /** @type {SwalClass[]} */
 const classNames = ['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'show', 'hide', 'close', 'title', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error', 'draggable', 'dragging'];
 const swalClasses = classNames.reduce((acc, className) => {
   acc[className] = swalPrefix + className;
   return acc;
 }, /** @type {SwalClasses} */{});
-
 /** @type {SwalIcon[]} */
 const icons = ['success', 'warning', 'info', 'question', 'error'];
 const iconTypes = icons.reduce((acc, icon) => {
   acc[icon] = swalPrefix + icon;
   return acc;
 }, /** @type {SwalIcons} */{});
-
 const consolePrefix = 'SweetAlert2:';
-
 /**
  * Capitalize the first letter of a string
  *
@@ -88,7 +77,6 @@ const consolePrefix = 'SweetAlert2:';
  * @returns {string}
  */
 const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
-
 /**
  * Standardize console warnings
  *
@@ -97,7 +85,6 @@ const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
 const warn = message => {
   console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`);
 };
-
 /**
  * Standardize console errors
  *
@@ -106,7 +93,6 @@ const warn = message => {
 const error = message => {
   console.error(`${consolePrefix} ${message}`);
 };
-
 /**
  * Private global state for `warnOnce`
  *
@@ -114,7 +100,6 @@ const error = message => {
  * @private
  */
 const previousWarnOnceMessages = [];
-
 /**
  * Show a console warning, but only if it hasn't already been shown
  *
@@ -126,7 +111,6 @@ const warnOnce = message => {
     warn(message);
   }
 };
-
 /**
  * Show a one-time console warning about deprecated params/methods
  *
@@ -136,7 +120,6 @@ const warnOnce = message => {
 const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
   warnOnce(`"${deprecatedParam}" is deprecated and will be removed in the next major release.${useInstead ? ` Use "${useInstead}" instead.` : ''}`);
 };
-
 /**
  * If `arg` is a function, call it (with no arguments or context) and return the result.
  * Otherwise, just pass the value through
@@ -145,37 +128,31 @@ const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
  * @returns {*}
  */
 const callIfFunction = arg => typeof arg === 'function' ? arg() : arg;
-
 /**
  * @param {*} arg
  * @returns {boolean}
  */
 const hasToPromiseFn = arg => arg && typeof arg.toPromise === 'function';
-
 /**
  * @param {*} arg
  * @returns {Promise<*>}
  */
 const asPromise = arg => hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg);
-
 /**
  * @param {*} arg
  * @returns {boolean}
  */
 const isPromise = arg => arg && Promise.resolve(arg) === arg;
-
 /**
  * @returns {boolean}
  */
 const isFirefox = () => navigator.userAgent.includes('Firefox');
-
 /**
  * Gets the popup container which contains the backdrop and the popup itself.
  *
  * @returns {HTMLElement | null}
  */
 const getContainer = () => document.body.querySelector(`.${swalClasses.container}`);
-
 /**
  * @param {string} selectorString
  * @returns {HTMLElement | null}
@@ -184,7 +161,6 @@ const elementBySelector = selectorString => {
   const container = getContainer();
   return container ? container.querySelector(selectorString) : null;
 };
-
 /**
  * @param {string} className
  * @returns {HTMLElement | null}
@@ -192,92 +168,74 @@ const elementBySelector = selectorString => {
 const elementByClass = className => {
   return elementBySelector(`.${className}`);
 };
-
 /**
  * @returns {HTMLElement | null}
  */
 const getPopup = () => elementByClass(swalClasses.popup);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getIcon = () => elementByClass(swalClasses.icon);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getIconContent = () => elementByClass(swalClasses['icon-content']);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getTitle = () => elementByClass(swalClasses.title);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getHtmlContainer = () => elementByClass(swalClasses['html-container']);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getImage = () => elementByClass(swalClasses.image);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getProgressSteps = () => elementByClass(swalClasses['progress-steps']);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getValidationMessage = () => elementByClass(swalClasses['validation-message']);
-
 /**
  * @returns {HTMLButtonElement | null}
  */
 const getConfirmButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`));
-
 /**
  * @returns {HTMLButtonElement | null}
  */
 const getCancelButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`));
-
 /**
  * @returns {HTMLButtonElement | null}
  */
 const getDenyButton = () => (/** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`));
-
 /**
  * @returns {HTMLElement | null}
  */
 const getInputLabel = () => elementByClass(swalClasses['input-label']);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getLoader = () => elementBySelector(`.${swalClasses.loader}`);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getActions = () => elementByClass(swalClasses.actions);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getFooter = () => elementByClass(swalClasses.footer);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getTimerProgressBar = () => elementByClass(swalClasses['timer-progress-bar']);
-
 /**
  * @returns {HTMLElement | null}
  */
 const getCloseButton = () => elementByClass(swalClasses.close);
-
 // https://github.com/jkup/focusable/blob/master/index.js
 const focusable = `
   a[href],
@@ -317,20 +275,17 @@ const getFocusableElements = () => {
     }
     return 0;
   });
-
   /** @type {NodeListOf<HTMLElement>} */
   const otherFocusableElements = popup.querySelectorAll(focusable);
   const otherFocusableElementsFiltered = Array.from(otherFocusableElements).filter(el => el.getAttribute('tabindex') !== '-1');
   return [...new Set(focusableElementsWithTabindexSorted.concat(otherFocusableElementsFiltered))].filter(el => isVisible$1(el));
 };
-
 /**
  * @returns {boolean}
  */
 const isModal = () => {
   return hasClass(document.body, swalClasses.shown) && !hasClass(document.body, swalClasses['toast-shown']) && !hasClass(document.body, swalClasses['no-backdrop']);
 };
-
 /**
  * @returns {boolean}
  */
@@ -341,7 +296,6 @@ const isToast = () => {
   }
   return hasClass(popup, swalClasses.toast);
 };
-
 /**
  * @returns {boolean}
  */
@@ -352,7 +306,6 @@ const isLoading = () => {
   }
   return popup.hasAttribute('data-loading');
 };
-
 /**
  * Securely set innerHTML of an element
  * https://github.com/sweetalert2/sweetalert2/issues/1926
@@ -383,7 +336,6 @@ const setInnerHtml = (elem, html) => {
     }
   }
 };
-
 /**
  * @param {HTMLElement} elem
  * @param {string} className
@@ -401,7 +353,6 @@ const hasClass = (elem, className) => {
   }
   return true;
 };
-
 /**
  * @param {HTMLElement} elem
  * @param {SweetAlertOptions} params
@@ -413,7 +364,6 @@ const removeCustomClasses = (elem, params) => {
     }
   });
 };
-
 /**
  * @param {HTMLElement} elem
  * @param {SweetAlertOptions} params
@@ -434,7 +384,6 @@ const applyCustomClass = (elem, params, className) => {
   }
   addClass(elem, customClass);
 };
-
 /**
  * @param {HTMLElement} popup
  * @param {import('./renderers/renderInput').InputClass | SweetAlertInput} inputClass
@@ -459,13 +408,11 @@ const getInput$1 = (popup, inputClass) => {
       return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.input}`);
   }
 };
-
 /**
  * @param {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} input
  */
 const focusInput = input => {
   input.focus();
-
   // place cursor at end of text in text input
   if (input.type !== 'file') {
     // http://stackoverflow.com/a/2345915
@@ -474,7 +421,6 @@ const focusInput = input => {
     input.value = val;
   }
 };
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -496,7 +442,6 @@ const toggleClass = (target, classList, condition) => {
     });
   });
 };
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -504,7 +449,6 @@ const toggleClass = (target, classList, condition) => {
 const addClass = (target, classList) => {
   toggleClass(target, classList, true);
 };
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -512,7 +456,6 @@ const addClass = (target, classList) => {
 const removeClass = (target, classList) => {
   toggleClass(target, classList, false);
 };
-
 /**
  * Get direct child of an element by class name
  *
@@ -529,7 +472,6 @@ const getDirectChildByClass = (elem, className) => {
     }
   }
 };
-
 /**
  * @param {HTMLElement} elem
  * @param {string} property
@@ -545,7 +487,6 @@ const applyNumericalStyle = (elem, property, value) => {
     elem.style.removeProperty(property);
   }
 };
-
 /**
  * @param {HTMLElement | null} elem
  * @param {string} display
@@ -556,7 +497,6 @@ const show = (elem, display = 'flex') => {
   }
   elem.style.display = display;
 };
-
 /**
  * @param {HTMLElement | null} elem
  */
@@ -566,7 +506,6 @@ const hide = elem => {
   }
   elem.style.display = 'none';
 };
-
 /**
  * @param {HTMLElement | null} elem
  * @param {string} display
@@ -582,7 +521,6 @@ const showWhenInnerHtmlPresent = (elem, display = 'block') => {
     subtree: true
   });
 };
-
 /**
  * @param {HTMLElement} parent
  * @param {string} selector
@@ -596,7 +534,6 @@ const setStyle = (parent, selector, property, value) => {
     el.style.setProperty(property, value);
   }
 };
-
 /**
  * @param {HTMLElement} elem
  * @param {boolean | string | null | undefined} condition
@@ -609,7 +546,6 @@ const toggle = (elem, condition, display = 'flex') => {
     hide(elem);
   }
 };
-
 /**
  * borrowed from jquery $(elem).is(':visible') implementation
  *
@@ -617,18 +553,15 @@ const toggle = (elem, condition, display = 'flex') => {
  * @returns {boolean}
  */
 const isVisible$1 = elem => Boolean(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
-
 /**
  * @returns {boolean}
  */
 const allButtonsAreHidden = () => !isVisible$1(getConfirmButton()) && !isVisible$1(getDenyButton()) && !isVisible$1(getCancelButton());
-
 /**
  * @param {HTMLElement} elem
  * @returns {boolean}
  */
 const isScrollable = elem => Boolean(elem.scrollHeight > elem.clientHeight);
-
 /**
  * @param {HTMLElement} element
  * @param {HTMLElement} stopElement
@@ -644,7 +577,6 @@ const selfOrParentIsScrollable = (element, stopElement) => {
   }
   return false;
 };
-
 /**
  * borrowed from https://stackoverflow.com/a/46352119
  *
@@ -657,7 +589,6 @@ const hasCssAnimation = elem => {
   const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
   return animDuration > 0 || transDuration > 0;
 };
-
 /**
  * @param {number} timer
  * @param {boolean} reset
@@ -690,14 +621,12 @@ const stopTimerProgressBar = () => {
   const timerProgressBarPercent = timerProgressBarWidth / timerProgressBarFullWidth * 100;
   timerProgressBar.style.width = `${timerProgressBarPercent}%`;
 };
-
 /**
  * Detect Node env
  *
  * @returns {boolean}
  */
 const isNodeEnv = () => typeof window === 'undefined' || typeof document === 'undefined';
-
 const sweetHTML = `
  <div aria-labelledby="${swalClasses.title}" aria-describedby="${swalClasses['html-container']}" class="${swalClasses.popup}" tabindex="-1">
    <button type="button" class="${swalClasses.close}"></button>
@@ -732,7 +661,6 @@ const sweetHTML = `
    </div>
  </div>
 `.replace(/(^|\n)\s*/g, '');
-
 /**
  * @returns {boolean}
  */
@@ -793,7 +721,6 @@ const addInputChangeListeners = () => {
     };
   }
 };
-
 /**
  * @param {string | HTMLElement} target
  * @returns {HTMLElement}
@@ -808,7 +735,6 @@ const getTarget = target => {
   }
   return target;
 };
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -823,7 +749,6 @@ const setupAccessibility = params => {
     popup.setAttribute('aria-modal', 'true');
   }
 };
-
 /**
  * @param {HTMLElement} targetElement
  */
@@ -833,7 +758,6 @@ const setupRTL = targetElement => {
     globalState.isRTL = true;
   }
 };
-
 /**
  * Add modal + backdrop to DOM
  *
@@ -863,7 +787,6 @@ const init = params => {
   setupRTL(targetElement);
   addInputChangeListeners();
 };
-
 /**
  * @param {HTMLElement | object | string} param
  * @param {HTMLElement} target
@@ -873,18 +796,15 @@ const parseHtmlToContainer = (param, target) => {
   if (param instanceof HTMLElement) {
     target.appendChild(param);
   }
-
   // Object
   else if (typeof param === 'object') {
     handleObject(param, target);
   }
-
   // Plain string
   else if (param) {
     setInnerHtml(target, param);
   }
 };
-
 /**
  * @param {object} param
  * @param {HTMLElement} target
@@ -894,13 +814,11 @@ const handleObject = (param, target) => {
   if ('jquery' in param) {
     handleJqueryElem(target, param);
   }
-
   // For other objects use their string representation
   else {
     setInnerHtml(target, param.toString());
   }
 };
-
 /**
  * @param {HTMLElement} target
  * @param {any} elem
@@ -915,7 +833,6 @@ const handleJqueryElem = (target, elem) => {
     target.appendChild(elem.cloneNode(true));
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -926,25 +843,20 @@ const renderActions = (instance, params) => {
   if (!actions || !loader) {
     return;
   }
-
   // Actions (buttons) wrapper
   if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
     hide(actions);
   } else {
     show(actions);
   }
-
   // Custom class
   applyCustomClass(actions, params, 'actions');
-
   // Render all the buttons
   renderButtons(actions, loader, params);
-
   // Loader
   setInnerHtml(loader, params.loaderHtml || '');
   applyCustomClass(loader, params, 'loader');
 };
-
 /**
  * @param {HTMLElement} actions
  * @param {HTMLElement} loader
@@ -957,7 +869,6 @@ function renderButtons(actions, loader, params) {
   if (!confirmButton || !denyButton || !cancelButton) {
     return;
   }
-
   // Render buttons
   renderButton(confirmButton, 'confirm', params);
   renderButton(denyButton, 'deny', params);
@@ -974,7 +885,6 @@ function renderButtons(actions, loader, params) {
     }
   }
 }
-
 /**
  * @param {HTMLElement} confirmButton
  * @param {HTMLElement} denyButton
@@ -987,7 +897,6 @@ function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
     return;
   }
   addClass([confirmButton, denyButton, cancelButton], swalClasses.styled);
-
   // Apply custom background colors and outline colors to action buttons
   /** @type {[HTMLElement, string, string | undefined][]} */
   const buttons = [[confirmButton, 'confirm', params.confirmButtonColor], [denyButton, 'deny', params.denyButtonColor], [cancelButton, 'cancel', params.cancelButtonColor]];
@@ -998,7 +907,6 @@ function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
     applyOutlineColor(button);
   });
 }
-
 /**
  * @param {HTMLElement} button
  */
@@ -1011,7 +919,6 @@ function applyOutlineColor(button) {
   const outlineColor = buttonStyle.backgroundColor.replace(/rgba?\((\d+), (\d+), (\d+).*/, 'rgba($1, $2, $3, 0.5)');
   button.style.setProperty('--swal2-action-button-focus-box-shadow', buttonStyle.getPropertyValue('--swal2-outline').replace(/ rgba\(.*/, ` ${outlineColor}`));
 }
-
 /**
  * @param {HTMLElement} button
  * @param {'confirm' | 'deny' | 'cancel'} buttonType
@@ -1022,12 +929,10 @@ function renderButton(button, buttonType, params) {
   toggle(button, params[`show${buttonName}Button`], 'inline-block');
   setInnerHtml(button, params[`${buttonType}ButtonText`] || ''); // Set caption text
   button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`] || ''); // ARIA label
-
   // Add buttons custom classes
   button.className = swalClasses[buttonType];
   applyCustomClass(button, params, `${buttonType}Button`);
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1038,13 +943,11 @@ const renderCloseButton = (instance, params) => {
     return;
   }
   setInnerHtml(closeButton, params.closeButtonHtml || '');
-
   // Custom class
   applyCustomClass(closeButton, params, 'closeButton');
   toggle(closeButton, params.showCloseButton);
   closeButton.setAttribute('aria-label', params.closeButtonAriaLabel || '');
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1057,11 +960,9 @@ const renderContainer = (instance, params) => {
   handleBackdropParam(container, params.backdrop);
   handlePositionParam(container, params.position);
   handleGrowParam(container, params.grow);
-
   // Custom class
   applyCustomClass(container, params, 'container');
 };
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['backdrop']} backdrop
@@ -1073,7 +974,6 @@ function handleBackdropParam(container, backdrop) {
     addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
   }
 }
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['position']} position
@@ -1089,7 +989,6 @@ function handlePositionParam(container, position) {
     addClass(container, swalClasses.center);
   }
 }
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['grow']} grow
@@ -1100,7 +999,6 @@ function handleGrowParam(container, grow) {
   }
   addClass(container, swalClasses[`grow-${grow}`]);
 }
-
 /**
  * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
  * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
@@ -1110,19 +1008,14 @@ function handleGrowParam(container, grow) {
  * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
  *   then we can use that language feature.
  */
-
 var privateProps = {
   innerParams: new WeakMap(),
   domCache: new WeakMap(),
   focusedElement: new WeakMap()
 };
-
 /// <reference path="../../../../sweetalert2.d.ts"/>
-
-
 /** @type {InputClass[]} */
 const inputClasses = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1139,10 +1032,8 @@ const renderInput = (instance, params) => {
     if (!inputContainer) {
       return;
     }
-
     // set attributes
     setAttributes(inputClass, params.inputAttributes);
-
     // set class
     inputContainer.className = swalClasses[inputClass];
     if (rerender) {
@@ -1157,7 +1048,6 @@ const renderInput = (instance, params) => {
     setCustomClass(params);
   }
 };
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -1175,7 +1065,6 @@ const showInput = params => {
   }
   const input = renderInputType[params.input](inputContainer, params);
   show(inputContainer);
-
   // input autofocus
   if (params.inputAutoFocus) {
     setTimeout(() => {
@@ -1183,7 +1072,6 @@ const showInput = params => {
     });
   }
 };
-
 /**
  * @param {HTMLInputElement} input
  */
@@ -1195,7 +1083,6 @@ const removeAttributes = input => {
     }
   }
 };
-
 /**
  * @param {InputClass} inputClass
  * @param {SweetAlertOptions['inputAttributes']} inputAttributes
@@ -1214,7 +1101,6 @@ const setAttributes = (inputClass, inputAttributes) => {
     input.setAttribute(attr, inputAttributes[attr]);
   }
 };
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -1227,7 +1113,6 @@ const setCustomClass = params => {
     applyCustomClass(inputContainer, params, 'input');
   }
 };
-
 /**
  * @param {HTMLInputElement | HTMLTextAreaElement} input
  * @param {SweetAlertOptions} params
@@ -1237,7 +1122,6 @@ const setInputPlaceholder = (input, params) => {
     input.placeholder = params.inputPlaceholder;
   }
 };
-
 /**
  * @param {Input} input
  * @param {Input} prependTo
@@ -1256,7 +1140,6 @@ const setInputLabel = (input, prependTo, params) => {
     prependTo.insertAdjacentElement('beforebegin', label);
   }
 };
-
 /**
  * @param {SweetAlertInput} inputType
  * @returns {HTMLElement | undefined}
@@ -1268,7 +1151,6 @@ const getInputContainer = inputType => {
   }
   return getDirectChildByClass(popup, swalClasses[(/** @type {SwalClass} */inputType)] || swalClasses.input);
 };
-
 /**
  * @param {HTMLInputElement | HTMLOutputElement | HTMLTextAreaElement} input
  * @param {SweetAlertOptions['inputValue']} inputValue
@@ -1280,10 +1162,8 @@ const checkAndSetInputValue = (input, inputValue) => {
     warn(`Unexpected type of inputValue! Expected "string", "number" or "Promise", got "${typeof inputValue}"`);
   }
 };
-
 /** @type {Record<SweetAlertInput, (input: Input | HTMLElement, params: SweetAlertOptions) => Input>} */
 const renderInputType = {};
-
 /**
  * @param {Input | HTMLElement} input
  * @param {SweetAlertOptions} params
@@ -1300,7 +1180,6 @@ renderInputType.text = renderInputType.email = renderInputType.password = render
   inputElement.type = /** @type {string} */params.input;
   return inputElement;
 };
-
 /**
  * @param {Input | HTMLElement} input
  * @param {SweetAlertOptions} params
@@ -1312,7 +1191,6 @@ renderInputType.file = (input, params) => {
   setInputPlaceholder(inputElement, params);
   return inputElement;
 };
-
 /**
  * @param {Input | HTMLElement} range
  * @param {SweetAlertOptions} params
@@ -1332,7 +1210,6 @@ renderInputType.range = (range, params) => {
   }
   return /** @type {Input} */range;
 };
-
 /**
  * @param {Input | HTMLElement} select
  * @param {SweetAlertOptions} params
@@ -1352,7 +1229,6 @@ renderInputType.select = (select, params) => {
   setInputLabel(selectElement, selectElement, params);
   return selectElement;
 };
-
 /**
  * @param {Input | HTMLElement} radio
  * @returns {Input}
@@ -1362,7 +1238,6 @@ renderInputType.radio = radio => {
   radioElement.textContent = '';
   return /** @type {Input} */radio;
 };
-
 /**
  * @param {Input | HTMLElement} checkboxContainer
  * @param {SweetAlertOptions} params
@@ -1389,7 +1264,6 @@ renderInputType.checkbox = (checkboxContainer, params) => {
   }
   return checkbox;
 };
-
 /**
  * @param {Input | HTMLElement} textarea
  * @param {SweetAlertOptions} params
@@ -1400,13 +1274,11 @@ renderInputType.textarea = (textarea, params) => {
   checkAndSetInputValue(textareaElement, params.inputValue);
   setInputPlaceholder(textareaElement, params);
   setInputLabel(textareaElement, textareaElement, params);
-
   /**
    * @param {HTMLElement} el
    * @returns {number}
    */
   const getMargin = el => parseInt(window.getComputedStyle(el).marginLeft) + parseInt(window.getComputedStyle(el).marginRight);
-
   // https://github.com/sweetalert2/sweetalert2/issues/2291
   setTimeout(() => {
     // https://github.com/sweetalert2/sweetalert2/issues/1699
@@ -1439,7 +1311,6 @@ renderInputType.textarea = (textarea, params) => {
   });
   return textareaElement;
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1451,26 +1322,22 @@ const renderContent = (instance, params) => {
   }
   showWhenInnerHtmlPresent(htmlContainer);
   applyCustomClass(htmlContainer, params, 'htmlContainer');
-
   // Content as HTML
   if (params.html) {
     parseHtmlToContainer(params.html, htmlContainer);
     show(htmlContainer, 'block');
   }
-
   // Content as plain text
   else if (params.text) {
     htmlContainer.textContent = params.text;
     show(htmlContainer, 'block');
   }
-
   // No content
   else {
     hide(htmlContainer);
   }
   renderInput(instance, params);
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1485,11 +1352,9 @@ const renderFooter = (instance, params) => {
   if (params.footer) {
     parseHtmlToContainer(params.footer, footer);
   }
-
   // Custom class
   applyCustomClass(footer, params, 'footer');
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1500,7 +1365,6 @@ const renderIcon = (instance, params) => {
   if (!icon) {
     return;
   }
-
   // if the given icon already rendered, apply the styling without re-rendering the icon
   if (innerParams && params.icon === innerParams.icon) {
     // Custom or default content
@@ -1518,19 +1382,15 @@ const renderIcon = (instance, params) => {
     return;
   }
   show(icon);
-
   // Custom or default content
   setContent(icon, params);
   applyStyles(icon, params);
-
   // Animate icon
   addClass(icon, params.showClass && params.showClass.icon);
-
   // Re-adjust the success icon on system theme change
   const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: dark)');
   colorSchemeQueryList.addEventListener('change', adjustSuccessIconBackgroundColor);
 };
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -1542,17 +1402,13 @@ const applyStyles = (icon, params) => {
     }
   }
   addClass(icon, params.icon && iconTypes[params.icon]);
-
   // Icon color
   setColor(icon, params);
-
   // Success icon background color
   adjustSuccessIconBackgroundColor();
-
   // Custom class
   applyCustomClass(icon, params, 'icon');
 };
-
 // Adjust success icon background color to match the popup background color
 const adjustSuccessIconBackgroundColor = () => {
   const popup = getPopup();
@@ -1566,7 +1422,6 @@ const adjustSuccessIconBackgroundColor = () => {
     successIconParts[i].style.backgroundColor = popupBackgroundColor;
   }
 };
-
 /**
  *
  * @param {SweetAlertOptions} params
@@ -1585,7 +1440,6 @@ const errorIconHtml = `
     <span class="swal2-x-mark-line-right"></span>
   </span>
 `;
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -1615,7 +1469,6 @@ const setContent = (icon, params) => {
     setInnerHtml(icon, newContent);
   }
 };
-
 /**
  * @param {HTMLElement} icon
  * @param {SweetAlertOptions} params
@@ -1631,13 +1484,11 @@ const setColor = (icon, params) => {
   }
   setStyle(icon, '.swal2-success-ring', 'border-color', params.iconColor);
 };
-
 /**
  * @param {string} content
  * @returns {string}
  */
 const iconContent = content => `<div class="${swalClasses['icon-content']}">${content}</div>`;
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1652,26 +1503,21 @@ const renderImage = (instance, params) => {
     return;
   }
   show(image, '');
-
   // Src, alt
   image.setAttribute('src', params.imageUrl);
   image.setAttribute('alt', params.imageAlt || '');
-
   // Width, height
   applyNumericalStyle(image, 'width', params.imageWidth);
   applyNumericalStyle(image, 'height', params.imageHeight);
-
   // Class
   image.className = swalClasses.image;
   applyCustomClass(image, params, 'image');
 };
-
 let dragging = false;
 let mousedownX = 0;
 let mousedownY = 0;
 let initialX = 0;
 let initialY = 0;
-
 /**
  * @param {HTMLElement} popup
  */
@@ -1683,7 +1529,6 @@ const addDraggableListeners = popup => {
   document.body.addEventListener('touchmove', move);
   popup.addEventListener('touchend', up);
 };
-
 /**
  * @param {HTMLElement} popup
  */
@@ -1695,7 +1540,6 @@ const removeDraggableListeners = popup => {
   document.body.removeEventListener('touchmove', move);
   popup.removeEventListener('touchend', up);
 };
-
 /**
  * @param {MouseEvent | TouchEvent} event
  */
@@ -1715,7 +1559,6 @@ const down = event => {
     addClass(popup, 'swal2-dragging');
   }
 };
-
 /**
  * @param {MouseEvent | TouchEvent} event
  */
@@ -1740,7 +1583,6 @@ const up = () => {
   dragging = false;
   removeClass(popup, 'swal2-dragging');
 };
-
 /**
  * @param {MouseEvent | TouchEvent} event
  * @returns {{ clientX: number, clientY: number }}
@@ -1752,7 +1594,6 @@ const getClientXY = event => {
     clientY: source.clientY
   };
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1763,7 +1604,6 @@ const renderPopup = (instance, params) => {
   if (!container || !popup) {
     return;
   }
-
   // Width
   // https://github.com/sweetalert2/sweetalert2/issues/2170
   if (params.toast) {
@@ -1776,21 +1616,17 @@ const renderPopup = (instance, params) => {
   } else {
     applyNumericalStyle(popup, 'width', params.width);
   }
-
   // Padding
   applyNumericalStyle(popup, 'padding', params.padding);
-
   // Color
   if (params.color) {
     popup.style.color = params.color;
   }
-
   // Background
   if (params.background) {
     popup.style.background = params.background;
   }
   hide(getValidationMessage());
-
   // Classes
   addClasses$1(popup, params);
   if (params.draggable && !params.toast) {
@@ -1801,7 +1637,6 @@ const renderPopup = (instance, params) => {
     removeDraggableListeners(popup);
   }
 };
-
 /**
  * @param {HTMLElement} popup
  * @param {SweetAlertOptions} params
@@ -1816,20 +1651,17 @@ const addClasses$1 = (popup, params) => {
   } else {
     addClass(popup, swalClasses.modal);
   }
-
   // Custom class
   applyCustomClass(popup, params, 'popup');
   // TODO: remove in the next major
   if (typeof params.customClass === 'string') {
     addClass(popup, params.customClass);
   }
-
   // Icon class (#1842)
   if (params.icon) {
     addClass(popup, swalClasses[`icon-${params.icon}`]);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1864,7 +1696,6 @@ const renderProgressSteps = (instance, params) => {
     }
   });
 };
-
 /**
  * @param {string} step
  * @returns {HTMLLIElement}
@@ -1875,7 +1706,6 @@ const createStepElement = step => {
   setInnerHtml(stepEl, step);
   return stepEl;
 };
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {HTMLLIElement}
@@ -1888,7 +1718,6 @@ const createLineElement = params => {
   }
   return lineEl;
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1906,11 +1735,9 @@ const renderTitle = (instance, params) => {
   if (params.titleText) {
     title.innerText = params.titleText;
   }
-
   // Custom class
   applyCustomClass(title, params, 'title');
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -1933,14 +1760,12 @@ const render = (instance, params) => {
   }
   (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didRender', popup);
 };
-
 /*
  * Global function to determine if SweetAlert2 popup is shown
  */
 const isVisible = () => {
   return isVisible$1(getPopup());
 };
-
 /*
  * Global function to click 'Confirm' button
  */
@@ -1948,7 +1773,6 @@ const clickConfirm = () => {
   var _dom$getConfirmButton;
   return (_dom$getConfirmButton = getConfirmButton()) === null || _dom$getConfirmButton === void 0 ? void 0 : _dom$getConfirmButton.click();
 };
-
 /*
  * Global function to click 'Deny' button
  */
@@ -1956,7 +1780,6 @@ const clickDeny = () => {
   var _dom$getDenyButton;
   return (_dom$getDenyButton = getDenyButton()) === null || _dom$getDenyButton === void 0 ? void 0 : _dom$getDenyButton.click();
 };
-
 /*
  * Global function to click 'Cancel' button
  */
@@ -1964,7 +1787,6 @@ const clickCancel = () => {
   var _dom$getCancelButton;
   return (_dom$getCancelButton = getCancelButton()) === null || _dom$getCancelButton === void 0 ? void 0 : _dom$getCancelButton.click();
 };
-
 /** @type {Record<DismissReason, DismissReason>} */
 const DismissReason = Object.freeze({
   cancel: 'cancel',
@@ -1973,7 +1795,6 @@ const DismissReason = Object.freeze({
   esc: 'esc',
   timer: 'timer'
 });
-
 /**
  * @param {GlobalState} globalState
  */
@@ -1987,7 +1808,6 @@ const removeKeydownHandler = globalState => {
     globalState.keydownHandlerAdded = false;
   }
 };
-
 /**
  * @param {GlobalState} globalState
  * @param {SweetAlertOptions} innerParams
@@ -2011,7 +1831,6 @@ const addKeydownHandler = (globalState, innerParams, dismissWith) => {
     }
   }
 };
-
 /**
  * @param {number} index
  * @param {number} increment
@@ -2023,22 +1842,18 @@ const setFocus = (index, increment) => {
   // search for visible elements and select the next possible match
   if (focusableElements.length) {
     index = index + increment;
-
     // shift + tab when .swal2-popup is focused
     if (index === -2) {
       index = focusableElements.length - 1;
     }
-
     // rollover to first item
     if (index === focusableElements.length) {
       index = 0;
-
       // go to last item
     } else if (index === -1) {
       index = focusableElements.length - 1;
     }
     focusableElements[index].focus();
-
     // don't prevent default for iframes (Firefox fix)
     // https://github.com/sweetalert2/sweetalert2/issues/2931
     if (isFirefox() && focusableElements[index] instanceof HTMLIFrameElement) {
@@ -2052,7 +1867,6 @@ const setFocus = (index, increment) => {
 };
 const arrowKeysNextButton = ['ArrowRight', 'ArrowDown'];
 const arrowKeysPreviousButton = ['ArrowLeft', 'ArrowUp'];
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {KeyboardEvent} event
@@ -2062,7 +1876,6 @@ const keydownHandler = (innerParams, event, dismissWith) => {
   if (!innerParams) {
     return; // This instance has already been destroyed
   }
-
   // Ignore keydown during IME composition
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event#ignoring_keydown_during_ime_composition
   // https://github.com/sweetalert2/sweetalert2/issues/720
@@ -2073,28 +1886,23 @@ const keydownHandler = (innerParams, event, dismissWith) => {
   if (innerParams.stopKeydownPropagation) {
     event.stopPropagation();
   }
-
   // ENTER
   if (event.key === 'Enter') {
     handleEnter(event, innerParams);
   }
-
   // TAB
   else if (event.key === 'Tab') {
     handleTab(event);
   }
-
   // ARROWS - switch focus between buttons
   else if ([...arrowKeysNextButton, ...arrowKeysPreviousButton].includes(event.key)) {
     handleArrows(event.key);
   }
-
   // ESC
   else if (event.key === 'Escape') {
     handleEsc(event, innerParams, dismissWith);
   }
 };
-
 /**
  * @param {KeyboardEvent} event
  * @param {SweetAlertOptions} innerParams
@@ -2117,7 +1925,6 @@ const handleEnter = (event, innerParams) => {
     event.preventDefault();
   }
 };
-
 /**
  * @param {KeyboardEvent} event
  */
@@ -2131,16 +1938,13 @@ const handleTab = event => {
       break;
     }
   }
-
   // don't prevent default for iframes (Firefox fix)
   // https://github.com/sweetalert2/sweetalert2/issues/2931
   let shouldPreventDefault = true;
-
   // Cycle to the next button
   if (!event.shiftKey) {
     shouldPreventDefault = setFocus(btnIndex, 1);
   }
-
   // Cycle to the prev button
   else {
     shouldPreventDefault = setFocus(btnIndex, -1);
@@ -2150,7 +1954,6 @@ const handleTab = event => {
     event.preventDefault();
   }
 };
-
 /**
  * @param {string} key
  */
@@ -2185,7 +1988,6 @@ const handleArrows = key => {
     buttonToFocus.focus();
   }
 };
-
 /**
  * @param {KeyboardEvent} event
  * @param {SweetAlertOptions} innerParams
@@ -2197,7 +1999,6 @@ const handleEsc = (event, innerParams, dismissWith) => {
     dismissWith(DismissReason.esc);
   }
 };
-
 /**
  * This module contains `WeakMap`s for each effectively-"private  property" that a `Swal` has.
  * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
@@ -2207,17 +2008,14 @@ const handleEsc = (event, innerParams, dismissWith) => {
  * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
  *   then we can use that language feature.
  */
-
 var privateMethods = {
   swalPromiseResolve: new WeakMap(),
   swalPromiseReject: new WeakMap()
 };
-
 // From https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/
 // Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
 // elements not within the active modal dialog will not be surfaced if a user opens a screen
 // reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
-
 const setAriaHidden = () => {
   const container = getContainer();
   const bodyChildren = Array.from(document.body.children);
@@ -2242,13 +2040,10 @@ const unsetAriaHidden = () => {
     }
   });
 };
-
 // @ts-ignore
 const isSafariOrIOS = typeof window !== 'undefined' && Boolean(window.GestureEvent); // true for Safari desktop + all iOS browsers https://stackoverflow.com/a/70585394
-
 // @ts-ignore
 const isIOS = isSafariOrIOS && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
 /**
  * Fix iOS scrolling
  * http://stackoverflow.com/q/39626302
@@ -2261,7 +2056,6 @@ const iOSfix = () => {
     lockBodyScroll();
   }
 };
-
 /**
  * https://github.com/sweetalert2/sweetalert2/issues/1246
  */
@@ -2288,7 +2082,6 @@ const lockBodyScroll = () => {
     }
   };
 };
-
 /**
  * @param {TouchEvent} event
  * @returns {boolean}
@@ -2319,7 +2112,6 @@ const shouldPreventTouchMove = event => {
   }
   return false;
 };
-
 /**
  * https://github.com/sweetalert2/sweetalert2/issues/1786
  *
@@ -2331,7 +2123,6 @@ const isStylus = event => {
   // @ts-ignore - touchType is not a standard property
   event.touches[0].touchType === 'stylus');
 };
-
 /**
  * https://github.com/sweetalert2/sweetalert2/issues/1891
  *
@@ -2349,7 +2140,6 @@ const undoIOSfix = () => {
     document.body.scrollTop = offset * -1;
   }
 };
-
 /**
  * Measure scrollbar width for padding body during modal show/hide
  * https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
@@ -2364,13 +2154,11 @@ const measureScrollbar = () => {
   document.body.removeChild(scrollDiv);
   return scrollbarWidth;
 };
-
 /**
  * Remember state in cases where opening and handling a modal will fiddle with it.
  * @type {number | null}
  */
 let previousBodyPadding = null;
-
 /**
  * @param {string} initialBodyOverflow
  */
@@ -2393,7 +2181,6 @@ const undoReplaceScrollbarWithPadding = () => {
     previousBodyPadding = null;
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} container
@@ -2407,7 +2194,6 @@ function removePopupAndResetState(instance, container, returnFocus, didClose) {
     restoreActiveElement(returnFocus).then(() => triggerDidCloseAndDispose(instance, didClose));
     removeKeydownHandler(globalState);
   }
-
   // workaround for https://github.com/sweetalert2/sweetalert2/issues/2088
   // for some reason removing the container in Safari will scroll the document to bottom
   if (isSafariOrIOS) {
@@ -2424,14 +2210,12 @@ function removePopupAndResetState(instance, container, returnFocus, didClose) {
   }
   removeBodyClasses();
 }
-
 /**
  * Remove SweetAlert2 classes from body
  */
 function removeBodyClasses() {
   removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown']]);
 }
-
 /**
  * Instance method to close sweetAlert
  *
@@ -2453,7 +2237,6 @@ function close(resolveValue) {
     swalPromiseResolve(resolveValue);
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @returns {boolean}
@@ -2475,7 +2258,6 @@ const triggerClosePopup = instance => {
   handlePopupAnimation(instance, popup, innerParams);
   return true;
 };
-
 /**
  * @param {Error | string} error
  * @this {SweetAlert}
@@ -2488,7 +2270,6 @@ function rejectPromise(error) {
     rejectPromise(error);
   }
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -2502,7 +2283,6 @@ const handleAwaitingPromise = instance => {
     }
   }
 };
-
 /**
  * @param {SweetAlertResult | undefined} resolveValue
  * @returns {SweetAlertResult}
@@ -2522,7 +2302,6 @@ const prepareResolveValue = resolveValue => {
     isDismissed: false
   }, resolveValue);
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} popup
@@ -2544,7 +2323,6 @@ const handlePopupAnimation = (instance, popup, innerParams) => {
     removePopupAndResetState(instance, container, Boolean(innerParams.returnFocus), innerParams.didClose);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} popup
@@ -2569,7 +2347,6 @@ const animatePopup = (instance, popup, container, returnFocus, didClose) => {
   popup.addEventListener('animationend', swalCloseAnimationFinished);
   popup.addEventListener('transitionend', swalCloseAnimationFinished);
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {(() => void) | undefined} didClose
@@ -2587,7 +2364,6 @@ const triggerDidCloseAndDispose = (instance, didClose) => {
     }
   });
 };
-
 /**
  * Shows loader (spinner), this is useful with AJAX requests.
  * By default the loader be shown instead of the "Confirm" button.
@@ -2614,7 +2390,6 @@ const showLoading = buttonToReplace => {
   popup.setAttribute('aria-busy', 'true');
   popup.focus();
 };
-
 /**
  * @param {HTMLElement} popup
  * @param {HTMLButtonElement | null} [buttonToReplace]
@@ -2636,7 +2411,6 @@ const replaceButton = (popup, buttonToReplace) => {
   }
   addClass([popup, actions], swalClasses.loading);
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -2649,7 +2423,6 @@ const handleInputOptionsAndValue = (instance, params) => {
     handleInputValue(instance, params);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} innerParams
@@ -2671,25 +2444,21 @@ const getInputValue = (instance, innerParams) => {
       return innerParams.inputAutoTrim ? input.value.trim() : input.value;
   }
 };
-
 /**
  * @param {HTMLInputElement} input
  * @returns {number}
  */
 const getCheckboxValue = input => input.checked ? 1 : 0;
-
 /**
  * @param {HTMLInputElement} input
  * @returns {string | null}
  */
 const getRadioValue = input => input.checked ? input.value : null;
-
 /**
  * @param {HTMLInputElement} input
  * @returns {FileList | File | null}
  */
 const getFileValue = input => input.files && input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -2721,7 +2490,6 @@ const handleInputOptions = (instance, params) => {
     error(`Unexpected type of inputOptions! Expected object, Map or Promise, got ${typeof params.inputOptions}`);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -2745,7 +2513,6 @@ const handleInputValue = (instance, params) => {
     instance.hideLoading();
   });
 };
-
 /**
  * @param {HTMLElement} popup
  * @param {InputOptionFlattened[]} inputOptions
@@ -2789,7 +2556,6 @@ function populateSelectOptions(popup, inputOptions, params) {
   });
   select.focus();
 }
-
 /**
  * @param {HTMLElement} popup
  * @param {InputOptionFlattened[]} inputOptions
@@ -2823,7 +2589,6 @@ function populateRadioOptions(popup, inputOptions, params) {
     radios[0].focus();
   }
 }
-
 /**
  * Converts `inputOptions` into an array of `[value, label]`s
  *
@@ -2835,7 +2600,6 @@ const formatInputOptions = inputOptions => {
   const entries = inputOptions instanceof Map ? Array.from(inputOptions) : Object.entries(inputOptions);
   return entries.map(([key, value]) => [key, typeof value === 'object' ? formatInputOptions(value) : value]); // case of <optgroup>
 };
-
 /**
  * @param {string} optionValue
  * @param {SweetAlertInputValue} inputValue
@@ -2844,7 +2608,6 @@ const formatInputOptions = inputOptions => {
 const isSelected = (optionValue, inputValue) => {
   return Boolean(inputValue) && inputValue !== null && inputValue !== undefined && inputValue.toString() === optionValue.toString();
 };
-
 /**
  * @param {SweetAlert} instance
  */
@@ -2857,7 +2620,6 @@ const handleConfirmButtonClick = instance => {
     confirm(instance, true);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  */
@@ -2870,7 +2632,6 @@ const handleDenyButtonClick = instance => {
     deny(instance, false);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {(dismiss: DismissReason) => void} dismissWith
@@ -2879,7 +2640,6 @@ const handleCancelButtonClick = (instance, dismissWith) => {
   instance.disableButtons();
   dismissWith(DismissReason.cancel);
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {'confirm' | 'deny'} type
@@ -2903,7 +2663,6 @@ const handleConfirmOrDenyWithInput = (instance, type) => {
     confirm(instance, inputValue);
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertInputValue} inputValue
@@ -2925,7 +2684,6 @@ const handleInputValidator = (instance, inputValue, type) => {
     }
   });
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {*} value
@@ -2956,7 +2714,6 @@ const deny = (instance, value) => {
     });
   }
 };
-
 /**
  * @param {SweetAlert} instance
  * @param {*} value
@@ -2967,7 +2724,6 @@ const succeedWith = (instance, value) => {
     value
   });
 };
-
 /**
  *
  * @param {SweetAlert} instance
@@ -2976,7 +2732,6 @@ const succeedWith = (instance, value) => {
 const rejectWith = (instance, error) => {
   instance.rejectPromise(error);
 };
-
 /**
  *
  * @param {SweetAlert} instance
@@ -3003,7 +2758,6 @@ const confirm = (instance, value) => {
     succeedWith(instance, value);
   }
 };
-
 /**
  * Hides loader and shows back the button which was hidden by .showLoading()
  * @this {SweetAlert}
@@ -3035,7 +2789,6 @@ function hideLoading() {
   }
   privateProps.focusedElement.delete(this);
 }
-
 /**
  * @param {DomCache} domCache
  */
@@ -3048,7 +2801,6 @@ const showRelatedButton = domCache => {
     hide(domCache.actions);
   }
 };
-
 /**
  * Gets the input DOM node, this method works with input parameter.
  *
@@ -3063,7 +2815,6 @@ function getInput() {
   }
   return getInput$1(domCache.popup, innerParams.input);
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {string[]} buttons
@@ -3075,7 +2826,6 @@ function setButtonsDisabled(instance, buttons, disabled) {
     domCache[button].disabled = disabled;
   });
 }
-
 /**
  * @param {HTMLInputElement | null} input
  * @param {boolean} disabled
@@ -3095,7 +2845,6 @@ function setInputDisabled(input, disabled) {
     input.disabled = disabled;
   }
 }
-
 /**
  * Enable all the buttons
  * @this {SweetAlert}
@@ -3108,7 +2857,6 @@ function enableButtons() {
   }
   privateProps.focusedElement.delete(this);
 }
-
 /**
  * Disable all the buttons
  * @this {SweetAlert}
@@ -3117,7 +2865,6 @@ function disableButtons() {
   privateProps.focusedElement.set(this, document.activeElement);
   setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true);
 }
-
 /**
  * Enable the input field
  * @this {SweetAlert}
@@ -3125,7 +2872,6 @@ function disableButtons() {
 function enableInput() {
   setInputDisabled(this.getInput(), false);
 }
-
 /**
  * Disable the input field
  * @this {SweetAlert}
@@ -3133,7 +2879,6 @@ function enableInput() {
 function disableInput() {
   setInputDisabled(this.getInput(), true);
 }
-
 /**
  * Show block with validation message
  *
@@ -3157,7 +2902,6 @@ function showValidationMessage(error) {
     addClass(input, swalClasses.inputerror);
   }
 }
-
 /**
  * Hide block with validation message
  *
@@ -3175,7 +2919,6 @@ function resetValidationMessage() {
     removeClass(input, swalClasses.inputerror);
   }
 }
-
 const defaultParams = {
   title: '',
   titleText: '',
@@ -3271,13 +3014,11 @@ const defaultParams = {
   topLayer: false
 };
 const updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'color', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'draggable', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'preConfirm', 'preDeny', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'theme', 'willClose'];
-
 /** @type {Record<string, string | undefined>} */
 const deprecatedParams = {
   allowEnterKey: undefined
 };
 const toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'draggable', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
-
 /**
  * Is valid parameter
  *
@@ -3287,7 +3028,6 @@ const toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop
 const isValidParameter = paramName => {
   return Object.prototype.hasOwnProperty.call(defaultParams, paramName);
 };
-
 /**
  * Is valid parameter for Swal.update() method
  *
@@ -3297,7 +3037,6 @@ const isValidParameter = paramName => {
 const isUpdatableParameter = paramName => {
   return updatableParams.indexOf(paramName) !== -1;
 };
-
 /**
  * Is deprecated parameter
  *
@@ -3307,7 +3046,6 @@ const isUpdatableParameter = paramName => {
 const isDeprecatedParameter = paramName => {
   return deprecatedParams[paramName];
 };
-
 /**
  * @param {string} param
  */
@@ -3316,7 +3054,6 @@ const checkIfParamIsValid = param => {
     warn(`Unknown parameter "${param}"`);
   }
 };
-
 /**
  * @param {string} param
  */
@@ -3325,7 +3062,6 @@ const checkIfToastParamIsValid = param => {
     warn(`The parameter "${param}" is incompatible with toasts`);
   }
 };
-
 /**
  * @param {string} param
  */
@@ -3335,7 +3071,6 @@ const checkIfParamIsDeprecated = param => {
     warnAboutDeprecation(param, isDeprecated);
   }
 };
-
 /**
  * Show relevant warnings for given params
  *
@@ -3356,7 +3091,6 @@ const showWarningsForParams = params => {
     checkIfParamIsDeprecated(param);
   }
 };
-
 /**
  * Updates popup parameters.
  *
@@ -3387,7 +3121,6 @@ function update(params) {
     }
   });
 }
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {SweetAlertOptions}
@@ -3405,7 +3138,6 @@ const filterValidParams = params => {
   });
   return validUpdatableParams;
 };
-
 /**
  * Dispose the current SweetAlert2 instance
  * @this {SweetAlert}
@@ -3418,7 +3150,6 @@ function _destroy() {
     disposeWeakMaps(this); // The WeakMaps might have been partly destroyed, we must recall it to dispose any remaining WeakMaps #2335
     return; // This instance has already been destroyed
   }
-
   // Check if there is another Swal closing
   if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
     globalState.swalCloseEventFinishedCallback();
@@ -3430,7 +3161,6 @@ function _destroy() {
   (_globalState$eventEmi = globalState.eventEmitter) === null || _globalState$eventEmi === void 0 || _globalState$eventEmi.emit('didDestroy');
   disposeSwal(this);
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -3445,7 +3175,6 @@ const disposeSwal = instance => {
   // Unset currentInstance
   delete globalState.currentInstance;
 };
-
 /**
  * @param {SweetAlert} instance
  */
@@ -3457,7 +3186,6 @@ const disposeWeakMaps = instance => {
   } else {
     unsetWeakMaps(privateMethods, instance);
     unsetWeakMaps(privateProps, instance);
-
     // @ts-ignore
     delete instance.isAwaitingPromise;
     // Unset instance methods
@@ -3495,7 +3223,6 @@ const disposeWeakMaps = instance => {
     delete instance._destroy;
   }
 };
-
 /**
  * @param {Record<string, WeakMap<any, any>>} obj
  * @param {SweetAlert} instance
@@ -3505,7 +3232,6 @@ const unsetWeakMaps = (obj, instance) => {
     obj[i].delete(instance);
   }
 };
-
 var instanceMethods = /*#__PURE__*/Object.freeze({
   __proto__: null,
   _destroy: _destroy,
@@ -3526,7 +3252,6 @@ var instanceMethods = /*#__PURE__*/Object.freeze({
   showValidationMessage: showValidationMessage,
   update: update
 });
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache
@@ -3539,13 +3264,11 @@ const handlePopupClick = (innerParams, domCache, dismissWith) => {
     // Ignore click events that had mousedown on the popup but mouseup on the container
     // This can happen when the user drags a slider
     handleModalMousedown(domCache);
-
     // Ignore click events that had mousedown on the container but mouseup on the popup
     handleContainerMousedown(domCache);
     handleModalClick(innerParams, domCache, dismissWith);
   }
 };
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache
@@ -3560,7 +3283,6 @@ const handleToastClick = (innerParams, domCache, dismissWith) => {
     dismissWith(DismissReason.close);
   };
 };
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @returns {boolean}
@@ -3569,7 +3291,6 @@ const isAnyButtonShown = innerParams => {
   return Boolean(innerParams.showConfirmButton || innerParams.showDenyButton || innerParams.showCancelButton || innerParams.showCloseButton);
 };
 let ignoreOutsideClick = false;
-
 /**
  * @param {DomCache} domCache
  */
@@ -3585,7 +3306,6 @@ const handleModalMousedown = domCache => {
     };
   };
 };
-
 /**
  * @param {DomCache} domCache
  */
@@ -3604,7 +3324,6 @@ const handleContainerMousedown = domCache => {
     };
   };
 };
-
 /**
  * @param {SweetAlertOptions} innerParams
  * @param {DomCache} domCache
@@ -3621,19 +3340,16 @@ const handleModalClick = (innerParams, domCache, dismissWith) => {
     }
   };
 };
-
 /**
  * @param {unknown} elem
  * @returns {boolean}
  */
 const isJqueryElement = elem => typeof elem === 'object' && elem !== null && 'jquery' in elem;
-
 /**
  * @param {unknown} elem
  * @returns {boolean}
  */
 const isElement = elem => elem instanceof Element || isJqueryElement(elem);
-
 /**
  * @param {ReadonlyArray<unknown>} args
  * @returns {SweetAlertOptions}
@@ -3655,7 +3371,6 @@ const argsToParams = args => {
   }
   return /** @type {SweetAlertOptions} */params;
 };
-
 /**
  * Main method to create a new SweetAlert2 popup
  *
@@ -3666,7 +3381,6 @@ const argsToParams = args => {
 function fire(...args) {
   return new this(...args);
 }
-
 /**
  * Returns an extended version of `Swal` containing `params` as defaults.
  * Useful for reusing Swal configuration.
@@ -3701,7 +3415,6 @@ function mixin(mixinParams) {
   // @ts-ignore
   return MixinSwal;
 }
-
 /**
  * If `timer` parameter is set, returns number of milliseconds of timer remained.
  * Otherwise, returns undefined.
@@ -3711,7 +3424,6 @@ function mixin(mixinParams) {
 const getTimerLeft = () => {
   return globalState.timeout && globalState.timeout.getTimerLeft();
 };
-
 /**
  * Stop timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -3724,7 +3436,6 @@ const stopTimer = () => {
     return globalState.timeout.stop();
   }
 };
-
 /**
  * Resume timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -3738,7 +3449,6 @@ const resumeTimer = () => {
     return remaining;
   }
 };
-
 /**
  * Resume timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -3749,7 +3459,6 @@ const toggleTimer = () => {
   const timer = globalState.timeout;
   return timer && (timer.running ? stopTimer() : resumeTimer());
 };
-
 /**
  * Increase timer. Returns number of milliseconds of an updated timer.
  * If `timer` parameter isn't set, returns undefined.
@@ -3764,7 +3473,6 @@ const increaseTimer = ms => {
     return remaining;
   }
 };
-
 /**
  * Check if timer is running. Returns true if timer is running
  * or false if timer is paused or stopped.
@@ -3775,11 +3483,9 @@ const increaseTimer = ms => {
 const isTimerRunning = () => {
   return Boolean(globalState.timeout && globalState.timeout.isRunning());
 };
-
 let bodyClickListenerAdded = false;
 /** @type {Record<string, any>} */
 const clickHandlers = {};
-
 /**
  * @this {any}
  * @param {string} attr
@@ -3791,7 +3497,6 @@ function bindClickHandler(attr = 'data-swal-template') {
     bodyClickListenerAdded = true;
   }
 }
-
 /**
  * @param {MouseEvent} event
  */
@@ -3808,15 +3513,12 @@ const bodyClickListener = event => {
     }
   }
 };
-
 // Source: https://gist.github.com/mudge/5830382?permalink_comment_id=2691957#gistcomment-2691957
-
 class EventEmitter {
   constructor() {
     /** @type {Events} */
     this.events = {};
   }
-
   /**
    * @param {string} eventName
    * @returns {EventHandlers}
@@ -3829,7 +3531,6 @@ class EventEmitter {
     }
     return this.events[eventName];
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -3840,7 +3541,6 @@ class EventEmitter {
       currentHandlers.push(eventHandler);
     }
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -3856,7 +3556,6 @@ class EventEmitter {
     };
     this.on(eventName, onceFn);
   }
-
   /**
    * @param {string} eventName
    * @param {...any} args
@@ -3875,7 +3574,6 @@ class EventEmitter {
       }
     });
   }
-
   /**
    * @param {string} eventName
    * @param {EventHandler} eventHandler
@@ -3887,7 +3585,6 @@ class EventEmitter {
       currentHandlers.splice(index, 1);
     }
   }
-
   /**
    * @param {string} eventName
    */
@@ -3901,9 +3598,7 @@ class EventEmitter {
     this.events = {};
   }
 }
-
 globalState.eventEmitter = new EventEmitter();
-
 /**
  * @param {string} eventName
  * @param {EventHandler} eventHandler
@@ -3913,7 +3608,6 @@ const on = (eventName, eventHandler) => {
     globalState.eventEmitter.on(eventName, eventHandler);
   }
 };
-
 /**
  * @param {string} eventName
  * @param {EventHandler} eventHandler
@@ -3923,7 +3617,6 @@ const once = (eventName, eventHandler) => {
     globalState.eventEmitter.once(eventName, eventHandler);
   }
 };
-
 /**
  * @param {string} [eventName]
  * @param {EventHandler} [eventHandler]
@@ -3932,7 +3625,6 @@ const off = (eventName, eventHandler) => {
   if (!globalState.eventEmitter) {
     return;
   }
-
   // Remove all handlers for all events
   if (!eventName) {
     globalState.eventEmitter.reset();
@@ -3946,7 +3638,6 @@ const off = (eventName, eventHandler) => {
     globalState.eventEmitter.removeAllListeners(eventName);
   }
 };
-
 var staticMethods = /*#__PURE__*/Object.freeze({
   __proto__: null,
   argsToParams: argsToParams,
@@ -3992,7 +3683,6 @@ var staticMethods = /*#__PURE__*/Object.freeze({
   stopTimer: stopTimer,
   toggleTimer: toggleTimer
 });
-
 class Timer {
   /**
    * @param {() => void} callback
@@ -4004,7 +3694,6 @@ class Timer {
     this.running = false;
     this.start();
   }
-
   /**
    * @returns {number}
    */
@@ -4016,7 +3705,6 @@ class Timer {
     }
     return this.remaining;
   }
-
   /**
    * @returns {number}
    */
@@ -4028,7 +3716,6 @@ class Timer {
     }
     return this.remaining;
   }
-
   /**
    * @param {number} n
    * @returns {number}
@@ -4044,7 +3731,6 @@ class Timer {
     }
     return this.remaining;
   }
-
   /**
    * @returns {number}
    */
@@ -4055,7 +3741,6 @@ class Timer {
     }
     return this.remaining;
   }
-
   /**
    * @returns {boolean}
    */
@@ -4063,9 +3748,7 @@ class Timer {
     return this.running;
   }
 }
-
 const swalStringParams = ['swal-title', 'swal-html', 'swal-footer'];
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {SweetAlertOptions}
@@ -4081,7 +3764,6 @@ const getTemplateParams = params => {
   const result = Object.assign(getSwalParams(templateContent), getSwalFunctionParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, string | boolean | number>}
@@ -4108,7 +3790,6 @@ const getSwalParams = templateContent => {
   });
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, () => void>}
@@ -4128,7 +3809,6 @@ const getSwalFunctionParams = templateContent => {
   });
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, string | boolean>}
@@ -4157,7 +3837,6 @@ const getSwalButtons = templateContent => {
   });
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Pick<SweetAlertOptions, 'imageUrl' | 'imageWidth' | 'imageHeight' | 'imageAlt'>}
@@ -4180,7 +3859,6 @@ const getSwalImage = templateContent => {
   }
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {object}
@@ -4201,7 +3879,6 @@ const getSwalIcon = templateContent => {
   }
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {object}
@@ -4240,7 +3917,6 @@ const getSwalInput = templateContent => {
   }
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  * @param {string[]} paramNames
@@ -4260,7 +3936,6 @@ const getSwalStringParams = (templateContent, paramNames) => {
   }
   return result;
 };
-
 /**
  * @param {DocumentFragment} templateContent
  */
@@ -4273,7 +3948,6 @@ const showWarningsForElements = templateContent => {
     }
   });
 };
-
 /**
  * @param {HTMLElement} el
  * @param {string[]} allowedAttributes
@@ -4285,9 +3959,7 @@ const showWarningsForAttributes = (el, allowedAttributes) => {
     }
   });
 };
-
 const SHOW_CLASS_TIMEOUT = 10;
-
 /**
  * Open popup, add necessary classes and styles, fix scrollbar
  *
@@ -4307,7 +3979,6 @@ const openPopup = params => {
   const bodyStyles = window.getComputedStyle(document.body);
   const initialBodyOverflow = bodyStyles.overflowY;
   addClasses(container, popup, params);
-
   // scrolling is 'hidden' until animation is done, after that 'auto'
   setTimeout(() => {
     setScrollingVisibility(container, popup);
@@ -4316,7 +3987,6 @@ const openPopup = params => {
     fixScrollContainer(container, params.scrollbarPadding !== undefined ? params.scrollbarPadding : false, initialBodyOverflow);
     setAriaHidden();
   }
-
   // https://github.com/sweetalert2/sweetalert2/issues/2923
   if (isIOS && params.backdrop === false && popup.scrollHeight > container.clientHeight) {
     // remove pointer-events: none from container, it breaks scrolling tall popups in iOS
@@ -4331,7 +4001,6 @@ const openPopup = params => {
   }
   (_globalState$eventEmi2 = globalState.eventEmitter) === null || _globalState$eventEmi2 === void 0 || _globalState$eventEmi2.emit('didOpen', popup);
 };
-
 /**
  * @param {Event} event
  */
@@ -4347,11 +4016,9 @@ const swalOpenAnimationFinished = event => {
   popup.removeEventListener('animationend', swalOpenAnimationFinished);
   popup.removeEventListener('transitionend', swalOpenAnimationFinished);
   container.style.overflowY = 'auto';
-
   // no-transition is added in init() in case one swal is opened right after another
   removeClass(container, swalClasses['no-transition']);
 };
-
 /**
  * @param {HTMLElement} container
  * @param {HTMLElement} popup
@@ -4365,7 +4032,6 @@ const setScrollingVisibility = (container, popup) => {
     container.style.overflowY = 'auto';
   }
 };
-
 /**
  * @param {HTMLElement} container
  * @param {boolean} scrollbarPadding
@@ -4376,13 +4042,11 @@ const fixScrollContainer = (container, scrollbarPadding, initialBodyOverflow) =>
   if (scrollbarPadding && initialBodyOverflow !== 'hidden') {
     replaceScrollbarWithPadding(initialBodyOverflow);
   }
-
   // sweetalert2/issues/1247
   setTimeout(() => {
     container.scrollTop = 0;
   });
 };
-
 /**
  * @param {HTMLElement} container
  * @param {HTMLElement} popup
@@ -4414,7 +4078,6 @@ const addClasses = (container, popup, params) => {
     addClass([document.documentElement, document.body], swalClasses['height-auto']);
   }
 };
-
 var defaultInputValidators = {
   /**
    * @param {string} string
@@ -4434,7 +4097,6 @@ var defaultInputValidators = {
     return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid URL');
   }
 };
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -4450,7 +4112,6 @@ function setDefaultInputValidators(params) {
     params.inputValidator = defaultInputValidators['url'];
   }
 }
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -4461,7 +4122,6 @@ function validateCustomTargetElement(params) {
     params.target = 'body';
   }
 }
-
 /**
  * Set type, text and actions on popup
  *
@@ -4469,20 +4129,17 @@ function validateCustomTargetElement(params) {
  */
 function setParameters(params) {
   setDefaultInputValidators(params);
-
   // showLoaderOnConfirm && preConfirm
   if (params.showLoaderOnConfirm && !params.preConfirm) {
     warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
   }
   validateCustomTargetElement(params);
-
   // Replace newlines with <br> in title
   if (typeof params.title === 'string') {
     params.title = params.title.split('\n').join('<br />');
   }
   init(params);
 }
-
 /** @type {SweetAlert} */
 let currentInstance;
 var _promise = /*#__PURE__*/new WeakMap();
@@ -4506,18 +4163,14 @@ class SweetAlert {
       return;
     }
     currentInstance = this;
-
     // @ts-ignore
     const outerParams = Object.freeze(this.constructor.argsToParams(args));
-
     /** @type {Readonly<SweetAlertOptions>} */
     this.params = outerParams;
-
     /** @type {boolean} */
     this.isAwaitingPromise = false;
     _classPrivateFieldSet2(_promise, this, this._main(currentInstance.params));
   }
-
   /**
    * @param {any} userParams
    * @param {any} mixinParams
@@ -4543,13 +4196,11 @@ class SweetAlert {
     const innerParams = prepareParams(userParams, mixinParams);
     setParameters(innerParams);
     Object.freeze(innerParams);
-
     // clear the previous timer
     if (globalState.timeout) {
       globalState.timeout.stop();
       delete globalState.timeout;
     }
-
     // clear the restore focus timeout
     clearTimeout(globalState.restoreFocusTimeout);
     const domCache = populateDomCache(currentInstance);
@@ -4557,7 +4208,6 @@ class SweetAlert {
     privateProps.innerParams.set(currentInstance, innerParams);
     return swalPromise(currentInstance, domCache, innerParams);
   }
-
   // `catch` cannot be the name of a module export, so we define our thenable methods here instead
   /**
    * @param {any} onFulfilled
@@ -4566,7 +4216,6 @@ class SweetAlert {
   then(onFulfilled) {
     return _classPrivateFieldGet2(_promise, this).then(onFulfilled);
   }
-
   /**
    * @param {any} onFinally
    */
@@ -4574,7 +4223,6 @@ class SweetAlert {
     return _classPrivateFieldGet2(_promise, this).finally(onFinally);
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {DomCache} domCache
@@ -4615,14 +4263,12 @@ const swalPromise = (instance, domCache, innerParams) => {
     openPopup(innerParams);
     setupTimer(globalState, innerParams, dismissWith);
     initFocus(domCache, innerParams);
-
     // Scroll container to top on open (#1247, #1946)
     setTimeout(() => {
       domCache.container.scrollTop = 0;
     });
   });
 };
-
 /**
  * @param {SweetAlertOptions} userParams
  * @param {SweetAlertOptions} mixinParams
@@ -4641,7 +4287,6 @@ const prepareParams = (userParams, mixinParams) => {
   }
   return params;
 };
-
 /**
  * @param {SweetAlert} instance
  * @returns {DomCache}
@@ -4662,7 +4307,6 @@ const populateDomCache = instance => {
   privateProps.domCache.set(instance, domCache);
   return domCache;
 };
-
 /**
  * @param {GlobalState} globalState
  * @param {SweetAlertOptions} innerParams
@@ -4688,7 +4332,6 @@ const setupTimer = (globalState, innerParams, dismissWith) => {
     }
   }
 };
-
 /**
  * Initialize focus in the popup:
  *
@@ -4720,7 +4363,6 @@ const initFocus = (domCache, innerParams) => {
   }
   setFocus(-1, 1);
 };
-
 /**
  * @param {DomCache} domCache
  * @returns {boolean}
@@ -4735,7 +4377,6 @@ const focusAutofocus = domCache => {
   }
   return false;
 };
-
 /**
  * @param {DomCache} domCache
  * @param {SweetAlertOptions} innerParams
@@ -4756,7 +4397,6 @@ const focusButton = (domCache, innerParams) => {
   }
   return false;
 };
-
 // Assign instance methods from src/instanceMethods/*.js to prototype
 SweetAlert.prototype.disableButtons = disableButtons;
 SweetAlert.prototype.enableButtons = enableButtons;
@@ -4774,10 +4414,8 @@ SweetAlert.prototype.closeToast = close;
 SweetAlert.prototype.rejectPromise = rejectPromise;
 SweetAlert.prototype.update = update;
 SweetAlert.prototype._destroy = _destroy;
-
 // Assign static methods from src/staticMethods/*.js to constructor
 Object.assign(SweetAlert, staticMethods);
-
 // Proxy to instance methods to constructor, for now, for backwards compatibility
 Object.keys(instanceMethods).forEach(key => {
   /**
@@ -4796,9 +4434,7 @@ Object.keys(instanceMethods).forEach(key => {
 });
 SweetAlert.DismissReason = DismissReason;
 SweetAlert.version = '11.26.24';
-
 const Swal = SweetAlert;
 // @ts-ignore
 Swal.default = Swal;
-
 export { Swal as default };

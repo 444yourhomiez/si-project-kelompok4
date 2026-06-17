@@ -1,8 +1,5 @@
-
 # Contributing to AdminLTE
-
 Contributions are always **welcome and recommended**! Here is how for beginner's: [Get started with open source click here](https://youtu.be/GbqSvJs-6W4)
-
 1. Contribution Requirements :
     * When you contribute, you agree to give a non-exclusive license to AdminLTE.io to use that contribution in any context as we (AdminLTE.io) see appropriate.
     * If you use content provided by another party, it must be appropriately licensed using an [open source](https://opensource.org/licenses) license.
@@ -11,7 +8,6 @@ Contributions are always **welcome and recommended**! Here is how for beginner's
 2. Installation :
     * Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
     * Clone to your machine
-
     ```bash
     git clone https://github.com/YOUR_USERNAME/AdminLTE.git
     ```
@@ -25,13 +21,9 @@ Contributions are always **welcome and recommended**! Here is how for beginner's
     * Do not make changes in ./dist/css/ AND ./dist/js/ AND ./plugins Because it contains compiled files and do not include in PR (Pull Request)
     * `npm run production` (compile css/js files and test all pages are perfectly working fine, before creating a pull request)
 4. Create a pull request
-
 ## Online one-click setup for contributing
-
 You can use Gitpod(an online IDE which is free for Open Source) for working on issues or making PRs (Pull Requests). With a single click it will launch a workspace and automatically:
-
 - clone the `AdminLTE` repo.
 - install the dependencies.
 - run `npm run dev` to start the server.
-
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer/)

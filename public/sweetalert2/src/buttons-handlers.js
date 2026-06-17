@@ -6,7 +6,6 @@ import { isVisible } from './utils/dom/domUtils.js'
 import { getDenyButton, getValidationMessage } from './utils/dom/getters.js'
 import { getInputValue } from './utils/dom/inputUtils.js'
 import { asPromise, capitalizeFirstLetter, error } from './utils/utils.js'
-
 /**
  * @param {SweetAlert} instance
  */
@@ -19,7 +18,6 @@ export const handleConfirmButtonClick = (instance) => {
     confirm(instance, true)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -32,7 +30,6 @@ export const handleDenyButtonClick = (instance) => {
     deny(instance, false)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {(dismiss: DismissReason) => void} dismissWith
@@ -41,7 +38,6 @@ export const handleCancelButtonClick = (instance, dismissWith) => {
   instance.disableButtons()
   dismissWith(DismissReason.cancel)
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {'confirm' | 'deny'} type
@@ -65,7 +61,6 @@ const handleConfirmOrDenyWithInput = (instance, type) => {
     confirm(instance, inputValue)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertInputValue} inputValue
@@ -89,18 +84,15 @@ const handleInputValidator = (instance, inputValue, type) => {
     }
   })
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {*} value
  */
 const deny = (instance, value) => {
   const innerParams = privateProps.innerParams.get(instance)
-
   if (innerParams.showLoaderOnDeny) {
     showLoading(getDenyButton())
   }
-
   if (innerParams.preDeny) {
     instance.isAwaitingPromise = true // Flagging the instance as awaiting a promise so it's own promise's reject/resolve methods doesn't get destroyed until the result from this preDeny's promise is received
     const preDenyPromise = Promise.resolve().then(() =>
@@ -125,7 +117,6 @@ const deny = (instance, value) => {
     instance.close(/** @type SweetAlertResult */ ({ isDenied: true, value }))
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {*} value
@@ -133,7 +124,6 @@ const deny = (instance, value) => {
 const succeedWith = (instance, value) => {
   instance.close(/** @type SweetAlertResult */ ({ isConfirmed: true, value }))
 }
-
 /**
  *
  * @param {SweetAlert} instance
@@ -142,7 +132,6 @@ const succeedWith = (instance, value) => {
 const rejectWith = (instance, error) => {
   instance.rejectPromise(error)
 }
-
 /**
  *
  * @param {SweetAlert} instance
@@ -150,11 +139,9 @@ const rejectWith = (instance, error) => {
  */
 const confirm = (instance, value) => {
   const innerParams = privateProps.innerParams.get(instance)
-
   if (innerParams.showLoaderOnConfirm) {
     showLoading()
   }
-
   if (innerParams.preConfirm) {
     instance.resetValidationMessage()
     instance.isAwaitingPromise = true // Flagging the instance as awaiting a promise so it's own promise's reject/resolve methods doesn't get destroyed until the result from this preConfirm's promise is received
