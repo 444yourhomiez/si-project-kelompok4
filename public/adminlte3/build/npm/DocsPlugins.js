@@ -1,5 +1,4 @@
 'use strict'
-
 const Plugins = [
   // AdminLTE Dist
   {
@@ -44,5 +43,4 @@ const Plugins = [
     to: 'docs/assets/plugins/overlayScrollbars/css/'
   }
 ]
-
 module.exports = Plugins

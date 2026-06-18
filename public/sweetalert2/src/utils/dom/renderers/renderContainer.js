@@ -1,27 +1,21 @@
 import { swalClasses } from '../../classes.js'
 import * as dom from '../../dom/index.js'
 import { warn } from '../../utils.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
  */
 export const renderContainer = (instance, params) => {
   const container = dom.getContainer()
-
   if (!container) {
     return
   }
-
   handleBackdropParam(container, params.backdrop)
-
   handlePositionParam(container, params.position)
   handleGrowParam(container, params.grow)
-
   // Custom class
   dom.applyCustomClass(container, params, 'container')
 }
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['backdrop']} backdrop
@@ -33,7 +27,6 @@ function handleBackdropParam(container, backdrop) {
     dom.addClass([document.documentElement, document.body], swalClasses['no-backdrop'])
   }
 }
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['position']} position
@@ -49,7 +42,6 @@ function handlePositionParam(container, position) {
     dom.addClass(container, swalClasses.center)
   }
 }
-
 /**
  * @param {HTMLElement} container
  * @param {SweetAlertOptions['grow']} grow

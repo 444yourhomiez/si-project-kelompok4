@@ -12,18 +12,14 @@ body.iframe-mode {
     display: none;
   }
 }
-
 body.iframe-mode-fullscreen {
   overflow: hidden;
-
   &.layout-navbar-fixed .wrapper .content-wrapper {
     margin-top: 0 !important;
   }
 }
-
 .content-wrapper {
   height: 100%;
-
   &.iframe-mode {
     .btn-iframe-close {
       color: $danger;
@@ -33,7 +29,6 @@ body.iframe-mode-fullscreen {
       top: .125rem;
       z-index: 10;
       visibility: hidden;
-
       &:hover,
       &:focus {
         animation-name: fadeIn;
@@ -41,7 +36,6 @@ body.iframe-mode-fullscreen {
         animation-fill-mode: both;
         visibility: visible;
       }
-
       @include on-touch-device() {
         visibility: visible;
       }
@@ -49,13 +43,11 @@ body.iframe-mode-fullscreen {
     .navbar-nav {
       overflow-y: auto;
       width: 100%;
-
       .nav-link {
         white-space: nowrap;
       }
       .nav-item {
         position: relative;
-
         &:hover,
         &:focus {
           .btn-iframe-close {
@@ -63,7 +55,6 @@ body.iframe-mode-fullscreen {
             animation-duration: $transition-speed;
             animation-fill-mode: both;
             visibility: visible;
-
             @include on-touch-device() {
               visibility: visible;
             }
@@ -90,7 +81,6 @@ body.iframe-mode-fullscreen {
       width: 100%;
       display: none;
       background-color: $main-bg;
-
       > div {
         display: flex;
         justify-content: center;
@@ -99,18 +89,15 @@ body.iframe-mode-fullscreen {
         height: 100%;
       }
     }
-
     iframe {
       border: 0;
       width: 100%;
       height: 100%;
       margin-bottom: -8px;
-
       .content-wrapper {
         padding-bottom: 0 !important;
       }
     }
-
     body.iframe-mode-fullscreen & {
       position: absolute;
       left: 0;
@@ -124,7 +111,6 @@ body.iframe-mode-fullscreen {
     }
   }
 }
-
 .permanent-btn-iframe-close {
   .btn-iframe-close {
     animation: none !important;
@@ -132,7 +118,6 @@ body.iframe-mode-fullscreen {
     opacity: 1;
   }
 }
-
 @include dark-mode () {
   .content-wrapper.iframe-mode {
     .tab-loading {

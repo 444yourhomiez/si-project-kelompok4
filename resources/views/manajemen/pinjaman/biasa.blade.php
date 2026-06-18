@@ -1,11 +1,8 @@
 @extends('layouts.app')
-
-@section('title', 'Daftar Pinjaman Pribadi')
-
+@section('title', 'Daftar Pinjaman Biasa')
 @section('menuManajemenPinjaman', 'active')
-@section('menuManajemenPinjamanPribadi', 'active')
+@section('menuManajemenPinjamanBiasa', 'active')
 @section('menuManajemenPinjamanOpen', 'menu-open')
-
 @section('content')
-    @livewire('manajemen.pinjaman.pribadi')
+    @livewire('manajemen.pinjaman.biasa')
 @endsection

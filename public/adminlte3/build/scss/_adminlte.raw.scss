@@ -4,7 +4,6 @@
  *   Website: AdminLTE.io <https://adminlte.io>
  *   License: Open source - MIT <https://opensource.org/licenses/MIT>
  */
-
 //
 // ------------------------------------------------------------------
 // This file is to be included in your custom SCSS. Before importing
@@ -13,7 +12,6 @@
 // ok to import this file without custom variables too!
 // NOTE: be sure to keep the license notice in the generated css.
 // ------------------------------------------------------------------
-
 //
 // Variables and Mixins
 // ---------------------------------------------------
@@ -21,7 +19,6 @@
 @import "variables";
 @import "variables-alt";
 @import "mixins";
-
 @import "parts/core";
 @import "parts/components";
 @import "parts/extra-components";

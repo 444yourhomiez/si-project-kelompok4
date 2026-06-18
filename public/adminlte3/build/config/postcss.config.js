@@ -1,5 +1,4 @@
 'use strict'
-
 module.exports = {
   map: {
     inline: false,

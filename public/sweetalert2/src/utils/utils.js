@@ -1,5 +1,4 @@
 export const consolePrefix = 'SweetAlert2:'
-
 /**
  * Capitalize the first letter of a string
  *
@@ -7,7 +6,6 @@ export const consolePrefix = 'SweetAlert2:'
  * @returns {string}
  */
 export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1)
-
 /**
  * Standardize console warnings
  *
@@ -16,7 +14,6 @@ export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.
 export const warn = (message) => {
   console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`)
 }
-
 /**
  * Standardize console errors
  *
@@ -25,7 +22,6 @@ export const warn = (message) => {
 export const error = (message) => {
   console.error(`${consolePrefix} ${message}`)
 }
-
 /**
  * Private global state for `warnOnce`
  *
@@ -33,7 +29,6 @@ export const error = (message) => {
  * @private
  */
 const previousWarnOnceMessages = []
-
 /**
  * Show a console warning, but only if it hasn't already been shown
  *
@@ -45,7 +40,6 @@ export const warnOnce = (message) => {
     warn(message)
   }
 }
-
 /**
  * Show a one-time console warning about deprecated params/methods
  *
@@ -59,7 +53,6 @@ export const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
     }`
   )
 }
-
 /**
  * If `arg` is a function, call it (with no arguments or context) and return the result.
  * Otherwise, just pass the value through
@@ -68,25 +61,21 @@ export const warnAboutDeprecation = (deprecatedParam, useInstead = null) => {
  * @returns {*}
  */
 export const callIfFunction = (arg) => (typeof arg === 'function' ? arg() : arg)
-
 /**
  * @param {*} arg
  * @returns {boolean}
  */
 export const hasToPromiseFn = (arg) => arg && typeof arg.toPromise === 'function'
-
 /**
  * @param {*} arg
  * @returns {Promise<*>}
  */
 export const asPromise = (arg) => (hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg))
-
 /**
  * @param {*} arg
  * @returns {boolean}
  */
 export const isPromise = (arg) => arg && Promise.resolve(arg) === arg
-
 /**
  * @returns {boolean}
  */

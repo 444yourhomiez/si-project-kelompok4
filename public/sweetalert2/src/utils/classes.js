@@ -1,14 +1,11 @@
 export const swalPrefix = 'swal2-'
-
 /**
  * @typedef {Record<SwalClass, string>} SwalClasses
  */
-
 /**
  * @typedef {'success' | 'warning' | 'info' | 'question' | 'error'} SwalIcon
  * @typedef {Record<SwalIcon, string>} SwalIcons
  */
-
 /** @type {SwalClass[]} */
 const classNames = [
   'container',
@@ -82,15 +79,12 @@ const classNames = [
   'draggable',
   'dragging',
 ]
-
 export const swalClasses = classNames.reduce((acc, className) => {
   acc[className] = swalPrefix + className
   return acc
 }, /** @type {SwalClasses} */ ({}))
-
 /** @type {SwalIcon[]} */
 const icons = ['success', 'warning', 'info', 'question', 'error']
-
 export const iconTypes = icons.reduce((acc, icon) => {
   acc[icon] = swalPrefix + icon
   return acc

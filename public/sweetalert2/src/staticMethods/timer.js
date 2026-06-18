@@ -1,6 +1,5 @@
 import globalState from '../globalState.js'
 import { animateTimerProgressBar, stopTimerProgressBar } from '../utils/dom/domUtils.js'
-
 /**
  * If `timer` parameter is set, returns number of milliseconds of timer remained.
  * Otherwise, returns undefined.
@@ -10,7 +9,6 @@ import { animateTimerProgressBar, stopTimerProgressBar } from '../utils/dom/domU
 export const getTimerLeft = () => {
   return globalState.timeout && globalState.timeout.getTimerLeft()
 }
-
 /**
  * Stop timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -23,7 +21,6 @@ export const stopTimer = () => {
     return globalState.timeout.stop()
   }
 }
-
 /**
  * Resume timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -37,7 +34,6 @@ export const resumeTimer = () => {
     return remaining
   }
 }
-
 /**
  * Resume timer. Returns number of milliseconds of timer remained.
  * If `timer` parameter isn't set, returns undefined.
@@ -48,7 +44,6 @@ export const toggleTimer = () => {
   const timer = globalState.timeout
   return timer && (timer.running ? stopTimer() : resumeTimer())
 }
-
 /**
  * Increase timer. Returns number of milliseconds of an updated timer.
  * If `timer` parameter isn't set, returns undefined.
@@ -63,7 +58,6 @@ export const increaseTimer = (ms) => {
     return remaining
   }
 }
-
 /**
  * Check if timer is running. Returns true if timer is running
  * or false if timer is paused or stopped.

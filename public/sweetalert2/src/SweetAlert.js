@@ -16,10 +16,8 @@ import { openPopup } from './utils/openPopup.js'
 import defaultParams, { showWarningsForParams } from './utils/params.js'
 import setParameters from './utils/setParameters.js'
 import { callIfFunction, warnAboutDeprecation } from './utils/utils.js'
-
 /** @type {SweetAlert} */
 let currentInstance
-
 export class SweetAlert {
   /**
    * @type {Promise<SweetAlertResult>}
@@ -27,7 +25,6 @@ export class SweetAlert {
   #promise = /** @type {Promise<SweetAlertResult>} */ (
     Promise.resolve({ isConfirmed: false, isDenied: false, isDismissed: true })
   )
-
   /**
    * @param {...(SweetAlertOptions | string)} args
    * @this {SweetAlert}
@@ -37,28 +34,21 @@ export class SweetAlert {
     if (typeof window === 'undefined') {
       return
     }
-
     currentInstance = this
-
     // @ts-ignore
     const outerParams = Object.freeze(this.constructor.argsToParams(args))
-
     /** @type {Readonly<SweetAlertOptions>} */
     this.params = outerParams
-
     /** @type {boolean} */
     this.isAwaitingPromise = false
-
     this.#promise = this._main(currentInstance.params)
   }
-
   /**
    * @param {any} userParams
    * @param {any} mixinParams
    */
   _main(userParams, mixinParams = {}) {
     showWarningsForParams(Object.assign({}, mixinParams, userParams))
-
     if (globalState.currentInstance) {
       const swalPromiseResolve = privateMethods.swalPromiseResolve.get(globalState.currentInstance)
       const { isAwaitingPromise } = globalState.currentInstance
@@ -70,31 +60,22 @@ export class SweetAlert {
         unsetAriaHidden()
       }
     }
-
     globalState.currentInstance = currentInstance
-
     const innerParams = prepareParams(userParams, mixinParams)
     setParameters(innerParams)
     Object.freeze(innerParams)
-
     // clear the previous timer
     if (globalState.timeout) {
       globalState.timeout.stop()
       delete globalState.timeout
     }
-
     // clear the restore focus timeout
     clearTimeout(globalState.restoreFocusTimeout)
-
     const domCache = populateDomCache(currentInstance)
-
     dom.render(currentInstance, innerParams)
-
     privateProps.innerParams.set(currentInstance, innerParams)
-
     return swalPromise(currentInstance, domCache, innerParams)
   }
-
   // `catch` cannot be the name of a module export, so we define our thenable methods here instead
   /**
    * @param {any} onFulfilled
@@ -103,7 +84,6 @@ export class SweetAlert {
   then(onFulfilled) {
     return this.#promise.then(onFulfilled)
   }
-
   /**
    * @param {any} onFinally
    */
@@ -111,7 +91,6 @@ export class SweetAlert {
     return this.#promise.finally(onFinally)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {DomCache} domCache
@@ -127,45 +106,32 @@ const swalPromise = (instance, domCache, innerParams) => {
     const dismissWith = (dismiss) => {
       instance.close({ isDismissed: true, dismiss, isConfirmed: false, isDenied: false })
     }
-
     privateMethods.swalPromiseResolve.set(instance, resolve)
     privateMethods.swalPromiseReject.set(instance, reject)
-
     domCache.confirmButton.onclick = () => {
       handleConfirmButtonClick(instance)
     }
-
     domCache.denyButton.onclick = () => {
       handleDenyButtonClick(instance)
     }
-
     domCache.cancelButton.onclick = () => {
       handleCancelButtonClick(instance, dismissWith)
     }
-
     domCache.closeButton.onclick = () => {
       dismissWith(DismissReason.close)
     }
-
     handlePopupClick(innerParams, domCache, dismissWith)
-
     addKeydownHandler(globalState, innerParams, dismissWith)
-
     handleInputOptionsAndValue(instance, innerParams)
-
     openPopup(innerParams)
-
     setupTimer(globalState, innerParams, dismissWith)
-
     initFocus(domCache, innerParams)
-
     // Scroll container to top on open (#1247, #1946)
     setTimeout(() => {
       domCache.container.scrollTop = 0
     })
   })
 }
-
 /**
  * @param {SweetAlertOptions} userParams
  * @param {SweetAlertOptions} mixinParams
@@ -184,7 +150,6 @@ const prepareParams = (userParams, mixinParams) => {
   }
   return params
 }
-
 /**
  * @param {SweetAlert} instance
  * @returns {DomCache}
@@ -203,10 +168,8 @@ const populateDomCache = (instance) => {
     progressSteps: /** @type {HTMLElement} */ (dom.getProgressSteps()),
   })
   privateProps.domCache.set(instance, domCache)
-
   return domCache
 }
-
 /**
  * @param {GlobalState} globalState
  * @param {SweetAlertOptions} innerParams
@@ -232,7 +195,6 @@ const setupTimer = (globalState, innerParams, dismissWith) => {
     }
   }
 }
-
 /**
  * Initialize focus in the popup:
  *
@@ -256,18 +218,14 @@ const initFocus = (domCache, innerParams) => {
     domCache.popup.focus()
     return
   }
-
   if (focusAutofocus(domCache)) {
     return
   }
-
   if (focusButton(domCache, innerParams)) {
     return
   }
-
   setFocus(-1, 1)
 }
-
 /**
  * @param {DomCache} domCache
  * @returns {boolean}
@@ -282,7 +240,6 @@ const focusAutofocus = (domCache) => {
   }
   return false
 }
-
 /**
  * @param {DomCache} domCache
  * @param {SweetAlertOptions} innerParams
@@ -293,20 +250,16 @@ const focusButton = (domCache, innerParams) => {
     domCache.denyButton.focus()
     return true
   }
-
   if (innerParams.focusCancel && dom.isVisible(domCache.cancelButton)) {
     domCache.cancelButton.focus()
     return true
   }
-
   if (innerParams.focusConfirm && dom.isVisible(domCache.confirmButton)) {
     domCache.confirmButton.focus()
     return true
   }
-
   return false
 }
-
 // Assign instance methods from src/instanceMethods/*.js to prototype
 SweetAlert.prototype.disableButtons = instanceMethods.disableButtons
 SweetAlert.prototype.enableButtons = instanceMethods.enableButtons
@@ -324,10 +277,8 @@ SweetAlert.prototype.closeToast = instanceMethods.closeToast
 SweetAlert.prototype.rejectPromise = instanceMethods.rejectPromise
 SweetAlert.prototype.update = instanceMethods.update
 SweetAlert.prototype._destroy = instanceMethods._destroy
-
 // Assign static methods from src/staticMethods/*.js to constructor
 Object.assign(SweetAlert, staticMethods)
-
 // Proxy to instance methods to constructor, for now, for backwards compatibility
 Object.keys(instanceMethods).forEach((key) => {
   /**
@@ -344,9 +295,6 @@ Object.keys(instanceMethods).forEach((key) => {
     return undefined
   }
 })
-
 SweetAlert.DismissReason = DismissReason
-
 SweetAlert.version = '11.26.24'
-
 export default SweetAlert

@@ -1,8 +1,7 @@
 <?php
-
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,30 +12,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::view('/', 'homepage')->name('homepage');
-
 // ======================
 // RESGISTER
 // ======================
 Route::get('/register', function () {
-
     if (auth()->check() && auth()->user()->role == 'anggota') {
         return redirect()->route('menunggu');
     }
-
     return view('auth.register-wizard');
 })->name('register');
 Route::view('/menunggu', 'auth.menunggu')
     ->middleware(['auth', 'role:anggota'])
     ->name('menunggu');
-
-
 // ======================
 // LOGIN
 // ======================
 Route::view('/login', 'auth.login')->name('login');
-
 // ======================
 // LOGOUT
 // ======================
@@ -46,7 +38,6 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect()->route('homepage');
 })->name('logout');
-
 // ======================
 // MANAJEMEN
 // ======================
@@ -54,7 +45,6 @@ Route::middleware(['auth', 'role:manajemen'])
     ->prefix('manajemen')
     ->name('manajemen.')
     ->group(function () {
-
         Route::view('/dashboard', 'manajemen.dashboard')->name('dashboard');
         Route::view('/simpanan', 'manajemen.simpanan.index')->name('simpanan.index');
         Route::view('/simpanan/pokok', 'manajemen.simpanan.pokok')->name('simpanan.pokok');
@@ -62,10 +52,10 @@ Route::middleware(['auth', 'role:manajemen'])
         Route::view('/simpanan/wajib', 'manajemen.simpanan.wajib')->name('simpanan.wajib');
         Route::view('/pinjaman', 'manajemen.pinjaman.index')->name('pinjaman.index');
         Route::view('/pinjaman/khusus', 'manajemen.pinjaman.khusus')->name('pinjaman.khusus');
-        Route::view('/pinjaman/pribadi', 'manajemen.pinjaman.pribadi')->name('pinjaman.pribadi');
+        Route::view('/pinjaman/biasa', 'manajemen.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/cicilan', 'manajemen.cicilan.index')->name('cicilan.index');
         Route::view('/cicilan/khusus', 'manajemen.cicilan.khusus')->name('cicilan.khusus');
-        Route::view('/cicilan/pribadi', 'manajemen.cicilan.pribadi')->name('cicilan.pribadi');
+        Route::view('/cicilan/biasa', 'manajemen.cicilan.biasa')->name('cicilan.biasa');
         Route::view('/anggota', 'manajemen.anggota.index')->name('anggota.index');
         Route::view('/anggota/disetujui', 'manajemen.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'manajemen.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
@@ -77,7 +67,6 @@ Route::middleware(['auth', 'role:manajemen'])
         Route::view('/laporan', 'manajemen.laporan.index')->name('laporan.index');
         Route::view('/profile', 'manajemen.profile.index')->name('profile.index')->middleware('auth');
     });
-
 // ======================
 // PENGAWAS
 // ======================
@@ -85,7 +74,6 @@ Route::middleware(['auth', 'role:pengawas'])
     ->prefix('pengawas')
     ->name('pengawas.')
     ->group(function () {
-
         Route::view('/dashboard', 'pengawas.dashboard')->name('dashboard');
         Route::view('/simpanan', 'pengawas.simpanan.index')->name('simpanan.index');
         Route::view('/simpanan/pokok', 'pengawas.simpanan.pokok')->name('simpanan.pokok');
@@ -93,10 +81,10 @@ Route::middleware(['auth', 'role:pengawas'])
         Route::view('/simpanan/wajib', 'pengawas.simpanan.wajib')->name('simpanan.wajib');
         Route::view('/pinjaman', 'pengawas.pinjaman.index')->name('pinjaman.index');
         Route::view('/pinjaman/khusus', 'pengawas.pinjaman.khusus')->name('pinjaman.khusus');
-        Route::view('/pinjaman/pribadi', 'pengawas.pinjaman.pribadi')->name('pinjaman.pribadi');
+        Route::view('/pinjaman/biasa', 'pengawas.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/cicilan', 'pengawas.cicilan.index')->name('cicilan.index');
         Route::view('/cicilan/khusus', 'pengawas.cicilan.khusus')->name('cicilan.khusus');
-        Route::view('/cicilan/pribadi', 'pengawas.cicilan.pribadi')->name('cicilan.pribadi');
+        Route::view('/cicilan/biasa', 'pengawas.cicilan.biasa')->name('cicilan.biasa');
         Route::view('/anggota', 'pengawas.anggota.index')->name('anggota.index');
         Route::view('/anggota/disetujui', 'pengawas.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'pengawas.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
@@ -108,7 +96,6 @@ Route::middleware(['auth', 'role:pengawas'])
         Route::view('/laporan', 'pengawas.laporan.index')->name('laporan.index');
         Route::view('/profile', 'pengawas.profile.index')->name('profile.index')->middleware('auth');
     });
-
 // ======================
 // ANGGOTA
 // ======================
@@ -116,17 +103,30 @@ Route::middleware(['auth', 'role:anggota'])
     ->prefix('anggota')
     ->name('anggota.')
     ->group(function () {
-
         Route::view('/dashboard', 'anggota.dashboard')->name('dashboard');
         Route::view('/simpanan', 'anggota.simpanan.index')->name('simpanan.index');
         Route::view('/simpanan/pokok', 'anggota.simpanan.pokok')->name('simpanan.pokok');
         Route::view('/simpanan/sukarela', 'anggota.simpanan.sukarela')->name('simpanan.sukarela');
         Route::view('/simpanan/wajib', 'anggota.simpanan.wajib')->name('simpanan.wajib');
         Route::view('/pinjaman', 'anggota.pinjaman.index')->name('pinjaman.index');
-        Route::view('/pinjaman/pribadi', 'anggota.pinjaman.pribadi')->name('pinjaman.pribadi');
+        Route::view('/pinjaman/biasa', 'anggota.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/pinjaman/khusus', 'anggota.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/cicilan', 'anggota.cicilan.index')->name('cicilan.index');
-        Route::view('/cicilan/pribadi', 'anggota.cicilan.pribadi')->name('cicilan.pribadi');
+        Route::view('/cicilan/biasa', 'anggota.cicilan.biasa')->name('cicilan.biasa');
         Route::view('/cicilan/khusus', 'anggota.cicilan.khusus')->name('cicilan.khusus');
         Route::view('/profile', 'anggota.profile.index')->name('profile.index')->middleware('auth');
     });
+
+// ======================
+// PENCETAKAN
+// ======================
+
+Route::get(
+    '/laporan/pdf',
+    [LaporanController::class, 'pdf']
+)->name('laporan.pdf');
+
+Route::get(
+    '/laporan/excel',
+    [LaporanController::class, 'excel']
+)->name('laporan.excel');

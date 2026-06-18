@@ -3,7 +3,6 @@ import { swalClasses } from '../classes.js'
 import { asPromise, error, hasToPromiseFn, isPromise } from '../utils.js'
 import { getDirectChildByClass } from './domUtils.js'
 import * as dom from './index.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -19,7 +18,6 @@ export const handleInputOptionsAndValue = (instance, params) => {
     handleInputValue(instance, params)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} innerParams
@@ -41,26 +39,22 @@ export const getInputValue = (instance, innerParams) => {
       return innerParams.inputAutoTrim ? input.value.trim() : input.value
   }
 }
-
 /**
  * @param {HTMLInputElement} input
  * @returns {number}
  */
 const getCheckboxValue = (input) => (input.checked ? 1 : 0)
-
 /**
  * @param {HTMLInputElement} input
  * @returns {string | null}
  */
 const getRadioValue = (input) => (input.checked ? input.value : null)
-
 /**
  * @param {HTMLInputElement} input
  * @returns {FileList | File | null}
  */
 const getFileValue = (input) =>
   input.files && input.files.length ? (input.getAttribute('multiple') !== null ? input.files : input.files[0]) : null
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -92,7 +86,6 @@ const handleInputOptions = (instance, params) => {
     error(`Unexpected type of inputOptions! Expected object, Map or Promise, got ${typeof params.inputOptions}`)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -118,7 +111,6 @@ const handleInputValue = (instance, params) => {
       instance.hideLoading()
     })
 }
-
 /**
  * @param {HTMLElement} popup
  * @param {InputOptionFlattened[]} inputOptions
@@ -162,7 +154,6 @@ function populateSelectOptions(popup, inputOptions, params) {
   })
   select.focus()
 }
-
 /**
  * @param {HTMLElement} popup
  * @param {InputOptionFlattened[]} inputOptions
@@ -196,7 +187,6 @@ function populateRadioOptions(popup, inputOptions, params) {
     radios[0].focus()
   }
 }
-
 /**
  * Converts `inputOptions` into an array of `[value, label]`s
  *
@@ -208,7 +198,6 @@ const formatInputOptions = (inputOptions) => {
   const entries = inputOptions instanceof Map ? Array.from(inputOptions) : Object.entries(inputOptions)
   return entries.map(([key, value]) => [key, typeof value === 'object' ? formatInputOptions(value) : value]) // case of <optgroup>
 }
-
 /**
  * @param {string} optionValue
  * @param {SweetAlertInputValue} inputValue

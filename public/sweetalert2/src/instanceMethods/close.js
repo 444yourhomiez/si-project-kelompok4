@@ -8,7 +8,6 @@ import * as dom from '../utils/dom/index.js'
 import { undoIOSfix } from '../utils/iosFix.js'
 import { undoReplaceScrollbarWithPadding } from '../utils/scrollbar.js'
 import { isSafariOrIOS } from '../utils/iosFix.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} container
@@ -22,7 +21,6 @@ function removePopupAndResetState(instance, container, returnFocus, didClose) {
     restoreActiveElement(returnFocus).then(() => triggerDidCloseAndDispose(instance, didClose))
     removeKeydownHandler(globalState)
   }
-
   // workaround for https://github.com/sweetalert2/sweetalert2/issues/2088
   // for some reason removing the container in Safari will scroll the document to bottom
   if (isSafariOrIOS) {
@@ -32,16 +30,13 @@ function removePopupAndResetState(instance, container, returnFocus, didClose) {
   } else {
     container.remove()
   }
-
   if (dom.isModal()) {
     undoReplaceScrollbarWithPadding()
     undoIOSfix()
     unsetAriaHidden()
   }
-
   removeBodyClasses()
 }
-
 /**
  * Remove SweetAlert2 classes from body
  */
@@ -51,7 +46,6 @@ function removeBodyClasses() {
     [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown']]
   )
 }
-
 /**
  * Instance method to close sweetAlert
  *
@@ -60,11 +54,8 @@ function removeBodyClasses() {
  */
 export function close(resolveValue) {
   resolveValue = prepareResolveValue(resolveValue)
-
   const swalPromiseResolve = privateMethods.swalPromiseResolve.get(this)
-
   const didClose = triggerClosePopup(this)
-
   if (this.isAwaitingPromise) {
     // A swal awaiting for a promise (after a click on Confirm or Deny) cannot be dismissed anymore #2335
     if (!resolveValue.isDismissed) {
@@ -76,35 +67,27 @@ export function close(resolveValue) {
     swalPromiseResolve(resolveValue)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @returns {boolean}
  */
 const triggerClosePopup = (instance) => {
   const popup = dom.getPopup()
-
   if (!popup) {
     return false
   }
-
   const innerParams = privateProps.innerParams.get(instance)
   if (!innerParams || dom.hasClass(popup, innerParams.hideClass.popup)) {
     return false
   }
-
   dom.removeClass(popup, innerParams.showClass.popup)
   dom.addClass(popup, innerParams.hideClass.popup)
-
   const backdrop = dom.getContainer()
   dom.removeClass(backdrop, innerParams.showClass.backdrop)
   dom.addClass(backdrop, innerParams.hideClass.backdrop)
-
   handlePopupAnimation(instance, popup, innerParams)
-
   return true
 }
-
 /**
  * @param {Error | string} error
  * @this {SweetAlert}
@@ -117,7 +100,6 @@ export function rejectPromise(error) {
     rejectPromise(error)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  */
@@ -131,7 +113,6 @@ export const handleAwaitingPromise = (instance) => {
     }
   }
 }
-
 /**
  * @param {SweetAlertResult | undefined} resolveValue
  * @returns {SweetAlertResult}
@@ -145,7 +126,6 @@ const prepareResolveValue = (resolveValue) => {
       isDismissed: true,
     }
   }
-
   return Object.assign(
     {
       isConfirmed: false,
@@ -155,7 +135,6 @@ const prepareResolveValue = (resolveValue) => {
     resolveValue
   )
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} popup
@@ -165,12 +144,10 @@ const handlePopupAnimation = (instance, popup, innerParams) => {
   const container = dom.getContainer()
   // If animation is supported, animate
   const animationIsSupported = dom.hasCssAnimation(popup)
-
   if (typeof innerParams.willClose === 'function') {
     innerParams.willClose(popup)
   }
   globalState.eventEmitter?.emit('willClose', popup)
-
   if (animationIsSupported && container) {
     animatePopup(instance, popup, container, Boolean(innerParams.returnFocus), innerParams.didClose)
   } else if (container) {
@@ -178,7 +155,6 @@ const handlePopupAnimation = (instance, popup, innerParams) => {
     removePopupAndResetState(instance, container, Boolean(innerParams.returnFocus), innerParams.didClose)
   }
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {HTMLElement} popup
@@ -208,7 +184,6 @@ const animatePopup = (instance, popup, container, returnFocus, didClose) => {
   popup.addEventListener('animationend', swalCloseAnimationFinished)
   popup.addEventListener('transitionend', swalCloseAnimationFinished)
 }
-
 /**
  * @param {SweetAlert} instance
  * @param {(() => void) | undefined} didClose
@@ -225,5 +200,4 @@ const triggerDidCloseAndDispose = (instance, didClose) => {
     }
   })
 }
-
 export { close as closePopup, close as closeModal, close as closeToast }

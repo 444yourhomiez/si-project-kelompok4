@@ -1,7 +1,6 @@
 import { iconTypes, swalClasses } from '../classes.js'
 import { warn } from '../utils.js'
 import { getCancelButton, getConfirmButton, getDenyButton, getTimerProgressBar } from './getters.js'
-
 /**
  * Securely set innerHTML of an element
  * https://github.com/sweetalert2/sweetalert2/issues/1926
@@ -32,7 +31,6 @@ export const setInnerHtml = (elem, html) => {
     }
   }
 }
-
 /**
  * @param {HTMLElement} elem
  * @param {string} className
@@ -50,7 +48,6 @@ export const hasClass = (elem, className) => {
   }
   return true
 }
-
 /**
  * @param {HTMLElement} elem
  * @param {SweetAlertOptions} params
@@ -66,7 +63,6 @@ const removeCustomClasses = (elem, params) => {
     }
   })
 }
-
 /**
  * @param {HTMLElement} elem
  * @param {SweetAlertOptions} params
@@ -74,25 +70,19 @@ const removeCustomClasses = (elem, params) => {
  */
 export const applyCustomClass = (elem, params, className) => {
   removeCustomClasses(elem, params)
-
   if (!params.customClass) {
     return
   }
-
   const customClass = params.customClass[/** @type {keyof SweetAlertCustomClass} */ (className)]
-
   if (!customClass) {
     return
   }
-
   if (typeof customClass !== 'string' && !customClass.forEach) {
     warn(`Invalid type of customClass.${className}! Expected string or iterable object, got "${typeof customClass}"`)
     return
   }
-
   addClass(elem, customClass)
 }
-
 /**
  * @param {HTMLElement} popup
  * @param {import('./renderers/renderInput').InputClass | SweetAlertInput} inputClass
@@ -120,13 +110,11 @@ export const getInput = (popup, inputClass) => {
       return popup.querySelector(`.${swalClasses.popup} > .${swalClasses.input}`)
   }
 }
-
 /**
  * @param {HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement} input
  */
 export const focusInput = (input) => {
   input.focus()
-
   // place cursor at end of text in text input
   if (input.type !== 'file') {
     // http://stackoverflow.com/a/2345915
@@ -135,7 +123,6 @@ export const focusInput = (input) => {
     input.value = val
   }
 }
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -157,7 +144,6 @@ export const toggleClass = (target, classList, condition) => {
     })
   })
 }
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -165,7 +151,6 @@ export const toggleClass = (target, classList, condition) => {
 export const addClass = (target, classList) => {
   toggleClass(target, classList, true)
 }
-
 /**
  * @param {HTMLElement | HTMLElement[] | null} target
  * @param {string | string[] | readonly string[] | undefined} classList
@@ -173,7 +158,6 @@ export const addClass = (target, classList) => {
 export const removeClass = (target, classList) => {
   toggleClass(target, classList, false)
 }
-
 /**
  * Get direct child of an element by class name
  *
@@ -190,7 +174,6 @@ export const getDirectChildByClass = (elem, className) => {
     }
   }
 }
-
 /**
  * @param {HTMLElement} elem
  * @param {string} property
@@ -206,7 +189,6 @@ export const applyNumericalStyle = (elem, property, value) => {
     elem.style.removeProperty(property)
   }
 }
-
 /**
  * @param {HTMLElement | null} elem
  * @param {string} display
@@ -215,10 +197,8 @@ export const show = (elem, display = 'flex') => {
   if (!elem) {
     return
   }
-
   elem.style.display = display
 }
-
 /**
  * @param {HTMLElement | null} elem
  */
@@ -226,10 +206,8 @@ export const hide = (elem) => {
   if (!elem) {
     return
   }
-
   elem.style.display = 'none'
 }
-
 /**
  * @param {HTMLElement | null} elem
  * @param {string} display
@@ -242,7 +220,6 @@ export const showWhenInnerHtmlPresent = (elem, display = 'block') => {
     toggle(elem, elem.innerHTML, display)
   }).observe(elem, { childList: true, subtree: true })
 }
-
 /**
  * @param {HTMLElement} parent
  * @param {string} selector
@@ -256,7 +233,6 @@ export const setStyle = (parent, selector, property, value) => {
     el.style.setProperty(property, value)
   }
 }
-
 /**
  * @param {HTMLElement} elem
  * @param {boolean | string | null | undefined} condition
@@ -269,7 +245,6 @@ export const toggle = (elem, condition, display = 'flex') => {
     hide(elem)
   }
 }
-
 /**
  * borrowed from jquery $(elem).is(':visible') implementation
  *
@@ -278,19 +253,16 @@ export const toggle = (elem, condition, display = 'flex') => {
  */
 export const isVisible = (elem) =>
   Boolean(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length))
-
 /**
  * @returns {boolean}
  */
 export const allButtonsAreHidden = () =>
   !isVisible(getConfirmButton()) && !isVisible(getDenyButton()) && !isVisible(getCancelButton())
-
 /**
  * @param {HTMLElement} elem
  * @returns {boolean}
  */
 export const isScrollable = (elem) => Boolean(elem.scrollHeight > elem.clientHeight)
-
 /**
  * @param {HTMLElement} element
  * @param {HTMLElement} stopElement
@@ -306,7 +278,6 @@ export const selfOrParentIsScrollable = (element, stopElement) => {
   }
   return false
 }
-
 /**
  * borrowed from https://stackoverflow.com/a/46352119
  *
@@ -315,13 +286,10 @@ export const selfOrParentIsScrollable = (element, stopElement) => {
  */
 export const hasCssAnimation = (elem) => {
   const style = window.getComputedStyle(elem)
-
   const animDuration = parseFloat(style.getPropertyValue('animation-duration') || '0')
   const transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0')
-
   return animDuration > 0 || transDuration > 0
 }
-
 /**
  * @param {number} timer
  * @param {boolean} reset
@@ -342,7 +310,6 @@ export const animateTimerProgressBar = (timer, reset = false) => {
     }, 10)
   }
 }
-
 export const stopTimerProgressBar = () => {
   const timerProgressBar = getTimerProgressBar()
   if (!timerProgressBar) {

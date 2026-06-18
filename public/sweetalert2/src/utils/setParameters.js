@@ -1,7 +1,6 @@
 import defaultInputValidators from './defaultInputValidators.js'
 import * as dom from './dom/index.js'
 import { warn } from './utils.js'
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -17,7 +16,6 @@ function setDefaultInputValidators(params) {
     params.inputValidator = defaultInputValidators['url']
   }
 }
-
 /**
  * @param {SweetAlertOptions} params
  */
@@ -32,7 +30,6 @@ function validateCustomTargetElement(params) {
     params.target = 'body'
   }
 }
-
 /**
  * Set type, text and actions on popup
  *
@@ -40,7 +37,6 @@ function validateCustomTargetElement(params) {
  */
 export default function setParameters(params) {
   setDefaultInputValidators(params)
-
   // showLoaderOnConfirm && preConfirm
   if (params.showLoaderOnConfirm && !params.preConfirm) {
     warn(
@@ -49,13 +45,10 @@ export default function setParameters(params) {
         'https://sweetalert2.github.io/#ajax-request'
     )
   }
-
   validateCustomTargetElement(params)
-
   // Replace newlines with <br> in title
   if (typeof params.title === 'string') {
     params.title = params.title.split('\n').join('<br />')
   }
-
   dom.init(params)
 }

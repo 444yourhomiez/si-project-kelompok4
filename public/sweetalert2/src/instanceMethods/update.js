@@ -2,7 +2,6 @@ import * as dom from '../../src/utils/dom/index.js'
 import { isUpdatableParameter, showWarningsForParams } from '../../src/utils/params.js'
 import { warn } from '../../src/utils/utils.js'
 import privateProps from '../privateProps.js'
-
 /**
  * Updates popup parameters.
  *
@@ -13,24 +12,19 @@ export function update(params) {
   const container = dom.getContainer()
   const popup = dom.getPopup()
   const innerParams = privateProps.innerParams.get(this)
-
   if (!popup || dom.hasClass(popup, innerParams.hideClass.popup)) {
     warn(
       `You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.`
     )
     return
   }
-
   const validUpdatableParams = filterValidParams(params)
-
   const updatedParams = Object.assign({}, innerParams, validUpdatableParams)
   showWarningsForParams(updatedParams)
-
   if (container) {
     container.dataset['swal2Theme'] = updatedParams.theme
   }
   dom.render(this, updatedParams)
-
   privateProps.innerParams.set(this, updatedParams)
   Object.defineProperties(this, {
     params: {
@@ -40,7 +34,6 @@ export function update(params) {
     },
   })
 }
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {SweetAlertOptions}

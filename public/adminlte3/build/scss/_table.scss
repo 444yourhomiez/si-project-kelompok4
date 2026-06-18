@@ -1,12 +1,10 @@
 //
 // Component: Table
 //
-
 .table {
   &:not(.table-dark) {
     color: inherit;
   }
-
   // fixed table head
   &.table-head-fixed {
     thead tr:nth-child(1) th {
@@ -17,7 +15,6 @@
       top: 0;
       z-index: 10;
     }
-
     &.table-dark {
       thead tr {
         &:nth-child(1) th {
@@ -27,7 +24,6 @@
       }
     }
   }
-
   // no border
   &.no-border {
     &,
@@ -36,7 +32,6 @@
       border: 0;
     }
   }
-
   // .text-center in tables
   &.text-center {
     &,
@@ -45,7 +40,6 @@
       text-align: center;
     }
   }
-
   &.table-valign-middle {
     thead > tr > th,
     thead > tr > td,
@@ -54,7 +48,6 @@
       vertical-align: middle;
     }
   }
-
   .card-body.p-0 & {
     thead > tr > th,
     thead > tr > td,
@@ -65,23 +58,18 @@
       &:first-of-type {
         padding-left: map-get($spacers, 4);
       }
-
       &:last-of-type {
         padding-right: map-get($spacers, 4);
       }
     }
   }
 }
-
 // Expandable Table
-
 .table-hover tbody tr.expandable-body:hover {
   background-color: inherit !important;
 }
-
 [data-widget="expandable-table"] {
   cursor: pointer;
-
   i.expandable-table-caret {
     transition: transform $transition-speed linear;
   }
@@ -98,10 +86,8 @@
     }
   }
 }
-
 [aria-expanded="true"] {
   cursor: pointer;
-
   i.expandable-table-caret {
     transition: transform $transition-speed linear;
   }
@@ -118,22 +104,18 @@
     }
   }
 }
-
 .expandable-body {
   > td {
     padding: 0 !important;
     width: 100%;
-
     > div,
     > p {
       padding: $table-cell-padding;
     }
   }
-
   .table {
     width: calc(100% - #{$table-cell-padding});
     margin: 0 0 0 $table-cell-padding;
-
     tr:first-child {
       td,
       th {
@@ -142,7 +124,6 @@
     }
   }
 }
-
 @include dark-mode () {
   .table-bordered {
     &,

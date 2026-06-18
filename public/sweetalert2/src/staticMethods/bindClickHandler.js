@@ -1,20 +1,17 @@
 let bodyClickListenerAdded = false
 /** @type {Record<string, any>} */
 const clickHandlers = {}
-
 /**
  * @this {any}
  * @param {string} attr
  */
 export function bindClickHandler(attr = 'data-swal-template') {
   clickHandlers[attr] = this
-
   if (!bodyClickListenerAdded) {
     document.body.addEventListener('click', bodyClickListener)
     bodyClickListenerAdded = true
   }
 }
-
 /**
  * @param {MouseEvent} event
  */

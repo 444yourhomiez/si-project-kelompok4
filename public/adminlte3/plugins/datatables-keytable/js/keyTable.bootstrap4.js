@@ -1,7 +1,6 @@
 /*! Bootstrap 4 styling wrapper for KeyTable
  * ©2018 SpryMedia Ltd - datatables.net/license
  */
-
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
@@ -15,15 +14,12 @@
 			if ( ! root ) {
 				root = window;
 			}
-
 			if ( ! $ || ! $.fn.dataTable ) {
 				$ = require('datatables.net-bs4')(root, $).$;
 			}
-
 			if ( ! $.fn.dataTable.KeyTable ) {
 				require('datatables.net-keytable')(root, $);
 			}
-
 			return factory( $, root, root.document );
 		};
 	}
@@ -32,7 +28,5 @@
 		factory( jQuery, window, document );
 	}
 }(function( $, window, document, undefined ) {
-
 return $.fn.dataTable;
-
 }));

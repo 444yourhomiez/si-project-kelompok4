@@ -1,5 +1,8 @@
 <?php
-
+use App\Exceptions\Handler;
+use App\Http\Kernel;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Foundation\Application;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -10,11 +13,9 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-
-$app = new Illuminate\Foundation\Application(
+$app = new Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
-
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -25,22 +26,18 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
-
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
+    Kernel::class
 );
-
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-
 $app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    ExceptionHandler::class,
+    Handler::class
 );
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application
@@ -51,5 +48,4 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
 return $app;

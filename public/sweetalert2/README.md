@@ -1,21 +1,13 @@
 <a href="https://sweetalert2.github.io/">
   <img src="./assets/swal2-logo.png" width="498" alt="SweetAlert2">
 </a>
-
 A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement <br> for JavaScript's popup boxes. Zero dependencies.
-
 ---
-
 ### [Installation](https://sweetalert2.github.io/#download) | [Usage](https://sweetalert2.github.io/#usage) | [Examples](https://sweetalert2.github.io/#examples) | [Recipe gallery](https://sweetalert2.github.io/recipe-gallery/) | [React](https://github.com/sweetalert2/sweetalert2-react-content) | [Angular](https://github.com/sweetalert2/ngx-sweetalert2) | [Laravel](https://github.com/sweetalert2/sweetalert2-laravel)
-
 ---
-
 ✨ 🚀 ✨ Get 20% discount on Hostiger Web Hosting: https://hostinger.com/?REFERRALCODE=BKZHOSTINDAB
-
 # Sponsors
-
 For all questions related to sponsorship please get in touch with me via email sweetalert2@gmail.com
-
 <table>
 <tr>
 <td align="center"><a href="SPONSORS.md#sponsors"><img src="https://sweetalert2.github.io/images/plus.png" width="80"><br>Become a sponsor</a></td>
@@ -33,9 +25,7 @@ For all questions related to sponsorship please get in touch with me via email s
 <td align="center"><a href="https://www.zezelife.com/"><img src="https://sweetalert2.github.io/images/sponsors/zezelife.png" width="80"><br>ZezeLife</a></td>
 </tr>
 </table>
-
 # NSFW Sponsors
-
 <table>
 <tr>
 <td align="center"><a href="SPONSORS.md#sponsors"><img src="https://sweetalert2.github.io/images/plus.png" width="80"><br>Become a NSFW sponsor</a></td>

@@ -1,7 +1,6 @@
 import * as dom from '../utils/dom/index.js'
 import privateProps from '../privateProps.js'
 import { swalClasses } from '../utils/classes.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {string[]} buttons
@@ -13,7 +12,6 @@ function setButtonsDisabled(instance, buttons, disabled) {
     domCache[button].disabled = disabled
   })
 }
-
 /**
  * @param {HTMLInputElement | null} input
  * @param {boolean} disabled
@@ -33,21 +31,18 @@ function setInputDisabled(input, disabled) {
     input.disabled = disabled
   }
 }
-
 /**
  * Enable all the buttons
  * @this {SweetAlert}
  */
 export function enableButtons() {
   setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false)
-
   const focusedElement = privateProps.focusedElement.get(this)
   if (focusedElement instanceof HTMLElement && document.activeElement === document.body) {
     focusedElement.focus()
   }
   privateProps.focusedElement.delete(this)
 }
-
 /**
  * Disable all the buttons
  * @this {SweetAlert}
@@ -56,7 +51,6 @@ export function disableButtons() {
   privateProps.focusedElement.set(this, document.activeElement)
   setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true)
 }
-
 /**
  * Enable the input field
  * @this {SweetAlert}
@@ -64,7 +58,6 @@ export function disableButtons() {
 export function enableInput() {
   setInputDisabled(this.getInput(), false)
 }
-
 /**
  * Disable the input field
  * @this {SweetAlert}

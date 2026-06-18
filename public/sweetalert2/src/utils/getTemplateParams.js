@@ -1,8 +1,6 @@
 import defaultParams from './params.js'
 import { capitalizeFirstLetter, warn } from './utils.js'
-
 const swalStringParams = ['swal-title', 'swal-html', 'swal-footer']
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {SweetAlertOptions}
@@ -17,9 +15,7 @@ export const getTemplateParams = (params) => {
   }
   /** @type {DocumentFragment} */
   const templateContent = template.content
-
   showWarningsForElements(templateContent)
-
   const result = Object.assign(
     getSwalParams(templateContent),
     getSwalFunctionParams(templateContent),
@@ -31,7 +27,6 @@ export const getTemplateParams = (params) => {
   )
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, string | boolean | number>}
@@ -64,7 +59,6 @@ const getSwalParams = (templateContent) => {
   })
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, () => void>}
@@ -84,7 +78,6 @@ const getSwalFunctionParams = (templateContent) => {
   })
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Record<string, string | boolean>}
@@ -113,7 +106,6 @@ const getSwalButtons = (templateContent) => {
   })
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {Pick<SweetAlertOptions, 'imageUrl' | 'imageWidth' | 'imageHeight' | 'imageAlt'>}
@@ -136,7 +128,6 @@ const getSwalImage = (templateContent) => {
   }
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {object}
@@ -157,7 +148,6 @@ const getSwalIcon = (templateContent) => {
   }
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @returns {object}
@@ -196,7 +186,6 @@ const getSwalInput = (templateContent) => {
   }
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  * @param {string[]} paramNames
@@ -216,7 +205,6 @@ const getSwalStringParams = (templateContent, paramNames) => {
   }
   return result
 }
-
 /**
  * @param {DocumentFragment} templateContent
  */
@@ -237,7 +225,6 @@ const showWarningsForElements = (templateContent) => {
     }
   })
 }
-
 /**
  * @param {HTMLElement} el
  * @param {string[]} allowedAttributes

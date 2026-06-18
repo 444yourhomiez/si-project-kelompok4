@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Livewire\Manajemen\Profile;
-
 use Livewire\Component;
-
 class Index extends Component
 {
     public function render()

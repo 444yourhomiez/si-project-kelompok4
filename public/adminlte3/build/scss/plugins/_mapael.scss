@@ -1,12 +1,10 @@
 //
 // Plugins: jQuery Mapael
 //
-
 .mapael {
   .map {
     position: relative;
   }
-
   .mapTooltip {
     @include reset-text();
     @include border-radius($tooltip-border-radius);
@@ -21,14 +19,12 @@
     word-wrap: break-word;
     z-index: $zindex-tooltip;
   }
-
   .myLegend {
     background-color: $gray-100;
     border: 1px solid $gray-500;
     padding: 10px;
     width: 600px;
   }
-
   .zoomButton {
     background-color: $button-default-background-color;
     border: 1px solid $button-default-border-color;
@@ -43,10 +39,8 @@
     position: absolute;
     text-align: center;
     top: 0;
-
     user-select: none;
     width: 16px;
-
     &:hover,
     &:active,
     &.hover {
@@ -54,16 +48,13 @@
       color: darken($button-default-color, 10%);
     }
   }
-
   .zoomReset {
     line-height: 12px;
     top: 10px;
   }
-
   .zoomIn {
     top: 30px;
   }
-
   .zoomOut {
     top: 50px;
   }

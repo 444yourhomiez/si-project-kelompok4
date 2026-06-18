@@ -1,5 +1,4 @@
 import { swalClasses } from './classes.js'
-
 /**
  * Measure scrollbar width for padding body during modal show/hide
  * https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
@@ -14,13 +13,11 @@ export const measureScrollbar = () => {
   document.body.removeChild(scrollDiv)
   return scrollbarWidth
 }
-
 /**
  * Remember state in cases where opening and handling a modal will fiddle with it.
  * @type {number | null}
  */
 let previousBodyPadding = null
-
 /**
  * @param {string} initialBodyOverflow
  */
@@ -39,7 +36,6 @@ export const replaceScrollbarWithPadding = (initialBodyOverflow) => {
     document.body.style.paddingRight = `${previousBodyPadding + measureScrollbar()}px`
   }
 }
-
 export const undoReplaceScrollbarWithPadding = () => {
   if (previousBodyPadding !== null) {
     document.body.style.paddingRight = `${previousBodyPadding}px`

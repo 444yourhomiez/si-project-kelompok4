@@ -1,7 +1,6 @@
 //
 // Component: Modals
 //
-
 // Overlay
 .modal-dialog {
   .overlay {
@@ -20,8 +19,6 @@
     @include border-radius($modal-content-border-radius);
   }
 }
-
-
 // BG Color Variations Fixes
 .modal-content {
   &.bg-warning {
@@ -30,7 +27,6 @@
       border-color: $gray-800;
     }
   }
-
   &.bg-primary,
   &.bg-secondary,
   &.bg-info,
@@ -42,7 +38,6 @@
     }
   }
 }
-
 @include dark-mode () {
   .modal-header,
   .modal-footer {
@@ -50,7 +45,6 @@
   }
   .modal-content {
     background-color: $dark;
-
     &.bg-warning {
       .modal-header,
       .modal-footer {
@@ -61,7 +55,6 @@
         text-shadow: 0 1px 0 $gray-700 !important;
       }
     }
-
     &.bg-primary,
     &.bg-secondary,
     &.bg-info,

@@ -1,7 +1,6 @@
 //
 // Core: Variables
 //
-
 // COLORS
 // --------------------------------------------------------
 $blue: #0073b7 !default;
@@ -16,7 +15,6 @@ $purple: #605ca8 !default;
 $maroon: #d81b60 !default;
 $black: #111 !default;
 $gray-x-light: #d2d6de !default;
-
 $colors: map-merge(
   (
     "lightblue": $lightblue,
@@ -28,12 +26,9 @@ $colors: map-merge(
   ),
   $colors
 );
-
 // LAYOUT
 // --------------------------------------------------------
-
 $font-size-root: 1rem !default;
-
 // Sidebar
 $sidebar-width: 250px !default;
 $sidebar-padding-x: .5rem !default;
@@ -43,26 +38,20 @@ $sidebar-custom-height-lg: 6rem !default;
 $sidebar-custom-height-xl: 8rem !default;
 $sidebar-custom-padding-x: .85rem !default;
 $sidebar-custom-padding-y: .5rem !default;
-
 // Boxed layout maximum width
 $boxed-layout-max-width: 1250px !default;
-
 // Body background (Affects main content background only)
 $main-bg: #f4f6f9 !default;
-
 $dark-main-bg: lighten($dark, 7.5%) !important;
-
 // Content padding
 $content-padding-y: 0 !default;
 $content-padding-x: $navbar-padding-x !default;
-
 // IMAGE SIZES
 // --------------------------------------------------------
 $img-size-sm: 1.875rem !default;
 $img-size-md: 3.75rem !default;
 $img-size-lg: 6.25rem !default;
 $img-size-push: .625rem !default;
-
 // MAIN HEADER
 // --------------------------------------------------------
 $main-header-bottom-border-width: $border-width !default;
@@ -75,8 +64,6 @@ $nav-link-sm-padding-y: .35rem !default;
 $nav-link-sm-height: ($font-size-sm * $line-height-sm + $nav-link-sm-padding-y * 1.785) !default;
 $main-header-height-sm-inner: ($nav-link-sm-height + ($main-header-link-padding-y * 2)) !default;
 $main-header-height-sm: calc(#{$main-header-height-sm-inner} + #{$main-header-bottom-border-width}) !default;
-
-
 // Main header skins
 $main-header-dark-form-control-bg: $gray-800 !default;
 $main-header-dark-form-control-focused-bg: $gray-700 !default;
@@ -84,14 +71,12 @@ $main-header-dark-form-control-focused-color: $gray-400 !default;
 $main-header-dark-form-control-border-color: $gray-600 !default;
 $main-header-dark-form-control-focused-border-color: $gray-600 !default;
 $main-header-dark-placeholder-color: rgba($white, .6) !default;
-
 $main-header-light-form-control-bg: darken($gray-200, 5%) !default;
 $main-header-light-form-control-focused-bg: darken($gray-200, 7.5%) !default;
 $main-header-light-form-control-focused-color: $gray-400 !default;
 $main-header-light-form-control-border-color: $gray-400 !default;
 $main-header-light-form-control-focused-border-color: darken($gray-400, 2.5%) !default;
 $main-header-light-placeholder-color: rgba(0, 0, 0, .6) !default;
-
 // MAIN FOOTER
 // --------------------------------------------------------
 $main-footer-padding: 1rem !default;
@@ -104,10 +89,8 @@ $main-footer-height: calc(#{$main-footer-height-inner} + #{$main-footer-border-t
 $main-footer-height-sm-inner: (($font-size-sm * $line-height-base) + ($main-footer-padding-sm * 2)) !default;
 $main-footer-height-sm: calc(#{$main-footer-height-sm-inner} + #{$main-footer-border-top-width}) !default;
 $main-footer-bg: $white !default;
-
 // SIDEBAR SKINS
 // --------------------------------------------------------
-
 // Dark sidebar
 $sidebar-dark-bg: $dark !default;
 $sidebar-dark-hover-bg: rgba(255, 255, 255, .1) !default;
@@ -120,7 +103,6 @@ $sidebar-dark-submenu-hover-color: $white !default;
 $sidebar-dark-submenu-hover-bg: $sidebar-dark-hover-bg !default;
 $sidebar-dark-submenu-active-color: $sidebar-dark-bg !default;
 $sidebar-dark-submenu-active-bg: rgba(255, 255, 255, .9) !default;
-
 // Light sidebar
 $sidebar-light-bg: $white !default;
 $sidebar-light-hover-bg: rgba($black, .1) !default;
@@ -133,17 +115,14 @@ $sidebar-light-submenu-hover-color: $black !default;
 $sidebar-light-submenu-hover-bg: $sidebar-light-hover-bg !default;
 $sidebar-light-submenu-active-color: $sidebar-light-hover-color !default;
 $sidebar-light-submenu-active-bg: $sidebar-light-submenu-hover-bg !default;
-
 // SIDEBAR MINI
 // --------------------------------------------------------
 $sidebar-mini-width: ($nav-link-padding-x + $sidebar-padding-x + .8rem) * 2 !default;
 $sidebar-nav-icon-width: $sidebar-mini-width - (($sidebar-padding-x + $nav-link-padding-x) * 2) !default;
 $sidebar-user-image-width: $sidebar-nav-icon-width + ($nav-link-padding-x * .5) !default;
-
 // CONTROL SIDEBAR
 // --------------------------------------------------------
 $control-sidebar-width: $sidebar-width !default;
-
 // Cards
 // --------------------------------------------------------
 $card-border-color: $gray-100 !default;
@@ -155,17 +134,14 @@ $card-title-font-weight: $font-weight-normal !default;
 $card-nav-link-padding-sm-y: .4rem !default;
 $card-nav-link-padding-sm-x: .8rem !default;
 $card-img-size: $img-size-sm !default;
-
 // PROGRESS BARS
 // --------------------------------------------------------
 $progress-bar-border-radius: 1px !default;
-
 // DIRECT CHAT
 // --------------------------------------------------------
 $direct-chat-default-msg-bg: $gray-x-light !default;
 $direct-chat-default-font-color: #444 !default;
 $direct-chat-default-msg-border-color: $gray-x-light !default;
-
 // Z-INDEX
 // --------------------------------------------------------
 $zindex-main-header: $zindex-fixed + 4 !default;
@@ -174,33 +150,25 @@ $zindex-main-footer: $zindex-fixed + 2 !default;
 $zindex-control-sidebar: $zindex-fixed + 1 !default;
 $zindex-toasts: $zindex-main-sidebar + 2 !default;
 $zindex-preloader: 9999 !default;
-
 // TRANSITIONS SETTINGS
 // --------------------------------------------------------
-
 // Transition global options
 $transition-speed: .3s !default;
 $transition-fn: ease-in-out !default;
-
 // TEXT
 // --------------------------------------------------------
 $font-size-xs: ($font-size-base * .75) !default;
 $font-size-xl: ($font-size-base * 2) !default;
-
-
 // BUTTON
 // --------------------------------------------------------
 $button-default-background-color: $gray-100 !default;
 $button-default-color: #444 !default;
 $button-default-border-color: #ddd !default;
-
 $button-padding-y-xs: .125rem !default;
 $button-padding-x-xs: .25rem !default;
 $button-line-height-xs: $line-height-sm !default;
 $button-font-size-xs: ($font-size-base * .75) !default;
 $button-border-radius-xs: .15rem !default;
-
-
 // ELEVATION
 // --------------------------------------------------------
 $elevations: ();
@@ -214,7 +182,6 @@ $elevations: map-merge(
   ),
   $elevations
 );
-
 // RIBBON
 // --------------------------------------------------------
 $ribbon-border-size: 3px !default;
@@ -233,16 +200,12 @@ $ribbon-xl-wrapper-size: 180px !default;
 $ribbon-xl-width: 240px !default;
 $ribbon-xl-top: 47px !default;
 $ribbon-xl-right: 4px !default;
-
 // CUSTOM FORM SELECT
 // --------------------------------------------------------
-
 $custom-select-dark-indicator-color:     $white !default;
 $custom-select-dark-indicator:           url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'><path fill='#{$custom-select-dark-indicator-color}' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>") !default;
 $custom-select-dark-background:          escape-svg($custom-select-dark-indicator) right $custom-select-padding-x center / $custom-select-bg-size no-repeat !default; // Used so we can have multiple background elements (e.g., arrow and feedback icon)
-
 // ENABLE DARK MODE
 // --------------------------------------------------------
 $enable-dark-mode: true !default;  // requires `@import "variables-alt";`
-
 //

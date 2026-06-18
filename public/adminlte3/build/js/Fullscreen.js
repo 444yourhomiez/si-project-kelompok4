@@ -4,41 +4,31 @@
  * License MIT
  * --------------------------------------------
  */
-
 import $ from 'jquery'
-
 /**
  * Constants
  * ====================================================
  */
-
 const NAME = 'Fullscreen'
 const DATA_KEY = 'lte.fullscreen'
 const JQUERY_NO_CONFLICT = $.fn[NAME]
-
 const SELECTOR_DATA_WIDGET = '[data-widget="fullscreen"]'
 const SELECTOR_ICON = `${SELECTOR_DATA_WIDGET} i`
-
 const EVENT_FULLSCREEN_CHANGE = 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange'
-
 const Default = {
   minimizeIcon: 'fa-compress-arrows-alt',
   maximizeIcon: 'fa-expand-arrows-alt'
 }
-
 /**
  * Class Definition
  * ====================================================
  */
-
 class Fullscreen {
   constructor(_element, _options) {
     this.element = _element
     this.options = $.extend({}, Default, _options)
   }
-
   // Public
-
   toggle() {
     if (document.fullscreenElement ||
       document.mozFullScreenElement ||
@@ -49,7 +39,6 @@ class Fullscreen {
       this.fullscreen()
     }
   }
-
   toggleIcon() {
     if (document.fullscreenElement ||
       document.mozFullScreenElement ||
@@ -60,7 +49,6 @@ class Fullscreen {
       $(SELECTOR_ICON).removeClass(this.options.minimizeIcon).addClass(this.options.maximizeIcon)
     }
   }
-
   fullscreen() {
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen()
@@ -70,7 +58,6 @@ class Fullscreen {
       document.documentElement.msRequestFullscreen()
     }
   }
-
   windowed() {
     if (document.exitFullscreen) {
       document.exitFullscreen()
@@ -80,21 +67,15 @@ class Fullscreen {
       document.msExitFullscreen()
     }
   }
-
   // Static
-
   static _jQueryInterface(config) {
     let data = $(this).data(DATA_KEY)
-
     if (!data) {
       data = $(this).data()
     }
-
     const _options = $.extend({}, Default, typeof config === 'object' ? config : data)
     const plugin = new Fullscreen($(this), _options)
-
     $(this).data(DATA_KEY, typeof config === 'object' ? config : data)
-
     if (typeof config === 'string' && /toggle|toggleIcon|fullscreen|windowed/.test(config)) {
       plugin[config]()
     } else {
@@ -102,7 +83,6 @@ class Fullscreen {
     }
   }
 }
-
 /**
   * Data API
   * ====================================================
@@ -110,21 +90,17 @@ class Fullscreen {
 $(document).on('click', SELECTOR_DATA_WIDGET, function () {
   Fullscreen._jQueryInterface.call($(this), 'toggle')
 })
-
 $(document).on(EVENT_FULLSCREEN_CHANGE, () => {
   Fullscreen._jQueryInterface.call($(SELECTOR_DATA_WIDGET), 'toggleIcon')
 })
-
 /**
  * jQuery API
  * ====================================================
  */
-
 $.fn[NAME] = Fullscreen._jQueryInterface
 $.fn[NAME].Constructor = Fullscreen
 $.fn[NAME].noConflict = function () {
   $.fn[NAME] = JQUERY_NO_CONFLICT
   return Fullscreen._jQueryInterface
 }
-
 export default Fullscreen

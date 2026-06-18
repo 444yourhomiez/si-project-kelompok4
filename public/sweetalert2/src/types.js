@@ -1,5 +1,4 @@
 /* oxlint-disable no-empty-file require-property-description */
-
 /**
  * @typedef { import('./SweetAlert').SweetAlert } SweetAlert
  * @typedef { import('sweetalert2').SweetAlertOptions } SweetAlertOptions
@@ -10,12 +9,10 @@
  * @typedef { import('sweetalert2').SweetAlertOptions['inputValue'] } SweetAlertInputValue
  * @typedef { import('sweetalert2').DismissReason } DismissReason
  */
-
 /**
  * @typedef { import('./utils/Timer').default } Timer
  * @typedef { import('./utils/EventEmitter').default } EventEmitter
  */
-
 /**
  * @typedef GlobalState
  * @property {SweetAlert} [currentInstance]
@@ -30,7 +27,6 @@
  * @property {() => void} [swalCloseEventFinishedCallback]
  * @property {boolean} [isRTL]
  */
-
 /**
  * @typedef DomCache
  * @property {HTMLElement} popup
@@ -44,7 +40,6 @@
  * @property {HTMLElement} validationMessage
  * @property {HTMLElement} progressSteps
  */
-
 /**
  * @typedef
  * { | 'container'
@@ -119,7 +114,6 @@
  *   | 'dragging'
  * } SwalClass
  */
-
 /**
  * @typedef {(eventName: string) => void} EventHandler
  * @typedef {EventHandler[]} EventHandlers

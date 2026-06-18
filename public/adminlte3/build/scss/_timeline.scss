@@ -1,7 +1,6 @@
 //
 // Component: Timeline
 //
-
 .timeline {
   margin: 0 0 45px;
   padding: 0;
@@ -25,7 +24,6 @@
       content: "";
       display: table;
     }
-
     margin-bottom: 15px;
     margin-right: 10px;
     position: relative;
@@ -65,7 +63,6 @@
       > .timeline-footer {
         padding: 10px;
       }
-
       > .timeline-body {
         > img {
           margin: 10px;
@@ -76,7 +73,6 @@
           margin: 0;
         }
       }
-
       > .timeline-footer {
         > a {
           color: $white;
@@ -118,21 +114,18 @@
     }
   }
 }
-
 .timeline-inverse {
   > div {
     > .timeline-item {
       @include box-shadow(none);
       background-color: $gray-100;
       border: 1px solid $gray-300;
-
       > .timeline-header {
         border-bottom-color: $gray-300;
       }
     }
   }
 }
-
 @include dark-mode () {
   .timeline {
     &::before {
@@ -142,7 +135,6 @@
       background-color: $dark;
       color: $white;
       border-color: $gray-600;
-
       > .timeline-header {
         color: $gray-400;
         border-color: $gray-600;

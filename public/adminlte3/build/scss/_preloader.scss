@@ -1,7 +1,6 @@
 //
 // Core: Preloader
 //
-
 .preloader {
   display: flex;
   background-color: $main-bg;
@@ -13,12 +12,10 @@
   top: 0;
   z-index: $zindex-preloader;
 }
-
 @include dark-mode () {
   .preloader {
     background-color: $dark-main-bg;
     color: $white;
   }
 }
-
 //

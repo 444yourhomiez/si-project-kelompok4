@@ -1,7 +1,6 @@
 import { swalClasses } from '../../classes.js'
 import * as dom from '../../dom/index.js'
 import { warn } from '../../utils.js'
-
 /**
  * @param {SweetAlert} instance
  * @param {SweetAlertOptions} params
@@ -11,14 +10,11 @@ export const renderProgressSteps = (instance, params) => {
   if (!progressStepsContainer) {
     return
   }
-
   const { progressSteps, currentProgressStep } = params
-
   if (!progressSteps || progressSteps.length === 0 || currentProgressStep === undefined) {
     dom.hide(progressStepsContainer)
     return
   }
-
   dom.show(progressStepsContainer)
   progressStepsContainer.textContent = ''
   if (currentProgressStep >= progressSteps.length) {
@@ -27,21 +23,18 @@ export const renderProgressSteps = (instance, params) => {
         '(currentProgressStep like JS arrays starts from 0)'
     )
   }
-
   progressSteps.forEach((step, index) => {
     const stepEl = createStepElement(step)
     progressStepsContainer.appendChild(stepEl)
     if (index === currentProgressStep) {
       dom.addClass(stepEl, swalClasses['active-progress-step'])
     }
-
     if (index !== progressSteps.length - 1) {
       const lineEl = createLineElement(params)
       progressStepsContainer.appendChild(lineEl)
     }
   })
 }
-
 /**
  * @param {string} step
  * @returns {HTMLLIElement}
@@ -52,7 +45,6 @@ const createStepElement = (step) => {
   dom.setInnerHtml(stepEl, step)
   return stepEl
 }
-
 /**
  * @param {SweetAlertOptions} params
  * @returns {HTMLLIElement}

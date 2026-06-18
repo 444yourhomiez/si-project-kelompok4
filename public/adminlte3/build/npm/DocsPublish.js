@@ -1,21 +1,16 @@
 #!/usr/bin/env node
-
 'use strict'
-
 const path = require('path')
 const fse = require('fs-extra')
 const fs = require('fs')
 const Plugins = require('./DocsPlugins')
-
 class Publish {
   constructor() {
     this.options = {
       verbose: false
     }
-
     this.getArguments()
   }
-
   getArguments() {
     if (process.argv.length > 2) {
       const arg = process.argv[2]
@@ -29,7 +24,6 @@ class Publish {
       }
     }
   }
-
   run() {
     // Publish files
     Plugins.forEach(module => {
@@ -40,7 +34,6 @@ class Publish {
             return !path.basename(src).startsWith('.')
           }
         })
-
         if (this.options.verbose) {
           console.log(`Copied ${module.from} to ${module.to}`)
         }
@@ -48,11 +41,8 @@ class Publish {
         console.error(`Error: ${error}`)
       }
     })
-
     const insertText = '---\r\nlayout: page\r\ntitle: \r\n---\r\n'
-
     fs.writeFileSync('docs/how-to-contribute.md', insertText + fs.readFileSync('.github/CONTRIBUTING.md', 'utf8'))
   }
 }
-
 (new Publish()).run()
