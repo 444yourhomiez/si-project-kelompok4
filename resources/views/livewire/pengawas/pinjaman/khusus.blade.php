@@ -50,7 +50,7 @@
                                         Total Pinjaman Khusus
                                     </div>
                                     <div class="card-number">
-                                        Rp 200.000
+                                        Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
                                     </div>
                                     <small class="text-muted">
                                         Akumulasi seluruh pinjaman khusus anggota
@@ -85,14 +85,12 @@
                 </div>
                 {{-- TABLE --}}
                 <div class="card-body">
-                    <div class="row mb-3 align-items-end">
-                        {{-- SEARCH --}}
+                    {{-- <div class="row mb-3 align-items-end">
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Pinjaman</label>
                             <input type="text" wire:model.live="search" class="form-control"
                                 placeholder="Cari Pinjaman...">
                         </div>
-                        {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Urutkan</label>
                             <select wire:model.live="sortBy" class="form-control">
@@ -101,7 +99,6 @@
                                 <option value="jumlah">Nominal</option>
                             </select>
                         </div>
-                        {{-- SORT DIRECTION --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Arah</label>
                             <select wire:model.live="sortDirection" class="form-control">
@@ -109,7 +106,6 @@
                                 <option value="asc">A - Z</option>
                             </select>
                         </div>
-                        {{-- PAGINATION --}}
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
@@ -119,89 +115,78 @@
                                 <option value="100">100 Data</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="bg-dark text-white">
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>ID Anggota</th>
+                                    <th>Kode Anggota</th>
                                     <th>Nama Anggota</th>
-                                    <th>Nominal</th>
+                                    <th>Jenis Pinjaman</th>
+                                    <th>Nominal Pengajuan</th>
                                     <th class="text-center" style="width:120px;">
-                                        <i class="fas fa-cog"></i>
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            15 Jun 2026
-                                        </div>
-                                        <small class="text-muted">
-                                            Hari ini
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        AG001
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            Budi Santoso
-                                        </div>
-                                        <small class="text-muted">
-                                            3201234567890123
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold text-dark">
-                                        Rp 5.000.000
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
-                                                <i class="fas fa-edit text-warning"></i>
-                                            </button>
-                                            <button class="btn btn-light table-action-btn shadow-sm">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            12 Jun 2026
-                                        </div>
-                                        <small class="text-muted">
-                                            3 hari lalu
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        AG002
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            Siti Aminah
-                                        </div>
-                                        <small class="text-muted">
-                                            3201234567890124
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold text-dark">
-                                        Rp 3.500.000
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
-                                                <i class="fas fa-edit text-warning"></i>
-                                            </button>
-                                            <button class="btn btn-light table-action-btn shadow-sm">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse($pinjaman as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
+                                            </div>
+                                            <small class="text-muted">
+                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}
+                                            </small>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                            {{ $item->anggota->kode_anggota }}
+                                        </td>
+                                        <td>
+                                            <div class="font-weight-bold">
+                                                {{ $item->anggota->nama_anggota }}
+                                            </div>
+                                            <small class="text-muted">
+                                                {{ $item->anggota->no_ktp }}
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-primary">
+                                                Khusus
+                                            </span>
+                                        </td>
+                                        <td class="font-weight-bold text-dark">
+                                            Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
+                                        </td>
+                                        <td>
+                                            @if ($item->status == 'pending')
+                                                <span class="badge badge-warning">
+                                                    Pending
+                                                </span>
+                                            @elseif($item->status == 'aktif')
+                                                <span class="badge badge-success">
+                                                    Disetujui
+                                                </span>
+                                            @elseif($item->status == 'ditolak')
+                                                <span class="badge badge-danger">
+                                                    Ditolak
+                                                </span>
+                                            @elseif($item->status == 'lunas')
+                                                <span class="badge badge-info">
+                                                    Lunas
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                            Belum ada data pinjaman khusus
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

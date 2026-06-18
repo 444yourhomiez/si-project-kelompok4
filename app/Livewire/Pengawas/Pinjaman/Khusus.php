@@ -1,8 +1,14 @@
 <?php
+
 namespace App\Livewire\Pengawas\Pinjaman;
+
+use App\Models\Pinjaman;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 class Khusus extends Component
 {
+    use WithPagination;
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];
@@ -16,8 +22,39 @@ class Khusus extends Component
     }
     public function render()
     {
-        return view('livewire.pengawas.pinjaman.khusus', [
-            'title' => 'Daftar Pinjaman Khusus',
-        ]);
+        $pinjaman = Pinjaman::with('anggota')
+            ->where('jenis_pinjaman', 'khusus')
+            ->when($this->search, function ($query) {
+                $query->whereHas('anggota', function ($q) {
+                    $q->where(
+                        'nama_anggota',
+                        'like',
+                        '%' . $this->search . '%'
+                    );
+                });
+            })
+            ->orderBy(
+                $this->sortBy,
+                $this->sortDirection
+            )
+            ->paginate($this->paginate);
+        $totalPinjamanKhusus =
+            Pinjaman::where(
+                'jenis_pinjaman',
+                'khusus'
+            )
+            ->where(
+                'status',
+                'aktif'
+            )
+            ->sum('jumlah_pengajuan');
+        return view(
+            'livewire.pengawas.pinjaman.khusus',
+            [
+                'title' => 'Pinjaman Khusus',
+                'pinjaman' => $pinjaman,
+                'totalPinjamanKhusus' => $totalPinjamanKhusus,
+            ]
+        );
     }
 }

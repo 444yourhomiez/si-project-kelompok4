@@ -41,10 +41,10 @@
                                         Total Cicilan Pinjaman
                                     </div>
                                     <div class="card-number">
-                                        Rp 500.000
+                                        Rp {{ number_format($totalCicilan, 0, ',', '.') }}
                                     </div>
                                     <small class="text-muted">
-                                        Seluruh Cicilan yang diajukan anggota
+                                        Seluruh cicilan pinjaman yang diajukan anggota
                                     </small>
                                 </div>
                                 <a href="{{ route('pengawas.cicilan.index') }}"
@@ -69,16 +69,16 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="card-label mb-2">
-                                        Cicilan Pinjaman Biasa
+                                        Belum Dibayar
                                     </div>
                                     <div class="card-number">
-                                        Rp 200.000
+                                        Rp {{ number_format($totalBelumBayar, 0, ',', '.') }}
                                     </div>
                                     <small class="text-muted">
                                         Sudah diverifikasi pengawas
                                     </small>
                                 </div>
-                                <a href="{{ route('pengawas.cicilan.biasa') }}"
+                                <a href="{{ route('pengawas.cicilan.index') }}"
                                     class="card-icon bg-success text-white">
                                     <i class="nav-icon fas fa-money-bill-wave"></i>
                                 </a>
@@ -97,16 +97,16 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="card-label mb-2">
-                                        Cicilan Pinjaman Khusus
+                                        Sudah Dibayar
                                     </div>
                                     <div class="card-number">
-                                        Rp 300.000
+                                        Rp {{ number_format($totalLunas, 0, ',', '.') }}
                                     </div>
                                     <small class="text-muted">
                                         Menunggu persetujuan pengawas
                                     </small>
                                 </div>
-                                <a href="{{ route('pengawas.cicilan.khusus') }}"
+                                <a href="{{ route('pengawas.cicilan.index') }}"
                                     class="card-icon bg-primary text-white">
                                     <i class="nav-icon fas fa-money-bill-wave"></i>
                                 </a>
@@ -136,14 +136,12 @@
                 </div>
                 {{-- TABLE --}}
                 <div class="card-body">
-                    <div class="row mb-3 align-items-end">
-                        {{-- SEARCH --}}
+                    {{-- <div class="row mb-3 align-items-end">
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Cicilan</label>
                             <input type="text" wire:model.live="search" class="form-control"
                                 placeholder="Cari Cicilan...">
                         </div>
-                        {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Urutkan</label>
                             <select wire:model.live="sortBy" class="form-control">
@@ -152,7 +150,6 @@
                                 <option value="jumlah">Nominal</option>
                             </select>
                         </div>
-                        {{-- SORT DIRECTION --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Arah</label>
                             <select wire:model.live="sortDirection" class="form-control">
@@ -160,7 +157,6 @@
                                 <option value="asc">A - Z</option>
                             </select>
                         </div>
-                        {{-- PAGINATION --}}
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
@@ -170,139 +166,94 @@
                                 <option value="100">100 Data</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="bg-dark text-white">
                                 <tr>
-                                    <th>Tanggal Jatuh Tempo</th>
-                                    <th>ID Anggota</th>
+                                    <th>Jatuh Tempo</th>
+                                    <th>Kode Pinjaman</th>
                                     <th>Nama Anggota</th>
-                                    <th>Jenis Cicilan</th>
-                                    <th>Nominal</th>
+                                    <th>Jenis Pinjaman</th>
+                                    <th>Cicilan Ke</th>
+                                    <th>Tagihan</th>
+                                    <th>Status</th>
                                     <th class="text-center" style="width:120px;">
                                         <i class="fas fa-cog"></i>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            15 Jun 2026
-                                        </div>
-                                        <small class="text-muted">
-                                            Hari ini
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        AG001
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            Budi Santoso
-                                        </div>
-                                        <small class="text-muted">
-                                            3201234567890123
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-primary">
-                                            Cicilan Khusus
-                                        </span>
-                                    </td>
-                                    <td class="font-weight-bold text-dark">
-                                        Rp 500.000
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
-                                                <i class="fas fa-edit text-warning"></i>
-                                            </button>
-                                            <button class="btn btn-light table-action-btn shadow-sm">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            12 Jun 2026
-                                        </div>
-                                        <small class="text-muted">
-                                            3 hari lalu
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        AG002
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            Siti Aminah
-                                        </div>
-                                        <small class="text-muted">
-                                            3201234567890124
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-primary">
-                                            Cicilan Khusus
-                                        </span>
-                                    </td>
-                                    <td class="font-weight-bold text-dark">
-                                        Rp 350.000
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
-                                                <i class="fas fa-edit text-warning"></i>
-                                            </button>
-                                            <button class="btn btn-light table-action-btn shadow-sm">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            10 Jun 2026
-                                        </div>
-                                        <small class="text-muted">
-                                            5 hari lalu
-                                        </small>
-                                    </td>
-                                    <td class="font-weight-bold">
-                                        AG003
-                                    </td>
-                                    <td>
-                                        <div class="font-weight-bold">
-                                            Andi Saputra
-                                        </div>
-                                        <small class="text-muted">
-                                            3201234567890125
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-primary">
-                                            Cicilan Khusus
-                                        </span>
-                                    </td>
-                                    <td class="font-weight-bold text-dark">
-                                        Rp 750.000
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <button class="btn btn-light table-action-btn mr-1 shadow-sm">
-                                                <i class="fas fa-edit text-warning"></i>
-                                            </button>
-                                            <button class="btn btn-light table-action-btn shadow-sm">
-                                                <i class="fas fa-trash text-danger"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @forelse($cicilan as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->jatuh_tempo)->format('d M Y') }}
+                                            </div>
+                                            <small class="text-muted">
+                                                {{ \Carbon\Carbon::parse($item->jatuh_tempo)->diffForHumans() }}
+                                            </small>
+                                        </td>
+                                        <td class="font-weight-bold">
+                                            {{ $item->pinjaman->kode_pinjaman }}
+                                        </td>
+                                        <td>
+                                            <div class="font-weight-bold">
+                                                {{ $item->pinjaman->anggota->nama_anggota }}
+                                            </div>
+                                            <small class="text-muted">
+                                                {{ $item->pinjaman->anggota->kode_anggota }}
+                                            </small>
+                                        </td>
+                                        <td>
+                                            @if ($item->pinjaman->jenis_pinjaman == 'biasa')
+                                                <span class="badge badge-success">
+                                                    Biasa
+                                                </span>
+                                            @else
+                                                <span class="badge badge-primary">
+                                                    Khusus
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            Cicilan Ke-{{ $item->cicilan_ke }}
+                                        </td>
+                                        <td class="font-weight-bold text-dark">
+                                            Rp {{ number_format($item->jumlah_tagihan, 0, ',', '.') }}
+                                        </td>
+                                        <td>
+                                            @if ($item->status == 'belum')
+                                                <span class="badge badge-warning">
+                                                    Belum Bayar
+                                                </span>
+                                            @else
+                                                <span class="badge badge-success">
+                                                    Lunas
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($item->status == 'belum')
+                                                <button wire:click="bayar({{ $item->id }})"
+                                                    class="btn btn-success btn-sm">
+                                                    <i class="fas fa-check mr-1"></i>
+                                                    Bayar
+                                                </button>
+                                            @else
+                                                <span class="badge badge-success">
+                                                    Sudah Dibayar
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            Belum ada data cicilan
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

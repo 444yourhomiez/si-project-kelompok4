@@ -133,7 +133,7 @@
                                     Data uang masuk dan uang keluar
                                 </small>
                             </div>
-                            <div class="btn-group dropleft">
+                            {{-- <div class="btn-group dropleft">
                                 <button type="button" class="btn btn-sm btn-warning dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-print mr-1"></i>
@@ -149,12 +149,12 @@
                                         Excel
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{-- BODY --}}
                     <div class="card-body">
-                        <div class="row mb-4">
+                        {{-- <div class="row mb-4">
                             <div class="col-md-3">
                                 <label>Anggota</label>
                                 <select class="form-control">
@@ -190,7 +190,7 @@
                                     Tampilkan
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead class="bg-dark text-white">

@@ -30,7 +30,7 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- Main content -->
-        <section  class="content">
+        <section class="content">
             <!-- Default box -->
             <div class="row">
                 <div class="col-md-3">
@@ -143,11 +143,11 @@
                             {{-- TEXT (KIRI) --}}
                             <div>
                                 <div class="card-label mb-3">Total Pinjaman</div>
-                                <div class="card-number">Rp 2.500.000</div>
+                                <div class="card-number">Rp {{ number_format($totalPinjaman, 0, ',', '.') }}</div>
                             </div>
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="{{ route ('pengawas.pinjaman.index') }}">
+                                <a href="{{ route('pengawas.pinjaman.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-hand-holding-usd text-danger" style="font-size:30px;"></i>
@@ -158,23 +158,23 @@
                         <div class="card-footer p-2">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route ('pengawas.pinjaman.biasa') }}"
+                                    <a href="{{ route('pengawas.pinjaman.biasa') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-success mr-2 px-2 py-1">Biasa</span>
                                         </div>
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
-                                            2.000.000</span>
+                                            {{ number_format($pinjamanBiasa, 0, ',', '.') }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route ('pengawas.pinjaman.khusus') }}"
+                                    <a href="{{ route('pengawas.pinjaman.khusus') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-primary mr-2 px-2 py-1">Khusus</span>
                                         </div>
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
-                                            500.000</span>
+                                            {{ number_format($pinjamanKhusus, 0, ',', '.') }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -187,11 +187,11 @@
                             {{-- TEXT (KIRI) --}}
                             <div>
                                 <div class="card-label mb-3">Transaksi Hari Ini</div>
-                                <div class="card-number">Rp 1.200.000</div>
+                                <div class="card-number">Rp {{ number_format($transaksiHariIni, 0, ',', '.') }}</div>
                             </div>
                             {{-- ICON (KANAN) --}}
                             <div>
-                                <a href="{{ route ('pengawas.rekap.index') }}">
+                                <a href="{{ route('pengawas.rekap.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
                                         <i class="fas fa-chart-line text-purple" style="font-size:30px;"></i>
@@ -202,23 +202,23 @@
                         <div class="card-footer p-2">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route ('pengawas.rekap.dum') }}"
+                                    <a href="{{ route('pengawas.rekap.index') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-success mr-2 px-2 py-1">DUM</span>
                                         </div>
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
-                                            850.000</span>
+                                            {{ number_format($totalMasukHariIni, 0, ',', '.') }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route ('pengawas.rekap.duk') }}"
+                                    <a href="{{ route('pengawas.rekap.index') }}"
                                         class="nav-link item-hover d-flex justify-content-between align-items-center rounded">
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-danger mr-2 px-2 py-1">DUK</span>
                                         </div>
                                         <span class="font-weight-bold text-dark" style="font-size:15px;">Rp
-                                            350.000</span>
+                                            {{ number_format($totalKeluarHariIni, 0, ',', '.') }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -254,12 +254,13 @@
                                     <th>Nama Anggota</th>
                                     <th>Jenis Transaksi</th>
                                     <th>Nominal</th>
-                                    <th>Keterangan</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($transaksiTerbaru as $item)
                                     <tr>
+
                                         {{-- TANGGAL --}}
                                         <td>
                                             <div class="font-weight-bold">
@@ -269,54 +270,87 @@
                                                 {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
                                             </small>
                                         </td>
+
                                         {{-- ID ANGGOTA --}}
                                         <td class="font-weight-bold">
-                                            {{ $item->anggota->kode_anggota ?? '-' }}
+                                            {{ $item->kode_anggota }}
                                         </td>
-                                        {{-- NAMA + NIK --}}
+
+                                        {{-- NAMA ANGGOTA --}}
                                         <td>
                                             <div class="font-weight-bold">
-                                                {{ $item->anggota->nama_anggota ?? '-' }}
+                                                {{ $item->nama_anggota }}
                                             </div>
-                                            <small class="text-muted">
-                                                {{ $item->anggota->no_ktp ?? '-' }}
-                                            </small>
                                         </td>
-                                        {{-- JENIS SIMPANAN --}}
+
+                                        {{-- JENIS TRANSAKSI --}}
                                         <td>
-                                            @if ($item->jenis_simpanan == 'pokok')
-                                                <span class="badge badge-primary">
-                                                    Simpanan Pokok
-                                                </span>
-                                            @elseif ($item->jenis_simpanan == 'wajib')
+                                            @if (str_contains(strtolower($item->jenis), 'simpanan'))
                                                 <span class="badge badge-success">
-                                                    Simpanan Wajib
+                                                    {{ $item->jenis }}
                                                 </span>
-                                            @elseif ($item->jenis_simpanan == 'sukarela')
-                                                <span class="badge badge-info">
-                                                    Simpanan Sukarela
+                                            @elseif(str_contains(strtolower($item->jenis), 'pinjaman'))
+                                                <span class="badge badge-danger">
+                                                    {{ $item->jenis }}
+                                                </span>
+                                            @elseif(str_contains(strtolower($item->jenis), 'cicilan'))
+                                                <span class="badge badge-primary">
+                                                    {{ $item->jenis }}
+                                                </span>
+                                            @else
+                                                <span class="badge badge-secondary">
+                                                    {{ $item->jenis }}
                                                 </span>
                                             @endif
                                         </td>
+
                                         {{-- NOMINAL --}}
                                         <td class="font-weight-bold text-dark">
-                                            Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+                                            Rp {{ number_format($item->nominal, 0, ',', '.') }}
                                         </td>
-                                        {{-- KETERANGAN --}}
+
+                                        {{-- STATUS --}}
                                         <td>
-                                            <small class="text-muted">
-                                                Transaksi simpanan {{ $item->jenis_simpanan }}
-                                            </small>
+
+                                            @if (strtolower($item->status) == 'aktif')
+                                                <span class="badge badge-success">
+                                                    Aktif
+                                                </span>
+                                            @elseif(strtolower($item->status) == 'pending')
+                                                <span class="badge badge-warning">
+                                                    Pending
+                                                </span>
+                                            @elseif(strtolower($item->status) == 'lunas')
+                                                <span class="badge badge-primary">
+                                                    Lunas
+                                                </span>
+                                            @elseif(strtolower($item->status) == 'ditolak')
+                                                <span class="badge badge-danger">
+                                                    Ditolak
+                                                </span>
+                                            @elseif(strtolower($item->status) == 'berhasil')
+                                                <span class="badge badge-success">
+                                                    Berhasil
+                                                </span>
+                                            @else
+                                                <span class="badge badge-secondary">
+                                                    {{ $item->status }}
+                                                </span>
+                                            @endif
+
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="6" class="text-center py-5">
                                             <div class="empty-state">
                                                 <i class="fas fa-folder-open"></i>
+
                                                 <h5>
                                                     Belum ada transaksi
                                                 </h5>
+
                                                 <p>
                                                     Data transaksi terbaru akan tampil di sini
                                                 </p>

@@ -1,8 +1,14 @@
 <?php
+
 namespace App\Livewire\Pengawas\Pinjaman;
+
+use App\Models\Pinjaman;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 class Biasa extends Component
 {
+    use WithPagination;
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];
@@ -16,8 +22,39 @@ class Biasa extends Component
     }
     public function render()
     {
-        return view('livewire.pengawas.pinjaman.biasa', [
-            'title' => 'Daftar Pinjaman Biasa',
-        ]);
+        $pinjaman = Pinjaman::with('anggota')
+            ->where('jenis_pinjaman', 'biasa')
+            ->when($this->search, function ($query) {
+                $query->whereHas('anggota', function ($q) {
+                    $q->where(
+                        'nama_anggota',
+                        'like',
+                        '%' . $this->search . '%'
+                    );
+                });
+            })
+            ->orderBy(
+                $this->sortBy,
+                $this->sortDirection
+            )
+            ->paginate($this->paginate);
+        $totalPinjamanBiasa =
+            Pinjaman::where(
+                'jenis_pinjaman',
+                'biasa'
+            )
+            ->where(
+                'status',
+                'aktif'
+            )
+            ->sum('jumlah_pengajuan');
+        return view(
+            'livewire.pengawas.pinjaman.biasa',
+            [
+                'title' => 'Pinjaman Biasa',
+                'pinjaman' => $pinjaman,
+                'totalPinjamanBiasa' => $totalPinjamanBiasa,
+            ]
+        );
     }
 }

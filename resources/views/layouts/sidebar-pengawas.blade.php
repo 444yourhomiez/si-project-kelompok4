@@ -157,7 +157,7 @@
                   <li class="nav-header">LAINNYA</li>
                   {{-- REKAPITULASI HARIAN --}}
                   <li class="nav-item">
-                      <a  href="{{ route('anggota.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
+                      <a  href="{{ route('pengawas.rekap.index') }}" class="nav-link @yield('menuPengawasRekap')">
                           <i class="nav-icon fas fa-calendar-day"></i>
                           <p>
                               Rekapitulasi Harian

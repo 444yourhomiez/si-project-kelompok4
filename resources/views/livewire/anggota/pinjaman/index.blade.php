@@ -135,13 +135,11 @@
                 {{-- TABLE --}}
                 <div class="card-body">
                     <div class="row mb-3 align-items-end">
-                        {{-- SEARCH --}}
-                        <div class="col-lg-4 col-md-12 mb-2">
+                        {{-- <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Pinjaman</label>
                             <input type="text" wire:model.live="search" class="form-control"
                                 placeholder="Cari Pinjaman...">
                         </div>
-                        {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Urutkan</label>
                             <select wire:model.live="sortBy" class="form-control">
@@ -150,7 +148,6 @@
                                 <option value="jumlah">Nominal</option>
                             </select>
                         </div>
-                        {{-- SORT DIRECTION --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Arah</label>
                             <select wire:model.live="sortDirection" class="form-control">
@@ -158,7 +155,6 @@
                                 <option value="asc">A - Z</option>
                             </select>
                         </div>
-                        {{-- PAGINATION --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
@@ -167,7 +163,7 @@
                                 <option value="50">50 Data</option>
                                 <option value="100">100 Data</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <button wire:click="$dispatch('openCreate')" class="btn btn-primary btn-block"
                                 data-toggle="modal" data-target="#createModalPinjaman">
