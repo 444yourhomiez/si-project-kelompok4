@@ -16,7 +16,8 @@
                         {{-- STEPPER --}}
                         <div class="mb-4">
                             <div class="progress" style="height: 6px; border-radius: 10px;">
-                                <div class="progress-bar bg-success" style="width: {{ ($step / 3) * 100 }}%">
+                                <div class="progress-bar bg-success"
+                                    style="width: {{ ($step / 3) * 100 }}%">
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-3 text-center">
@@ -34,13 +35,12 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- ================= STEP 1 ================= --}}
+
+                        {{-- ================= STEP 1: AKUN ================= --}}
                         @if ($step == 1)
+                            {{-- NAMA --}}
                             <div class="form-group mb-3">
-                                <label>
-                                    Nama
-                                    <span class="text-danger">*</span>
-                                </label>
+                                <label>Nama <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input type="text" wire:model="nama_user"
                                         class="form-control @error('nama_user') is-invalid @enderror"
@@ -54,39 +54,105 @@
                                     @enderror
                                 </div>
                                 @error('nama_user')
-                                    <small class="text-danger">
-                                        {{ $message }}
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            {{-- EMAIL + VERIFIKASI INLINE --}}
                             <div class="form-group mb-3">
-                                <label>
-                                    Email
-                                    <span class="text-danger">*</span>
-                                </label>
+                                <label>Email <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input type="email" wire:model.live="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="Masukkan email Gmail">
-                                    @error('email')
+                                        placeholder="Masukkan email Gmail"
+                                        {{ $emailVerified ? 'readonly' : '' }}>
+                                    @if ($emailVerified)
                                         <div class="input-group-append">
-                                            <span class="input-group-text bg-danger border-danger text-white">
+                                            <span class="input-group-text bg-success text-white border-success">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </div>
+                                    @elseif ($errors->has('email'))
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-danger text-white border-danger">
                                                 <i class="fas fa-exclamation-circle"></i>
                                             </span>
                                         </div>
-                                    @enderror
+                                    @endif
                                 </div>
                                 @error('email')
-                                    <small class="text-danger d-block mt-1">
-                                        {{ $message }}
-                                    </small>
+                                    <small class="text-danger d-block mt-1">{{ $message }}</small>
                                 @enderror
+
+                                {{-- STATUS VERIFIKASI EMAIL --}}
+                                @if ($emailVerified)
+                                    <div class="mt-2">
+                                        <span class="text-success small">
+                                            <i class="fas fa-check-circle mr-1"></i>
+                                            Email berhasil diverifikasi
+                                        </span>
+                                        <button wire:click="updatedEmail" type="button"
+                                            class="btn btn-link btn-sm text-muted p-0 ml-2"
+                                            style="font-size:0.8rem;">
+                                            Ubah
+                                        </button>
+                                    </div>
+                                @elseif ($emailOtpSent)
+                                    <div class="mt-2 p-2 border rounded bg-light">
+                                        <small class="text-muted d-block mb-1">
+                                            Kode OTP dikirim ke <strong>{{ $email }}</strong> (berlaku 10 menit)
+                                        </small>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" wire:model="emailOtpInput"
+                                                class="form-control @error('emailOtpInput') is-invalid @enderror"
+                                                placeholder="Masukkan 6 digit kode OTP"
+                                                maxlength="6">
+                                            <div class="input-group-append">
+                                                <button wire:click="verifyEmailOtp"
+                                                    wire:loading.attr="disabled"
+                                                    class="btn btn-success">
+                                                    <span wire:loading.remove wire:target="verifyEmailOtp">
+                                                        Verifikasi
+                                                    </span>
+                                                    <span wire:loading wire:target="verifyEmailOtp">
+                                                        <i class="fas fa-spinner fa-spin"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        @error('emailOtpInput')
+                                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                                        @enderror
+                                        <div class="mt-1">
+                                            <small class="text-muted">
+                                                Tidak menerima kode?
+                                                <button wire:click="sendEmailOtp" type="button"
+                                                    wire:loading.attr="disabled"
+                                                    class="btn btn-link btn-sm p-0 align-baseline"
+                                                    style="font-size:0.8rem;">
+                                                    <span wire:loading.remove wire:target="sendEmailOtp">Kirim Ulang</span>
+                                                    <span wire:loading wire:target="sendEmailOtp">Mengirim...</span>
+                                                </button>
+                                            </small>
+                                        </div>
+                                    </div>
+                                @else
+                                    <button wire:click="sendEmailOtp" type="button"
+                                        wire:loading.attr="disabled"
+                                        class="btn btn-sm btn-outline-success mt-2">
+                                        <span wire:loading.remove wire:target="sendEmailOtp">
+                                            <i class="fas fa-paper-plane mr-1"></i>
+                                            Kirim Kode Verifikasi
+                                        </span>
+                                        <span wire:loading wire:target="sendEmailOtp">
+                                            <i class="fas fa-spinner fa-spin mr-1"></i>
+                                            Mengirim...
+                                        </span>
+                                    </button>
+                                @endif
                             </div>
+                            {{-- PASSWORD --}}
                             <div class="form-group mb-3">
-                                <label>
-                                    Password
-                                    <span class="text-danger">*</span>
-                                </label>
+                                <label>Password <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input type="password" wire:model="password"
                                         class="form-control @error('password') is-invalid @enderror"
@@ -100,16 +166,12 @@
                                     @enderror
                                 </div>
                                 @error('password')
-                                    <small class="text-danger">
-                                        {{ $message }}
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            {{-- KONFIRMASI PASSWORD --}}
                             <div class="form-group mb-4">
-                                <label>
-                                    Konfirmasi Password
-                                    <span class="text-danger">*</span>
-                                </label>
+                                <label>Konfirmasi Password <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input type="password" wire:model="password_confirmation"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
@@ -123,18 +185,14 @@
                                     @enderror
                                 </div>
                                 @error('password_confirmation')
-                                    <small class="text-danger">
-                                        {{ $message }}
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                {{-- KEMBALI KE HOMEPAGE --}}
                                 <a href="{{ route('homepage') }}" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times mr-1"></i>
-                                    Batal Untuk Mendafatar
+                                    Batal
                                 </a>
-                                {{-- LANJUT --}}
                                 <button wire:click="saveStep1" wire:loading.attr="disabled"
                                     class="btn btn-success px-4">
                                     <span wire:loading.remove wire:target="saveStep1">
@@ -148,14 +206,12 @@
                                 </button>
                             </div>
                         @endif
-                        {{-- ================= STEP 2 ================= --}}
+
+                        {{-- ================= STEP 2: BIODATA ================= --}}
                         @if ($step == 2)
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Nama Lengkap
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Nama Lengkap <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="nama_anggota"
                                             class="form-control @error('nama_anggota') is-invalid @enderror"
@@ -169,16 +225,11 @@
                                         @enderror
                                     </div>
                                     @error('nama_anggota')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        No KTP
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>No KTP <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="no_ktp"
                                             class="form-control @error('no_ktp') is-invalid @enderror"
@@ -192,22 +243,18 @@
                                         @enderror
                                     </div>
                                     @error('no_ktp')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
+                            {{-- NO HP + JENIS KELAMIN --}}
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        No HP
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>No HP <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="no_hp"
                                             class="form-control @error('no_hp') is-invalid @enderror"
-                                            placeholder="Masukkan no HP">
+                                            placeholder="Contoh: 081234567890">
                                         @error('no_hp')
                                             <div class="input-group-append">
                                                 <span class="input-group-text bg-danger text-white border-danger">
@@ -217,16 +264,11 @@
                                         @enderror
                                     </div>
                                     @error('no_hp')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger d-block mt-1">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Jenis Kelamin
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Jenis Kelamin <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select wire:model="jenis_kelamin"
                                             class="form-control @error('jenis_kelamin') is-invalid @enderror">
@@ -243,17 +285,12 @@
                                         @enderror
                                     </div>
                                     @error('jenis_kelamin')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
                             <div class="form-group mb-3">
-                                <label>
-                                    Alamat
-                                    <span class="text-danger">*</span>
-                                </label>
+                                <label>Alamat <span class="text-danger">*</span></label>
                                 <div class="input-group">
                                     <input type="text" wire:model="alamat"
                                         class="form-control @error('alamat') is-invalid @enderror"
@@ -267,17 +304,12 @@
                                     @enderror
                                 </div>
                                 @error('alamat')
-                                    <small class="text-danger">
-                                        {{ $message }}
-                                    </small>
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Tempat Lahir
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Tempat Lahir <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="tempat_lahir"
                                             class="form-control @error('tempat_lahir') is-invalid @enderror"
@@ -291,16 +323,11 @@
                                         @enderror
                                     </div>
                                     @error('tempat_lahir')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Tanggal Lahir
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Tanggal Lahir <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="date" wire:model="tanggal_lahir"
                                             class="form-control @error('tanggal_lahir') is-invalid @enderror">
@@ -313,18 +340,13 @@
                                         @enderror
                                     </div>
                                     @error('tanggal_lahir')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Agama
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Agama <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select wire:model="agama"
                                             class="form-control @error('agama') is-invalid @enderror">
@@ -346,16 +368,11 @@
                                         @enderror
                                     </div>
                                     @error('agama')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Nama Ibu Kandung
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Nama Ibu Kandung <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="nama_ibu_kandung"
                                             class="form-control @error('nama_ibu_kandung') is-invalid @enderror"
@@ -369,16 +386,11 @@
                                         @enderror
                                     </div>
                                     @error('nama_ibu_kandung')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Status Rumah
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Status Rumah <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select wire:model="status_rumah"
                                             class="form-control @error('status_rumah') is-invalid @enderror">
@@ -397,16 +409,11 @@
                                         @enderror
                                     </div>
                                     @error('status_rumah')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-4">
-                                    <label>
-                                        Penghasilan
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Penghasilan <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select wire:model="penghasilan"
                                             class="form-control @error('penghasilan') is-invalid @enderror">
@@ -428,16 +435,11 @@
                                         @enderror
                                     </div>
                                     @error('penghasilan')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Ahli Waris
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Ahli Waris <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input wire:model="nama_ahli_waris"
                                             class="form-control @error('nama_ahli_waris') is-invalid @enderror">
@@ -450,16 +452,11 @@
                                         @enderror
                                     </div>
                                     @error('nama_ahli_waris')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>
-                                        Hubungan
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Hubungan <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select wire:model="hubungan_ahli_waris"
                                             class="form-control @error('hubungan_ahli_waris') is-invalid @enderror">
@@ -485,22 +482,15 @@
                                         @enderror
                                     </div>
                                     @error('hubungan_ahli_waris')
-                                        <small class="text-danger">
-                                            {{ $message }}
-                                        </small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
-                            {{-- PEMBATAS --}}
-                            <div class="border-top my-4"></div>
                             {{-- DATA TAMBAHAN --}}
+                            <div class="border-top my-4"></div>
                             <div class="d-flex align-items-center mb-3">
-                                <h6 class="text-muted mb-0">
-                                    Data Tambahan
-                                </h6>
-                                <span class="badge badge-light ml-2">
-                                    Opsional
-                                </span>
+                                <h6 class="text-muted mb-0">Data Tambahan</h6>
+                                <span class="badge badge-light ml-2">Opsional</span>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
@@ -517,13 +507,21 @@
                                     <i class="fas fa-arrow-left mr-1"></i>
                                     Kembali
                                 </button>
-                                <button wire:click="saveStep2" class="btn btn-success px-4">
-                                    <i class="fas fa-arrow-right mr-1"></i>
-                                    Lanjut
+                                <button wire:click="saveStep2" wire:loading.attr="disabled"
+                                    class="btn btn-success px-4">
+                                    <span wire:loading.remove wire:target="saveStep2">
+                                        <i class="fas fa-arrow-right mr-1"></i>
+                                        Lanjut
+                                    </span>
+                                    <span wire:loading wire:target="saveStep2">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>
+                                        Memproses...
+                                    </span>
                                 </button>
                             </div>
                         @endif
-                        {{-- ================= STEP 3 ================= --}}
+
+                        {{-- ================= STEP 3: JADWAL WAWANCARA ================= --}}
                         @if ($step == 3)
                             <div class="form-group mb-4">
                                 <label>Tanggal Wawancara</label>
@@ -545,8 +543,7 @@
                                                 {{ \Carbon\Carbon::parse($jadwal->waktu)->addHour()->format('H:i') }}
                                             </div>
                                             <small>
-                                                Slot:
-                                                {{ $jadwal->terisi }}/{{ $jadwal->kuota }}
+                                                Slot: {{ $jadwal->terisi }}/{{ $jadwal->kuota }}
                                             </small>
                                         </button>
                                     </div>
@@ -559,18 +556,23 @@
                                 @endforelse
                             </div>
                             @error('jadwal_id')
-                                <small class="text-danger d-block mb-3">
-                                    {{ $message }}
-                                </small>
+                                <small class="text-danger d-block mb-3">{{ $message }}</small>
                             @enderror
                             <div class="d-flex justify-content-between mt-3">
                                 <button wire:click="prev" type="button" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left mr-1"></i>
                                     Kembali
                                 </button>
-                                <button wire:click="saveStep3" type="button" class="btn btn-success">
-                                    <i class="fas fa-check mr-1"></i>
-                                    Konfirmasi
+                                <button wire:click="saveStep3" wire:loading.attr="disabled"
+                                    type="button" class="btn btn-success">
+                                    <span wire:loading.remove wire:target="saveStep3">
+                                        <i class="fas fa-check mr-1"></i>
+                                        Konfirmasi
+                                    </span>
+                                    <span wire:loading wire:target="saveStep3">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>
+                                        Menyimpan...
+                                    </span>
                                 </button>
                             </div>
                         @endif

@@ -121,7 +121,7 @@
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-success text-white border-0 py-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
@@ -174,7 +174,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead style="background:#155724;color:#fff;">
                                 <tr>
                                     <th>ID Anggota</th>
                                     <th>Nama</th>
@@ -265,13 +265,13 @@
                                                     <button
                                                         wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
                                                         class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                        data-toggle="modal" data-target="#editModalAnggota">
+                                                        >
                                                         <i class="fas fa-edit text-warning"></i>
                                                     </button>
                                                     <button
                                                         wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
                                                         class="btn btn-light table-action-btn shadow-sm"
-                                                        data-toggle="modal" data-target="#deleteModalAnggota">
+                                                        >
                                                         <i class="fas fa-trash text-danger"></i>
                                                     </button>
                                                 @endif

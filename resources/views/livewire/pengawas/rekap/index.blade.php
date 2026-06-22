@@ -197,74 +197,58 @@
                                     <tr>
                                         <th>Tanggal</th>
                                         <th>ID Anggota</th>
-                                        <th>Nama Anggota</th>
+                                        <th>Nama / Petugas</th>
                                         <th>Jenis</th>
+                                        <th>Keterangan</th>
                                         <th>DUM</th>
                                         <th>DUK</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     @forelse($riwayat as $item)
                                         <tr>
-
                                             <td>
                                                 {{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}
                                             </td>
-
+                                            <td>{{ $item['kode_anggota'] }}</td>
+                                            <td>{{ $item['nama_anggota'] }}</td>
                                             <td>
-                                                {{ $item['kode_anggota'] }}
+                                                @if (str_contains($item['jenis'], 'Masuk'))
+                                                    <span class="badge badge-success">{{ $item['jenis'] }}</span>
+                                                @elseif (str_contains($item['jenis'], 'Keluar'))
+                                                    <span class="badge badge-danger">{{ $item['jenis'] }}</span>
+                                                @else
+                                                    <span class="badge badge-secondary">{{ $item['jenis'] }}</span>
+                                                @endif
                                             </td>
-
-                                            <td>
-                                                {{ $item['nama_anggota'] }}
-                                            </td>
-
-                                            <td>
-                                                {{ $item['jenis'] }}
-                                            </td>
-
+                                            <td>{{ $item['keterangan'] }}</td>
                                             <td class="text-success">
-
                                                 @if ($item['masuk'] > 0)
                                                     Rp {{ number_format($item['masuk'], 0, ',', '.') }}
                                                 @else
                                                     -
                                                 @endif
-
                                             </td>
-
                                             <td class="text-danger">
-
                                                 @if ($item['keluar'] > 0)
                                                     Rp {{ number_format($item['keluar'], 0, ',', '.') }}
                                                 @else
                                                     -
                                                 @endif
-
                                             </td>
-
                                         </tr>
-
                                     @empty
-
                                         <tr>
-
-                                            <td colspan="6" class="text-center">
-
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
                                                 Tidak ada transaksi hari ini
-
                                             </td>
-
                                         </tr>
                                     @endforelse
-
                                 </tbody>
                                 <tfoot>
                                     <tr class="font-weight-bold bg-light">
-                                        <td colspan="4" class="text-right">
-                                            Saldo
-                                        </td>
+                                        <td colspan="5" class="text-right">Saldo</td>
                                         <td class="text-success">
                                             Rp {{ number_format($totalMasuk, 0, ',', '.') }}
                                         </td>
@@ -273,9 +257,7 @@
                                         </td>
                                     </tr>
                                     <tr class="font-weight-bold">
-                                        <td colspan="4" class="text-right">
-                                            Total
-                                        </td>
+                                        <td colspan="5" class="text-right">Total</td>
                                         <td colspan="2" class="text-dark">
                                             Rp {{ number_format($saldo, 0, ',', '.') }}
                                         </td>

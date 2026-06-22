@@ -20,6 +20,12 @@ class Show extends Component
     }
     public function setujui()
     {
+        if ($this->detailPinjaman->status !== 'pending') {
+            session()->flash('error', 'Hanya pinjaman dengan status pending yang dapat disetujui.');
+            $this->dispatch('closeShowModal');
+            return;
+        }
+
         $this->detailPinjaman->update([
             'status' => 'aktif',
             'catatan' => $this->catatan,

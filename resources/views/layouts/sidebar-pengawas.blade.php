@@ -191,8 +191,8 @@
               <!-- Profil -->
               <div class="d-flex align-items-center">
                   <div class="image">
-                      <img src="{{ asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                          alt="User Image">
+                      <img src="{{ auth()->user()->foto_profile ? asset('storage/' . auth()->user()->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                          alt="User Image" style="width:40px;height:40px;object-fit:cover;">
                   </div>
                   <div class="info ml-2">
                       <a href="#" class="d-block">

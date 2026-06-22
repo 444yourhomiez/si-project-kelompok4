@@ -42,12 +42,20 @@ class Index extends Component
             ->paginate($this->paginate);
         $totalPinjaman =
             Pinjaman::where(
+                'anggota_id',
+                $anggota->id
+            )
+            ->where(
                 'status',
                 'aktif'
             )->sum('jumlah_pengajuan');
 
         $totalPinjamanBiasa =
             Pinjaman::where(
+                'anggota_id',
+                $anggota->id
+            )
+            ->where(
                 'jenis_pinjaman',
                 'biasa'
             )
@@ -59,6 +67,10 @@ class Index extends Component
 
         $totalPinjamanKhusus =
             Pinjaman::where(
+                'anggota_id',
+                $anggota->id
+            )
+            ->where(
                 'jenis_pinjaman',
                 'khusus'
             )

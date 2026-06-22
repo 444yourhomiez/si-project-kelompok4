@@ -158,6 +158,8 @@ class Dashboard extends Component
             'anggota_id',
             $anggotaId
         )
+            ->latest()
+            ->take(10)
             ->get()
             ->map(function ($item) {
 
@@ -178,6 +180,8 @@ class Dashboard extends Component
             'anggota_id',
             $anggotaId
         )
+            ->latest()
+            ->take(10)
             ->get()
             ->map(function ($item) {
 
@@ -204,6 +208,8 @@ class Dashboard extends Component
                 );
             }
         )
+            ->latest()
+            ->take(10)
             ->get()
             ->map(function ($item) {
 

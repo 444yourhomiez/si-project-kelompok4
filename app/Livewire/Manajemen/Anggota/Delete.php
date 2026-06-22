@@ -16,6 +16,7 @@ class Delete extends Component
             'user'
         )->findOrFail($id);
         $this->idDelete = $id;
+        $this->dispatch('showDeleteModal');
     }
     // HAPUS DATA
     public function delete()

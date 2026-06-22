@@ -37,6 +37,7 @@ class Edit extends Component
             'alamat' => $anggota->alamat,
         ];
         $this->resetValidation();
+        $this->dispatch('showEditModal');
     }
     protected function rules()
     {

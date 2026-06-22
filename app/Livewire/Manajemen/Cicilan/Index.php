@@ -20,6 +20,12 @@ class Index extends Component
     public function bayar($id)
     {
         $cicilan = Cicilan::findOrFail($id);
+
+        if ($cicilan->status === 'lunas') {
+            session()->flash('error', 'Cicilan ini sudah lunas.');
+            return;
+        }
+
         $cicilan->update([
             'status' => 'lunas',
             'tanggal_bayar' => now(),

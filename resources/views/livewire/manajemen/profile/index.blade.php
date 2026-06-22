@@ -34,6 +34,15 @@
             {{-- CONTENT --}}
             <section class="content">
                 <div class="container-fluid">
+                    @if (session('foto_success'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <i class="fas fa-check-circle mr-1"></i>
+                            {{ session('foto_success') }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <div class="row">
                         {{-- LEFT --}}
                         <div class="col-md-3">
@@ -41,8 +50,56 @@
                             <div class="card shadow-sm border-0">
                                 <div class="card-body text-center">
                                     {{-- FOTO --}}
-                                    <img src="{{ asset('adminlte3/dist/img/user2-160x160.jpg') }}"
-                                        class="img-circle elevation-2 mb-3" width="110">
+                                    @if ($foto)
+                                        <img src="{{ $foto->temporaryUrl() }}"
+                                            class="img-circle elevation-2 mb-2"
+                                            style="width:110px;height:110px;object-fit:cover;">
+                                    @else
+                                        <img src="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}"
+                                            class="img-circle elevation-2 mb-2"
+                                            style="width:110px;height:110px;object-fit:cover;">
+                                    @endif
+                                    {{-- UPLOAD FOTO --}}
+                                    <div class="mb-3">
+                                        <input type="file"
+                                               wire:model="foto"
+                                               id="fotoInputManajemen"
+                                               accept="image/*"
+                                               class="d-none">
+                                        @if (!$foto)
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-secondary"
+                                                    onclick="document.getElementById('fotoInputManajemen').click()">
+                                                <i class="fas fa-camera mr-1"></i>
+                                                Ganti Foto
+                                            </button>
+                                        @else
+                                            <button type="button"
+                                                    wire:click="uploadFoto"
+                                                    wire:loading.attr="disabled"
+                                                    class="btn btn-sm btn-success">
+                                                <span wire:loading wire:target="uploadFoto">
+                                                    <i class="fas fa-spinner fa-spin mr-1"></i>
+                                                </span>
+                                                <span wire:loading.remove wire:target="uploadFoto">
+                                                    <i class="fas fa-check mr-1"></i>
+                                                </span>
+                                                Simpan
+                                            </button>
+                                            <button type="button"
+                                                    wire:click="batalFoto"
+                                                    class="btn btn-sm btn-outline-danger ml-1">
+                                                <i class="fas fa-times mr-1"></i>
+                                                Batal
+                                            </button>
+                                        @endif
+                                        @error('foto')
+                                            <div class="text-danger small mt-1">{{ $message }}</div>
+                                        @enderror
+                                        <div wire:loading wire:target="foto" class="text-muted small mt-1">
+                                            <i class="fas fa-spinner fa-spin mr-1"></i> Memuat...
+                                        </div>
+                                    </div>
                                     {{-- NAMA --}}
                                     <h5 class="font-weight-bold mb-1">
                                         {{ $user->nama_user }}

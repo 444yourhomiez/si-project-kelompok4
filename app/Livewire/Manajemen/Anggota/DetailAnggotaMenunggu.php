@@ -4,6 +4,7 @@ namespace App\Livewire\Manajemen\Anggota;
 
 use App\Models\Anggota;
 use App\Models\Simpanan;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class DetailAnggotaMenunggu extends Component
@@ -18,54 +19,58 @@ class DetailAnggotaMenunggu extends Component
     // SETUJUI
     public function setujui()
     {
-        // AMBIL KODE TERAKHIR
-        $lastAnggota = Anggota::whereNotNull('kode_anggota')
-            ->orderByRaw('CAST(SUBSTRING(kode_anggota, 3) AS UNSIGNED) DESC')
-            ->first();
-        $number = 1;
-        if ($lastAnggota) {
-            $lastNumber = (int) str_replace(
-                'A-',
-                '',
-                $lastAnggota->kode_anggota
+        DB::transaction(function () {
+            // AMBIL KODE TERAKHIR dengan lock agar tidak ada race condition
+            $lastAnggota = Anggota::whereNotNull('kode_anggota')
+                ->lockForUpdate()
+                ->orderByRaw('CAST(SUBSTRING(kode_anggota, 3) AS UNSIGNED) DESC')
+                ->first();
+            $number = 1;
+            if ($lastAnggota) {
+                $lastNumber = (int) str_replace(
+                    'A-',
+                    '',
+                    $lastAnggota->kode_anggota
+                );
+                $number = $lastNumber + 1;
+            }
+            // GENERATE KODE
+            $kodeAnggota = 'A-' . str_pad(
+                $number,
+                6,
+                '0',
+                STR_PAD_LEFT
             );
-            $number = $lastNumber + 1;
-        }
-        // GENERATE KODE
-        $kodeAnggota = 'A-' . str_pad(
-            $number,
-            6,
-            '0',
-            STR_PAD_LEFT
-        );
-        // UPDATE DATA ANGGOTA
-        $this->anggota->update([
-            'kode_anggota' => $kodeAnggota,
-        ]);
-        // UPDATE STATUS USER
-        $this->anggota->user->update([
-            'status' => 'disetujui',
-        ]);
-        Simpanan::create([
-            'anggota_id' => $this->anggota->id,
-            'jenis_simpanan' => 'pokok',
-            'jumlah' => 500000,
-            'tanggal' => now(),
-        ]);
+            // UPDATE DATA ANGGOTA
+            $this->anggota->update([
+                'kode_anggota' => $kodeAnggota,
+            ]);
+            // UPDATE STATUS USER
+            $this->anggota->user->update([
+                'status' => 'disetujui',
+            ]);
+            Simpanan::create([
+                'anggota_id' => $this->anggota->id,
+                'jenis_simpanan' => 'pokok',
+                'jumlah' => 500000,
+                'tanggal' => now(),
+            ]);
 
-        Simpanan::create([
-            'anggota_id' => $this->anggota->id,
-            'jenis_simpanan' => 'wajib',
-            'jumlah' => 50000,
-            'tanggal' => now(),
-        ]);
+            Simpanan::create([
+                'anggota_id' => $this->anggota->id,
+                'jenis_simpanan' => 'wajib',
+                'jumlah' => 50000,
+                'tanggal' => now(),
+            ]);
 
-        Simpanan::create([
-            'anggota_id' => $this->anggota->id,
-            'jenis_simpanan' => 'sukarela',
-            'jumlah' => 100000,
-            'tanggal' => now(),
-        ]);
+            Simpanan::create([
+                'anggota_id' => $this->anggota->id,
+                'jenis_simpanan' => 'sukarela',
+                'jumlah' => 100000,
+                'tanggal' => now(),
+            ]);
+        });
+
         $this->dispatch('refreshAnggota');
         session()->flash(
             'success',

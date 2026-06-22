@@ -25,4 +25,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'qontak' => [
+        'username'      => env('QONTAK_USERNAME'),
+        'password'      => env('QONTAK_PASSWORD'),
+        'client_id'     => env('QONTAK_CLIENT_ID'),
+        'client_secret' => env('QONTAK_CLIENT_SECRET'),
+        'channel_id'    => env('QONTAK_CHANNEL_ID'),
+        'template_id'   => env('QONTAK_TEMPLATE_ID'),
+    ],
 ];

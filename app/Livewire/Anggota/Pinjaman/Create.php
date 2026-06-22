@@ -145,7 +145,8 @@ class Create extends Component
             );
             return redirect()->route('anggota.pinjaman.index');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            logger()->error('Gagal mengajukan pinjaman: ' . $e->getMessage());
+            session()->flash('error', 'Terjadi kesalahan, silakan coba lagi.');
         }
     }
     public function render()

@@ -1,5 +1,7 @@
 <?php
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\LaporanController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -29,6 +31,41 @@ Route::view('/menunggu', 'auth.menunggu')
 // LOGIN
 // ======================
 Route::view('/login', 'auth.login')->name('login');
+// ======================
+// FORGOT / RESET PASSWORD
+// ======================
+Route::view('/forgot-password', 'auth.forgot-password')
+    ->middleware('guest')
+    ->name('password.request');
+Route::get('/reset-password/{token}', function (string $token) {
+    if (auth()->check()) {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+    }
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+// ======================
+// EMAIL VERIFICATION
+// ======================
+Route::get('/email/verify', function () {
+    return redirect()->route('menunggu');
+})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
+Route::post('/email/verification-notification', function () {
+    /** @var \App\Models\User|null $user */
+    $user = auth()->user();
+    $user?->sendEmailVerificationNotification();
+    return back()->with('info', 'Link verifikasi dikirim ulang.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+// ======================
+// VERIFIKASI OTP HP
+// ======================
+Route::get('/verifikasi-hp', function () {
+    return view('auth.verifikasi-otp-hp');
+})->middleware('auth')->name('verifikasi-otp-hp');
 // ======================
 // LOGOUT
 // ======================
@@ -130,3 +167,13 @@ Route::get(
     '/laporan/excel',
     [LaporanController::class, 'excel']
 )->name('laporan.excel');
+
+Route::get(
+    '/shu/pdf',
+    [LaporanController::class, 'shuPdf']
+)->middleware(['auth'])->name('shu.pdf');
+
+Route::get(
+    '/shu/excel',
+    [LaporanController::class, 'shuExcel']
+)->middleware(['auth'])->name('shu.excel');
