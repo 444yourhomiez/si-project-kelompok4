@@ -13,99 +13,73 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
-
-        /* ── NAVBAR ── */
-        .navbar-brand span {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        /* ── HERO (mobile-first: default = mobile) ── */
         .hero {
             min-height: 100vh;
             background:
-                linear-gradient(135deg, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.30) 100%),
+                linear-gradient(rgba(0, 0, 0, 0.55),
+                    rgba(0, 0, 0, 0.35)),
                 url('{{ asset('images/background_motekar.png') }}');
             background-size: cover;
             background-position: center;
-            background-attachment: scroll;
+            background-attachment: fixed;
             display: flex;
-            align-items: flex-end;
-            padding-top: 70px;
-            padding-bottom: 225px;
-        }
-        .hero .container {
-            display: flex;
-            justify-content: center;
+            align-items: center;
         }
         .hero-content {
-            width: 100%;
+            margin-top: 200px;
+            width: 450px;
             color: #fff;
-            text-align: center;
-            padding: 0 12px;
         }
         .hero-content h1 {
-            font-size: 34px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 14px;
+            font-size: 55px;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: #fff;
+            white-space: nowrap;
         }
         .hero-content p {
-            font-size: 15px;
-            color: rgba(255,255,255,0.88);
-            margin-bottom: 26px;
-            line-height: 1.65;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
         }
-        .hero-content .btn-hero {
+        .btn-daftar {
             display: inline-block;
-            padding: 12px 28px;
-            font-size: 15px;
+            padding: 13px 30px;
+            font-size: 16px;
             font-weight: 600;
             border-radius: 50px;
             background: #28a745;
             color: #fff;
             border: none;
             text-decoration: none;
-            box-shadow: 0 4px 18px rgba(40,167,69,0.40);
+            box-shadow: 0 4px 20px rgba(40,167,69,0.45);
             transition: background .2s, transform .15s, box-shadow .2s;
+            letter-spacing: 0.3px;
         }
-        .hero-content .btn-hero:hover {
+        .btn-daftar:hover {
             background: #218838;
             transform: translateY(-2px);
-            box-shadow: 0 6px 22px rgba(40,167,69,0.50);
+            box-shadow: 0 6px 24px rgba(40,167,69,0.55);
             color: #fff;
             text-decoration: none;
         }
-
-        /* ── DESKTOP override ── */
-        @media (min-width: 992px) {
-            .hero {
-                background-attachment: fixed;
-                padding-top: 60px;
-                padding-bottom: 225px;
-                align-items: flex-end;
-            }
-            .hero .container {
-                justify-content: flex-start;
-            }
-            .hero-content {
-                width: 480px;
-                text-align: left;
-                padding: 0;
+        /* Navbar brand mobile */
+        @media (max-width: 576px) {
+            .navbar-brand-text {
+                font-size: 13px;
             }
             .hero-content h1 {
-                font-size: 50px;
-                letter-spacing: -0.5px;
-                margin-bottom: 18px;
+                white-space: normal;
             }
-            .hero-content p {
-                font-size: 17px;
-                margin-bottom: 30px;
+        }
+        @media (max-width: 768px) {
+            .hero-content {
+                margin: 150px auto 0;
+                text-align: center;
+                width: 100%;
             }
-            .hero-content .btn-hero {
-                font-size: 16px;
-                padding: 13px 32px;
+            .hero-content h1 {
+                font-size: 40px;
             }
         }
     </style>
@@ -114,33 +88,31 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
+            <a class="navbar-brand font-weight-bold d-flex align-items-center" href="#">
                 <img src="{{ asset('images/logo_motekar.png') }}" alt="Koperasi Motekar"
                     style="width:36px;height:36px;object-fit:contain;margin-right:8px;">
-                <span>Koperasi Motekar</span>
+                <span class="navbar-brand-text" style="font-size:15px;">Koperasi Motekar</span>
             </a>
-            <div class="ml-auto d-flex align-items-center" style="gap:8px;">
-                <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm px-3">
+            <div class="ml-auto">
+                <a href="{{ route('login') }}" class="btn btn-primary btn-sm mr-2">
                     Login
                 </a>
-                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}" class="btn btn-success btn-sm px-3">
+                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}" class="btn btn-success btn-sm">
                     Register
                 </a>
             </div>
         </div>
     </nav>
-
     <!-- HERO -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>Koperasi Motekar</h1>
                 <p>
-                    Sistem simpan pinjam modern, cepat, dan transparan
-                    untuk mendukung kebutuhan anggota koperasi secara digital.
+                    Sistem simpan pinjam modern, cepat, dan transparan untuk
+                    mendukung kebutuhan anggota koperasi secara digital.
                 </p>
-                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}"
-                    class="btn-hero">
+                <a href="{{ auth()->check() ? route('menunggu') : route('register') }}" class="btn-daftar">
                     <i class="fas fa-user-plus mr-2"></i>Daftar Jadi Anggota
                 </a>
             </div>

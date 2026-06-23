@@ -34,7 +34,7 @@
                     <div class="row no-gutters">
 
                         {{-- TOTAL ANGGOTA --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('manajemen.anggota.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">
@@ -68,9 +68,9 @@
                         </div>
 
                         {{-- MENUNGGU VERIFIKASI --}}
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-4 col-6">
                             <a href="{{ route('manajemen.anggota.menunggu') }}" class="text-decoration-none">
-                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#fff8e1;">
                                         <i class="fas fa-user-clock" style="color:#ffc107;"></i>
                                     </div>
