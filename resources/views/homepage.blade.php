@@ -32,7 +32,7 @@
             display: flex;
             align-items: flex-end;
             padding-top: 70px;
-            padding-bottom: 100px;
+            padding-bottom: 225px;
         }
         .hero .container {
             display: flex;
@@ -83,7 +83,7 @@
             .hero {
                 background-attachment: fixed;
                 padding-top: 60px;
-                padding-bottom: 60px;
+                padding-bottom: 225px;
                 align-items: flex-end;
             }
             .hero .container {
