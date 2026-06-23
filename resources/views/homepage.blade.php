@@ -13,6 +13,7 @@
         body {
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         .hero {
             min-height: 100vh;
@@ -26,17 +27,14 @@
             display: flex;
             align-items: center;
         }
-        .hero .container {
-            display: flex;
-            justify-content: flex-end;
-        }
         .hero-content {
-            max-width: 460px;
+            width: 450px;
+            margin-left: auto;
+            margin-right: -200px;
             color: #fff;
-            padding: 20px 0;
         }
         .hero-content h1 {
-            font-size: 52px;
+            font-size: 55px;
             font-weight: 700;
             margin-bottom: 15px;
             color: #fff;
@@ -47,31 +45,17 @@
             margin-bottom: 25px;
         }
         .hero-content .btn {
-            padding: 12px 28px;
-            font-size: 17px;
+            padding: 12px 25px;
+            font-size: 18px;
         }
-        @media (max-width: 991px) {
-            .hero {
-                background-attachment: scroll;
-                padding-top: 70px;
-            }
-            .hero .container {
-                justify-content: center;
-            }
+        @media (max-width: 768px) {
             .hero-content {
-                max-width: 100%;
+                margin: 0 auto;
                 text-align: center;
-                padding: 30px 10px;
+                width: 100%;
             }
             .hero-content h1 {
-                font-size: 36px;
-            }
-            .hero-content p {
-                font-size: 15px;
-            }
-            .hero-content .btn {
-                font-size: 15px;
-                padding: 10px 22px;
+                font-size: 40px;
             }
         }
     </style>
@@ -88,7 +72,7 @@
             object-fit:contain;
             margin-right:10px;
         ">
-                Koperasi Motekar
+                <span style="font-size:15px;">Koperasi Motekar</span>
             </a>
             <div class="ml-auto">
                 <a href="{{ route('login') }}" class="btn btn-primary btn-sm mr-2">
