@@ -32,6 +32,9 @@ return [
         'resend' => [
             'transport' => 'resend',
         ],
+        'brevo' => [
+            'transport' => 'brevo',
+        ],
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
