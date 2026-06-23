@@ -6,7 +6,7 @@
                 <div class="modal-header bg-white">
                     <div>
                         <h5 class="modal-title font-weight-bold mb-1">
-                            <i class="fas fa-hand-holding-usd text-primary mr-2"></i>
+                            <i class="fas fa-hand-holding-usd text-success mr-2"></i>
                             {{ $title }}
                         </h5>
                         <small class="text-muted">
@@ -75,7 +75,7 @@
                         </label>
                         <div class="input-group shadow-sm rounded overflow-hidden">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-primary text-white border-0 px-3">
+                                <span class="input-group-text bg-success text-white border-0 px-3">
                                     Rp
                                 </span>
                             </div>

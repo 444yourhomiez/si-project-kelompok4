@@ -6,7 +6,7 @@
                 <div class="modal-header bg-white">
                     <div>
                         <h5 class="modal-title font-weight-bold mb-1">
-                            <i class="fas fa-wallet text-primary mr-2"></i>
+                            <i class="fas fa-coins text-success mr-2"></i>
                             Tambah {{ $title }}
                         </h5>
                         <small class="text-muted">
@@ -53,7 +53,7 @@
                                                                 {{ $a->nama_anggota }}
                                                             </div>
                                                             {{-- KODE ANGGOTA --}}
-                                                            <small class="text-primary d-block">
+                                                            <small class="text-success d-block">
                                                                 <i class="fas fa-user-tag mr-1"></i>
                                                                 {{ $a->kode_anggota }}
                                                             </small>
@@ -65,7 +65,7 @@
                                                         </div>
                                                         {{-- BUTTON --}}
                                                         <div>
-                                                            <span class="badge badge-primary px-3 py-2">
+                                                            <span class="badge badge-success px-3 py-2">
                                                                 <i class="fas fa-check mr-1"></i>
                                                                 Pilih
                                                             </span>
@@ -136,7 +136,7 @@
                             </label>
                             <div class="input-group shadow-sm rounded overflow-hidden">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text bg-primary text-white border-0 px-3">
+                                    <span class="input-group-text bg-success text-white border-0 px-3">
                                         Rp
                                     </span>
                                 </div>
