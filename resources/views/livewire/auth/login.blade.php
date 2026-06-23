@@ -26,10 +26,17 @@
                     Silakan login untuk melanjutkan
                 </p>
                 <form wire:submit.prevent="login">
+                    @if ($errors->any())
+                        <div class="alert alert-danger py-2 mb-3">
+                            @foreach ($errors->all() as $error)
+                                <div><i class="fas fa-exclamation-circle mr-1"></i>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                    @endif
                     {{-- EMAIL --}}
                     <div class="form-group mb-3">
                         <div class="input-group">
-                            <input type="email" wire:model.live="email"
+                            <input type="email" wire:model="email"
                                 class="form-control custom-input @error('email') is-invalid @enderror"
                                 placeholder="Email">
                             @error('email')
