@@ -50,9 +50,10 @@
                             class="form-control custom-input @error('password') is-invalid @enderror"
                             placeholder="Password baru (min. 8 karakter)">
                         <div class="input-group-append">
-                            <div class="input-group-text bg-white">
-                                <span class="fas fa-lock text-success"></span>
-                            </div>
+                            <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
                     </div>
                     @error('password')
@@ -67,9 +68,10 @@
                             class="form-control custom-input @error('password_confirmation') is-invalid @enderror"
                             placeholder="Konfirmasi password baru">
                         <div class="input-group-append">
-                            <div class="input-group-text bg-white">
-                                <span class="fas fa-lock text-success"></span>
-                            </div>
+                            <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
                     </div>
                     @error('password_confirmation')
