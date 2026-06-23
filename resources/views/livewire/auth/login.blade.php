@@ -16,6 +16,12 @@
                         Sistem Simpan Pinjam
                     </small>
                 </div>
+                @if (session('success'))
+                    <div class="alert alert-success text-center py-2">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <p class="text-center text-muted mb-4">
                     Silakan login untuk melanjutkan
                 </p>
@@ -72,21 +78,23 @@
                             </small>
                         @enderror
                     </div>
-                    {{-- REMEMBER --}}
-                    {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="icheck-success">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember Me</label>
-                    </div>
-                </div> --}}
                     {{-- BUTTON --}}
-                    <button wire:click="login" class="btn btn-login btn-block">
+                    <button type="submit" class="btn btn-login btn-block">
                         <i class="fas fa-sign-in-alt mr-1"></i>
                         Login
                     </button>
                 </form>
-                {{-- REGISTER --}}
+                {{-- LUPA PASSWORD --}}
                 <div class="text-center mt-3">
+                    <small>
+                        <a href="{{ route('password.request') }}" class="text-muted">
+                            <i class="fas fa-key mr-1"></i>
+                            Lupa Password?
+                        </a>
+                    </small>
+                </div>
+                {{-- REGISTER --}}
+                <div class="text-center mt-2">
                     <small>
                         Belum punya akun?
                         <a href="{{ route('register') }}" class="text-success font-weight-bold">

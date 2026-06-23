@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-wallet mr-2"></i>
+                            <i class="nav-icon fas fa-piggy-bank mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -19,13 +19,13 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.simpanan.pokok') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-wallet mr-1"></i>
-                                    Simpanan Pokok
+                                <a href="{{ route('anggota.simpanan.index') }}" class="text-muted breadcrumb-green">
+                                    <i class="fas fa-coins mr-1"></i>
+                                    Daftar Simpanan
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-wallet mr-1"></i>
+                                <i class="fas fas fa-piggy-bank mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>
@@ -36,41 +36,33 @@
         {{-- CONTENT --}}
         <section class="content">
             {{-- CARD TOTAL --}}
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Simpanan Pokok
-                                    </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($total_pokok, 0, ',', '.') }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Akumulasi simpanan pokok yang miliki
-                                    </small>
-                                </div>
-                                <div class="card-icon bg-primary text-white">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e3f2fd;">
+                            <i class="fas fa-piggy-bank" style="color:#007bff;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Simpanan Pokok</small>
+                            <div class="simpanan-stat-value" style="color:#007bff;">
+                                Rp {{ number_format($total_pokok, 0, ',', '.') }}
+                            </div>
+                            <small class="text-muted">
+                                Akumulasi seluruh simpanan pokok anggota
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
                                 Riwayat Simpanan Pokok
                             </h4>
                             <small class="text-muted">
@@ -101,7 +93,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>

@@ -9,52 +9,39 @@ use Livewire\WithPagination;
 class Khusus extends Component
 {
     use WithPagination;
-    protected $listeners = [
-        'dataKoperasiUpdated' => '$refresh',
-    ];
-    public $search = '';
-    public $paginate = 10;
-    public $sortBy = 'created_at';
-    public $sortDirection = 'desc';
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+
+    protected $paginationTheme = 'bootstrap';
+
+    public string $search       = '';
+    public string $filterStatus = '';
+    public int    $paginate     = 10;
+    public string $sortBy       = 'created_at';
+    public string $sortDir      = 'desc';
+
+    public function updatingSearch(): void       { $this->resetPage(); }
+    public function updatingFilterStatus(): void { $this->resetPage(); }
+    public function updatingPaginate(): void     { $this->resetPage(); }
+
     public function render()
     {
         $pinjaman = Pinjaman::with('anggota')
             ->where('jenis_pinjaman', 'khusus')
-            ->when($this->search, function ($query) {
-                $query->whereHas('anggota', function ($q) {
-                    $q->where(
-                        'nama_anggota',
-                        'like',
-                        '%' . $this->search . '%'
-                    );
-                });
-            })
-            ->orderBy(
-                $this->sortBy,
-                $this->sortDirection
-            )
+            ->when($this->search, fn($q) => $q->whereHas('anggota',
+                fn($aq) => $aq->where('nama_anggota', 'like', "%{$this->search}%")
+                               ->orWhere('kode_anggota', 'like', "%{$this->search}%")
+            )->orWhere('kode_pinjaman', 'like', "%{$this->search}%"))
+            ->when($this->filterStatus, fn($q) => $q->where('status', $this->filterStatus))
+            ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->paginate);
-        $totalPinjamanKhusus =
-            Pinjaman::where(
-                'jenis_pinjaman',
-                'khusus'
-            )
-            ->where(
-                'status',
-                'aktif'
-            )
+
+        $totalPinjamanKhusus = Pinjaman::where('jenis_pinjaman', 'khusus')
+            ->where('status', 'aktif')
             ->sum('jumlah_pengajuan');
-        return view(
-            'livewire.pengawas.pinjaman.khusus',
-            [
-                'title' => 'Pinjaman Khusus',
-                'pinjaman' => $pinjaman,
-                'totalPinjamanKhusus' => $totalPinjamanKhusus,
-            ]
-        );
+
+        return view('livewire.pengawas.pinjaman.khusus', [
+            'title'               => 'Pinjaman Khusus',
+            'pinjaman'            => $pinjaman,
+            'totalPinjamanKhusus' => $totalPinjamanKhusus,
+        ]);
     }
 }

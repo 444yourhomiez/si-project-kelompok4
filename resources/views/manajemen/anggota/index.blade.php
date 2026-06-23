@@ -14,6 +14,9 @@
     <script>
         // EDIT
         document.addEventListener('livewire:init', () => {
+            Livewire.on('showEditModal', () => {
+                $('#editModalAnggota').modal('show');
+            });
             Livewire.on('closeEditModal', () => {
                 $('#editModalAnggota').modal('hide');
                 Swal.fire({
@@ -22,6 +25,9 @@
                     icon: "success",
                     confirmButtonText: "OK"
                 });
+            });
+            Livewire.on('showDeleteModal', () => {
+                $('#deleteModalAnggota').modal('show');
             });
             // DELETE
             Livewire.on('closeDeleteModal', () => {

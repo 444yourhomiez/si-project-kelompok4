@@ -6,6 +6,7 @@ use Livewire\WithPagination;
 class Wajib extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];

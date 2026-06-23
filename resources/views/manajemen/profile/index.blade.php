@@ -8,9 +8,8 @@
     @livewire('manajemen.profile.ubah-password')
     {{-- CLOSE MODAL --}}
     <script>
-        window.addEventListener(
-            'closeUbahPasswordManajemenModal',
-            () => {
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('closeUbahPasswordManajemenModal', () => {
                 $('#ubahPasswordManajemenModal').modal('hide');
                 Swal.fire({
                     title: 'Berhasil',
@@ -18,7 +17,7 @@
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-            }
-        );
+            });
+        });
     </script>
 @endsection

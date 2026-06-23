@@ -5,7 +5,6 @@
 @section('menuManajemenPinjaman', 'active')
 @section('content')
     @livewire('manajemen.pinjaman.index')
-    @livewire('manajemen.pinjaman.show')
     <script>
         document.addEventListener('livewire:init', () => {
             Livewire.on('closeShowModal', () => {

@@ -156,7 +156,7 @@
                         <i class="fas fa-times mr-1"></i>
                         Tutup
                     </button>
-                    <button wire:click="simpan" type="button" class="btn btn-primary btn-save shadow-sm">
+                    <button wire:click="simpan" type="button" class="btn btn-success btn-save shadow-sm">
                         <i class="fas fa-save mr-1"></i>
                         Simpan Sekarang
                     </button>

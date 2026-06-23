@@ -25,7 +25,7 @@
                   <li class="nav-item has-treeview @yield('menuManajemenSimpananOpen')">
                       {{-- PARENT --}}
                       <a href="#" class="nav-link @yield('menuManajemenSimpanan')">
-                          <i class="nav-icon fas fa-wallet"></i>
+                          <i class="nav-icon fas fa-coins"></i>
                           <p>
                               Simpanan
                               <i class="right fas fa-angle-left"></i>
@@ -174,13 +174,13 @@
                           </p>
                       </a>
                   </li>
-                  {{-- PROFILE --}}
+                  <li class="nav-header">AKUN</li>
+                  {{-- PROFIL --}}
                   <li class="nav-item">
-                      <a  href="{{ route('manajemen.profile.index') }}"
-                          class="nav-link @yield('menuManajemenProfile')">
-                          <i class="nav-icon fas fa-user"></i>
+                      <a href="{{ route('manajemen.profile.index') }}" class="nav-link @yield('menuManajemenProfile')">
+                          <i class="nav-icon fas fa-user-circle"></i>
                           <p>
-                              Profile
+                              Profil Saya
                           </p>
                       </a>
                   </li>
@@ -192,8 +192,8 @@
               <a href="{{ route('manajemen.profile.index') }}">
                   <div class="d-flex align-items-center">
                       <div class="image">
-                          <img src="{{ asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                              alt="User Image">
+                          <img src="{{ auth()->user()->foto_profile ? asset('storage/' . auth()->user()->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                              alt="User Image" style="width:40px;height:40px;object-fit:cover;">
                       </div>
                       <div class="info ml-2">
                           <div class="d-block">

@@ -1,291 +1,207 @@
 <div>
-    <div>
-        <div class="content-wrapper">
-            <!-- Content Header -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>
-                                <i class="nav-icon fas fa-calendar-day mr-2"></i>
-                                {{ $title }}
-                            </h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                        <i class="fas fa-th-large mr-1"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item active text-success">
-                                    <i class="fas fa-calendar-day mr-1"></i>
-                                    {{ $title }}
-                                </li>
-                            </ol>
-                        </div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>
+                            <i class="nav-icon fas fa-calendar-day mr-2"></i>
+                            {{ $title }}
+                        </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
+                                    <i class="fas fa-th-large mr-1"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active text-success">
+                                <i class="fas fa-calendar-day mr-1"></i> {{ $title }}
+                            </li>
+                        </ol>
                     </div>
                 </div>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <div class="row mb4">
-                    {{-- TOTAL rekap --}}
-                    <div class="col-md-12 col-sm-6 col-12">
-                        <div class="card card-box card-purple-soft h-100">
-                            <div class="card-body position-relative overflow-hidden">
-                                <div class="card-bg-circle bg-circle-purple"></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="card-label mb-2">
-                                            Total Rekapitulasi Harian
-                                        </div>
-                                        <div class="card-number">
+            </div>
+        </section>
+
+        <section class="content">
+            {{-- SUMMARY CARDS --}}
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+
+                        {{-- TOTAL REKAP --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#f3e5f5;">
+                                        <i class="fas fa-calendar-day" style="color:#9c27b0;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Total Rekap</small>
+                                        <div class="simpanan-stat-value" style="color:#9c27b0;">
                                             Rp {{ number_format($saldo, 0, ',', '.') }}
                                         </div>
-                                        <small class="text-muted">
-                                            Total rekap yang diajukan anggota baik uang masuk maupun uang keluar
-                                        </small>
                                     </div>
-                                    <a href="{{ route('pengawas.rekap.index') }}"
-                                        class="card-icon bg-purple text-white">
-                                        <i class="fas fa-calendar-day"></i>
-                                    </a>
                                 </div>
-                                <div class="progress card-progress mt-4">
-                                    <div class="progress-bar bg-purple" style="width:100%"></div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                {{-- CARD --}}
-                <div class="row mb-4">
-                    {{-- DUM --}}
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="card card-box card-success-soft h-100">
-                            <div class="card-body position-relative overflow-hidden">
-                                <div class="card-bg-circle bg-circle-success"></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="card-label mb-2">
-                                            DUM (Data Uang Masuk)
-                                        </div>
-                                        <div class="card-number">
+
+                        {{-- DUM --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-arrow-circle-down" style="color:#28a745;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>DUM</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
                                             Rp {{ number_format($totalMasuk, 0, ',', '.') }}
                                         </div>
-                                        <small class="text-muted">
-                                            Total rekap yang diajukan anggota dan sudah masuk kas
-                                        </small>
                                     </div>
-                                    <a href="{{ route('pengawas.rekap.index') }}"
-                                        class="card-icon bg-success text-white">
-                                        <i class="fas fa-arrow-circle-down"></i>
-                                    </a>
                                 </div>
-                                <div class="progress card-progress mt-4">
-                                    <div class="progress-bar bg-success" style="width:100%"></div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    {{-- DUK --}}
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="card card-box card-danger-soft h-100">
-                            <div class="card-body position-relative overflow-hidden">
-                                <div class="card-bg-circle bg-circle-danger"></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <div class="card-label mb-2">
-                                            DUK (Data Uang Keluar)
-                                        </div>
-                                        <div class="card-number">
+
+                        {{-- DUK --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                        <i class="fas fa-arrow-circle-up" style="color:#dc3545;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>DUK</small>
+                                        <div class="simpanan-stat-value" style="color:#dc3545;">
                                             Rp {{ number_format($totalKeluar, 0, ',', '.') }}
                                         </div>
-                                        <small class="text-muted">
-                                            Total rekap yang diajukan anggota dan sudah keluar kas
-                                        </small>
                                     </div>
-                                    <a href="{{ route('pengawas.rekap.index') }}"
-                                        class="card-icon bg-danger text-white">
-                                        <i class="fas fa-arrow-circle-up"></i>
-                                    </a>
                                 </div>
-                                <div class="progress card-progress mt-4">
-                                    <div class="progress-bar bg-danger" style="width:100%"></div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
+
                     </div>
                 </div>
-                {{-- TABLE --}}
-                <div class="card table-modern border-0 shadow-sm">
-                    {{-- HEADER --}}
-                    <div class="card-header bg-white border-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h4 class="font-weight-bold mb-1">
-                                    <i class="fas fa-calendar-day mr-2"></i>
-                                    Riwayat Rekapitulasi Harian
-                                </h4>
-                                <small class="text-muted">
-                                    Data uang masuk dan uang keluar
-                                </small>
-                            </div>
-                            {{-- <div class="btn-group dropleft">
-                                <button type="button" class="btn btn-sm btn-warning dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-print mr-1"></i>
-                                    Cetak
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-danger" href="#">
-                                        <i class="fas fa-file-pdf mr-1"></i>
-                                        PDF
-                                    </a>
-                                    <a class="dropdown-item text-success" href="#">
-                                        <i class="fas fa-file-excel mr-1"></i>
-                                        Excel
-                                    </a>
-                                </div>
-                            </div> --}}
+            </div>
+            {{-- TABLE --}}
+            <div class="card table-modern border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom py-3">
+                    <div>
+                        <h5 class="font-weight-bold mb-0">
+                            Riwayat Rekapitulasi Harian
+                        </h5>
+                        <small class="opacity-75">Data uang masuk dan uang keluar</small>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{-- FILTER --}}
+                    <div class="row mb-3 align-items-end">
+                        <div class="col-lg-3 col-md-12 mb-2">
+                            <label>Cari</label>
+                            <input type="text" wire:model.live="search" class="form-control"
+                                placeholder="Cari nama / keterangan...">
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+                            <label>Jenis Transaksi</label>
+                            <select wire:model.live="filterJenis" class="form-control">
+                                <option value="">Semua</option>
+                                <option value="uang_masuk">Uang Masuk</option>
+                                <option value="uang_keluar">Uang Keluar</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-6 mb-2">
+                            <label>Tanggal</label>
+                            <input type="date" wire:model.live="tanggal" class="form-control">
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+                            <label>Data</label>
+                            <select wire:model.live="paginate" class="form-control">
+                                <option value="10">10 Data</option>
+                                <option value="25">25 Data</option>
+                                <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
+                            </select>
                         </div>
                     </div>
-                    {{-- BODY --}}
-                    <div class="card-body">
-                        {{-- <div class="row mb-4">
-                            <div class="col-md-3">
-                                <label>Anggota</label>
-                                <select class="form-control">
-                                    <option>Semua Anggota</option>
-                                    <option>AG001 - Budi Santoso</option>
-                                    <option>AG002 - Siti Aminah</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Jenis Transaksi</label>
-                                <select class="form-control">
-                                    <option>Semua Transaksi</option>
-                                    <option>Simpanan Wajib</option>
-                                    <option>Simpanan Pokok</option>
-                                    <option>Simpanan Sukarela</option>
-                                    <option>Pinjaman Biasa</option>
-                                    <option>Pinjaman Khusus</option>
-                                    <option>Cicilan</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Dari</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label>Sampai</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label>&nbsp;</label>
-                                <button class="btn btn-success btn-block">
-                                    <i class="fas fa-search mr-1"></i>
-                                    Tampilkan
-                                </button>
-                            </div>
-                        </div> --}}
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
-                                <thead class="bg-dark text-white">
+
+                    {{-- TABLE --}}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>ID Anggota</th>
+                                    <th>Nama / Petugas</th>
+                                    <th>Jenis</th>
+                                    <th>Keterangan</th>
+                                    <th>DUM</th>
+                                    <th>DUK</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($riwayat as $item)
                                     <tr>
-                                        <th>Tanggal</th>
-                                        <th>ID Anggota</th>
-                                        <th>Nama Anggota</th>
-                                        <th>Jenis</th>
-                                        <th>DUM</th>
-                                        <th>DUK</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @forelse($riwayat as $item)
-                                        <tr>
-
-                                            <td>
-                                                {{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}
-                                            </td>
-
-                                            <td>
-                                                {{ $item['kode_anggota'] }}
-                                            </td>
-
-                                            <td>
-                                                {{ $item['nama_anggota'] }}
-                                            </td>
-
-                                            <td>
-                                                {{ $item['jenis'] }}
-                                            </td>
-
-                                            <td class="text-success">
-
-                                                @if ($item['masuk'] > 0)
-                                                    Rp {{ number_format($item['masuk'], 0, ',', '.') }}
-                                                @else
-                                                    -
-                                                @endif
-
-                                            </td>
-
-                                            <td class="text-danger">
-
-                                                @if ($item['keluar'] > 0)
-                                                    Rp {{ number_format($item['keluar'], 0, ',', '.') }}
-                                                @else
-                                                    -
-                                                @endif
-
-                                            </td>
-
-                                        </tr>
-
-                                    @empty
-
-                                        <tr>
-
-                                            <td colspan="6" class="text-center">
-
-                                                Tidak ada transaksi hari ini
-
-                                            </td>
-
-                                        </tr>
-                                    @endforelse
-
-                                </tbody>
-                                <tfoot>
-                                    <tr class="font-weight-bold bg-light">
-                                        <td colspan="4" class="text-right">
-                                            Saldo
+                                        <td>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</td>
+                                        <td>{{ $item['kode_anggota'] }}</td>
+                                        <td>{{ $item['nama_anggota'] }}</td>
+                                        <td>
+                                            @if ($item['jenis_key'] === 'uang_masuk')
+                                                <span class="badge badge-success">
+                                                    <i class="fas fa-arrow-down mr-1"></i> Uang Masuk
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    <i class="fas fa-arrow-up mr-1"></i> Uang Keluar
+                                                </span>
+                                            @endif
                                         </td>
-                                        <td class="text-success">
-                                            Rp {{ number_format($totalMasuk, 0, ',', '.') }}
+                                        <td>{{ $item['keterangan'] }}</td>
+                                        <td class="text-success font-weight-bold">
+                                            {{ $item['masuk'] > 0 ? 'Rp ' . number_format($item['masuk'], 0, ',', '.') : '-' }}
                                         </td>
-                                        <td class="text-danger">
-                                            Rp {{ number_format($totalKeluar, 0, ',', '.') }}
+                                        <td class="text-danger font-weight-bold">
+                                            {{ $item['keluar'] > 0 ? 'Rp ' . number_format($item['keluar'], 0, ',', '.') : '-' }}
                                         </td>
                                     </tr>
-                                    <tr class="font-weight-bold">
-                                        <td colspan="4" class="text-right">
-                                            Total
-                                        </td>
-                                        <td colspan="2" class="text-dark">
-                                            Rp {{ number_format($saldo, 0, ',', '.') }}
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted py-5">
+                                            <div class="empty-state">
+                                                <i class="fas fa-folder-open fa-2x mb-2 d-block"></i>
+                                                <p>Tidak ada data transaksi</p>
+                                            </div>
                                         </td>
                                     </tr>
-                                </tfoot>
-                            </table>
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-weight-bold bg-light">
+                                    <td colspan="5" class="text-right">Saldo</td>
+                                    <td class="text-success">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</td>
+                                    <td class="text-danger">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr class="font-weight-bold" style="background:#d4edda;">
+                                    <td colspan="5" class="text-right">Total Saldo</td>
+                                    <td colspan="2" class="text-dark">Rp {{ number_format($saldo, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Menampilkan {{ $riwayat->firstItem() ?? 0 }}–{{ $riwayat->lastItem() ?? 0 }}
+                            dari {{ $riwayat->total() }} data
+                        </small>
+                        <div class="modern-pagination">
+                            {{ $riwayat->links() }}
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 </div>

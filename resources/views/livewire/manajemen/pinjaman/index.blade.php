@@ -14,150 +14,114 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('manajemen.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
+                                    <i class="fas fa-th-large mr-1"></i> Dashboard
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i>
-                                {{ $title }}
+                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i> {{ $title }}
                             </li>
                         </ol>
                     </div>
                 </div>
             </div>
         </section>
+
         {{-- CONTENT --}}
         <section class="content">
-            <div class="row mb4">
-                {{-- TOTAL PINJAMAN --}}
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-danger-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-danger"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Pinjaman
-                                    </div>
-                                    <div class="card-number">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+
+                        {{-- TOTAL PINJAMAN --}}
+                        <div class="col-md-4 col-6">
+                            <div class="simpanan-stat-box border-right border-bottom">
+                                <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                    <i class="fas fa-hand-holding-usd" style="color:#dc3545;"></i>
+                                </div>
+                                <div class="simpanan-stat-text">
+                                    <small>Total Pinjaman</small>
+                                    <div class="simpanan-stat-value" style="color:#dc3545;">
                                         Rp {{ number_format($totalPinjaman, 0, ',', '.') }}
                                     </div>
-                                    <small class="text-muted">
-                                        Seluruh pinjaman yang masih berjalan
-                                    </small>
                                 </div>
-                                <a href="{{ route('manajemen.pinjaman.index') }}"
-                                    class="card-icon bg-danger text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-danger" style="width:100%"></div>
                             </div>
                         </div>
+
+                        {{-- PINJAMAN BIASA --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.pinjaman.biasa') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-file-invoice-dollar" style="color:#28a745;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Pinjaman Biasa</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        {{-- PINJAMAN KHUSUS --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('manajemen.pinjaman.khusus') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e3f2fd;">
+                                        <i class="fas fa-star" style="color:#007bff;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Pinjaman Khusus</small>
+                                        <div class="simpanan-stat-value" style="color:#007bff;">
+                                            Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            {{-- CARD --}}
-            <div class="row mb-4">
-                {{-- PINJAMAN BIASA --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Pinjaman Biasa
-                                    </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Sudah diverifikasi manajemen
-                                    </small>
-                                </div>
-                                <a href="{{ route('manajemen.pinjaman.biasa') }}"
-                                    class="card-icon bg-success text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- MENUNGGU VERIFIKASI --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Pinjaman Khusus
-                                    </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Menunggu persetujuan manajemen
-                                    </small>
-                                </div>
-                                <a href="{{ route('manajemen.pinjaman.khusus') }}"
-                                    class="card-icon bg-primary text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
-                {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
-                                Riwayat Pinjaman Anggota
-                            </h4>
-                            <small class="text-muted">
-                                Data transaksi pinjaman anggota koperasi
-                            </small>
-                        </div>
+                <div class="card-header bg-white border-bottom py-3">
+                    <div>
+                        <h5 class="font-weight-bold mb-0">
+                            Riwayat Pinjaman Anggota
+                        </h5>
+                        <small class="opacity-75">Data transaksi pinjaman anggota koperasi</small>
                     </div>
                 </div>
-                {{-- TABLE --}}
                 <div class="card-body">
-                    {{-- <div class="row mb-3 align-items-end">
-                        <div class="col-lg-4 col-md-12 mb-2">
-                            <label>Cari Pinjaman</label>
+                    {{-- FILTER --}}
+                    <div class="row mb-3 align-items-end">
+                        <div class="col-lg-3 col-md-12 mb-2">
+                            <label>Cari Anggota / Kode</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari Pinjaman...">
+                                placeholder="Nama, kode anggota, kode pinjaman...">
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <label>Urutkan</label>
-                            <select wire:model.live="sortBy" class="form-control">
-                                <option value="created_at">Terbaru</option>
-                                <option value="nama_anggota">Nama</option>
-                                <option value="jumlah">Nominal</option>
+                            <label>Jenis</label>
+                            <select wire:model.live="filterJenis" class="form-control">
+                                <option value="">Semua Jenis</option>
+                                <option value="biasa">Biasa</option>
+                                <option value="khusus">Khusus</option>
                             </select>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <label>Arah</label>
-                            <select wire:model.live="sortDirection" class="form-control">
-                                <option value="desc">Z - A</option>
-                                <option value="asc">A - Z</option>
+                            <label>Status</label>
+                            <select wire:model.live="filterStatus" class="form-control">
+                                <option value="">Semua Status</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="lunas">Lunas</option>
+                                <option value="pending">Pending</option>
+                                <option value="ditolak">Ditolak</option>
                             </select>
                         </div>
-                        <div class="col-lg-4 col-md-12 mb-2">
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
                                 <option value="10">10 Data</option>
@@ -166,94 +130,98 @@
                                 <option value="100">100 Data</option>
                             </select>
                         </div>
-                    </div> --}}
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
+                                    <th class="text-center" style="width:40px;">No</th>
                                     <th>Tanggal</th>
-                                    <th>Kode Anggota</th>
+                                    <th>Kode Pinjaman</th>
                                     <th>Nama Anggota</th>
-                                    <th>Jenis Pinjaman</th>
-                                    <th>Nominal Pengajuan</th>
-                                    <th class="text-center" style="width:120px;">
-                                        <i class="fas fa-cog"></i>
-                                    </th>
+                                    <th>Jenis</th>
+                                    <th class="text-right">Nominal</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center" style="width:70px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($pinjaman as $item)
-                                    <tr>
+                                    <tr wire:key="pinjaman-{{ $item->id }}">
+                                        <td class="text-center">
+                                            {{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}
+                                        </td>
                                         <td>
                                             <div class="font-weight-bold">
                                                 {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
                                             </div>
-                                            <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}
-                                            </small>
+                                            <small
+                                                class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
                                         </td>
-                                        <td class="font-weight-bold">
-                                            {{ $item->anggota->kode_anggota }}
+                                        <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
+                                        <td>
+                                            <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>
+                                            <small class="text-muted">{{ $item->anggota->kode_anggota }}</small>
                                         </td>
                                         <td>
-                                            <div class="font-weight-bold">
-                                                {{ $item->anggota->nama_anggota }}
-                                            </div>
-                                            <small class="text-muted">
-                                                {{ $item->anggota->no_ktp }}
-                                            </small>
-                                        </td>
-                                        <td>
-                                            @if ($item->jenis_pinjaman == 'biasa')
-                                                <span class="badge badge-success">
-                                                    Biasa
-                                                </span>
+                                            @if ($item->jenis_pinjaman === 'biasa')
+                                                <span class="badge badge-success">Biasa</span>
                                             @else
-                                                <span class="badge badge-primary">
-                                                    Khusus
-                                                </span>
+                                                <span class="badge badge-primary">Khusus</span>
                                             @endif
                                         </td>
-                                        <td class="font-weight-bold text-dark">
-                                            Rp
-                                            {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
+                                        <td class="text-right font-weight-bold">
+                                            Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
                                         </td>
-                                        <td>
-                                            @if ($item->status == 'pending')
-                                                <button
-                                                    wire:click="$dispatch('openShow', { id: {{ $item->id }} })"
-                                                    class="btn btn-info btn-sm" data-toggle="modal"
-                                                    data-target="#showModalPinjaman">
-                                                    <i class="fas fa-eye mr-1"></i>
-                                                    Detail
-                                                </button>
-                                            @elseif($item->status == 'aktif')
-                                                <span class="badge badge-success">
-                                                    Disetujui
-                                                </span>
-                                            @elseif($item->status == 'ditolak')
-                                                <span class="badge badge-danger">
-                                                    Ditolak
-                                                </span>
-                                            @elseif($item->status == 'lunas')
-                                                <span class="badge badge-primary">
-                                                    Lunas
-                                                </span>
+                                        <td class="text-center">
+                                            @if ($item->status === 'aktif')
+                                                <span class="badge badge-success">Aktif</span>
+                                            @elseif ($item->status === 'lunas')
+                                                <span class="badge badge-primary">Lunas</span>
+                                            @elseif ($item->status === 'ditolak')
+                                                <span class="badge badge-danger">Ditolak</span>
+                                            @else
+                                                <span class="badge badge-warning">Pending</span>
                                             @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <button
+                                                wire:click="$dispatch('openShow', [{{ $item->id }}])"
+                                                onclick="$('#showModalPinjaman').modal('show')"
+                                                class="btn btn-sm btn-light shadow-sm"
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye text-primary"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">
-                                            Belum ada data pinjaman
+                                        <td colspan="8" class="text-center py-5">
+                                            <div class="empty-state">
+                                                <i class="fas fa-folder-open fa-2x mb-2 d-block text-muted"></i>
+                                                <h6 class="text-muted">Belum ada data pinjaman</h6>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Menampilkan {{ $pinjaman->firstItem() ?? 0 }}–{{ $pinjaman->lastItem() ?? 0 }}
+                            dari {{ $pinjaman->total() }} data
+                        </small>
+                        <div class="modern-pagination">
+                            {{ $pinjaman->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
+
+    @livewire('manajemen.pinjaman.show')
 </div>

@@ -75,7 +75,7 @@
                         Batal
                     </button>
                     <button wire:click="updatePassword"
-                            class="btn btn-primary shadow-sm">
+                            class="btn btn-success shadow-sm">
                         <i class="fas fa-save mr-1"></i>
                         Simpan Password
                     </button>

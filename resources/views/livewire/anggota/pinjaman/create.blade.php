@@ -93,19 +93,19 @@
                             Tenor
                             <span class="text-danger">*</span>
                         </label>
-                        <select wire:model.live="tenor" class="form-control @error('tenor') is-invalid @enderror">
-                            <option value="">
-                                -- Pilih Tenor --
-                            </option>
-                            <option value="6">6 Bulan</option>
-                            <option value="12">12 Bulan</option>
-                            <option value="24">24 Bulan</option>
-                            <option value="36">36 Bulan</option>
-                            <option value="48">48 Bulan</option>
-                            <option value="60">60 Bulan</option>
-                        </select>
+                        <div class="input-group shadow-sm rounded overflow-hidden">
+                            <input type="number" wire:model.live="tenor" min="6"
+                                class="form-control border-0 @error('tenor') is-invalid @enderror"
+                                placeholder="Minimal 6 bulan">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-light border-0 text-muted px-3">
+                                    Bulan
+                                </span>
+                            </div>
+                        </div>
+                        <small class="text-muted">Minimal 6 bulan</small>
                         @error('tenor')
-                            <small class="text-danger">{{ $message }}</small>
+                            <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
                     </div>
                     {{-- TUJUAN PINJAMAN --}}
@@ -114,19 +114,58 @@
                             Tujuan Pinjaman
                             <span class="text-danger">*</span>
                         </label>
-                        <textarea wire:model.live="tujuan_pinjaman" class="form-control @error('tujuan_pinjaman') is-invalid @enderror"
-                            rows="3" placeholder="Contoh: Modal usaha, biaya pendidikan, renovasi rumah"></textarea>
+                        <select wire:model.live="tujuan_pinjaman"
+                            class="form-control @error('tujuan_pinjaman') is-invalid @enderror">
+                            <option value="">-- Pilih Tujuan --</option>
+                            <option>Modal Usaha</option>
+                            <option>Biaya Pendidikan</option>
+                            <option>Renovasi Rumah</option>
+                            <option>Pembelian Kendaraan</option>
+                            <option>Biaya Kesehatan</option>
+                            <option>Biaya Pernikahan</option>
+                            <option>Pembelian Perabot / Elektronik</option>
+                            <option>Biaya Perjalanan</option>
+                            <option>Pelunasan Hutang</option>
+                            <option>Lainnya</option>
+                        </select>
                         @error('tujuan_pinjaman')
-                            <small class="text-danger">{{ $message }}</small>
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
                         @enderror
+                        @if ($tujuan_pinjaman === 'Lainnya')
+                            <input type="text" wire:model.live="tujuan_lainnya"
+                                class="form-control mt-2 @error('tujuan_lainnya') is-invalid @enderror"
+                                placeholder="Tulis tujuan pinjaman...">
+                            @error('tujuan_lainnya')
+                                <small class="text-danger d-block mt-1">{{ $message }}</small>
+                            @enderror
+                        @endif
                     </div>
                     {{-- JAMINAN --}}
                     <div class="col-md-12 mb-4">
                         <label class="font-weight-bold">
                             Jaminan
                         </label>
-                        <input type="text" wire:model="jaminan" class="form-control"
-                            placeholder="Contoh: BPKB Motor, Sertifikat Rumah">
+                        <select wire:model.live="jaminan"
+                            class="form-control @error('jaminan') is-invalid @enderror">
+                            <option value="">-- Pilih Jaminan --</option>
+                            <option>BPKB Motor</option>
+                            <option>BPKB Mobil</option>
+                            <option>Sertifikat Tanah</option>
+                            <option>Sertifikat Rumah</option>
+                            <option>SK / NIP Pegawai</option>
+                            <option>Kartu Keluarga</option>
+                            <option>Ijazah</option>
+                            <option>Emas / Perhiasan</option>
+                            <option>Lainnya</option>
+                        </select>
+                        @if ($jaminan === 'Lainnya')
+                            <input type="text" wire:model.live="jaminan_lainnya"
+                                class="form-control mt-2 @error('jaminan_lainnya') is-invalid @enderror"
+                                placeholder="Tulis jenis jaminan...">
+                            @error('jaminan_lainnya')
+                                <small class="text-danger d-block mt-1">{{ $message }}</small>
+                            @enderror
+                        @endif
                     </div>
                     <div class="col-md-12 mb-3">
                         <div class="alert alert-secondary">
@@ -226,7 +265,7 @@
                         <i class="fas fa-times mr-1"></i>
                         Tutup
                     </button>
-                    <button wire:click="simpan" type="button" class="btn btn-primary btn-save shadow-sm">
+                    <button wire:click="simpan" type="button" class="btn btn-success btn-save shadow-sm">
                         <i class="fas fa-paper-plane mr-1"></i>
                         Ajukan Pinjaman
                     </button>

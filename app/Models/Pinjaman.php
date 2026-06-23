@@ -24,6 +24,7 @@ class Pinjaman extends Model
         'status',
         'tanggal_pengajuan',
         'tanggal_persetujuan',
+        'catatan',
     ];
     protected static function boot()
     {

@@ -8,9 +8,8 @@
     @livewire('pengawas.profile.ubah-password')
     {{-- CLOSE MODAL --}}
     <script>
-        window.addEventListener(
-            'closeUbahPasswordPengawasModal',
-            () => {
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('closeUbahPasswordPengawasModal', () => {
                 $('#ubahPasswordPengawasModal').modal('hide');
                 Swal.fire({
                     title: 'Berhasil',
@@ -18,7 +17,7 @@
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-            }
-        );
+            });
+        });
     </script>
 @endsection

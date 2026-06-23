@@ -25,7 +25,7 @@
                   <li class="nav-item has-treeview @yield('menuAnggotaSimpananOpen')">
                       {{-- PARENT --}}
                       <a href="#" class="nav-link @yield('menuAnggotaSimpanan')">
-                          <i class="nav-icon fas fa-wallet"></i>
+                          <i class="nav-icon fas fa-coins"></i>
                           <p>
                               Simpanan
                               <i class="right fas fa-angle-left"></i>
@@ -109,12 +109,13 @@
                           </p>
                       </a>
                   </li>
-                  {{-- PROFILE --}}
+                  <li class="nav-header">AKUN</li>
+                  {{-- PROFIL --}}
                   <li class="nav-item">
                       <a href="{{ route('anggota.profile.index') }}" class="nav-link @yield('menuAnggotaProfile')">
-                          <i class="nav-icon fas fa-user"></i>
+                          <i class="nav-icon fas fa-user-circle"></i>
                           <p>
-                              Profile
+                              Profil Saya
                           </p>
                       </a>
                   </li>
@@ -123,20 +124,22 @@
           <!-- Sidebar User Panel (Bottom) -->
           <div class="user-panel user-panel-bottom d-flex flex-column">
               <!-- Profil -->
+              <a href="{{ route('anggota.profile.index') }}" class="text-decoration-none">
               <div class="d-flex align-items-center">
                   <div class="image">
-                      <img src="{{ asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
-                          alt="User Image">
+                      <img src="{{ auth()->user()->foto_profile ? asset('storage/' . auth()->user()->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                          alt="User Image" style="width:40px;height:40px;object-fit:cover;">
                   </div>
                   <div class="info ml-2">
-                      <a href="#" class="d-block">
+                      <span class="d-block text-white">
                           {{ auth()->user()->anggota->nama_anggota ?? '-' }}
-                      </a>
+                      </span>
                       <small class="text-muted">
                           {{ strtoupper(auth()->user()->role) }}
                       </small>
                   </div>
               </div>
+              </a>
               <!-- Logout di bawah -->
               <form id="logout-form" action="{{ route('logout') }}" method="POST">
                   @csrf

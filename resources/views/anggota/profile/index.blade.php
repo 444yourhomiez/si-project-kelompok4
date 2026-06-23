@@ -8,9 +8,8 @@
     @livewire('anggota.profile.ubah-password')
     {{-- CLOSE MODAL --}}
     <script>
-        window.addEventListener(
-            'closeUbahPasswordAnggotaModal',
-            () => {
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('closeUbahPasswordAnggotaModal', () => {
                 $('#ubahPasswordAnggotaModal').modal('hide');
                 Swal.fire({
                     title: 'Berhasil',
@@ -18,7 +17,7 @@
                     icon: 'success',
                     confirmButtonText: 'OK'
                 });
-            }
-        );
+            });
+        });
     </script>
 @endsection

@@ -39,42 +39,34 @@
         {{-- CONTENT --}}
         <section class="content">
             {{-- CARD --}}
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Anggota Disetujui
-                                    </div>
-                                    <div class="card-number">
-                                        {{ $anggota->total() }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Anggota yang sudah diverifikasi pengawas
-                                    </small>
-                                </div>
-                                <div class="card-icon bg-success text-white">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e8f5e9;">
+                            <i class="fas fa-user-check" style="color:#28a745;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Anggota Disetujui</small>
+                            <div class="simpanan-stat-value" style="color:#28a745;">
+                                {{ $anggota->total() }}
+                            </div>
+                            <small class="text-muted">
+                                Anggota yang sudah diverifikasi
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-user-check mr-2"></i>
                                 Daftar Anggota Disetujui
                             </h4>
                             <small class="text-muted">
@@ -98,7 +90,7 @@
                             <select wire:model.live="sortBy" class="form-control">
                                 <option value="created_at">Terbaru</option>
                                 <option value="nama_anggota">Nama</option>
-                                <option value="no_ktp">No KTP</option>
+                                <option value="no_ktp">No KTP/NIK</option>
                                 <option value="kode_anggota">Kode</option>
                             </select>
                         </div>
@@ -123,7 +115,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>ID Anggota</th>
                                     <th>Nama</th>

@@ -3,173 +3,166 @@
 namespace App\Livewire\Manajemen\Laporan;
 
 use App\Models\Anggota;
+use App\Models\Pinjaman;
+use App\Models\RekapHarian;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $jenis = 'simpanan';
+    public string $jenis_laporan = 'bulanan';
+    public int    $bulan;
+    public int    $tahun;
 
-    public $bulan;
-    public $tahun;
-
-    public function mount()
+    public function mount(): void
     {
         $this->bulan = now()->month;
         $this->tahun = now()->year;
     }
 
+    private function getBulananData(): array
+    {
+        $bulan = $this->bulan;
+        $tahun = $this->tahun;
+
+        $simpananData = Anggota::with([
+            'simpanan' => fn($q) => $q->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun),
+        ])
+        ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
+        ->get()
+        ->map(function ($anggota) {
+            $pokok    = $anggota->simpanan->where('jenis_simpanan', 'pokok')->sum('jumlah');
+            $wajib    = $anggota->simpanan->where('jenis_simpanan', 'wajib')->sum('jumlah');
+            $sukarela = $anggota->simpanan->where('jenis_simpanan', 'sukarela')->sum('jumlah');
+            return [
+                'kode_anggota' => $anggota->kode_anggota,
+                'nama_anggota' => $anggota->nama_anggota,
+                'pokok'        => $pokok,
+                'wajib'        => $wajib,
+                'sukarela'     => $sukarela,
+                'total'        => $pokok + $wajib + $sukarela,
+            ];
+        })
+        ->filter(fn($i) => $i['total'] > 0)
+        ->values();
+
+        $pinjamanData = Anggota::with([
+            'pinjaman' => fn($q) => $q->whereMonth('tanggal_pengajuan', $bulan)->whereYear('tanggal_pengajuan', $tahun),
+        ])
+        ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
+        ->get()
+        ->map(function ($anggota) {
+            $biasa  = $anggota->pinjaman->where('jenis_pinjaman', 'biasa')->sum('jumlah_pengajuan');
+            $khusus = $anggota->pinjaman->where('jenis_pinjaman', 'khusus')->sum('jumlah_pengajuan');
+            return [
+                'kode_anggota' => $anggota->kode_anggota,
+                'nama_anggota' => $anggota->nama_anggota,
+                'biasa'        => $biasa,
+                'khusus'       => $khusus,
+                'total'        => $biasa + $khusus,
+            ];
+        })
+        ->filter(fn($i) => $i['total'] > 0)
+        ->values();
+
+        $rekapData = RekapHarian::whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->orderBy('tanggal')
+            ->get()
+            ->map(fn($item) => [
+                'tanggal'    => $item->tanggal,
+                'jenis'      => $item->jenis,
+                'keterangan' => $item->keterangan,
+                'masuk'      => $item->jenis === 'uang_masuk' ? (float) $item->nominal : 0,
+                'keluar'     => $item->jenis === 'uang_keluar' ? (float) $item->nominal : 0,
+            ])
+            ->values();
+
+        $shuData = $this->hitungShu($tahun);
+
+        return compact('simpananData', 'pinjamanData', 'rekapData', 'shuData');
+    }
+
+    private function getTahunanData(): array
+    {
+        $shuData = $this->hitungShu($this->tahun);
+        return compact('shuData');
+    }
+
+    private function hitungShu(int $tahun): array
+    {
+        $pinjamanTahun = Pinjaman::whereYear('tanggal_persetujuan', $tahun)
+            ->whereIn('status', ['aktif', 'lunas', 'disetujui'])
+            ->get();
+
+        $totalJasa    = $pinjamanTahun->sum(fn($p) =>
+            (float) $p->total_pembayaran - (float) ($p->jumlah_disetujui ?? $p->jumlah_pengajuan)
+        );
+        $totalProvisi = $pinjamanTahun->sum(fn($p) => (float) $p->provisi);
+        $nilaiShu     = $totalJasa + $totalProvisi;
+
+        $alokasiDeviden = $nilaiShu * 0.30;
+        $alokasiBjp    = $nilaiShu * 0.20;
+
+        $anggotaList = Anggota::with([
+            'simpanan' => fn($q) => $q->whereYear('tanggal', $tahun),
+            'pinjaman' => fn($q) => $q->whereYear('tanggal_persetujuan', $tahun)
+                ->whereIn('status', ['aktif', 'lunas', 'disetujui']),
+        ])
+        ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
+        ->get();
+
+        $totalSimpananSaham = 0;
+        $totalBungaPinjaman = 0;
+
+        $rows = $anggotaList->map(function ($anggota) use (&$totalSimpananSaham, &$totalBungaPinjaman) {
+            $pokok    = $anggota->simpanan->where('jenis_simpanan', 'pokok')->sum('jumlah');
+            $wajib    = $anggota->simpanan->where('jenis_simpanan', 'wajib')->sum('jumlah');
+            $sukarela = $anggota->simpanan->where('jenis_simpanan', 'sukarela')->sum('jumlah');
+            $saham    = $pokok + $wajib + $sukarela;
+            $bunga    = $anggota->pinjaman->sum(fn($p) =>
+                (float) $p->total_pembayaran - (float) ($p->jumlah_disetujui ?? $p->jumlah_pengajuan)
+            );
+            $totalSimpananSaham += $saham;
+            $totalBungaPinjaman += $bunga;
+            return compact('pokok', 'wajib', 'sukarela', 'saham', 'bunga') + [
+                'nama_anggota' => $anggota->nama_anggota,
+                'deviden' => 0.0, 'bjp' => 0.0, 'shu' => 0.0,
+            ];
+        });
+
+        $rDevidenPerRupiah = $totalSimpananSaham > 0 ? $alokasiDeviden / $totalSimpananSaham : 0;
+        $rBjpPerRupiah     = $totalBungaPinjaman > 0 ? $alokasiBjp / $totalBungaPinjaman : 0;
+
+        $rows = $rows->map(function ($row) use ($rDevidenPerRupiah, $rBjpPerRupiah) {
+            $row['deviden'] = round($row['saham'] * $rDevidenPerRupiah);
+            $row['bjp']     = round($row['bunga'] * $rBjpPerRupiah);
+            $row['shu']     = $row['deviden'] + $row['bjp'];
+            return $row;
+        })->filter(fn($r) => $r['saham'] > 0 || $r['bunga'] > 0)->values();
+
+        return [
+            'rows'          => $rows,
+            'nilai_shu'     => $nilaiShu,
+            'total_jasa'    => $totalJasa,
+            'total_provisi' => $totalProvisi,
+            'alokasi_deviden'     => $alokasiDeviden,
+            'alokasi_bjp'         => $alokasiBjp,
+            'total_saham'         => $rows->sum('saham'),
+            'total_deviden'       => $rows->sum('deviden'),
+            'total_bjp'           => $rows->sum('bjp'),
+            'total_shu_dibagikan' => $rows->sum('shu'),
+        ];
+    }
+
     public function render()
     {
-        $data = collect();
+        $data = $this->jenis_laporan === 'bulanan'
+            ? $this->getBulananData()
+            : $this->getTahunanData();
 
-        if ($this->jenis == 'simpanan') {
-
-            $data = Anggota::with([
-                'simpanan' => function ($query) {
-
-                    $query->whereMonth(
-                        'tanggal',
-                        $this->bulan
-                    )
-                        ->whereYear(
-                            'tanggal',
-                            $this->tahun
-                        );
-                }
-            ])
-                ->whereHas('user', function ($query) {
-
-                    $query->where(
-                        'status',
-                        'disetujui'
-                    );
-                })
-                ->get()
-                ->map(function ($anggota) {
-
-                    $pokok = $anggota->simpanan
-                        ->where('jenis_simpanan', 'pokok')
-                        ->sum('jumlah');
-
-                    $wajib = $anggota->simpanan
-                        ->where('jenis_simpanan', 'wajib')
-                        ->sum('jumlah');
-
-                    $sukarela = $anggota->simpanan
-                        ->where('jenis_simpanan', 'sukarela')
-                        ->sum('jumlah');
-
-                    return [
-
-                        'kode_anggota' =>
-                        $anggota->kode_anggota,
-
-                        'nama_anggota' =>
-                        $anggota->nama_anggota,
-
-                        'pokok' =>
-                        $pokok,
-
-                        'wajib' =>
-                        $wajib,
-
-                        'sukarela' =>
-                        $sukarela,
-
-                        'total' =>
-                        $pokok +
-                            $wajib +
-                            $sukarela,
-
-                    ];
-                })
-                ->filter(function ($item) {
-
-                    return $item['total'] > 0;
-                });
-            $grandTotal = $data->sum('total');
-        } elseif ($this->jenis == 'pinjaman') {
-
-            $data = Anggota::with([
-                'pinjaman' => function ($query) {
-
-                    $query->whereMonth(
-                        'tanggal_pengajuan',
-                        $this->bulan
-                    )
-                        ->whereYear(
-                            'tanggal_pengajuan',
-                            $this->tahun
-                        );
-                }
-            ])
-
-                ->whereHas('user', function ($query) {
-
-                    $query->where(
-                        'status',
-                        'disetujui'
-                    );
-                })
-
-                ->get()
-
-                ->map(function ($anggota) {
-
-                    $biasa = $anggota->pinjaman
-                        ->where(
-                            'jenis_pinjaman',
-                            'biasa'
-                        )
-                        ->sum(
-                            'jumlah_pengajuan'
-                        );
-
-                    $khusus = $anggota->pinjaman
-                        ->where(
-                            'jenis_pinjaman',
-                            'khusus'
-                        )
-                        ->sum(
-                            'jumlah_pengajuan'
-                        );
-
-                    return [
-
-                        'kode_anggota' =>
-                        $anggota->kode_anggota,
-
-                        'nama_anggota' =>
-                        $anggota->nama_anggota,
-
-                        'biasa' =>
-                        $biasa,
-
-                        'khusus' =>
-                        $khusus,
-
-                        'total' =>
-                        $biasa + $khusus,
-
-                    ];
-                })
-
-                ->filter(function ($item) {
-
-                    return $item['total'] > 0;
-                });
-
-            $grandTotal = $data->sum('total');
-        } 
-
-
-        return view(
-            'livewire.manajemen.laporan.index',
-            [
-                'title' => 'Laporan',
-                'data' => $data,
-                'grandTotal' => $grandTotal,
-            ]
-        );
+        return view('livewire.manajemen.laporan.index', array_merge(
+            ['title' => 'Laporan'],
+            $data
+        ));
     }
 }

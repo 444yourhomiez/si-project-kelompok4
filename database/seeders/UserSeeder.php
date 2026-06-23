@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Anggota;
 use App\Models\JadwalWawancara;
+use App\Models\Simpanan;
 use App\Models\User;
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,133 +16,123 @@ class UserSeeder extends Seeder
         $jadwalId = JadwalWawancara::first()?->id;
 
         // ==================================================
-        // USER 1
-        // SUDAH DISETUJUI
-        // BELUM 6 BULAN
+        // USER 1 — SUDAH DISETUJUI — SUDAH 8 BULAN
         // ==================================================
 
         $user1 = User::create([
-            'nama_user' => 'Anggota Baru',
-            'email' => 'baru@gmail.com',
-            'password' => Hash::make('password'),
-            'role' => 'anggota',
-            'status' => 'disetujui',
+            'nama_user' => 'Anggota Lama Test',
+            'email'     => 'lama@gmail.com',
+            'password'  => Hash::make('password'),
+            'role'      => 'anggota',
+            'status'    => 'disetujui',
         ]);
 
-        Anggota::create([
-            'user_id' => $user1->id,
-            'jadwal_id' => $jadwalId,
+        $tanggalDaftar1 = now()->subMonths(8);
 
-            'kode_anggota' => 'A-000001',
-
-            'nama_anggota' => 'Anggota Baru',
-            'no_ktp' => '3201000000000001',
-            'no_hp' => '081111111111',
-
-            'alamat' => 'Cimahi',
-            'tempat_lahir' => 'Bandung',
-            'tanggal_lahir' => '2000-01-01',
-
-            'jenis_kelamin' => 'Laki-laki',
-            'agama' => 'Islam',
-
-            'nama_ibu_kandung' => 'Ibu Baru',
-            'nama_ahli_waris' => 'Ahli Waris Baru',
-
+        $anggota1 = Anggota::create([
+            'user_id'             => $user1->id,
+            'jadwal_id'           => $jadwalId,
+            'kode_anggota'        => 'A-000001',
+            'nama_anggota'        => 'Anggota Lama Test',
+            'no_ktp'              => '3201000000000001',
+            'no_hp'               => '081111111111',
+            'alamat'              => 'Cimahi',
+            'tempat_lahir'        => 'Bandung',
+            'tanggal_lahir'       => '2000-01-01',
+            'jenis_kelamin'       => 'Laki-laki',
+            'agama'               => 'Islam',
+            'nama_ibu_kandung'    => 'Ibu Test Satu',
+            'nama_ahli_waris'     => 'Ahli Waris Satu',
             'hubungan_ahli_waris' => 'Ayah',
+            'status_rumah'        => 'Milik Sendiri',
+            'penghasilan'         => 'Rp 2.000.000 - Rp. 3.000.000',
+            'tanggal_daftar'      => $tanggalDaftar1,
+        ]);
 
-            'status_rumah' => 'Milik Sendiri',
+        // Simpanan pokok saat disetujui
+        Simpanan::create([
+            'anggota_id'    => $anggota1->id,
+            'jenis_simpanan' => 'pokok',
+            'jumlah'        => 500000,
+            'tanggal'       => $tanggalDaftar1,
+        ]);
 
-            'penghasilan' => 'Rp 2.000.000 - Rp. 3.000.000',
+        // Simpanan wajib per bulan selama 8 bulan
+        for ($i = 8; $i >= 1; $i--) {
+            Simpanan::create([
+                'anggota_id'    => $anggota1->id,
+                'jenis_simpanan' => 'wajib',
+                'jumlah'        => 50000,
+                'tanggal'       => now()->subMonths($i),
+            ]);
+        }
 
-            // BELUM 6 BULAN
-            'tanggal_daftar' => now()->subMonths(3),
+        // Simpanan sukarela awal
+        Simpanan::create([
+            'anggota_id'    => $anggota1->id,
+            'jenis_simpanan' => 'sukarela',
+            'jumlah'        => 100000,
+            'tanggal'       => $tanggalDaftar1,
         ]);
 
         // ==================================================
-        // USER 2
-        // SUDAH DISETUJUI
-        // SUDAH > 6 BULAN
+        // USER 2 — SUDAH DISETUJUI — BARU 2 BULAN
         // ==================================================
 
         $user2 = User::create([
-            'nama_user' => 'Anggota Lama',
-            'email' => 'lama@gmail.com',
-            'password' => Hash::make('password'),
-            'role' => 'anggota',
-            'status' => 'disetujui',
+            'nama_user' => 'Anggota Baru Test',
+            'email'     => 'baru@gmail.com',
+            'password'  => Hash::make('password'),
+            'role'      => 'anggota',
+            'status'    => 'disetujui',
         ]);
 
-        Anggota::create([
-            'user_id' => $user2->id,
-            'jadwal_id' => $jadwalId,
+        $tanggalDaftar2 = now()->subMonths(2);
 
-            'kode_anggota' => 'A-000002',
-
-            'nama_anggota' => 'Anggota Lama',
-            'no_ktp' => '3201000000000002',
-            'no_hp' => '082222222222',
-
-            'alamat' => 'Bandung',
-            'tempat_lahir' => 'Bandung',
-            'tanggal_lahir' => '1998-01-01',
-
-            'jenis_kelamin' => 'Laki-laki',
-            'agama' => 'Islam',
-
-            'nama_ibu_kandung' => 'Ibu Lama',
-            'nama_ahli_waris' => 'Ahli Waris Lama',
-
+        $anggota2 = Anggota::create([
+            'user_id'             => $user2->id,
+            'jadwal_id'           => $jadwalId,
+            'kode_anggota'        => 'A-000002',
+            'nama_anggota'        => 'Anggota Baru Test',
+            'no_ktp'              => '3201000000000002',
+            'no_hp'               => '082222222222',
+            'alamat'              => 'Bandung',
+            'tempat_lahir'        => 'Bandung',
+            'tanggal_lahir'       => '1998-01-01',
+            'jenis_kelamin'       => 'Laki-laki',
+            'agama'               => 'Islam',
+            'nama_ibu_kandung'    => 'Ibu Test Dua',
+            'nama_ahli_waris'     => 'Ahli Waris Dua',
             'hubungan_ahli_waris' => 'Ibu',
-
-            'status_rumah' => 'Milik Sendiri',
-
-            'penghasilan' => 'Diatas Rp 5.000.000',
-
-            // SUDAH LEBIH DARI 6 BULAN
-            'tanggal_daftar' => now()->subMonths(8),
+            'status_rumah'        => 'Milik Sendiri',
+            'penghasilan'         => 'Diatas Rp 5.000.000',
+            'tanggal_daftar'      => $tanggalDaftar2,
         ]);
 
-        // ==================================================
-        // USER 3
-        // BELUM DISETUJUI
-        // ==================================================
-
-        $user3 = User::create([
-            'nama_user' => 'Calon Anggota',
-            'email' => 'calon@gmail.com',
-            'password' => Hash::make('password'),
-            'role' => 'anggota',
-            'status' => 'menunggu',
+        // Simpanan pokok saat disetujui
+        Simpanan::create([
+            'anggota_id'    => $anggota2->id,
+            'jenis_simpanan' => 'pokok',
+            'jumlah'        => 500000,
+            'tanggal'       => $tanggalDaftar2,
         ]);
 
-        Anggota::create([
-            'user_id' => $user3->id,
-            'jadwal_id' => $jadwalId,
+        // Simpanan wajib per bulan selama 2 bulan
+        for ($i = 2; $i >= 1; $i--) {
+            Simpanan::create([
+                'anggota_id'    => $anggota2->id,
+                'jenis_simpanan' => 'wajib',
+                'jumlah'        => 50000,
+                'tanggal'       => now()->subMonths($i),
+            ]);
+        }
 
-            'kode_anggota' => null,
-
-            'nama_anggota' => 'Calon Anggota',
-            'no_ktp' => '3201000000000003',
-            'no_hp' => '083333333333',
-
-            'alamat' => 'Cimahi',
-            'tempat_lahir' => 'Cimahi',
-            'tanggal_lahir' => '2001-01-01',
-
-            'jenis_kelamin' => 'Perempuan',
-            'agama' => 'Islam',
-
-            'nama_ibu_kandung' => 'Ibu Calon',
-            'nama_ahli_waris' => 'Ahli Waris Calon',
-
-            'hubungan_ahli_waris' => 'Ibu',
-
-            'status_rumah' => 'Sewa',
-
-            'penghasilan' => 'Rp 1.000.000 - Rp. 2.000.000',
-
-            'tanggal_daftar' => now(),
+        // Simpanan sukarela awal
+        Simpanan::create([
+            'anggota_id'    => $anggota2->id,
+            'jenis_simpanan' => 'sukarela',
+            'jumlah'        => 100000,
+            'tanggal'       => $tanggalDaftar2,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <div wire:poll.3s="checkStatus" class="login-wrapper">
     <div class="login-container">
-        <div class="login-box">
+        <div class="login-box" style="max-width: 480px;">
             <div class="card login-card p-4">
                 {{-- BACK --}}
                 <div class="mb-2">
@@ -9,14 +9,28 @@
                         Kembali ke Homepage
                     </a>
                 </div>
+
+                {{-- FLASH MESSAGES --}}
+                @if (session('success') || session('email_verified'))
+                    <div class="alert alert-success py-2 text-center">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        {{ session('success') ?? 'Email berhasil diverifikasi!' }}
+                    </div>
+                @endif
+                @if (session('info'))
+                    <div class="alert alert-info py-2 text-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        {{ session('info') }}
+                    </div>
+                @endif
+
                 {{-- HEADER --}}
                 <div class="text-center mb-3">
-                    <h3 class="text-success font-weight-bold mb-1">
-                        Status Pendaftaran
-                    </h3>
+                    <h3 class="text-success font-weight-bold mb-1">Status Pendaftaran</h3>
                     <small class="text-muted">Koperasi Motekar</small>
                 </div>
-                {{-- ICON --}}
+
+                {{-- ICON STATUS --}}
                 <div class="text-center mb-3">
                     @if ($status == 'menunggu')
                         <i class="fas fa-clock fa-3x text-warning"></i>
@@ -26,7 +40,8 @@
                         <i class="fas fa-times-circle fa-3x text-danger"></i>
                     @endif
                 </div>
-                {{-- TITLE --}}
+
+                {{-- TITLE STATUS --}}
                 <h5 class="text-center font-weight-bold">
                     @if ($status == 'menunggu')
                         Sedang Ditinjau
@@ -36,7 +51,6 @@
                         Pendaftaran Ditolak
                     @endif
                 </h5>
-                {{-- DESC --}}
                 <p class="text-center text-muted small">
                     @if ($status == 'menunggu')
                         Data Anda sedang diverifikasi.
@@ -47,8 +61,9 @@
                         Silakan hubungi admin koperasi.
                     @endif
                 </p>
-                {{-- INFO --}}
-                <div class="info-box">
+
+                {{-- INFO BOX --}}
+                <div class="info-box mb-3">
                     <div class="row text-start">
                         <div class="col-6 mb-2">
                             <small>Nama</small>
@@ -79,20 +94,23 @@
                         @endif
                     </div>
                 </div>
+
                 @if ($status == 'menunggu')
-                    <div class="text-center mt-2">
+                    <div class="text-center mt-1">
                         <small class="text-muted">
                             <i class="fas fa-sync-alt fa-spin"></i>
                             Memperbarui status...
                         </small>
                     </div>
                 @endif
+
                 @if ($status == 'disetujui')
                     <a href="{{ route('login') }}" class="btn btn-success w-100 mt-3">
                         <i class="fas fa-sign-in-alt mr-1"></i>
                         Login Sekarang
                     </a>
                 @endif
+
                 @if ($status == 'ditolak')
                     <div class="alert alert-danger mt-3 text-center">
                         Akun Anda ditolak dan akan dihapus otomatis.
