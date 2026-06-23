@@ -229,11 +229,16 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>No KTP <span class="text-danger">*</span></label>
+                                    <label>No KTP / NIK <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="text" wire:model="no_ktp"
                                             class="form-control @error('no_ktp') is-invalid @enderror"
-                                            placeholder="Masukkan no KTP">
+                                            placeholder="16 digit angka"
+                                            inputmode="numeric"
+                                            maxlength="16"
+                                            minlength="16"
+                                            pattern="[0-9]{16}"
+                                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                                         @error('no_ktp')
                                             <div class="input-group-append">
                                                 <span class="input-group-text bg-danger text-white border-danger">
@@ -242,8 +247,9 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    <small class="text-muted">Harus 16 digit angka sesuai KTP</small>
                                     @error('no_ktp')
-                                        <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger d-block">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
@@ -252,9 +258,17 @@
                                 <div class="col-md-6 form-group mb-3">
                                     <label>No HP <span class="text-danger">*</span></label>
                                     <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">+62</span>
+                                        </div>
                                         <input type="text" wire:model="no_hp"
                                             class="form-control @error('no_hp') is-invalid @enderror"
-                                            placeholder="Contoh: 081234567890">
+                                            placeholder="081234567890"
+                                            inputmode="numeric"
+                                            maxlength="13"
+                                            minlength="10"
+                                            pattern="[0-9]{10,13}"
+                                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                                         @error('no_hp')
                                             <div class="input-group-append">
                                                 <span class="input-group-text bg-danger text-white border-danger">
@@ -263,6 +277,7 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    <small class="text-muted">10–13 digit angka (tanpa tanda +62)</small>
                                     @error('no_hp')
                                         <small class="text-danger d-block mt-1">{{ $message }}</small>
                                     @enderror

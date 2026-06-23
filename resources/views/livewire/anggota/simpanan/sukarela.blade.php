@@ -68,7 +68,7 @@
             </div>
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>

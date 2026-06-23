@@ -135,7 +135,7 @@
 
                 {{-- I. SIMPANAN --}}
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <h6 class="mb-0 font-weight-bold">
                             <i class="fas fa-piggy-bank mr-2"></i>I. Laporan Simpanan — {{ $periodeBulan }}
                         </h6>
@@ -143,7 +143,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm mb-0">
-                                <thead style="background:#155724;color:#fff;">
+                                <thead class="thead-light">
                                     <tr>
                                         <th class="text-center" style="width:40px">No</th>
                                         <th>Kode Anggota</th>
@@ -184,7 +184,7 @@
 
                 {{-- II. PINJAMAN --}}
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <h6 class="mb-0 font-weight-bold">
                             <i class="fas fa-hand-holding-usd mr-2"></i>II. Laporan Pinjaman — {{ $periodeBulan }}
                         </h6>
@@ -192,7 +192,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm mb-0">
-                                <thead style="background:#155724;color:#fff;">
+                                <thead class="thead-light">
                                     <tr>
                                         <th class="text-center" style="width:40px">No</th>
                                         <th>Kode Anggota</th>
@@ -231,7 +231,7 @@
 
                 {{-- III. REKAPITULASI HARIAN --}}
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <h6 class="mb-0 font-weight-bold">
                             <i class="fas fa-calendar-day mr-2"></i>III. Rekapitulasi Harian — {{ $periodeBulan }}
                         </h6>
@@ -239,7 +239,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-bordered table-sm mb-0">
-                                <thead style="background:#155724;color:#fff;">
+                                <thead class="thead-light">
                                     <tr>
                                         <th class="text-center" style="width:40px">No</th>
                                         <th>Tanggal</th>
@@ -285,7 +285,7 @@
 
                 {{-- IV. SHU --}}
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0 font-weight-bold">
                                 <i class="fas fa-coins mr-2"></i>IV. Pembagian SHU — Tahun {{ $tahun }}
@@ -306,7 +306,7 @@
                         @else
                             <div class="table-responsive">
                                 <table class="table table-bordered table-sm mb-0">
-                                    <thead style="background:#155724;color:#fff;">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th class="text-center" style="width:40px">No</th>
                                             <th>Nama Anggota</th>
@@ -423,7 +423,7 @@
                 </div>
 
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-success text-white py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <h6 class="mb-0 font-weight-bold">
                             <i class="fas fa-coins mr-2"></i>Pembagian SHU Per Anggota — Tahun {{ $tahun }}
                         </h6>
@@ -437,7 +437,7 @@
                         @else
                             <div class="table-responsive">
                                 <table class="table table-bordered table-sm mb-0">
-                                    <thead style="background:#155724;color:#fff;">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th class="text-center" style="width:40px">No</th>
                                             <th>Nama Anggota</th>

@@ -229,7 +229,7 @@
             {{-- TRANSAKSI --}}
             <div class="card shadow-sm border-0">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0 pt-4">
+                <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h4 class="font-weight-bold mb-1">
                             <i class="fas fa-history text-primary mr-2"></i>
@@ -244,7 +244,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-0">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Jenis Transaksi</th>

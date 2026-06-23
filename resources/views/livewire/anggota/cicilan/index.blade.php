@@ -77,7 +77,7 @@
                                         Sudah diverifikasi anggota
                                     </small>
                                 </div>
-                                <a href="{{ route('anggota.cicilan.biasa') }}" class="card-icon bg-success text-white">
+                                <a href="{{ route('anggota.cicilan.index') }}" class="card-icon bg-success text-white">
                                     <i class="nav-icon fas fa-money-bill-wave"></i>
                                 </a>
                             </div>
@@ -104,7 +104,7 @@
                                         Menunggu persetujuan anggota
                                     </small>
                                 </div>
-                                <a href="{{ route('anggota.cicilan.khusus') }}" class="card-icon bg-primary text-white">
+                                <a href="{{ route('anggota.cicilan.index') }}" class="card-icon bg-primary text-white">
                                     <i class="nav-icon fas fa-money-bill-wave"></i>
                                 </a>
                             </div>
@@ -118,7 +118,7 @@
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
@@ -166,7 +166,7 @@
                     </div> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th class="text-center">Cicilan</th>
                                     <th>Kode Pinjaman</th>
@@ -241,6 +241,15 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Menampilkan {{ $cicilan->firstItem() ?? 0 }}–{{ $cicilan->lastItem() ?? 0 }}
+                            dari {{ $cicilan->total() }} data
+                        </small>
+                        <div class="modern-pagination">
+                            {{ $cicilan->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

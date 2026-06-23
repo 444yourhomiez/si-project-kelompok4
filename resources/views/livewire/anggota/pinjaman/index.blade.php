@@ -119,7 +119,7 @@
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
@@ -165,7 +165,7 @@
                             </select>
                         </div> --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <button wire:click="$dispatch('openCreate')" class="btn btn-primary btn-block"
+                            <button wire:click="$dispatch('openCreate')" class="btn btn-success btn-block"
                                 data-toggle="modal" data-target="#createModalPinjaman">
                                 <i class="fas fa-plus mr-1"></i>
                                 Ajukan Pinjaman
@@ -174,7 +174,7 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>ID Anggota</th>

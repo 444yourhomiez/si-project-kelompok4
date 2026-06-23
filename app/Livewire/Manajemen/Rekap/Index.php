@@ -87,6 +87,7 @@ class Index extends Component
             ->whereDate('tanggal', $date)
             ->get()
             ->map(fn($item) => [
+                'id'           => $item->id,
                 'tanggal'      => $item->tanggal,
                 'kode_anggota' => '-',
                 'nama_anggota' => '-',
@@ -98,7 +99,7 @@ class Index extends Component
                 'is_manual'    => true,
             ]);
 
-        $semua = $simpanan->merge($cicilan)->merge($pinjaman)->merge($rekapManual);
+        $semua = $simpanan->concat($cicilan)->concat($pinjaman)->concat($rekapManual);
 
         $totalMasuk  = $semua->sum('masuk');
         $totalKeluar = $semua->sum('keluar');

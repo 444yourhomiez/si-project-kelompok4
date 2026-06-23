@@ -112,30 +112,21 @@
                 </div>
             </div>
             <div class="card table-modern border-0 shadow-sm">
-                <!-- HEADER -->
-                <div class="card-header bg-white border-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
-                                Riwayat Simpanan Anggota
-                            </h4>
-                            <small class="text-muted">
-                                Data transaksi simpanan anggota koperasi
-                            </small>
-                        </div>
+                <div class="card-header bg-white border-bottom py-3">
+                    <div>
+                        <h5 class="font-weight-bold mb-0">
+                            <i class="fas fa-wallet mr-2"></i> Riwayat Simpanan Anggota
+                        </h5>
+                        <small class="opacity-75">Data transaksi simpanan anggota koperasi</small>
                     </div>
                 </div>
-                <!-- TABLE -->
                 <div class="card-body">
                     <div class="row mb-3 align-items-end">
-                        {{-- SEARCH --}}
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Simpanan</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari simpanan...">
+                                placeholder="Nama anggota, kode, jenis...">
                         </div>
-                        {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Urutkan</label>
                             <select wire:model.live="sortBy" class="form-control">
@@ -144,16 +135,7 @@
                                 <option value="jumlah">Nominal</option>
                             </select>
                         </div>
-                        {{-- SORT DIRECTION --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <label>Arah</label>
-                            <select wire:model.live="sortDirection" class="form-control">
-                                <option value="desc">Z - A</option>
-                                <option value="asc">A - Z</option>
-                            </select>
-                        </div>
-                        {{-- PAGINATION --}}
-                        <div class="col-lg-4 col-md-12 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
                                 <option value="10">10 Data</option>
@@ -163,9 +145,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="pengawas-simpanan-table">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>ID Anggota</th>
@@ -237,6 +219,16 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Menampilkan {{ $simpanan->firstItem() ?? 0 }}–{{ $simpanan->lastItem() ?? 0 }}
+                            dari {{ $simpanan->total() }} data
+                        </small>
+                        <div class="modern-pagination">
+                            {{ $simpanan->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

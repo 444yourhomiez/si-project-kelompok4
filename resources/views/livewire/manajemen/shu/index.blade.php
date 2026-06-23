@@ -131,7 +131,7 @@
 
             {{-- TABEL SHU --}}
             <div class="card table-modern border-0 shadow-sm">
-                <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
                     <div>
                         <h4 class="font-weight-bold mb-1">
                             <i class="fas fa-table mr-2"></i>
@@ -163,7 +163,7 @@
                     @else
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
-                                <thead style="background:#155724;color:#fff;">
+                                <thead class="thead-light">
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th>Nama Anggota</th>
@@ -202,9 +202,9 @@
                                     <tfoot>
                                         <tr class="font-weight-bold bg-light">
                                             <td colspan="2" class="text-right">TOTAL</td>
-                                            <td class="text-right">Rp {{ number_format($totals['total_saham'], 0, ',', '.') }}</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td class="text-right">Rp {{ number_format($totals['total_pokok'], 0, ',', '.') }}</td>
+                                            <td class="text-right">Rp {{ number_format($totals['total_wajib'], 0, ',', '.') }}</td>
+                                            <td class="text-right">Rp {{ number_format($totals['total_sukarela'], 0, ',', '.') }}</td>
                                             <td class="text-right">Rp {{ number_format($totals['total_saham'], 0, ',', '.') }}</td>
                                             <td class="text-right text-primary">Rp {{ number_format($totals['total_deviden'], 0, ',', '.') }}</td>
                                             <td class="text-right text-warning">Rp {{ number_format($totals['total_bjp'], 0, ',', '.') }}</td>

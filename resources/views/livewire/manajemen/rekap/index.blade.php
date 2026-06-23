@@ -108,7 +108,7 @@
 
                 {{-- TABLE --}}
                 <div class="card table-modern border-0 shadow-sm">
-                    <div class="card-header bg-success text-white border-0 py-2">
+                    <div class="card-header bg-white border-bottom py-3">
                         <div>
                             <h4 class="font-weight-bold mb-1">
                                 <i class="fas fa-calendar-day mr-2"></i>
@@ -170,7 +170,7 @@
                         {{-- TABLE --}}
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
-                                <thead style="background:#155724;color:#fff;">
+                                <thead class="thead-light">
                                     <tr>
                                         <th>Tanggal</th>
                                         <th>ID Anggota</th>
@@ -179,6 +179,7 @@
                                         <th>Keterangan</th>
                                         <th>DUM</th>
                                         <th>DUK</th>
+                                        <th class="text-center" style="width:70px;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -215,10 +216,21 @@
                                                     -
                                                 @endif
                                             </td>
+                                            <td class="text-center">
+                                                @if ($item['is_manual'])
+                                                    <button wire:click="$dispatch('editRekap', { id: {{ $item['id'] }} })"
+                                                            class="btn btn-sm btn-success shadow-sm"
+                                                            title="Edit data manual">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="text-center text-muted py-5">
+                                            <td colspan="8" class="text-center text-muted py-5">
                                                 <div class="empty-state">
                                                     <i class="fas fa-folder-open fa-2x mb-2 d-block"></i>
                                                     <p>Tidak ada data transaksi</p>
@@ -232,10 +244,11 @@
                                         <td colspan="5" class="text-right">Saldo</td>
                                         <td class="text-success">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</td>
                                         <td class="text-danger">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</td>
+                                        <td></td>
                                     </tr>
-                                    <tr class="font-weight-bold">
-                                        <td colspan="5" class="text-right">Total</td>
-                                        <td colspan="2" class="text-dark">Rp {{ number_format($saldo, 0, ',', '.') }}</td>
+                                    <tr class="font-weight-bold" style="background:#d4edda;">
+                                        <td colspan="5" class="text-right">Total Saldo</td>
+                                        <td colspan="3" class="text-dark">Rp {{ number_format($saldo, 0, ',', '.') }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

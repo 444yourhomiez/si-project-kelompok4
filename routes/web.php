@@ -91,17 +91,15 @@ Route::middleware(['auth', 'role:manajemen'])
         Route::view('/pinjaman/khusus', 'manajemen.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/pinjaman/biasa', 'manajemen.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/cicilan', 'manajemen.cicilan.index')->name('cicilan.index');
-        Route::view('/cicilan/khusus', 'manajemen.cicilan.khusus')->name('cicilan.khusus');
-        Route::view('/cicilan/biasa', 'manajemen.cicilan.biasa')->name('cicilan.biasa');
+        Route::view('/cicilan/{id}', 'manajemen.cicilan.detail')->name('cicilan.detail');
         Route::view('/anggota', 'manajemen.anggota.index')->name('anggota.index');
         Route::view('/anggota/disetujui', 'manajemen.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'manajemen.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
         Route::view('/anggota/menunggu', 'manajemen.anggota.menunggu')->name('anggota.menunggu');
         Route::view('/anggota/menunggu/{id}', 'manajemen.anggota.detail-anggota-menunggu')->name('anggota.detail-anggota-menunggu');
         Route::view('/rekap', 'manajemen.rekap.index')->name('rekap.index');
-        Route::view('/rekap/dum', 'manajemen.rekap.dum')->name('rekap.dum');
-        Route::view('/rekap/duk', 'manajemen.rekap.duk')->name('rekap.duk');
         Route::view('/laporan', 'manajemen.laporan.index')->name('laporan.index');
+        Route::view('/shu', 'manajemen.shu.index')->name('shu.index');
         Route::view('/profile', 'manajemen.profile.index')->name('profile.index')->middleware('auth');
     });
 // ======================
@@ -120,16 +118,13 @@ Route::middleware(['auth', 'role:pengawas'])
         Route::view('/pinjaman/khusus', 'pengawas.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/pinjaman/biasa', 'pengawas.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/cicilan', 'pengawas.cicilan.index')->name('cicilan.index');
-        Route::view('/cicilan/khusus', 'pengawas.cicilan.khusus')->name('cicilan.khusus');
-        Route::view('/cicilan/biasa', 'pengawas.cicilan.biasa')->name('cicilan.biasa');
+        Route::view('/cicilan/{id}', 'pengawas.cicilan.detail')->name('cicilan.detail');
         Route::view('/anggota', 'pengawas.anggota.index')->name('anggota.index');
         Route::view('/anggota/disetujui', 'pengawas.anggota.disetujui')->name('anggota.disetujui');
         Route::view('/anggota/disetujui/{id}', 'pengawas.anggota.detail-anggota-disetujui')->name('anggota.detail-anggota-disetujui');
         Route::view('/anggota/menunggu', 'pengawas.anggota.menunggu')->name('anggota.menunggu');
         Route::view('/anggota/menunggu/{id}', 'pengawas.anggota.detail-anggota-menunggu')->name('anggota.detail-anggota-menunggu');
         Route::view('/rekap', 'pengawas.rekap.index')->name('rekap.index');
-        Route::view('/rekap/dum', 'pengawas.rekap.dum')->name('rekap.dum');
-        Route::view('/rekap/duk', 'pengawas.rekap.duk')->name('rekap.duk');
         Route::view('/laporan', 'pengawas.laporan.index')->name('laporan.index');
         Route::view('/profile', 'pengawas.profile.index')->name('profile.index')->middleware('auth');
     });
@@ -149,8 +144,6 @@ Route::middleware(['auth', 'role:anggota'])
         Route::view('/pinjaman/biasa', 'anggota.pinjaman.biasa')->name('pinjaman.biasa');
         Route::view('/pinjaman/khusus', 'anggota.pinjaman.khusus')->name('pinjaman.khusus');
         Route::view('/cicilan', 'anggota.cicilan.index')->name('cicilan.index');
-        Route::view('/cicilan/biasa', 'anggota.cicilan.biasa')->name('cicilan.biasa');
-        Route::view('/cicilan/khusus', 'anggota.cicilan.khusus')->name('cicilan.khusus');
         Route::view('/profile', 'anggota.profile.index')->name('profile.index')->middleware('auth');
     });
 

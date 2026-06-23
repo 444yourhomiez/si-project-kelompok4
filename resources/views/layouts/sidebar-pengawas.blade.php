@@ -174,16 +174,6 @@
                           </p>
                       </a>
                   </li>
-                  {{-- PROFILE --}}
-                  <li class="nav-item">
-                      <a  href="{{ route('pengawas.profile.index') }}"
-                          class="nav-link @yield('menuPengawasProfile')">
-                          <i class="nav-icon fas fa-user"></i>
-                          <p>
-                              Profile
-                          </p>
-                      </a>
-                  </li>
               </ul>
           </nav>
           <!-- Sidebar User Panel (Bottom) -->

@@ -156,7 +156,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
 
-                                <thead class="bg-dark text-white">
+                                <thead class="thead-light">
                                     <tr>
 
                                         <th>No</th>

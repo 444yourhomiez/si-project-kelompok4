@@ -4,9 +4,13 @@ namespace App\Livewire\Anggota\Pinjaman;
 
 use App\Models\Pinjaman;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Khusus extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];

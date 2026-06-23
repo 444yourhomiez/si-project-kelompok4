@@ -174,16 +174,6 @@
                           </p>
                       </a>
                   </li>
-                  {{-- PROFILE --}}
-                  <li class="nav-item">
-                      <a  href="{{ route('manajemen.profile.index') }}"
-                          class="nav-link @yield('menuManajemenProfile')">
-                          <i class="nav-icon fas fa-user"></i>
-                          <p>
-                              Profile
-                          </p>
-                      </a>
-                  </li>
               </ul>
           </nav>
           <!-- Sidebar User Panel (Bottom) -->

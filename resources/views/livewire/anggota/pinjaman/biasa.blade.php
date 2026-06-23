@@ -70,7 +70,7 @@
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
-                <div class="card-header bg-white border-0">
+                <div class="card-header bg-white border-bottom py-3">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
@@ -118,7 +118,7 @@
                     </div> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
-                            <thead class="bg-dark text-white">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
@@ -157,6 +157,15 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
+                            Menampilkan {{ $pinjaman->firstItem() ?? 0 }}–{{ $pinjaman->lastItem() ?? 0 }}
+                            dari {{ $pinjaman->total() }} data
+                        </small>
+                        <div class="modern-pagination">
+                            {{ $pinjaman->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

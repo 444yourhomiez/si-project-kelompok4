@@ -226,7 +226,7 @@
                         <i class="fas fa-times mr-1"></i>
                         Tutup
                     </button>
-                    <button wire:click="simpan" type="button" class="btn btn-primary btn-save shadow-sm">
+                    <button wire:click="simpan" type="button" class="btn btn-success btn-save shadow-sm">
                         <i class="fas fa-paper-plane mr-1"></i>
                         Ajukan Pinjaman
                     </button>
