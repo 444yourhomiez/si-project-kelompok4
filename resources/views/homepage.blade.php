@@ -30,17 +30,18 @@
             background-position: center;
             background-attachment: fixed;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             padding-top: 60px;
+            padding-bottom: 60px;
         }
         .hero .container {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
         }
         .hero-content {
             max-width: 480px;
             color: #fff;
-            padding: 40px 0;
+            padding: 0;
         }
         .hero-content h1 {
             font-size: 50px;
@@ -78,11 +79,19 @@
         }
 
         /* ── MOBILE ── */
-        @media (max-width: 767px) {
+        /* iOS fix: background-attachment fixed tidak didukung */
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                background-attachment: scroll;
+            }
+        }
+
+        @media (max-width: 991px) {
             .hero {
                 background-attachment: scroll;
                 padding-top: 70px;
-                align-items: flex-start;
+                padding-bottom: 40px;
+                align-items: flex-end;
             }
             .hero .container {
                 justify-content: center;
@@ -90,7 +99,7 @@
             .hero-content {
                 max-width: 100%;
                 text-align: center;
-                padding: 40px 8px 30px;
+                padding: 0 12px;
             }
             .hero-content h1 {
                 font-size: 34px;
