@@ -78,15 +78,12 @@ class RegisterWizard extends Component
             'reg_email_otp'     => $otp,
             'reg_email_otp_exp' => now()->addMinutes(10),
         ]);
-        // Kirim setelah response dikirim ke browser agar tidak timeout
-        dispatch(function () use ($otp, $email) {
-            try {
-                Notification::route('mail', $email)->notify(new EmailOtpNotification($otp));
-                logger()->info("[OTP] Email berhasil dikirim ke {$email}");
-            } catch (\Exception $e) {
-                logger()->error("[OTP] Email gagal ke {$email}: " . $e->getMessage());
-            }
-        })->afterResponse();
+        try {
+            Notification::route('mail', $email)->notify(new EmailOtpNotification($otp));
+            logger()->info("[OTP] Email berhasil dikirim ke {$email}");
+        } catch (\Exception $e) {
+            logger()->error("[OTP] Email gagal ke {$email}: " . $e->getMessage());
+        }
         $this->emailOtpSent  = true;
         $this->emailVerified = false;
         $this->emailOtpInput = '';
