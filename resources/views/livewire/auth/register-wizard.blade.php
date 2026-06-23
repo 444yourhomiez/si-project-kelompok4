@@ -109,7 +109,7 @@
                                             <div class="input-group-append">
                                                 <button wire:click="verifyEmailOtp"
                                                     wire:loading.attr="disabled"
-                                                    class="btn btn-success">
+                                                    class="btn btn-sm btn-success">
                                                     <span wire:loading.remove wire:target="verifyEmailOtp">
                                                         Verifikasi
                                                     </span>
