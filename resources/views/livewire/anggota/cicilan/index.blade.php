@@ -29,89 +29,61 @@
         </section>
         {{-- CONTENT --}}
         <section class="content">
-            <div class="row mb4">
-                {{-- TOTAL ANGGOTA --}}
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-warning-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-warning"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Tagihan
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+
+                        {{-- TOTAL TAGIHAN CICILAN --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('anggota.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#fff8e1;">
+                                        <i class="fas fa-money-bill-wave" style="color:#ffc107;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalTagihan, 0, ',', '.') }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Total Tagihan</small>
+                                        <div class="simpanan-stat-value" style="color:#ffc107;">
+                                            Rp {{ number_format($totalTagihan, 0, ',', '.') }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Seluruh Cicilan yang diajukan anggota
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.cicilan.index') }}" class="card-icon bg-warning text-white">
-                                    <i class="nav-icon fas fa-money-bill-wave"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-warning" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {{-- CARD --}}
-            <div class="row mb-4">
-                {{-- CICILAN BIASA --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Belum Dibayar
+
+                        {{-- BELUM DIBAYAR --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('anggota.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                        <i class="fas fa-clock" style="color:#dc3545;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalBelumBayar, 0, ',', '.') }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Belum Dibayar</small>
+                                        <div class="simpanan-stat-value" style="color:#dc3545;">
+                                            Rp {{ number_format($totalBelumBayar, 0, ',', '.') }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Sudah diverifikasi anggota
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.cicilan.index') }}" class="card-icon bg-success text-white">
-                                    <i class="nav-icon fas fa-money-bill-wave"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                {{-- MENUNGGU VERIFIKASI --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Sudah Dibayar
+
+                        {{-- SUDAH DIBAYAR --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('anggota.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-check-circle" style="color:#28a745;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalLunas, 0, ',', '.') }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Sudah Dibayar</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($totalLunas, 0, ',', '.') }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Menunggu persetujuan anggota
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.cicilan.index') }}" class="card-icon bg-primary text-white">
-                                    <i class="nav-icon fas fa-money-bill-wave"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -95,7 +95,6 @@
                     <div class="card-header bg-white border-bottom py-3">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-calendar-day mr-2"></i>
                                 Riwayat Rekapitulasi Harian
                             </h4>
                             <small class="text-muted">Data uang masuk dan uang keluar</small>

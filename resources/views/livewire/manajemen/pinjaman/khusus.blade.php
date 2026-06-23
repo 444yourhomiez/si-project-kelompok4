@@ -60,7 +60,7 @@
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-wallet mr-2"></i> Riwayat Pinjaman Khusus
+                            Riwayat Pinjaman Khusus
                         </h5>
                         <small class="opacity-75">Data transaksi pinjaman khusus anggota koperasi</small>
                     </div>

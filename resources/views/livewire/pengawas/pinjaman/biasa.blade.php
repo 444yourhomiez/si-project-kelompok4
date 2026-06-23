@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
+                            <i class="nav-icon fas fa-file-invoice-dollar mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -23,7 +23,8 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i> {{ $title }}
+                                <i class="nav-icon fas fa-file-invoice-dollar mr-1"></i> 
+                                {{ $title }}
                             </li>
                         </ol>
                     </div>
@@ -32,25 +33,24 @@
         </section>
 
         <section class="content">
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Total Pinjaman Biasa Aktif</div>
-                                    <div class="card-number">Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Akumulasi seluruh pinjaman biasa yang masih berjalan</small>
-                                </div>
-                                <div class="card-icon bg-success text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e8f5e9;">
+                            <i class="fas fa-file-invoice-dollar" style="color:#28a745;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Pinjaman Biasa Aktif</small>
+                            <div class="simpanan-stat-value" style="color:#28a745;">
+                                Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}
+                            </div>
+                            <small class="text-muted">
+                                Akumulasi seluruh pinjaman biasa yang masih berjalan
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-wallet mr-2"></i> Riwayat Pinjaman Biasa
+                            Riwayat Pinjaman Biasa
                         </h5>
                         <small class="opacity-75">Data transaksi pinjaman biasa anggota koperasi</small>
                     </div>

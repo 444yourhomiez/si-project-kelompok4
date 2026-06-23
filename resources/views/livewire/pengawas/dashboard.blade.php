@@ -93,7 +93,7 @@
                                 <a href="{{ route('pengawas.simpanan.index') }}">
                                     <div class="img-circle elevation-2 d-flex align-items-center justify-content-center bg-white"
                                         style="width:60px; height:60px;">
-                                        <i class="fas fa-wallet text-orange" style="font-size:30px;"></i>
+                                        <i class="fas fa-coins text-orange" style="font-size:30px;"></i>
                                     </div>
                                 </a>
                             </div>

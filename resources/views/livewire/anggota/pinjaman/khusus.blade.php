@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-hand-holding-usd" mr-2></i>
+                            <i class="nav-icon fas fa-star mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -28,7 +28,7 @@
                             </li>
                             {{-- ACTIVE --}}
                             <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i>
+                                <i class="nav-icon fas fa-star mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>
@@ -39,34 +39,28 @@
         {{-- CONTENT --}}
         <section class="content">
             {{-- CARD TOTAL --}}
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Pinjaman Khusus
-                                    </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Akumulasi seluruh pinjaman khusus anggota
-                                    </small>
-                                </div>
-                                <div class="card-icon bg-primary text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e3f2fd;">
+                            <i class="fas fa-star" style="color:#007bff;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Pinjaman Khusus Aktif</small>
+                            <div class="simpanan-stat-value" style="color:#007bff;">
+                                Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
+                            </div>
+                            <small class="text-muted">
+                                Akumulasi seluruh pinjaman khusus yang masih berjalan
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 {{-- HEADER --}}
@@ -74,7 +68,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
                                 Riwayat Pinjaman Khusus
                             </h4>
                             <small class="text-muted">

@@ -29,90 +29,59 @@
         </section>
         {{-- CONTENT --}}
         <section class="content">
-            <div class="row mb4">
-                {{-- TOTAL ANGGOTA --}}
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-danger-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-danger"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Pinjaman
-                                    </div>
-                                    <div class="card-number">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+
+                        {{-- TOTAL PINJAMAN --}}
+                        <div class="col-md-4 col-6">
+                            <div class="simpanan-stat-box border-right border-bottom">
+                                <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                    <i class="fas fa-hand-holding-usd" style="color:#dc3545;"></i>
+                                </div>
+                                <div class="simpanan-stat-text">
+                                    <small>Total Pinjaman</small>
+                                    <div class="simpanan-stat-value" style="color:#dc3545;">
                                         Rp {{ number_format($totalPinjaman, 0, ',', '.') }}
                                     </div>
-                                    <small class="text-muted">
-                                        Seluruh keseluruhan pinjaman yang diajukan
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.pinjaman.index') }}" class="card-icon bg-danger text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-danger" style="width:100%"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {{-- CARD --}}
-            <div class="row mb-4">
-                {{-- PINJAMAN BIASA --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Pinjaman Biasa
+
+                        {{-- PINJAMAN BIASA --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.pinjaman.biasa') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-file-invoice-dollar" style="color:#28a745;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Pinjaman Biasa</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($totalPinjamanBiasa, 0, ',', '.') }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Total pinjaman jenis biasa
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.pinjaman.biasa') }}" class="card-icon bg-success text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                {{-- PINJAMAN KHUSUS --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Pinjaman Khusus
+
+                        {{-- PINJAMAN KHUSUS --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('manajemen.pinjaman.khusus') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e3f2fd;">
+                                        <i class="fas fa-star" style="color:#007bff;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Pinjaman Khusus</small>
+                                        <div class="simpanan-stat-value" style="color:#007bff;">
+                                            Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Total pinjaman jenis khusus
-                                    </small>
                                 </div>
-                                <a href="{{ route('anggota.pinjaman.khusus') }}"
-                                    class="card-icon bg-primary text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -123,7 +92,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
                                 Riwayat Pinjaman
                             </h4>
                             <small class="text-muted">
@@ -177,8 +145,6 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>ID Anggota</th>
-                                    <th>Nama Anggota</th>
                                     <th>Jenis Pinjaman</th>
                                     <th>Nominal</th>
                                     <th class="text-center" style="width:120px;">
@@ -191,12 +157,6 @@
                                     <tr>
                                         <td>
                                             {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
-                                        </td>
-                                        <td>
-                                            {{ $item->anggota->kode_anggota }}
-                                        </td>
-                                        <td>
-                                            {{ $item->anggota->nama_anggota }}
                                         </td>
                                         <td>
                                             @if ($item->jenis_pinjaman == 'biasa')
@@ -213,7 +173,7 @@
                                             Rp
                                             {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
                                         </td>
-                                        <td>
+                                        <td  class="text-center">
                                             @if ($item->status == 'pending')
                                                 <span class="badge badge-warning">
                                                     Pending

@@ -27,77 +27,70 @@
 
         <section class="content">
             {{-- SUMMARY CARDS --}}
-            <div class="row mb4">
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-purple-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-purple"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Total Rekapitulasi Harian</div>
-                                    <div class="card-number">Rp {{ number_format($saldo, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Saldo kas hari ini (uang masuk - uang keluar)</small>
-                                </div>
-                                <a href="{{ route('pengawas.rekap.index') }}" class="card-icon bg-purple text-white">
-                                    <i class="fas fa-calendar-day"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-purple" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">DUM (Data Uang Masuk)</div>
-                                    <div class="card-number">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Total uang masuk kas</small>
-                                </div>
-                                <a href="{{ route('pengawas.rekap.index') }}" class="card-icon bg-success text-white">
-                                    <i class="fas fa-arrow-circle-down"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-danger-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-danger"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">DUK (Data Uang Keluar)</div>
-                                    <div class="card-number">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Total uang keluar kas</small>
-                                </div>
-                                <a href="{{ route('pengawas.rekap.index') }}" class="card-icon bg-danger text-white">
-                                    <i class="fas fa-arrow-circle-up"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-danger" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
 
+                        {{-- TOTAL REKAP --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#f3e5f5;">
+                                        <i class="fas fa-calendar-day" style="color:#9c27b0;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Total Rekap</small>
+                                        <div class="simpanan-stat-value" style="color:#9c27b0;">
+                                            Rp {{ number_format($saldo, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        {{-- DUM --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-arrow-circle-down" style="color:#28a745;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>DUM</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($totalMasuk, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        {{-- DUK --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                        <i class="fas fa-arrow-circle-up" style="color:#dc3545;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>DUK</small>
+                                        <div class="simpanan-stat-value" style="color:#dc3545;">
+                                            Rp {{ number_format($totalKeluar, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-calendar-day mr-2"></i> Riwayat Rekapitulasi Harian
+                            Riwayat Rekapitulasi Harian
                         </h5>
                         <small class="opacity-75">Data uang masuk dan uang keluar</small>
                     </div>
@@ -108,7 +101,7 @@
                         <div class="col-lg-3 col-md-12 mb-2">
                             <label>Cari</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                   placeholder="Cari nama / keterangan...">
+                                placeholder="Cari nama / keterangan...">
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Jenis Transaksi</label>
@@ -191,7 +184,8 @@
                                 </tr>
                                 <tr class="font-weight-bold" style="background:#d4edda;">
                                     <td colspan="5" class="text-right">Total Saldo</td>
-                                    <td colspan="2" class="text-dark">Rp {{ number_format($saldo, 0, ',', '.') }}</td>
+                                    <td colspan="2" class="text-dark">Rp {{ number_format($saldo, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>

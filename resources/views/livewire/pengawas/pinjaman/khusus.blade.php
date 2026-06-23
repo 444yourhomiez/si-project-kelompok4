@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-hand-holding-usd mr-2"></i>
+                            <i class="nav-icon fas fa-star mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -23,7 +23,8 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i> {{ $title }}
+                                <i class="nav-icon fas fa-star mr-1"></i> 
+                                {{ $title }}
                             </li>
                         </ol>
                     </div>
@@ -32,34 +33,32 @@
         </section>
 
         <section class="content">
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Total Pinjaman Khusus Aktif</div>
-                                    <div class="card-number">Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Akumulasi seluruh pinjaman khusus yang masih berjalan</small>
-                                </div>
-                                <div class="card-icon bg-primary text-white">
-                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e3f2fd;">
+                            <i class="fas fa-star" style="color:#007bff;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Pinjaman Khusus Aktif</small>
+                            <div class="simpanan-stat-value" style="color:#007bff;">
+                                Rp {{ number_format($totalPinjamanKhusus, 0, ',', '.') }}
+                            </div>
+                            <small class="text-muted">
+                                Akumulasi seluruh pinjaman khusus yang masih berjalan
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
-
             <div class="card table-modern border-0 shadow-sm">
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-wallet mr-2"></i> Riwayat Pinjaman Khusus
+                            Riwayat Pinjaman Khusus
                         </h5>
                         <small class="opacity-75">Data transaksi pinjaman khusus anggota koperasi</small>
                     </div>
@@ -69,7 +68,7 @@
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Anggota / Kode</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                   placeholder="Nama, kode anggota, kode pinjaman...">
+                                placeholder="Nama, kode anggota, kode pinjaman...">
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Status</label>
@@ -107,10 +106,15 @@
                             <tbody>
                                 @forelse($pinjaman as $item)
                                     <tr wire:key="pinjaman-{{ $item->id }}">
-                                        <td class="text-center">{{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}</td>
+                                        <td class="text-center">
+                                            {{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}
+                                        </td>
                                         <td>
-                                            <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}</div>
-                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
+                                            </div>
+                                            <small
+                                                class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
                                         </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>

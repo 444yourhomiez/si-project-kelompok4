@@ -5,7 +5,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-wallet mr-2"></i>
+                            <i class="nav-icon fas fa-coins mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -18,7 +18,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-wallet mr-1"></i>
+                                <i class="fas fa-coins mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>
@@ -27,86 +27,70 @@
             </div>
         </section>
         <section class="content">
-            <div class="row mb4">
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-orange-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-orange"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Total Simpanan</div>
-                                    <div class="card-number">Rp {{ number_format($total_simpanan, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Akumulasi seluruh simpanan</small>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+                        {{-- TOTAL --}}
+                        <div class="col-md-3 col-6">
+                            <div class="simpanan-stat-box border-right border-bottom">
+                                <div class="simpanan-stat-icon" style="background:#fff3e0;">
+                                    <i class="fas fa-coins" style="color:#f97316;"></i>
                                 </div>
-                                <div class="card-icon bg-orange text-white">
-                                    <i class="fas fa-coins"></i>
+                                <div class="simpanan-stat-text">
+                                    <small>Total Simpanan</small>
+                                    <div class="simpanan-stat-value" style="color:#f97316;">
+                                        Rp {{ number_format($total_simpanan, 0, ',', '.') }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-orange" style="width:100%"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Simpanan Wajib</div>
-                                    <div class="card-number">Rp {{ number_format($wajib, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Total simpanan wajib</small>
+                        {{-- WAJIB --}}
+                        <div class="col-md-3 col-6">
+                            <a href="{{ route('pengawas.simpanan.wajib') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-wallet" style="color:#28a745;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Simp. Wajib</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($wajib, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-icon bg-success text-white">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Simpanan Pokok</div>
-                                    <div class="card-number">Rp {{ number_format($pokok, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Total simpanan pokok</small>
+                        {{-- POKOK --}}
+                        <div class="col-md-3 col-6">
+                            <a href="{{ route('pengawas.simpanan.pokok') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e3f2fd;">
+                                        <i class="fas fa-piggy-bank" style="color:#007bff;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Simp. Pokok</small>
+                                        <div class="simpanan-stat-value" style="color:#007bff;">
+                                            Rp {{ number_format($pokok, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-icon bg-primary text-white">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="card card-box card-info-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-info"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Simpanan Sukarela</div>
-                                    <div class="card-number">Rp {{ number_format($sukarela, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Total simpanan sukarela</small>
+                        {{-- SUKARELA --}}
+                        <div class="col-md-3 col-6">
+                            <a href="{{ route('pengawas.simpanan.sukarela') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8eaf6;">
+                                        <i class="fas fa-hand-holding-heart" style="color:#5c6bc0;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Simp. Sukarela</small>
+                                        <div class="simpanan-stat-value" style="color:#5c6bc0;">
+                                            Rp {{ number_format($sukarela, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-icon bg-info text-white">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-info" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -115,7 +99,7 @@
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-wallet mr-2"></i> Riwayat Simpanan Anggota
+                            Riwayat Simpanan Anggota
                         </h5>
                         <small class="opacity-75">Data transaksi simpanan anggota koperasi</small>
                     </div>

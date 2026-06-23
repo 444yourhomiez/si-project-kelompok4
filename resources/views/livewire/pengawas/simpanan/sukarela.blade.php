@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-wallet mr-2"></i>
+                            <i class="nav-icon fas fa-hand-holding-heart mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -28,7 +28,7 @@
                             </li>
                             {{-- ACTIVE --}}
                             <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-wallet mr-1"></i>
+                                <i class="fas fa-hand-holding-heart mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>
@@ -39,31 +39,24 @@
         {{-- CONTENT --}}
         <section class="content">
             {{-- CARD TOTAL --}}
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-info-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-info"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Simpanan Sukarela
-                                    </div>
-                                    <div class="card-number">
-                                        Rp {{ number_format($total_sukarela, 0, ',', '.') }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Akumulasi seluruh simpanan sukarela anggota
-                                    </small>
-                                </div>
-                                <div class="card-icon bg-info text-white">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-info" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#e8eaf6;">
+                            <i class="fas fa-hand-holding-heart" style="color:#5c6bc0;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Simpanan Sukarela</small>
+                            <div class="simpanan-stat-value" style="color:#5c6bc0;">
+                                Rp {{ number_format($total_sukarela, 0, ',', '.') }}
+                            </div>
+                            <small class="text-muted">
+                                Akumulasi seluruh simpanan sukarela anggota
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -74,7 +67,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
                                 Riwayat Simpanan Sukarela Anggota
                             </h4>
                             <small class="text-muted">

@@ -39,31 +39,24 @@
         {{-- CONTENT --}}
         <section class="content">
             {{-- CARD --}}
-            <div class="row mb-4">
-                <div class="col-md-12 col-sm-12 col-12">
-                    <div class="card card-box card-warning-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-warning"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Menunggu Verifikasi
-                                    </div>
-                                    <div class="card-number">
-                                        {{ $anggota->total() }}
-                                    </div>
-                                    <small class="text-muted">
-                                        Menunggu persetujuan pengawas
-                                    </small>
-                                </div>
-                                <div class="card-icon bg-warning text-white">
-                                    <i class="fas fa-user-clock"></i>
-                                </div>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-warning" style="width:100%"></div>
-                            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+
+                        <div class="simpanan-stat-icon mr-3" style="background:#fff8e1;">
+                            <i class="fas fa-user-clock" style="color:#ffc107;"></i>
                         </div>
+
+                        <div class="simpanan-stat-text">
+                            <small>Total Menunggu Verifikasi</small>
+                            <div class="simpanan-stat-value" style="color:#ffc107;">
+                                {{ $anggota->total() }}
+                            </div>
+                            <small class="text-muted">
+                                Menunggu persetujuan
+                            </small>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -74,11 +67,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-user-clock mr-2"></i>
                                 Daftar Anggota Menunggu Verifikasi
                             </h4>
                             <small class="text-muted">
-                                Data anggota koperasi yang sedang menunggu verifikasi dari pengawas
+                                Data anggota koperasi yang sedang menunggu verifikasi
                             </small>
                         </div>
                     </div>
