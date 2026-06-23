@@ -32,7 +32,7 @@
                     <div class="row no-gutters">
 
                         {{-- TOTAL REKAP --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#f3e5f5;">
@@ -66,9 +66,9 @@
                         </div>
 
                         {{-- DUK --}}
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-4 col-6">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
-                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#ffebee;">
                                         <i class="fas fa-arrow-circle-up" style="color:#dc3545;"></i>
                                     </div>

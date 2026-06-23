@@ -36,7 +36,7 @@
                 <div class="card-body p-0">
                     <div class="row no-gutters">
                         {{-- TOTAL TAGIHAN --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#fff8e1;">
                                     <i class="fas fa-money-bill-wave" style="color:#ffc107;"></i>
@@ -64,8 +64,8 @@
                             </div>
                         </div>
                         {{-- SUDAH DIBAYAR --}}
-                        <div class="col-md-4 col-12">
-                            <div class="simpanan-stat-box border-bottom">
+                        <div class="col-md-4 col-6">
+                            <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#e8f5e9;">
                                     <i class="fas fa-check-circle" style="color:#28a745;"></i>
                                 </div>

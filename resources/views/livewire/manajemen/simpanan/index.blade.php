@@ -34,7 +34,7 @@
                 <div class="card-body p-0">
                     <div class="row no-gutters">
                         {{-- TOTAL --}}
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-3 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#fff3e0;">
                                     <i class="fas fa-coins" style="color:#f97316;"></i>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         {{-- WAJIB --}}
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-3 col-4">
                             <a href="{{ route('manajemen.simpanan.wajib') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -64,7 +64,7 @@
                             </a>
                         </div>
                         {{-- POKOK --}}
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-3 col-4">
                             <a href="{{ route('manajemen.simpanan.pokok') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">
@@ -80,7 +80,7 @@
                             </a>
                         </div>
                         {{-- SUKARELA --}}
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-3 col-4">
                             <a href="{{ route('manajemen.simpanan.sukarela') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8eaf6;">
