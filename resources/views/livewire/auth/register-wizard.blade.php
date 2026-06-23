@@ -157,13 +157,12 @@
                                     <input type="password" wire:model="password"
                                         class="form-control @error('password') is-invalid @enderror"
                                         placeholder="********">
-                                    @error('password')
-                                        <div class="input-group-append">
-                                            <span class="input-group-text bg-danger text-white border-danger">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                            </span>
-                                        </div>
-                                    @enderror
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                            onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 @error('password')
                                     <small class="text-danger">{{ $message }}</small>
@@ -176,13 +175,12 @@
                                     <input type="password" wire:model="password_confirmation"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
                                         placeholder="********">
-                                    @error('password_confirmation')
-                                        <div class="input-group-append">
-                                            <span class="input-group-text bg-danger text-white border-danger">
-                                                <i class="fas fa-exclamation-circle"></i>
-                                            </span>
-                                        </div>
-                                    @enderror
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                            onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 @error('password_confirmation')
                                     <small class="text-danger">{{ $message }}</small>

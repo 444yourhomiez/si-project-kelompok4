@@ -29,42 +29,54 @@
                 <div class="modal-body px-4 py-4">
                     {{-- PASSWORD LAMA --}}
                     <div class="form-group">
-                        <label class="font-weight-bold">
-                            Password Lama
-                        </label>
-                        <input type="password"
-                               wire:model.live="current_password"
-                               class="form-control
-                               @error('current_password') is-invalid @enderror">
+                        <label class="font-weight-bold">Password Lama</label>
+                        <div class="input-group">
+                            <input type="password"
+                                   wire:model.live="current_password"
+                                   class="form-control @error('current_password') is-invalid @enderror">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                    onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                         @error('current_password')
-                            <small class="text-danger">
-                                {{ $message }}
-                            </small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     {{-- PASSWORD BARU --}}
                     <div class="form-group">
-                        <label class="font-weight-bold">
-                            Password Baru
-                        </label>
-                        <input type="password"
-                               wire:model.live="password"
-                               class="form-control
-                               @error('password') is-invalid @enderror">
+                        <label class="font-weight-bold">Password Baru</label>
+                        <div class="input-group">
+                            <input type="password"
+                                   wire:model.live="password"
+                                   class="form-control @error('password') is-invalid @enderror">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                    onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                         @error('password')
-                            <small class="text-danger">
-                                {{ $message }}
-                            </small>
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     {{-- KONFIRMASI --}}
                     <div class="form-group mb-0">
-                        <label class="font-weight-bold">
-                            Konfirmasi Password
-                        </label>
-                        <input type="password"
-                               wire:model.live="password_confirmation"
-                               class="form-control">
+                        <label class="font-weight-bold">Konfirmasi Password</label>
+                        <div class="input-group">
+                            <input type="password"
+                                   wire:model.live="password_confirmation"
+                                   class="form-control">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" tabindex="-1"
+                                    onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {{-- FOOTER --}}

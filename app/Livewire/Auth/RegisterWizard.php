@@ -72,13 +72,16 @@ class RegisterWizard extends Component
             'email.unique'   => 'Email sudah terdaftar',
             'email.regex'    => 'Hanya email @gmail.com yang diperbolehkan',
         ]);
-        $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $otp   = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $email = $this->email;
         session([
             'reg_email_otp'     => $otp,
             'reg_email_otp_exp' => now()->addMinutes(10),
         ]);
-        Notification::route('mail', $this->email)
-            ->notify(new EmailOtpNotification($otp));
+        // Kirim setelah response dikirim ke browser agar tidak timeout
+        dispatch(function () use ($otp, $email) {
+            Notification::route('mail', $email)->notify(new EmailOtpNotification($otp));
+        })->afterResponse();
         $this->emailOtpSent  = true;
         $this->emailVerified = false;
         $this->emailOtpInput = '';
