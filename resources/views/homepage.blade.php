@@ -20,7 +20,7 @@
             font-weight: 700;
         }
 
-        /* ── HERO ── */
+        /* ── HERO (mobile-first: default = mobile) ── */
         .hero {
             min-height: 100vh;
             background:
@@ -28,39 +28,39 @@
                 url('{{ asset('images/background_motekar.png') }}');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-attachment: scroll;
             display: flex;
             align-items: flex-end;
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding-top: 70px;
+            padding-bottom: 100px;
         }
         .hero .container {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
         }
         .hero-content {
-            max-width: 480px;
+            width: 100%;
             color: #fff;
-            padding: 0;
+            text-align: center;
+            padding: 0 12px;
         }
         .hero-content h1 {
-            font-size: 50px;
+            font-size: 34px;
             font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 18px;
+            line-height: 1.2;
+            margin-bottom: 14px;
             color: #fff;
-            letter-spacing: -0.5px;
         }
         .hero-content p {
-            font-size: 17px;
+            font-size: 15px;
             color: rgba(255,255,255,0.88);
-            margin-bottom: 30px;
+            margin-bottom: 26px;
             line-height: 1.65;
         }
         .hero-content .btn-hero {
             display: inline-block;
-            padding: 13px 32px;
-            font-size: 16px;
+            padding: 12px 28px;
+            font-size: 15px;
             font-weight: 600;
             border-radius: 50px;
             background: #28a745;
@@ -78,39 +78,34 @@
             text-decoration: none;
         }
 
-        /* ── MOBILE ── */
-        /* iOS fix: background-attachment fixed tidak didukung */
-        @supports (-webkit-touch-callout: none) {
+        /* ── DESKTOP override ── */
+        @media (min-width: 992px) {
             .hero {
-                background-attachment: scroll;
-            }
-        }
-
-        @media (max-width: 991px) {
-            .hero {
-                background-attachment: scroll;
-                padding-top: 70px;
-                padding-bottom: 40px;
+                background-attachment: fixed;
+                padding-top: 60px;
+                padding-bottom: 60px;
                 align-items: flex-end;
             }
             .hero .container {
-                justify-content: center;
+                justify-content: flex-start;
             }
             .hero-content {
-                max-width: 100%;
-                text-align: center;
-                padding: 0 12px;
+                width: 480px;
+                text-align: left;
+                padding: 0;
             }
             .hero-content h1 {
-                font-size: 34px;
-                letter-spacing: 0;
+                font-size: 50px;
+                letter-spacing: -0.5px;
+                margin-bottom: 18px;
             }
             .hero-content p {
-                font-size: 15px;
+                font-size: 17px;
+                margin-bottom: 30px;
             }
             .hero-content .btn-hero {
-                font-size: 15px;
-                padding: 12px 28px;
+                font-size: 16px;
+                padding: 13px 32px;
             }
         }
     </style>
@@ -139,7 +134,7 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Koperasi<br>Motekar</h1>
+                <h1>Koperasi Motekar</h1>
                 <p>
                     Sistem simpan pinjam modern, cepat, dan transparan
                     untuk mendukung kebutuhan anggota koperasi secara digital.
