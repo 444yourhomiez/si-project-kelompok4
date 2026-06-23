@@ -78,12 +78,16 @@ class RegisterWizard extends Component
             'reg_email_otp'     => $otp,
             'reg_email_otp_exp' => now()->addMinutes(10),
         ]);
-        try {
-            Notification::route('mail', $email)->notify(new EmailOtpNotification($otp));
-            logger()->info("[OTP] Email berhasil dikirim ke {$email}");
-        } catch (\Exception $e) {
-            logger()->error("[OTP] Email gagal ke {$email}: " . $e->getMessage());
-        }
+        logger()->info("[OTP] method dipanggil, akan kirim ke {$email}");
+        dispatch(function () use ($otp, $email) {
+            logger()->info("[OTP] closure berjalan untuk {$email}");
+            try {
+                Notification::route('mail', $email)->notify(new EmailOtpNotification($otp));
+                logger()->info("[OTP] Email berhasil dikirim ke {$email}");
+            } catch (\Exception $e) {
+                logger()->error("[OTP] Email gagal ke {$email}: " . $e->getMessage());
+            }
+        })->afterResponse();
         $this->emailOtpSent  = true;
         $this->emailVerified = false;
         $this->emailOtpInput = '';
