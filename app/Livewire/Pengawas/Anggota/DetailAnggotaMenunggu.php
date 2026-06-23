@@ -4,17 +4,20 @@ use App\Models\Anggota;
 use Livewire\Component;
 class DetailAnggotaMenunggu extends Component
 {
-    public ?Anggota $anggota = null;
+    public int $anggotaId;
+
     public function mount(int $id)
     {
-        $this->anggota = Anggota::with([
-            'user',
-        ])->findOrFail($id);
+        Anggota::findOrFail($id);
+        $this->anggotaId = $id;
     }
+
     public function render()
     {
+        $anggota = Anggota::with('user')->findOrFail($this->anggotaId);
         return view('livewire.pengawas.anggota.detail-anggota-menunggu', [
-            'title' => 'Detail Anggota Menunggu Verifikasi',
+            'anggota' => $anggota,
+            'title'   => 'Detail Anggota Menunggu Verifikasi',
         ]);
     }
 }
