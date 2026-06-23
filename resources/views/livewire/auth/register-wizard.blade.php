@@ -157,11 +157,12 @@
                                     <input type="password" wire:model="password"
                                         class="form-control @error('password') is-invalid @enderror"
                                         placeholder="********">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary" tabindex="-1"
-                                            onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
+                                    <div class="input-group-append"
+                                        onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';var ic=this.querySelector('i');ic.classList.toggle('fa-eye');ic.classList.toggle('fa-eye-slash');"
+                                        style="cursor:pointer;">
+                                        <div class="input-group-text bg-white">
+                                            <i class="fas fa-eye text-success"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 @error('password')
@@ -175,11 +176,12 @@
                                     <input type="password" wire:model="password_confirmation"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
                                         placeholder="********">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary" tabindex="-1"
-                                            onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
+                                    <div class="input-group-append"
+                                        onclick="var i=this.closest('.input-group').querySelector('input');i.type=i.type==='password'?'text':'password';var ic=this.querySelector('i');ic.classList.toggle('fa-eye');ic.classList.toggle('fa-eye-slash');"
+                                        style="cursor:pointer;">
+                                        <div class="input-group-text bg-white">
+                                            <i class="fas fa-eye text-success"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 @error('password_confirmation')
