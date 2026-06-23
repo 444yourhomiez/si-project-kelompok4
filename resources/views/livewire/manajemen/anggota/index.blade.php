@@ -29,92 +29,61 @@
         </section>
         {{-- CONTENT --}}
         <section class="content">
-            <div class="row mb4">
-                {{-- TOTAL ANGGOTA --}}
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-primary-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-primary"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Total Anggota
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+
+                        {{-- TOTAL ANGGOTA --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.anggota.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e3f2fd;">
+                                        <i class="fas fa-users" style="color:#007bff;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        {{ $totalAnggota }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Total Anggota</small>
+                                        <div class="simpanan-stat-value" style="color:#007bff;">
+                                            {{ $totalAnggota }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Seluruh anggota koperasi
-                                    </small>
                                 </div>
-                                <a href="{{ route('manajemen.anggota.index') }}"
-                                    class="card-icon bg-primary text-white">
-                                    <i class="fas fa-users"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-primary" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-            {{-- CARD --}}
-            <div class="row mb-4">
-                {{-- ANGGOTA DISETUJUI --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Anggota Disetujui
+
+                        {{-- ANGGOTA DISETUJUI --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.anggota.disetujui') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-user-check" style="color:#28a745;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        {{ $anggotaDisetujui }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Anggota Disetujui</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            {{ $anggotaDisetujui }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Sudah diverifikasi manajemen
-                                    </small>
                                 </div>
-                                <a href="{{ route('manajemen.anggota.disetujui') }}"
-                                    class="card-icon bg-success text-white">
-                                    <i class="fas fa-user-check"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                {{-- MENUNGGU VERIFIKASI --}}
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-warning-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-warning"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">
-                                        Menunggu Verifikasi
+
+                        {{-- MENUNGGU VERIFIKASI --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('manajemen.anggota.menunggu') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#fff8e1;">
+                                        <i class="fas fa-user-clock" style="color:#ffc107;"></i>
                                     </div>
-                                    <div class="card-number">
-                                        {{ $anggotaMenunggu }}
+                                    <div class="simpanan-stat-text">
+                                        <small>Menunggu Verifikasi</small>
+                                        <div class="simpanan-stat-value" style="color:#ffc107;">
+                                            {{ $anggotaMenunggu }}
+                                        </div>
                                     </div>
-                                    <small class="text-muted">
-                                        Menunggu persetujuan manajemen
-                                    </small>
                                 </div>
-                                <a href="{{ route('manajemen.anggota.menunggu') }}"
-                                    class="card-icon bg-warning text-white">
-                                    <i class="fas fa-user-clock"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-warning" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -125,7 +94,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-users mr-2"></i>
                                 Daftar Anggota
                             </h4>
                             <small class="text-muted">
@@ -264,14 +232,12 @@
                                                     </a>
                                                     <button
                                                         wire:click="$dispatch('openEdit', { id: {{ $item->id }} })"
-                                                        class="btn btn-light table-action-btn mr-1 shadow-sm"
-                                                        >
+                                                        class="btn btn-light table-action-btn mr-1 shadow-sm">
                                                         <i class="fas fa-edit text-warning"></i>
                                                     </button>
                                                     <button
                                                         wire:click="$dispatch('openDelete', { id: {{ $item->id }} })"
-                                                        class="btn btn-light table-action-btn shadow-sm"
-                                                        >
+                                                        class="btn btn-light table-action-btn shadow-sm">
                                                         <i class="fas fa-trash text-danger"></i>
                                                     </button>
                                                 @endif

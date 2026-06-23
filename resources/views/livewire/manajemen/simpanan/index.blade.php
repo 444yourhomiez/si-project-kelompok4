@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>
-                            <i class="nav-icon fas fa-wallet mr-2"></i>
+                            <i class="nav-icon fas fa-coins mr-2"></i>
                             {{ $title }}
                         </h1>
                     </div>
@@ -19,7 +19,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-wallet mr-1"></i>
+                                <i class="fas fa-coins mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>
@@ -105,7 +105,6 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-wallet mr-2"></i>
                                 Riwayat Simpanan Anggota
                             </h4>
                             <small class="text-muted">

@@ -700,7 +700,7 @@ select.form-control {
 /* ====================== WELCOME CARD ====================== */
 /* ========================================================== */
 .welcome-card {
-    background: linear-gradient(135deg, #0bbd4e, #16c65b);
+    background: linear-gradient(180deg, #198754, #14532d) !important;
     color: white;
     padding: 20px;
     border-radius: 15px;

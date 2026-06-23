@@ -25,7 +25,7 @@
                   <li class="nav-item has-treeview @yield('menuAnggotaSimpananOpen')">
                       {{-- PARENT --}}
                       <a href="#" class="nav-link @yield('menuAnggotaSimpanan')">
-                          <i class="nav-icon fas fa-wallet"></i>
+                          <i class="nav-icon fas fa-coins"></i>
                           <p>
                               Simpanan
                               <i class="right fas fa-angle-left"></i>

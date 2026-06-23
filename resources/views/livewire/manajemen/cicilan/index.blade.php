@@ -29,68 +29,61 @@
         <section class="content">
 
             {{-- SUMMARY CARDS --}}
-            <div class="row mb4">
-                <div class="col-md-12 col-sm-6 col-12">
-                    <div class="card card-box card-warning-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-warning"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Total Tagihan Cicilan</div>
-                                    <div class="card-number">Rp {{ number_format($totalCicilan, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Akumulasi seluruh tagihan cicilan</small>
-                                </div>
-                                <a href="{{ route('manajemen.cicilan.index') }}" class="card-icon bg-warning text-white">
-                                    <i class="nav-icon fas fa-money-bill-wave"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-warning" style="width:100%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
 
-            <div class="row mb-4">
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-danger-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-danger"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Belum Dibayar</div>
-                                    <div class="card-number">Rp {{ number_format($totalBelumBayar, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Tagihan yang belum dilunasi</small>
+                        {{-- TOTAL TAGIHAN CICILAN --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#fff8e1;">
+                                        <i class="fas fa-money-bill-wave" style="color:#ffc107;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Total Tagihan</small>
+                                        <div class="simpanan-stat-value" style="color:#ffc107;">
+                                            Rp {{ number_format($totalCicilan, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="{{ route('manajemen.cicilan.index') }}" class="card-icon bg-danger text-white">
-                                    <i class="nav-icon fas fa-clock"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-danger" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="card card-box card-success-soft h-100">
-                        <div class="card-body position-relative overflow-hidden">
-                            <div class="card-bg-circle bg-circle-success"></div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="card-label mb-2">Sudah Dibayar</div>
-                                    <div class="card-number">Rp {{ number_format($totalLunas, 0, ',', '.') }}</div>
-                                    <small class="text-muted">Tagihan yang sudah dilunasi</small>
+
+                        {{-- BELUM DIBAYAR --}}
+                        <div class="col-md-4 col-6">
+                            <a href="{{ route('manajemen.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#ffebee;">
+                                        <i class="fas fa-clock" style="color:#dc3545;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Belum Dibayar</small>
+                                        <div class="simpanan-stat-value" style="color:#dc3545;">
+                                            Rp {{ number_format($totalBelumBayar, 0, ',', '.') }}
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="{{ route('manajemen.cicilan.index') }}" class="card-icon bg-success text-white">
-                                    <i class="nav-icon fas fa-check-circle"></i>
-                                </a>
-                            </div>
-                            <div class="progress card-progress mt-4">
-                                <div class="progress-bar bg-success" style="width:100%"></div>
-                            </div>
+                            </a>
                         </div>
+
+                        {{-- SUDAH DIBAYAR --}}
+                        <div class="col-md-4 col-12">
+                            <a href="{{ route('manajemen.cicilan.index') }}" class="text-decoration-none">
+                                <div class="simpanan-stat-box simpanan-stat-link border-bottom">
+                                    <div class="simpanan-stat-icon" style="background:#e8f5e9;">
+                                        <i class="fas fa-check-circle" style="color:#28a745;"></i>
+                                    </div>
+                                    <div class="simpanan-stat-text">
+                                        <small>Sudah Dibayar</small>
+                                        <div class="simpanan-stat-value" style="color:#28a745;">
+                                            Rp {{ number_format($totalLunas, 0, ',', '.') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -100,7 +93,7 @@
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
                         <h5 class="font-weight-bold mb-0">
-                            <i class="fas fa-users mr-2"></i> Daftar Peminjam
+                            Daftar Anggota Peminjam
                         </h5>
                         <small class="opacity-75">Klik detail untuk melihat rincian cicilan anggota</small>
                     </div>
@@ -140,38 +133,43 @@
                             <tbody>
                                 @forelse($pinjaman as $item)
                                     @php
-                                        $totalCic   = $item->cicilan->count();
+                                        $totalCic = $item->cicilan->count();
                                         $sudahLunas = $item->cicilan->where('status', 'lunas')->count();
-                                        $progress   = $totalCic > 0 ? round($sudahLunas / $totalCic * 100) : 0;
+                                        $progress = $totalCic > 0 ? round(($sudahLunas / $totalCic) * 100) : 0;
                                     @endphp
                                     <tr wire:key="pinjaman-{{ $item->id }}">
-                                        <td class="text-center">{{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}</td>
+                                        <td class="text-center">
+                                            {{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}
+                                        </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>
                                             <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>
                                             <small class="text-muted">{{ $item->anggota->kode_anggota }}</small>
                                         </td>
                                         <td>
-                                            @if($item->jenis_pinjaman === 'biasa')
+                                            @if ($item->jenis_pinjaman === 'biasa')
                                                 <span class="badge badge-success">Biasa</span>
                                             @else
                                                 <span class="badge badge-primary">Khusus</span>
                                             @endif
                                         </td>
                                         <td class="text-right font-weight-bold">
-                                            Rp {{ number_format($item->jumlah_disetujui ?? $item->jumlah_pengajuan, 0, ',', '.') }}
+                                            Rp
+                                            {{ number_format($item->jumlah_disetujui ?? $item->jumlah_pengajuan, 0, ',', '.') }}
                                         </td>
                                         <td class="text-right">
                                             Rp {{ number_format($item->cicilan_per_bulan, 0, ',', '.') }}
                                         </td>
                                         <td class="text-center" style="min-width:130px;">
                                             <div class="progress" style="height:8px;border-radius:4px;">
-                                                <div class="progress-bar bg-success" style="width:{{ $progress }}%"></div>
+                                                <div class="progress-bar bg-success"
+                                                    style="width:{{ $progress }}%"></div>
                                             </div>
-                                            <small class="text-muted">{{ $sudahLunas }}/{{ $totalCic }} lunas</small>
+                                            <small class="text-muted">{{ $sudahLunas }}/{{ $totalCic }}
+                                                lunas</small>
                                         </td>
                                         <td class="text-center">
-                                            @if($item->status === 'lunas')
+                                            @if ($item->status === 'lunas')
                                                 <span class="badge badge-success">Lunas</span>
                                             @elseif($item->status === 'aktif')
                                                 <span class="badge badge-warning">Aktif</span>
@@ -181,8 +179,7 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('manajemen.cicilan.detail', $item->id) }}"
-                                                class="btn btn-sm btn-light shadow-sm"
-                                                title="Lihat detail cicilan">
+                                                class="btn btn-sm btn-light shadow-sm" title="Lihat detail cicilan">
                                                 <i class="fas fa-eye text-primary"></i>
                                             </a>
                                         </td>
