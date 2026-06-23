@@ -264,7 +264,7 @@
                                                                     {{ $jatuhTempo->format('d M Y') }}
                                                                 </div>
                                                                 <small class="text-muted">
-                                                                    {{ $jatuhTempo->diffForHumans() }}
+                                                                    <span data-timestamp="{{ $jatuhTempo->timestamp }}"></span>
                                                                 </small>
                                                             </td>
                                                             <td class="font-weight-bold">

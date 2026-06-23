@@ -86,7 +86,7 @@ class Create extends Component
         $this->dana_perlindungan = $this->jumlah_pengajuan * 0.02;
         $this->dana_diterima    = $this->jumlah_pengajuan - $this->provisi - $this->kapitalisasi - $this->dana_perlindungan;
         $pokokPerBulan          = $this->jumlah_pengajuan / $this->tenor;
-        $this->jasa_per_bulan   = $this->jumlah_pengajuan * ($this->bunga / 100);
+        $this->jasa_per_bulan   = $pokokPerBulan * ($this->bunga / 100);
         $this->cicilan_per_bulan = $pokokPerBulan + $this->jasa_per_bulan;
         $this->total_pembayaran = $this->cicilan_per_bulan * $this->tenor;
     }

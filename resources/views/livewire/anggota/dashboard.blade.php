@@ -18,18 +18,18 @@
                         </ol>
                     </div>
                 </div>
-                <div class="welcome-card mb-2 mt-3">
-                    <h4 class="mb-1 font-weight-bold">
-                        Selamat Datang, {{ auth()->user()->nama_user }}
-                    </h4>
-                    <p class="mb-0">
-                        Berikut informasi penting terkait pengelolaan Koperasi Motekar
-                    </p>
-                </div>
             </div><!-- /.container-fluid -->
         </section>
         {{-- CONTENT --}}
         <section class="content">
+            <div class="welcome-card mb-3">
+                <h4 class="mb-1 font-weight-bold">
+                    Selamat Datang, {{ auth()->user()->nama_user }}
+                </h4>
+                <p class="mb-0">
+                    Berikut informasi penting terkait pengelolaan Koperasi Motekar
+                </p>
+            </div>
             {{-- CARD --}}
             <div class="row">
                 {{-- TOTAL SIMPANAN --}}
@@ -267,7 +267,7 @@
                                                     </div>
                                                     <small class="text-muted">
                                                         {{ \Carbon\Carbon::parse($trx['tanggal'])->format('d M Y') }}
-                                                        &bull; {{ \Carbon\Carbon::parse($trx['tanggal'])->diffForHumans() }}
+                                                        &bull; <span data-timestamp="{{ \Carbon\Carbon::parse($trx['tanggal'])->timestamp }}"></span>
                                                     </small>
                                                 </div>
                                             </div>
@@ -327,7 +327,7 @@
                                                             </td>
                                                             <td>
                                                                 <div style="font-size:0.8rem;">{{ $jt->format('d M Y') }}</div>
-                                                                <small class="text-muted">{{ $jt->diffForHumans() }}</small>
+                                                                <small class="text-muted"><span data-timestamp="{{ $jt->timestamp }}"></span></small>
                                                             </td>
                                                             <td class="text-right font-weight-bold" style="font-size:0.85rem;">
                                                                 Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}

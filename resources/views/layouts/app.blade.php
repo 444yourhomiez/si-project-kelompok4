@@ -28,6 +28,32 @@
     <!-- jQuery -->
     @include('layouts.script')
     @livewireScripts
+    <script>
+    (function () {
+        function timeAgoId(ts) {
+            var diff = Math.floor(Date.now() / 1000) - ts;
+            if (diff < 5)   return 'baru saja';
+            if (diff < 60)  return diff + ' detik yang lalu';
+            var m = Math.floor(diff / 60);
+            if (m < 60)     return m + ' menit yang lalu';
+            var h = Math.floor(diff / 3600);
+            if (h < 24)     return h + ' jam yang lalu';
+            var d = Math.floor(diff / 86400);
+            if (d < 30)     return d + ' hari yang lalu';
+            var mo = Math.floor(diff / 2592000);
+            if (mo < 12)    return mo + ' bulan yang lalu';
+            return Math.floor(diff / 31536000) + ' tahun yang lalu';
+        }
+        function refreshAgo() {
+            document.querySelectorAll('[data-timestamp]').forEach(function (el) {
+                el.textContent = timeAgoId(parseInt(el.getAttribute('data-timestamp')));
+            });
+        }
+        refreshAgo();
+        setInterval(refreshAgo, 1000);
+        document.addEventListener('livewire:update', refreshAgo);
+    })();
+    </script>
     {{-- Pesan Berhasil Login --}}
     @if (session('success'))
         <script>

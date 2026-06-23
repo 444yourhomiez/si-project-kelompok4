@@ -96,7 +96,7 @@ class Dashboard extends Component
                 $today
             )
             ->where('status', 'aktif')
-            ->sum('jumlah_pengajuan');
+            ->sum('dana_diterima');
 
         $transaksiHariIni =
             $totalMasukHariIni +

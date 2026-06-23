@@ -32,7 +32,7 @@
                     <div class="row no-gutters">
 
                         {{-- TOTAL PINJAMAN --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#ffebee;">
                                     <i class="fas fa-hand-holding-usd" style="color:#dc3545;"></i>
@@ -64,7 +64,7 @@
                         </div>
 
                         {{-- PINJAMAN KHUSUS --}}
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-4 col-6">
                             <a href="{{ route('pengawas.pinjaman.khusus') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">
@@ -150,7 +150,7 @@
                                         <td class="text-center">{{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}</td>
                                         <td>
                                             <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}</div>
-                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
                                         </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>

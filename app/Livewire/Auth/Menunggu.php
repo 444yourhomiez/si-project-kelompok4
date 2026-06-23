@@ -56,10 +56,11 @@ class Menunggu extends Component
 
     public function render()
     {
+        $user    = Auth::user();
         $anggota = null;
-        if (Auth::check()) {
-            $anggota = User::with('anggota.jadwal')->find(Auth::id())?->anggota;
+        if ($user) {
+            $anggota = User::with('anggota.jadwal')->find($user->id)?->anggota;
         }
-        return view('livewire.auth.menunggu', compact('anggota'));
+        return view('livewire.auth.menunggu', compact('anggota', 'user'));
     }
 }

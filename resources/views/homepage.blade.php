@@ -26,14 +26,17 @@
             display: flex;
             align-items: center;
         }
+        .hero .container {
+            display: flex;
+            justify-content: flex-end;
+        }
         .hero-content {
-            width: 450px;
-            margin-left: auto;
-            margin-right: -200px;
+            max-width: 460px;
             color: #fff;
+            padding: 20px 0;
         }
         .hero-content h1 {
-            font-size: 55px;
+            font-size: 52px;
             font-weight: 700;
             margin-bottom: 15px;
             color: #fff;
@@ -44,17 +47,31 @@
             margin-bottom: 25px;
         }
         .hero-content .btn {
-            padding: 12px 25px;
-            font-size: 18px;
+            padding: 12px 28px;
+            font-size: 17px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
+            .hero {
+                background-attachment: scroll;
+                padding-top: 70px;
+            }
+            .hero .container {
+                justify-content: center;
+            }
             .hero-content {
-                margin: 0 auto;
+                max-width: 100%;
                 text-align: center;
-                width: 100%;
+                padding: 30px 10px;
             }
             .hero-content h1 {
-                font-size: 40px;
+                font-size: 36px;
+            }
+            .hero-content p {
+                font-size: 15px;
+            }
+            .hero-content .btn {
+                font-size: 15px;
+                padding: 10px 22px;
             }
         }
     </style>

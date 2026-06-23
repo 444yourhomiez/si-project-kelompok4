@@ -3,8 +3,10 @@
 namespace App\Livewire\Manajemen\Laporan;
 
 use App\Models\Anggota;
+use App\Models\Cicilan;
 use App\Models\Pinjaman;
 use App\Models\RekapHarian;
+use App\Models\Simpanan;
 use Livewire\Component;
 
 class Index extends Component
@@ -64,17 +66,57 @@ class Index extends Component
         ->filter(fn($i) => $i['total'] > 0)
         ->values();
 
-        $rekapData = RekapHarian::whereMonth('tanggal', $bulan)
+        $simpananRekap = Simpanan::with('anggota')
+            ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
-            ->orderBy('tanggal')
             ->get()
             ->map(fn($item) => [
                 'tanggal'    => $item->tanggal,
-                'jenis'      => $item->jenis,
+                'jenis'      => 'Simpanan ' . ucfirst($item->jenis_simpanan),
+                'keterangan' => $item->anggota->nama_anggota ?? '-',
+                'masuk'      => (float) $item->jumlah,
+                'keluar'     => 0,
+            ]);
+
+        $cicilanRekap = Cicilan::with('pinjaman.anggota')
+            ->whereMonth('tanggal_bayar', $bulan)
+            ->whereYear('tanggal_bayar', $tahun)
+            ->where('status', 'lunas')
+            ->get()
+            ->map(fn($item) => [
+                'tanggal'    => $item->tanggal_bayar,
+                'jenis'      => 'Cicilan',
+                'keterangan' => $item->pinjaman?->anggota?->nama_anggota ?? '-',
+                'masuk'      => (float) $item->jumlah_tagihan,
+                'keluar'     => 0,
+            ]);
+
+        $pinjamanRekap = Pinjaman::with('anggota')
+            ->whereMonth('tanggal_persetujuan', $bulan)
+            ->whereYear('tanggal_persetujuan', $tahun)
+            ->where('status', 'aktif')
+            ->get()
+            ->map(fn($item) => [
+                'tanggal'    => $item->tanggal_persetujuan,
+                'jenis'      => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
+                'keterangan' => $item->anggota->nama_anggota ?? '-',
+                'masuk'      => 0,
+                'keluar'     => (float) ($item->dana_diterima ?? $item->jumlah_pengajuan),
+            ]);
+
+        $manualRekap = RekapHarian::whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->get()
+            ->map(fn($item) => [
+                'tanggal'    => $item->tanggal,
+                'jenis'      => $item->keterangan,
                 'keterangan' => $item->keterangan,
                 'masuk'      => $item->jenis === 'uang_masuk' ? (float) $item->nominal : 0,
                 'keluar'     => $item->jenis === 'uang_keluar' ? (float) $item->nominal : 0,
-            ])
+            ]);
+
+        $rekapData = $simpananRekap->concat($cicilanRekap)->concat($pinjamanRekap)->concat($manualRekap)
+            ->sortBy('tanggal')
             ->values();
 
         $shuData = $this->hitungShu($tahun);

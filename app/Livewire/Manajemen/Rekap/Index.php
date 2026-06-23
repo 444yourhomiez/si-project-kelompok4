@@ -78,7 +78,7 @@ class Index extends Component
                 'jenis'        => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
                 'jenis_key'    => 'uang_keluar',
                 'masuk'        => 0,
-                'keluar'       => $item->jumlah_pengajuan,
+                'keluar'       => $item->dana_diterima ?? $item->jumlah_pengajuan,
                 'keterangan'   => '-',
                 'is_manual'    => false,
             ]);

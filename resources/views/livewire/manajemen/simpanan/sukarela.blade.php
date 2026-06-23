@@ -134,7 +134,7 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                                             </div>
                                             <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+                                                <span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal)->timestamp }}"></span>
                                             </small>
                                         </td>
                                         {{-- ID ANGGOTA --}}
