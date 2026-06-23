@@ -6,25 +6,27 @@
         {{-- HEADER --}}
         <section class="content-header">
             <div class="container-fluid">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="font-weight-bold mb-1">
-                            Detail Profile
-                        </h3>
-                        <small class="text-muted">
-                            Informasi akun pengguna
-                        </small>
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>
+                            <i class="nav-icon fas fa-user mr-2"></i>
+                            {{ $title }}
+                        </h1>
                     </div>
-                    <ol class="breadcrumb float-sm-right bg-transparent p-0 m-0">
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            Profile
-                        </li>
-                    </ol>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('anggota.dashboard') }}" class="text-muted breadcrumb-green">
+                                    <i class="fas fa-th-large mr-1"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active text-success">
+                                <i class="nav-icon fas fa-user mr-1"></i>
+                                {{ $title }}
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </section>
@@ -48,33 +50,26 @@
                             <div class="card-body text-center">
                                 {{-- FOTO --}}
                                 @if ($foto)
-                                    <img src="{{ $foto->temporaryUrl() }}"
-                                         class="img-circle elevation-2 mb-2"
-                                         style="width:110px;height:110px;object-fit:cover;">
+                                    <img src="{{ $foto->temporaryUrl() }}" class="img-circle elevation-2 mb-2"
+                                        style="width:110px;height:110px;object-fit:cover;">
                                 @else
                                     <img src="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}"
-                                         class="img-circle elevation-2 mb-2"
-                                         style="width:110px;height:110px;object-fit:cover;">
+                                        class="img-circle elevation-2 mb-2"
+                                        style="width:110px;height:110px;object-fit:cover;">
                                 @endif
                                 {{-- UPLOAD FOTO --}}
                                 <div class="mb-3">
-                                    <input type="file"
-                                           wire:model="foto"
-                                           id="fotoInputAnggota"
-                                           accept="image/*"
-                                           class="d-none">
+                                    <input type="file" wire:model="foto" id="fotoInputAnggota" accept="image/*"
+                                        class="d-none">
                                     @if (!$foto)
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-secondary"
-                                                onclick="document.getElementById('fotoInputAnggota').click()">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="document.getElementById('fotoInputAnggota').click()">
                                             <i class="fas fa-camera mr-1"></i>
                                             Ganti Foto
                                         </button>
                                     @else
-                                        <button type="button"
-                                                wire:click="uploadFoto"
-                                                wire:loading.attr="disabled"
-                                                class="btn btn-sm btn-success">
+                                        <button type="button" wire:click="uploadFoto" wire:loading.attr="disabled"
+                                            class="btn btn-sm btn-success">
                                             <span wire:loading wire:target="uploadFoto">
                                                 <i class="fas fa-spinner fa-spin mr-1"></i>
                                             </span>
@@ -83,9 +78,8 @@
                                             </span>
                                             Simpan
                                         </button>
-                                        <button type="button"
-                                                wire:click="batalFoto"
-                                                class="btn btn-sm btn-outline-danger ml-1">
+                                        <button type="button" wire:click="batalFoto"
+                                            class="btn btn-sm btn-outline-danger ml-1">
                                             <i class="fas fa-times mr-1"></i>
                                             Batal
                                         </button>
@@ -106,9 +100,8 @@
                                     {{ ucfirst($user->role) }}
                                 </p>
                                 {{-- BUTTON --}}
-                                <button class="btn btn-success btn-block"
-                                        data-toggle="modal"
-                                        data-target="#ubahPasswordAnggotaModal">
+                                <button class="btn btn-success btn-block" data-toggle="modal"
+                                    data-target="#ubahPasswordAnggotaModal">
                                     <i class="fas fa-lock mr-1"></i>
                                     Ubah Password
                                 </button>
@@ -176,10 +169,8 @@
                                             <label>
                                                 Nama Lengkap
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->nama_user }}"
-                                                   readonly>
+                                            <input type="text" class="form-control" value="{{ $user->nama_user }}"
+                                                readonly>
                                         </div>
                                     </div>
                                     {{-- EMAIL --}}
@@ -188,10 +179,8 @@
                                             <label>
                                                 Email
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->email }}"
-                                                   readonly>
+                                            <input type="text" class="form-control" value="{{ $user->email }}"
+                                                readonly>
                                         </div>
                                     </div>
                                     {{-- ROLE --}}
@@ -200,10 +189,8 @@
                                             <label>
                                                 Role
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ ucfirst($user->role) }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ ucfirst($user->role) }}" readonly>
                                         </div>
                                     </div>
                                     {{-- BERGABUNG --}}
@@ -212,10 +199,8 @@
                                             <label>
                                                 Bergabung Sejak
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->created_at->translatedFormat('d F Y') }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->created_at->translatedFormat('d F Y') }}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -238,22 +223,18 @@
                                             <label>
                                                 Kode Anggota
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->kode_anggota ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->kode_anggota ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- NOMOR KTP --}}
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>
-                                                Nomor KTP
+                                                No KTP/NIK
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->no_ktp ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->no_ktp ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- NOMOR HP --}}
@@ -262,10 +243,8 @@
                                             <label>
                                                 Nomor HP
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->no_hp ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->no_hp ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- JENIS KELAMIN --}}
@@ -274,10 +253,8 @@
                                             <label>
                                                 Jenis Kelamin
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->jenis_kelamin ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->jenis_kelamin ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- TEMPAT LAHIR --}}
@@ -286,10 +263,8 @@
                                             <label>
                                                 Tempat Lahir
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->tempat_lahir ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->tempat_lahir ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- TANGGAL LAHIR --}}
@@ -298,10 +273,9 @@
                                             <label>
                                                 Tanggal Lahir
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota?->tanggal_lahir?->translatedFormat('d F Y') ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota?->tanggal_lahir?->translatedFormat('d F Y') ?? '-' }}"
+                                                readonly>
                                         </div>
                                     </div>
                                     {{-- AGAMA --}}
@@ -310,10 +284,8 @@
                                             <label>
                                                 Agama
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->agama ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->agama ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- STATUS RUMAH --}}
@@ -322,10 +294,8 @@
                                             <label>
                                                 Status Rumah
                                             </label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   value="{{ $user->anggota->status_rumah ?? '-' }}"
-                                                   readonly>
+                                            <input type="text" class="form-control"
+                                                value="{{ $user->anggota->status_rumah ?? '-' }}" readonly>
                                         </div>
                                     </div>
                                     {{-- ALAMAT --}}
@@ -334,9 +304,7 @@
                                             <label>
                                                 Alamat
                                             </label>
-                                            <textarea class="form-control"
-                                                      rows="4"
-                                                      readonly>{{ $user->anggota->alamat ?? '-' }}</textarea>
+                                            <textarea class="form-control" rows="4" readonly>{{ $user->anggota->alamat ?? '-' }}</textarea>
                                         </div>
                                     </div>
                                 </div>

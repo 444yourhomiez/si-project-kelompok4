@@ -174,6 +174,16 @@
                           </p>
                       </a>
                   </li>
+                  <li class="nav-header">AKUN</li>
+                  {{-- PROFIL --}}
+                  <li class="nav-item">
+                      <a href="{{ route('manajemen.profile.index') }}" class="nav-link @yield('menuManajemenProfile')">
+                          <i class="nav-icon fas fa-user-circle"></i>
+                          <p>
+                              Profil Saya
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
           <!-- Sidebar User Panel (Bottom) -->

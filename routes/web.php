@@ -19,7 +19,10 @@ Route::view('/', 'homepage')->name('homepage');
 // RESGISTER
 // ======================
 Route::get('/register', function () {
-    if (auth()->check() && auth()->user()->role == 'anggota') {
+    if (auth()->check()) {
+        $role = auth()->user()->role;
+        if ($role === 'manajemen') return redirect()->route('manajemen.dashboard');
+        if ($role === 'pengawas') return redirect()->route('pengawas.dashboard');
         return redirect()->route('menunggu');
     }
     return view('auth.register-wizard');
@@ -30,7 +33,7 @@ Route::view('/menunggu', 'auth.menunggu')
 // ======================
 // LOGIN
 // ======================
-Route::view('/login', 'auth.login')->name('login');
+Route::view('/login', 'auth.login')->middleware('guest')->name('login');
 // ======================
 // FORGOT / RESET PASSWORD
 // ======================
@@ -154,12 +157,12 @@ Route::middleware(['auth', 'role:anggota'])
 Route::get(
     '/laporan/pdf',
     [LaporanController::class, 'pdf']
-)->name('laporan.pdf');
+)->middleware(['auth', 'role:manajemen'])->name('laporan.pdf');
 
 Route::get(
     '/laporan/excel',
     [LaporanController::class, 'excel']
-)->name('laporan.excel');
+)->middleware(['auth', 'role:manajemen'])->name('laporan.excel');
 
 Route::get(
     '/shu/pdf',

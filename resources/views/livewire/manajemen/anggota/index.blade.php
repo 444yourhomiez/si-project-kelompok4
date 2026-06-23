@@ -117,7 +117,7 @@
                             <select wire:model.live="sortBy" class="form-control">
                                 <option value="created_at">Terbaru</option>
                                 <option value="nama_anggota">Nama</option>
-                                <option value="no_ktp">No KTP</option>
+                                <option value="no_ktp">No KTP/NIK</option>
                                 <option value="kode_anggota">Kode</option>
                             </select>
                         </div>

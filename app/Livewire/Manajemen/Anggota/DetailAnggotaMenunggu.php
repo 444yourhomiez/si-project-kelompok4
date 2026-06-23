@@ -9,92 +9,77 @@ use Livewire\Component;
 
 class DetailAnggotaMenunggu extends Component
 {
-    public ?Anggota $anggota = null;
+    public int $anggotaId;
+
     public function mount(int $id)
     {
-        $this->anggota = Anggota::with([
-            'user',
-        ])->findOrFail($id);
+        Anggota::findOrFail($id);
+        $this->anggotaId = $id;
     }
-    // SETUJUI
+
     public function setujui()
     {
-        DB::transaction(function () {
-            // AMBIL KODE TERAKHIR dengan lock agar tidak ada race condition
+        $anggota = Anggota::with('user')->findOrFail($this->anggotaId);
+
+        DB::transaction(function () use ($anggota) {
             $lastAnggota = Anggota::whereNotNull('kode_anggota')
                 ->lockForUpdate()
                 ->orderByRaw('CAST(SUBSTRING(kode_anggota, 3) AS UNSIGNED) DESC')
                 ->first();
-            $number = 1;
-            if ($lastAnggota) {
-                $lastNumber = (int) str_replace(
-                    'A-',
-                    '',
-                    $lastAnggota->kode_anggota
-                );
-                $number = $lastNumber + 1;
-            }
-            // GENERATE KODE
-            $kodeAnggota = 'A-' . str_pad(
-                $number,
-                6,
-                '0',
-                STR_PAD_LEFT
-            );
-            // UPDATE DATA ANGGOTA
-            $this->anggota->update([
-                'kode_anggota' => $kodeAnggota,
+
+            $number = $lastAnggota
+                ? (int) str_replace('A-', '', $lastAnggota->kode_anggota) + 1
+                : 1;
+
+            $anggota->update([
+                'kode_anggota' => 'A-' . str_pad($number, 6, '0', STR_PAD_LEFT),
             ]);
-            // UPDATE STATUS USER
-            $this->anggota->user->update([
-                'status' => 'disetujui',
-            ]);
+
+            $anggota->user->update(['status' => 'disetujui']);
+
             Simpanan::create([
-                'anggota_id' => $this->anggota->id,
+                'anggota_id'     => $anggota->id,
                 'jenis_simpanan' => 'pokok',
-                'jumlah' => 500000,
-                'tanggal' => now(),
+                'jumlah'         => 500000,
+                'tanggal'        => now(),
             ]);
 
             Simpanan::create([
-                'anggota_id' => $this->anggota->id,
+                'anggota_id'     => $anggota->id,
                 'jenis_simpanan' => 'wajib',
-                'jumlah' => 50000,
-                'tanggal' => now(),
+                'jumlah'         => 50000,
+                'tanggal'        => now(),
             ]);
 
             Simpanan::create([
-                'anggota_id' => $this->anggota->id,
+                'anggota_id'     => $anggota->id,
                 'jenis_simpanan' => 'sukarela',
-                'jumlah' => 100000,
-                'tanggal' => now(),
+                'jumlah'         => 100000,
+                'tanggal'        => now(),
             ]);
         });
 
         $this->dispatch('refreshAnggota');
-        session()->flash(
-            'success',
-            'Anggota berhasil disetujui'
-        );
-        return redirect()->route(
-            'manajemen.anggota.disetujui'
-        );
+        session()->flash('success', 'Anggota berhasil disetujui');
+        return redirect()->route('manajemen.anggota.disetujui');
     }
-    // TOLAK
+
     public function tolak()
     {
-        $user = $this->anggota->user;
-        // hapus anggota dulu
-        $this->anggota->delete();
-        // baru user
+        $anggota = Anggota::with('user')->findOrFail($this->anggotaId);
+        $user    = $anggota->user;
+
+        $anggota->delete();
         $user?->delete();
+
         $this->dispatch('refreshAnggota');
-        session()->flash(
-            'success',
-            'Pengajuan anggota ditolak dan data berhasil dihapus'
-        );
-        return redirect()->route(
-            'manajemen.anggota.menunggu'
-        );
+        session()->flash('success', 'Pengajuan anggota ditolak dan data berhasil dihapus');
+        return redirect()->route('manajemen.anggota.menunggu');
+    }
+
+    public function render()
+    {
+        $anggota = Anggota::with('user')->findOrFail($this->anggotaId);
+        return view('livewire.manajemen.anggota.detail-anggota-menunggu', compact('anggota'));
     }
 }

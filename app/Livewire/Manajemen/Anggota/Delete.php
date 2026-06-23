@@ -4,47 +4,32 @@ use App\Models\Anggota;
 use Livewire\Component;
 class Delete extends Component
 {
-    public $anggota;
-    public $idDelete;
-    protected $listeners = [
-        'openDelete',
-    ];
-    // BUKA MODAL
+    public ?int $idDelete = null;
+
+    protected $listeners = ['openDelete'];
+
     public function openDelete($id)
     {
-        $this->anggota = Anggota::with(
-            'user'
-        )->findOrFail($id);
-        $this->idDelete = $id;
+        $this->idDelete = (int) $id;
         $this->dispatch('showDeleteModal');
     }
-    // HAPUS DATA
+
     public function delete()
     {
         $anggota = Anggota::find($this->idDelete);
         if ($anggota) {
-            // HAPUS USER
-            // otomatis anggota ikut kehapus
-            // kalau relasi cascade aktif
             $anggota->user?->delete();
         }
-        $this->reset([
-            'anggota',
-            'idDelete',
-        ]);
-        // REFRESH TABLE
-        $this->dispatch(
-            'refreshAnggota'
-        );
-        // CLOSE MODAL
-        $this->dispatch(
-            'closeDeleteModal'
-        );
+        $this->idDelete = null;
+        $this->dispatch('refreshAnggota');
+        $this->dispatch('closeDeleteModal');
     }
+
     public function render()
     {
-        return view(
-            'livewire.manajemen.anggota.delete'
-        );
+        $anggota = $this->idDelete
+            ? Anggota::with('user')->find($this->idDelete)
+            : null;
+        return view('livewire.manajemen.anggota.delete', compact('anggota'));
     }
 }

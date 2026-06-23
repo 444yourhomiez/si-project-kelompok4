@@ -111,7 +111,7 @@
                                 <div class="font-weight-bold">{{ $anggota->no_hp }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block"><i class="fas fa-id-badge mr-1"></i> Nomor KTP</small>
+                                <small class="text-muted d-block"><i class="fas fa-id-badge mr-1"></i> No KTP/NIK</small>
                                 <div class="font-weight-bold">{{ $anggota->no_ktp }}</div>
                             </div>
                             <div class="col-md-6 mb-3">

@@ -79,7 +79,7 @@
                         @enderror
                     </div>
                     {{-- BUTTON --}}
-                    <button wire:click="login" class="btn btn-login btn-block">
+                    <button type="submit" class="btn btn-login btn-block">
                         <i class="fas fa-sign-in-alt mr-1"></i>
                         Login
                     </button>

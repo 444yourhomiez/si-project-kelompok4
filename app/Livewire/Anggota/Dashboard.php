@@ -154,82 +154,38 @@ class Dashboard extends Component
         |--------------------------------------------------------------------------
         */
 
-        $transaksiSimpanan = Simpanan::where(
-            'anggota_id',
-            $anggotaId
-        )
+        $transaksiSimpanan = Simpanan::where('anggota_id', $anggotaId)
             ->latest()
             ->take(10)
             ->get()
-            ->map(function ($item) {
+            ->map(fn($item) => [
+                'tipe'    => 'simpanan',
+                'id'      => $item->id,
+                'tanggal' => $item->created_at,
+                'jenis'   => 'Simpanan ' . ucfirst($item->jenis_simpanan),
+                'status'  => 'Tersimpan',
+                'nominal' => $item->jumlah,
+                'cicilan' => collect(),
+            ]);
 
-                return [
-
-                    'tanggal' => $item->created_at,
-
-                    'jenis' => 'Simpanan ' . ucfirst($item->jenis_simpanan),
-
-                    'status' => 'Tersimpan',
-
-                    'nominal' => $item->jumlah,
-
-                ];
-            });
-
-        $transaksiPinjaman = Pinjaman::where(
-            'anggota_id',
-            $anggotaId
-        )
+        $transaksiPinjaman = Pinjaman::with(['cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
+            ->where('anggota_id', $anggotaId)
             ->latest()
             ->take(10)
             ->get()
-            ->map(function ($item) {
-
-                return [
-
-                    'tanggal' => $item->created_at,
-
-                    'jenis' => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
-
-                    'status' => ucfirst($item->status),
-
-                    'nominal' => $item->jumlah_pengajuan,
-
-                ];
-            });
-
-        $transaksiCicilan = Cicilan::whereHas(
-            'pinjaman',
-            function ($query) use ($anggotaId) {
-
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            }
-        )
-            ->latest()
-            ->take(10)
-            ->get()
-            ->map(function ($item) {
-
-                return [
-
-                    'tanggal' => $item->created_at,
-
-                    'jenis' => 'Cicilan',
-
-                    'status' => ucfirst($item->status),
-
-                    'nominal' => $item->jumlah_tagihan,
-
-                ];
-            });
+            ->map(fn($item) => [
+                'tipe'    => 'pinjaman',
+                'id'      => $item->id,
+                'tanggal' => $item->created_at,
+                'jenis'   => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
+                'status'  => ucfirst($item->status),
+                'nominal' => $item->jumlah_pengajuan,
+                'cicilan' => $item->cicilan,
+            ]);
 
         $transaksi_terbaru = collect()
             ->merge($transaksiSimpanan)
             ->merge($transaksiPinjaman)
-            ->merge($transaksiCicilan)
             ->sortByDesc('tanggal')
             ->take(10);
 

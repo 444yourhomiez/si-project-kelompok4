@@ -3,6 +3,7 @@
 namespace App\Livewire\Anggota\Cicilan;
 
 use App\Models\Cicilan;
+use App\Models\Pinjaman;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,107 +18,41 @@ class Index extends Component
 
     public $search = '';
     public $paginate = 10;
+    public $filterStatus = '';
 
-    public $sortBy = 'created_at';
-    public $sortDirection = 'desc';
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+    public function updatingSearch() { $this->resetPage(); }
+    public function updatingFilterStatus() { $this->resetPage(); }
 
     public function render()
     {
         $anggotaId = auth()->user()->anggota->id;
 
-        $cicilan = Cicilan::with([
-            'pinjaman'
+        $pinjamanList = Pinjaman::with([
+            'cicilan' => fn($q) => $q->orderBy('cicilan_ke'),
         ])
-
-            ->whereHas('pinjaman', function ($query) use ($anggotaId) {
-
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            })
-
-            ->when($this->search, function ($query) {
-
-                $query->whereHas('pinjaman', function ($q) {
-
-                    $q->where(
-                        'kode_pinjaman',
-                        'like',
-                        '%' . $this->search . '%'
-                    );
-                });
-            })
-
-            ->orderBy(
-                $this->sortBy,
-                $this->sortDirection
-            )
-
+            ->where('anggota_id', $anggotaId)
+            ->when($this->search, fn($q) => $q->where('kode_pinjaman', 'like', '%'.$this->search.'%'))
+            ->when($this->filterStatus, fn($q) => $q->where('status', $this->filterStatus))
+            ->orderBy('created_at', 'desc')
             ->paginate($this->paginate);
 
-        $totalTagihan =
-            Cicilan::whereHas('pinjaman', function ($query) use ($anggotaId) {
+        $totalTagihan = Cicilan::whereHas('pinjaman', fn($q) => $q->where('anggota_id', $anggotaId))
+            ->sum('jumlah_tagihan');
 
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            })->sum('jumlah_tagihan');
-
-        $totalBelumBayar =
-            Cicilan::whereHas('pinjaman', function ($query) use ($anggotaId) {
-
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            })
+        $totalBelumBayar = Cicilan::whereHas('pinjaman', fn($q) => $q->where('anggota_id', $anggotaId))
             ->where('status', 'belum')
             ->sum('jumlah_tagihan');
 
-        $totalLunas =
-            Cicilan::whereHas('pinjaman', function ($query) use ($anggotaId) {
-
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            })
+        $totalLunas = Cicilan::whereHas('pinjaman', fn($q) => $q->where('anggota_id', $anggotaId))
             ->where('status', 'lunas')
             ->sum('jumlah_tagihan');
 
-        $jumlahCicilan =
-            Cicilan::whereHas('pinjaman', function ($query) use ($anggotaId) {
-
-                $query->where(
-                    'anggota_id',
-                    $anggotaId
-                );
-            })->count();
-
-        return view(
-            'livewire.anggota.cicilan.index',
-            [
-
-                'title' => 'Daftar Cicilan Pinjaman',
-
-                'cicilan' => $cicilan,
-
-                'totalTagihan' => $totalTagihan,
-
-                'totalBelumBayar' => $totalBelumBayar,
-
-                'totalLunas' => $totalLunas,
-
-                'jumlahCicilan' => $jumlahCicilan,
-
-            ]
-        );
+        return view('livewire.anggota.cicilan.index', [
+            'title'           => 'Daftar Cicilan Pinjaman',
+            'pinjamanList'    => $pinjamanList,
+            'totalTagihan'    => $totalTagihan,
+            'totalBelumBayar' => $totalBelumBayar,
+            'totalLunas'      => $totalLunas,
+        ]);
     }
 }

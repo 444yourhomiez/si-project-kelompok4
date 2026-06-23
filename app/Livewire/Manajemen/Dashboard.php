@@ -15,93 +15,38 @@ class Dashboard extends Component
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];
-    public $transaksiTerbaru;
     public function render()
     {
-        $simpanan = Simpanan::with('anggota')
-            ->latest()
-            ->get()
-            ->map(function ($item) {
+        $simpananList = Simpanan::with('anggota')
+            ->latest()->take(20)->get()
+            ->map(fn($item) => (object)[
+                'tipe'         => 'simpanan',
+                'id'           => $item->id,
+                'created_at'   => $item->created_at,
+                'kode_anggota' => $item->anggota->kode_anggota ?? '-',
+                'nama_anggota' => $item->anggota->nama_anggota ?? '-',
+                'jenis'        => 'Simpanan ' . ucfirst($item->jenis_simpanan),
+                'nominal'      => $item->jumlah,
+                'status'       => 'Berhasil',
+                'cicilan'      => collect(),
+            ]);
 
-                return (object) [
+        $pinjamanList = Pinjaman::with(['anggota', 'cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
+            ->latest()->take(20)->get()
+            ->map(fn($item) => (object)[
+                'tipe'         => 'pinjaman',
+                'id'           => $item->id,
+                'created_at'   => $item->created_at,
+                'kode_anggota' => $item->anggota->kode_anggota ?? '-',
+                'nama_anggota' => $item->anggota->nama_anggota ?? '-',
+                'jenis'        => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
+                'nominal'      => $item->jumlah_pengajuan,
+                'status'       => ucfirst($item->status),
+                'cicilan'      => $item->cicilan,
+            ]);
 
-                    'created_at' => $item->created_at,
-
-                    'kode_anggota' =>
-                    $item->anggota->kode_anggota ?? '-',
-
-                    'nama_anggota' =>
-                    $item->anggota->nama_anggota ?? '-',
-
-                    'jenis' =>
-                    'Simpanan ' .
-                        ucfirst($item->jenis_simpanan),
-
-                    'nominal' =>
-                    $item->jumlah,
-
-                    'status' =>
-                    'Berhasil',
-                ];
-            });
-
-        $cicilan = Cicilan::with('pinjaman.anggota')
-            ->latest()
-            ->get()
-            ->map(function ($item) {
-
-                return (object) [
-
-                    'created_at' => $item->created_at,
-
-                    'kode_anggota' =>
-                    $item->pinjaman->anggota->kode_anggota ?? '-',
-
-                    'nama_anggota' =>
-                    $item->pinjaman->anggota->nama_anggota ?? '-',
-
-                    'jenis' =>
-                    'Cicilan',
-
-                    'nominal' =>
-                    $item->jumlah_tagihan,
-
-                    'status' =>
-                    ucfirst($item->status),
-                ];
-            });
-
-        $pinjaman = Pinjaman::with('anggota')
-            ->latest()
-            ->get()
-            ->map(function ($item) {
-
-                return (object) [
-
-                    'created_at' => $item->created_at,
-
-                    'kode_anggota' =>
-                    $item->anggota->kode_anggota ?? '-',
-
-                    'nama_anggota' =>
-                    $item->anggota->nama_anggota ?? '-',
-
-                    'jenis' =>
-                    'Pinjaman ' .
-                        ucfirst($item->jenis_pinjaman),
-
-                    'nominal' =>
-                    $item->jumlah_pengajuan,
-
-                    'status' =>
-                    ucfirst($item->status),
-                ];
-            });
-
-        $this->transaksiTerbaru =
-            $simpanan
-            ->merge($cicilan)
-            ->merge($pinjaman)
+        $transaksiTerbaru = $simpananList
+            ->merge($pinjamanList)
             ->sortByDesc('created_at')
             ->take(10);
 
@@ -185,6 +130,7 @@ class Dashboard extends Component
             'totalKeluarHariIni' => $totalKeluarHariIni,
 
             'transaksiHariIni' => $transaksiHariIni,
+            'transaksiTerbaru' => $transaksiTerbaru,
         ]);
     }
 }

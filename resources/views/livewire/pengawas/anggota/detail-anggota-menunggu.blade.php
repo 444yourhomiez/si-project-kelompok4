@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="modern-detail-item">
-                                    <small>Nomor KTP</small>
+                                    <small>No KTP/NIK</small>
                                     <h6>{{ $anggota->no_ktp }}</h6>
                                 </div>
                             </div>

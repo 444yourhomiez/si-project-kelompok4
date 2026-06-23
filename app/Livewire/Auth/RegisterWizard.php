@@ -52,7 +52,7 @@ class RegisterWizard extends Component
         $this->emailOtpSent  = false;
         $this->emailVerified = false;
         $this->emailOtpInput = '';
-        session()->forget(['reg_email_otp', 'reg_email_otp_exp']);
+        session()->forget(['reg_email_otp', 'reg_email_otp_exp', 'reg_email_verified']);
     }
 
     public function prev()
@@ -103,6 +103,7 @@ class RegisterWizard extends Component
             return;
         }
         session()->forget(['reg_email_otp', 'reg_email_otp_exp']);
+        session(['reg_email_verified' => true]);
         $this->emailVerified = true;
         $this->emailOtpInput = '';
     }
@@ -144,7 +145,7 @@ class RegisterWizard extends Component
             'jenis_kelamin'       => 'required',
             'alamat'              => 'required',
             'tempat_lahir'        => 'required',
-            'tanggal_lahir'       => 'required|date|before_or_equal:'.now()->subYears(17)->format('Y-m-d'),
+            'tanggal_lahir'       => 'required|date',
             'agama'               => 'required',
             'nama_ibu_kandung'    => 'required',
             'status_rumah'        => 'required',
@@ -164,7 +165,6 @@ class RegisterWizard extends Component
             'tempat_lahir.required'         => 'Tempat lahir wajib diisi',
             'tanggal_lahir.required'        => 'Tanggal lahir wajib diisi',
             'tanggal_lahir.date'            => 'Format tanggal lahir tidak valid',
-            'tanggal_lahir.before_or_equal' => 'Minimal usia 17 tahun',
             'agama.required'                => 'Agama wajib dipilih',
             'nama_ibu_kandung.required'     => 'Nama ibu kandung wajib diisi',
             'status_rumah.required'         => 'Status rumah wajib dipilih',
@@ -211,7 +211,8 @@ class RegisterWizard extends Component
     // ================= STEP 3: SIMPAN SEMUA =================
     public function saveStep3()
     {
-        if (! $this->emailVerified) {
+        if (! $this->emailVerified || ! session('reg_email_verified')) {
+            $this->emailVerified = false;
             $this->step = 1;
             return;
         }
@@ -258,6 +259,7 @@ class RegisterWizard extends Component
             $jadwal->increment('terisi');
             Auth::login($user);
         });
+        session()->forget('reg_email_verified');
         return redirect()->route('menunggu');
     }
 }

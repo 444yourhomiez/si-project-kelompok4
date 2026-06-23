@@ -1415,3 +1415,107 @@ select.form-control {
         margin-top: 0 !important;
     }
 }
+/* ===================================================== */
+/* ============== CICILAN ACCORDION CARD =============== */
+/* ===================================================== */
+.cicilan-pinjaman-card {
+    border-radius: 10px !important;
+    overflow: hidden;
+    transition: box-shadow .15s;
+}
+.cicilan-pinjaman-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.10) !important;
+}
+.cicilan-toggle {
+    color: inherit !important;
+    text-decoration: none !important;
+    border-radius: 0 !important;
+}
+.cicilan-toggle:hover {
+    background: #f8fafc !important;
+}
+.cicilan-toggle:focus {
+    box-shadow: none !important;
+}
+.cicilan-chevron {
+    transition: transform .2s;
+}
+.cicilan-toggle[aria-expanded="true"] .cicilan-chevron {
+    transform: rotate(180deg);
+}
+.cicilan-pinjaman-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+.bg-success-light { background: #e8f5e9; }
+.bg-success-light.text-success { color: #28a745 !important; }
+.bg-primary-light { background: #e3f2fd; }
+.bg-primary-light.text-primary { color: #007bff !important; }
+.cicilan-summary-box {
+    border: 1px solid #e9ecef;
+    font-size: 0.85rem;
+}
+@media (max-width: 575px) {
+    .cicilan-pinjaman-icon { width: 34px; height: 34px; font-size: 0.85rem; }
+}
+
+/* ===================================================== */
+/* =========== DASHBOARD TRANSAKSI FEED CARD =========== */
+/* ===================================================== */
+.trx-card {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+.trx-row {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background .12s;
+}
+.trx-row:last-child {
+    border-bottom: none;
+}
+.trx-row:hover {
+    background: #f8fafc;
+}
+.trx-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.trx-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .95rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.trx-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+@media (max-width: 575px) {
+    .trx-row { padding: 12px 16px !important; }
+    .trx-icon { width: 36px; height: 36px; font-size: .85rem; border-radius: 10px; }
+    .trx-avatar { width: 34px; height: 34px; font-size: .8rem; }
+    .trx-row .font-weight-bold[style*="font-size:.95rem"] { font-size: .82rem !important; }
+}

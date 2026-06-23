@@ -12,6 +12,8 @@ class Khusus extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    protected $listeners = ['dataKoperasiUpdated' => '$refresh'];
+
     public string $search       = '';
     public string $filterStatus = '';
     public int    $paginate     = 10;

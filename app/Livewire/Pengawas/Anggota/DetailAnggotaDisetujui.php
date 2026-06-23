@@ -4,22 +4,23 @@ use App\Models\Anggota;
 use Livewire\Component;
 class DetailAnggotaDisetujui extends Component
 {
-    public $anggota;
+    public int $anggotaId;
+
     public function mount($id)
     {
-        $this->anggota = Anggota::with([
-            'user',
-            'simpanan',
-            // 'pinjaman'
-        ])->findOrFail($id);
+        $this->anggotaId = (int) $id;
     }
+
     public function render()
     {
-        return view(
-            'livewire.pengawas.anggota.detail-anggota-disetujui',
-            [
-                'title' => 'Detail Anggota Disetujui',
-            ]
-        );
+        $anggota = Anggota::with([
+            'user',
+            'simpanan',
+        ])->findOrFail($this->anggotaId);
+
+        return view('livewire.pengawas.anggota.detail-anggota-disetujui', [
+            'anggota' => $anggota,
+            'title'   => 'Detail Anggota Disetujui',
+        ]);
     }
 }

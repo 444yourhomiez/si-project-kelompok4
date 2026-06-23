@@ -77,28 +77,26 @@
                 </div>
                 {{-- TABLE --}}
                 <div class="card-body">
-                    {{-- <div class="row mb-3 align-items-end">
-                        <div class="col-lg-4 col-md-12 mb-2">
+                    <div class="row mb-3 align-items-end">
+                        {{-- SEARCH --}}
+                        <div class="col-lg-4 col-md-6 col-12 mb-2">
                             <label>Cari Pinjaman</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari Pinjaman...">
+                                placeholder="Kode pinjaman...">
                         </div>
-                        <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <label>Urutkan</label>
-                            <select wire:model.live="sortBy" class="form-control">
-                                <option value="created_at">Terbaru</option>
-                                <option value="nama_anggota">Nama</option>
-                                <option value="jumlah">Nominal</option>
+                        {{-- FILTER STATUS --}}
+                        <div class="col-lg-3 col-md-6 col-6 mb-2">
+                            <label>Status</label>
+                            <select wire:model.live="filterStatus" class="form-control">
+                                <option value="">Semua Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="lunas">Lunas</option>
+                                <option value="ditolak">Ditolak</option>
                             </select>
                         </div>
-                        <div class="col-lg-2 col-md-4 col-6 mb-2">
-                            <label>Arah</label>
-                            <select wire:model.live="sortDirection" class="form-control">
-                                <option value="desc">Z - A</option>
-                                <option value="asc">A - Z</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-4 col-md-12 mb-2">
+                        {{-- PAGINATION --}}
+                        <div class="col-lg-3 col-md-6 col-6 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
                                 <option value="10">10 Data</option>
@@ -107,7 +105,7 @@
                                 <option value="100">100 Data</option>
                             </select>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="thead-light">

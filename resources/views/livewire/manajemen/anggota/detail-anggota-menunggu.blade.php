@@ -52,7 +52,7 @@
                             </div>
                             {{-- ACTION BUTTONS --}}
                             <div class="d-flex flex-wrap" style="gap:10px;">
-                                <button wire:click="tolak" class="btn modern-danger-btn" style="min-width:110px;">
+                                <button wire:click="tolak" wire:confirm="Yakin ingin menolak anggota ini? Data akan dihapus permanen dan tidak dapat dikembalikan." class="btn modern-danger-btn" style="min-width:110px;">
                                     <i class="fas fa-times-circle mr-1"></i>Tolak
                                 </button>
                                 <button wire:click="setujui" class="btn modern-success-btn" style="min-width:110px;">
@@ -87,7 +87,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="modern-detail-item">
-                                    <small>Nomor KTP</small>
+                                    <small>No KTP/NIK</small>
                                     <h6>{{ $anggota->no_ktp }}</h6>
                                 </div>
                             </div>

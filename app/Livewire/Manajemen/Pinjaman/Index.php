@@ -12,6 +12,8 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    protected $listeners = ['dataKoperasiUpdated' => '$refresh'];
+
     public string $search      = '';
     public string $filterJenis = '';
     public string $filterStatus = '';

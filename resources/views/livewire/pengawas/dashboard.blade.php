@@ -7,14 +7,14 @@
                     <div class="col-sm-6">
                         <h1>
                             <i class="nav-icon fas fa-th-large mr-2"></i>
-                            @yield('title')
+                            Dashboard
                         </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item active text-success">
                                 <i class="nav-icon fas fa-th-large mr-1"></i>
-                                @yield('title')
+                                Dashboard
                             </li>
                         </ol>
                     </div>
@@ -227,141 +227,136 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- CARD BODY -->
+            {{-- TRANSAKSI TERBARU --}}
             <div class="card shadow-sm border-0">
-                {{-- HEADER --}}
                 <div class="card-header bg-white border-bottom py-3">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <h4 class="font-weight-bold mb-1">
-                                <i class="fas fa-history mr-2"></i>
-                                Transaksi Terbaru
-                            </h4>
-                            <small class="opacity-75">
-                                Aktivitas simpanan dan pinjaman terbaru
-                            </small>
+                    <h5 class="font-weight-bold mb-0">
+                        <i class="fas fa-history mr-2 text-muted"></i>
+                        Transaksi Terbaru
+                    </h5>
+                </div>
+                <div class="card-body pt-2 pb-0">
+                    @forelse ($transaksiTerbaru as $item)
+                        @php
+                            $colId     = 'trx-' . $item->tipe . '-' . $item->id;
+                            $hasCicilan = $item->tipe == 'pinjaman' && $item->cicilan->count() > 0;
+                        @endphp
+                        <div class="card border mb-2 shadow-sm" style="border-radius:8px; overflow:hidden;">
+                            <div class="card-header bg-white border-bottom-0 p-0">
+                                @if($hasCicilan)
+                                    <button class="btn btn-link w-100 text-left p-3 collapsed"
+                                        data-toggle="collapse" data-target="#{{ $colId }}"
+                                        aria-expanded="false" style="text-decoration:none;">
+                                @else
+                                    <div class="p-3">
+                                @endif
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center" style="gap:10px;">
+                                                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                                                    style="width:38px;height:38px;
+                                                    background:{{ $item->tipe == 'simpanan' ? '#e8f5e9' : '#ffebee' }};">
+                                                    <i class="fas {{ $item->tipe == 'simpanan' ? 'fa-coins text-success' : 'fa-hand-holding-usd text-danger' }}"
+                                                        style="font-size:14px;"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark" style="font-size:0.9rem;">
+                                                        {{ $item->nama_anggota }}
+                                                        <small class="text-muted font-weight-normal">({{ $item->kode_anggota }})</small>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        {{ $item->jenis }}
+                                                        &bull; {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                                                        &bull; {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center" style="gap:10px; flex-shrink:0;">
+                                                <div class="text-right">
+                                                    <div class="font-weight-bold" style="font-size:0.9rem;">
+                                                        Rp {{ number_format($item->nominal, 0, ',', '.') }}
+                                                    </div>
+                                                    @php $s = strtolower($item->status ?? '') @endphp
+                                                    @if($s == 'aktif' || $s == 'berhasil')
+                                                        <span class="badge badge-success" style="font-size:0.7rem;">{{ $item->status }}</span>
+                                                    @elseif($s == 'lunas')
+                                                        <span class="badge badge-primary" style="font-size:0.7rem;">{{ $item->status }}</span>
+                                                    @elseif($s == 'pending')
+                                                        <span class="badge badge-warning" style="font-size:0.7rem;">{{ $item->status }}</span>
+                                                    @elseif($s == 'ditolak')
+                                                        <span class="badge badge-danger" style="font-size:0.7rem;">{{ $item->status }}</span>
+                                                    @else
+                                                        <span class="badge badge-secondary" style="font-size:0.7rem;">{{ $item->status ?? '-' }}</span>
+                                                    @endif
+                                                </div>
+                                                @if($hasCicilan)
+                                                    <i class="fas fa-chevron-down text-muted" style="font-size:0.75rem;"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                @if($hasCicilan)
+                                    </button>
+                                @else
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if($hasCicilan)
+                                <div id="{{ $colId }}" class="collapse">
+                                    <div class="card-body pt-0 px-3 pb-3">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-bordered mb-0">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="text-center" style="width:75px;">Cicilan</th>
+                                                        <th>Jatuh Tempo</th>
+                                                        <th class="text-right">Nominal</th>
+                                                        <th class="text-center" style="width:95px;">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($item->cicilan as $cicilan)
+                                                        @php
+                                                            $jt = \Carbon\Carbon::parse($cicilan->jatuh_tempo);
+                                                            $terlambat = $cicilan->status == 'belum' && $jt->isPast();
+                                                        @endphp
+                                                        <tr class="{{ $terlambat ? 'table-danger' : ($cicilan->status == 'lunas' ? 'table-success' : '') }}"
+                                                            style="opacity:{{ $cicilan->status == 'lunas' ? '0.8' : '1' }};">
+                                                            <td class="text-center">
+                                                                <span class="badge badge-info">Ke-{{ $cicilan->cicilan_ke }}</span>
+                                                            </td>
+                                                            <td>
+                                                                <div style="font-size:0.8rem;">{{ $jt->format('d M Y') }}</div>
+                                                                <small class="text-muted">{{ $jt->diffForHumans() }}</small>
+                                                            </td>
+                                                            <td class="text-right font-weight-bold" style="font-size:0.85rem;">
+                                                                Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if($cicilan->status == 'lunas')
+                                                                    <span class="badge badge-success"><i class="fas fa-check mr-1"></i>Lunas</span>
+                                                                @elseif($terlambat)
+                                                                    <span class="badge badge-danger">Terlambat</span>
+                                                                @else
+                                                                    <span class="badge badge-warning">Belum</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                    </div>
+                    @empty
+                        <div class="text-center py-4 text-muted">
+                            <i class="fas fa-history fa-2x mb-2 d-block"></i>
+                            Belum ada transaksi
+                        </div>
+                    @endforelse
                 </div>
-                {{-- TABLE --}}
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover mb-0">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>ID Anggota</th>
-                                    <th>Nama Anggota</th>
-                                    <th>Jenis Transaksi</th>
-                                    <th>Nominal</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($transaksiTerbaru as $item)
-                                    <tr>
-
-                                        {{-- TANGGAL --}}
-                                        <td>
-                                            <div class="font-weight-bold">
-                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
-                                            </div>
-                                            <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
-                                            </small>
-                                        </td>
-
-                                        {{-- ID ANGGOTA --}}
-                                        <td class="font-weight-bold">
-                                            {{ $item->kode_anggota }}
-                                        </td>
-
-                                        {{-- NAMA ANGGOTA --}}
-                                        <td>
-                                            <div class="font-weight-bold">
-                                                {{ $item->nama_anggota }}
-                                            </div>
-                                        </td>
-
-                                        {{-- JENIS TRANSAKSI --}}
-                                        <td>
-                                            @if (str_contains(strtolower($item->jenis), 'simpanan'))
-                                                <span class="badge badge-success">
-                                                    {{ $item->jenis }}
-                                                </span>
-                                            @elseif(str_contains(strtolower($item->jenis), 'pinjaman'))
-                                                <span class="badge badge-danger">
-                                                    {{ $item->jenis }}
-                                                </span>
-                                            @elseif(str_contains(strtolower($item->jenis), 'cicilan'))
-                                                <span class="badge badge-primary">
-                                                    {{ $item->jenis }}
-                                                </span>
-                                            @else
-                                                <span class="badge badge-secondary">
-                                                    {{ $item->jenis }}
-                                                </span>
-                                            @endif
-                                        </td>
-
-                                        {{-- NOMINAL --}}
-                                        <td class="font-weight-bold text-dark">
-                                            Rp {{ number_format($item->nominal, 0, ',', '.') }}
-                                        </td>
-
-                                        {{-- STATUS --}}
-                                        <td>
-
-                                            @if (strtolower($item->status) == 'aktif')
-                                                <span class="badge badge-success">
-                                                    Aktif
-                                                </span>
-                                            @elseif(strtolower($item->status) == 'pending')
-                                                <span class="badge badge-warning">
-                                                    Pending
-                                                </span>
-                                            @elseif(strtolower($item->status) == 'lunas')
-                                                <span class="badge badge-primary">
-                                                    Lunas
-                                                </span>
-                                            @elseif(strtolower($item->status) == 'ditolak')
-                                                <span class="badge badge-danger">
-                                                    Ditolak
-                                                </span>
-                                            @elseif(strtolower($item->status) == 'berhasil')
-                                                <span class="badge badge-success">
-                                                    Berhasil
-                                                </span>
-                                            @else
-                                                <span class="badge badge-secondary">
-                                                    {{ $item->status }}
-                                                </span>
-                                            @endif
-
-                                        </td>
-
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center py-5">
-                                            <div class="empty-state">
-                                                <i class="fas fa-folder-open"></i>
-
-                                                <h5>
-                                                    Belum ada transaksi
-                                                </h5>
-
-                                                <p>
-                                                    Data transaksi terbaru akan tampil di sini
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="card-footer bg-white border-0 py-2"></div>
             </div>
         </section>
     </div>

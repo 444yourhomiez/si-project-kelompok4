@@ -53,6 +53,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.anggota.profile.index');
+        return view('livewire.anggota.profile.index', [
+            'title' => 'Profile',
+        ]);
     }
 }

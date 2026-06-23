@@ -19,9 +19,10 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.simpanan.pokok') }}" class="text-muted breadcrumb-green">
+                                <a href="{{ route('anggota.simpanan.index') }}" class="text-muted breadcrumb-green">
                                     <i class="fas fa-coins mr-1"></i>
                                     Daftar Simpanan
+                                </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
                                 <i class="fas fas fa-piggy-bank mr-1"></i>

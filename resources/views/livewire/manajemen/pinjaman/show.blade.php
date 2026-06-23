@@ -13,7 +13,7 @@
                                         Detail Pengajuan Pinjaman
                                     </div>
                                     <h5 class="text-white font-weight-bold mb-1">
-                                        {{ $detailPinjaman->anggota->nama_anggota }}
+                                        {{ $detailPinjaman->anggota?->nama_anggota ?? '-' }}
                                     </h5>
                                     <div class="d-flex align-items-center">
                                         @if ($detailPinjaman->jenis_pinjaman == 'biasa')
@@ -137,6 +137,13 @@
                             </div>
                         </div>
 
+                        {{-- ERROR --}}
+                        @if ($modalError)
+                            <div class="alert alert-danger py-2 mb-3">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                {{ $modalError }}
+                            </div>
+                        @endif
                         {{-- CATATAN --}}
                         <div class="mb-0">
                             <label class="font-weight-bold small text-muted">

@@ -20,7 +20,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.simpanan.sukarela') }}"
+                                <a href="{{ route('anggota.simpanan.index') }}"
                                     class="text-muted breadcrumb-green">
                                     <i class="fas fa-coins mr-1"></i>
                                     Daftar Simpanan

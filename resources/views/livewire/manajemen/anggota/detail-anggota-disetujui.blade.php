@@ -67,14 +67,14 @@
                             <div class="col-md-4 col-6 mb-2">
                                 <div class="card border-0 shadow-sm h-100 mb-0">
                                     <div class="card-body py-3 text-center">
-                                        <small class="text-muted d-block">Simpanan Wajib</small>
-                                        <div class="font-weight-bold text-primary mt-1" style="font-size:1rem;">
-                                            Rp {{ number_format($anggota->simpanan->where('jenis_simpanan','wajib')->sum('jumlah'), 0, ',', '.') }}
+                                        <small class="text-muted d-block">Pinjaman Aktif</small>
+                                        <div class="font-weight-bold text-danger mt-1" style="font-size:1rem;">
+                                            Rp {{ number_format($anggota->pinjaman->where('status', 'aktif')->sum('jumlah_pengajuan'), 0, ',', '.') }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-6 mb-2">
+                            <div class="col-md-4 col-12 mb-2">
                                 <div class="card border-0 shadow-sm h-100 mb-0">
                                     <div class="card-body py-3 text-center">
                                         <small class="text-muted d-block">Tgl. Bergabung</small>
@@ -114,7 +114,7 @@
                                 <div class="font-weight-bold">{{ $anggota->no_hp }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <small class="text-muted d-block"><i class="fas fa-id-badge mr-1"></i> Nomor KTP</small>
+                                <small class="text-muted d-block"><i class="fas fa-id-badge mr-1"></i> No KTP/NIK</small>
                                 <div class="font-weight-bold">{{ $anggota->no_ktp }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -233,6 +233,160 @@
                                 </tfoot>
                             @endif
                         </table>
+                    </div>
+                </div>
+
+                {{-- RIWAYAT PINJAMAN --}}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="font-weight-bold mb-0 text-danger">
+                            <i class="fas fa-hand-holding-usd mr-2"></i> Riwayat Pinjaman
+                        </h5>
+                        <span class="badge badge-danger px-3 py-1">
+                            {{ $anggota->pinjaman->count() }} Pinjaman
+                        </span>
+                    </div>
+                    <div class="card-body pt-0">
+                        @forelse ($anggota->pinjaman as $pinjaman)
+                            @php
+                                $totalCicilan   = $pinjaman->cicilan->count();
+                                $cicilanLunas   = $pinjaman->cicilan->where('status', 'lunas')->count();
+                                $progressPct    = $totalCicilan > 0 ? round(($cicilanLunas / $totalCicilan) * 100) : 0;
+                                $collapseId     = 'pinjaman-detail-' . $pinjaman->id;
+                            @endphp
+                            <div class="card border mb-2 shadow-sm mt-3">
+                                <div class="card-header bg-white border-bottom-0 p-0">
+                                    <button class="btn btn-link w-100 text-left p-3 collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#{{ $collapseId }}"
+                                        aria-expanded="false">
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap" style="gap:8px;">
+                                            <div class="d-flex align-items-center" style="gap:10px;">
+                                                <div class="d-flex align-items-center justify-content-center rounded"
+                                                    style="width:36px;height:36px;background:{{ $pinjaman->jenis_pinjaman == 'biasa' ? '#e8f5e9' : '#e3f2fd' }};">
+                                                    <i class="fas fa-hand-holding-usd" style="color:{{ $pinjaman->jenis_pinjaman == 'biasa' ? '#28a745' : '#007bff' }};"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark" style="font-size:0.9rem;">
+                                                        {{ $pinjaman->kode_pinjaman }}
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        Pinjaman {{ ucfirst($pinjaman->jenis_pinjaman) }}
+                                                        &bull; Tenor {{ $pinjaman->tenor }} bln
+                                                        &bull; Rp {{ number_format($pinjaman->jumlah_pengajuan, 0, ',', '.') }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center" style="gap:10px; flex-shrink:0;">
+                                                @if($totalCicilan > 0)
+                                                    <div style="min-width:100px;">
+                                                        <div class="d-flex justify-content-between mb-1">
+                                                            <small class="text-muted">{{ $cicilanLunas }}/{{ $totalCicilan }}</small>
+                                                            <small class="font-weight-bold">{{ $progressPct }}%</small>
+                                                        </div>
+                                                        <div class="progress" style="height:5px; border-radius:3px;">
+                                                            <div class="progress-bar bg-success" style="width:{{ $progressPct }}%"></div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($pinjaman->status == 'aktif')
+                                                    <span class="badge badge-success">Aktif</span>
+                                                @elseif($pinjaman->status == 'lunas')
+                                                    <span class="badge badge-primary">Lunas</span>
+                                                @elseif($pinjaman->status == 'pending')
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @else
+                                                    <span class="badge badge-danger">Ditolak</span>
+                                                @endif
+                                                <i class="fas fa-chevron-down text-muted" style="font-size:0.75rem;"></i>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div id="{{ $collapseId }}" class="collapse">
+                                    <div class="card-body pt-0 px-3 pb-3">
+                                        {{-- INFO KEUANGAN --}}
+                                        <div class="row mb-3">
+                                            <div class="col-4 text-center">
+                                                <div class="border rounded p-2">
+                                                    <small class="text-muted d-block">Dana Cair</small>
+                                                    <span class="font-weight-bold text-success" style="font-size:0.85rem;">
+                                                        Rp {{ number_format($pinjaman->dana_diterima ?? 0, 0, ',', '.') }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="border rounded p-2">
+                                                    <small class="text-muted d-block">Cicilan/Bln</small>
+                                                    <span class="font-weight-bold text-primary" style="font-size:0.85rem;">
+                                                        Rp {{ number_format($pinjaman->cicilan_per_bulan, 0, ',', '.') }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center">
+                                                <div class="border rounded p-2">
+                                                    <small class="text-muted d-block">Total Bayar</small>
+                                                    <span class="font-weight-bold text-danger" style="font-size:0.85rem;">
+                                                        Rp {{ number_format($pinjaman->total_pembayaran ?? 0, 0, ',', '.') }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- TABEL CICILAN --}}
+                                        @if($pinjaman->cicilan->count() > 0)
+                                            <div class="table-responsive">
+                                                <table class="table table-sm table-bordered mb-0">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th class="text-center" style="width:80px;">Cicilan</th>
+                                                            <th>Jatuh Tempo</th>
+                                                            <th class="text-right">Nominal</th>
+                                                            <th class="text-center" style="width:100px;">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($pinjaman->cicilan as $cicilan)
+                                                            @php
+                                                                $jatuhTempo = \Carbon\Carbon::parse($cicilan->jatuh_tempo);
+                                                                $isLate = $cicilan->status == 'belum' && $jatuhTempo->isPast();
+                                                            @endphp
+                                                            <tr class="{{ $isLate ? 'table-danger' : ($cicilan->status == 'lunas' ? 'table-success' : '') }}"
+                                                                style="opacity:{{ $cicilan->status == 'lunas' ? '0.8' : '1' }};">
+                                                                <td class="text-center">
+                                                                    <span class="badge badge-info">Ke-{{ $cicilan->cicilan_ke }}</span>
+                                                                </td>
+                                                                <td>{{ $jatuhTempo->format('d M Y') }}</td>
+                                                                <td class="text-right font-weight-bold">
+                                                                    Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    @if($cicilan->status == 'lunas')
+                                                                        <span class="badge badge-success"><i class="fas fa-check mr-1"></i>Lunas</span>
+                                                                    @elseif($isLate)
+                                                                        <span class="badge badge-danger">Terlambat</span>
+                                                                    @else
+                                                                        <span class="badge badge-warning">Belum</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @else
+                                            <div class="text-center py-2 text-muted small">
+                                                <i class="fas fa-info-circle mr-1"></i> Belum ada cicilan untuk pinjaman ini
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center py-4 text-muted mt-3">
+                                <i class="fas fa-hand-holding-usd fa-2x mb-2 d-block"></i>
+                                Belum ada data pinjaman
+                            </div>
+                        @endforelse
                     </div>
                 </div>
 
