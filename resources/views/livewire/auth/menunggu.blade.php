@@ -1,4 +1,4 @@
-<div wire:poll.3s="checkStatus" class="login-wrapper">
+<div wire:poll.15s="checkStatus" class="login-wrapper">
     <div class="login-container">
         <div class="login-box" style="max-width: 480px;">
             <div class="card login-card p-4">
