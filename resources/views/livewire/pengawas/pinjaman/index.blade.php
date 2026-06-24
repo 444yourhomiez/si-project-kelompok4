@@ -47,7 +47,7 @@
                         </div>
 
                         {{-- PINJAMAN BIASA --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.pinjaman.biasa') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -64,7 +64,7 @@
                         </div>
 
                         {{-- PINJAMAN KHUSUS --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.pinjaman.khusus') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">
@@ -142,6 +142,7 @@
                                     <th>Jenis</th>
                                     <th class="text-right">Nominal</th>
                                     <th class="text-center">Status</th>
+                                    <th class="text-center" style="width:70px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,10 +179,19 @@
                                                 <span class="badge badge-warning">Pending</span>
                                             @endif
                                         </td>
+                                        <td class="text-center">
+                                            <button
+                                                wire:click="$dispatch('openShow', [{{ $item->id }}])"
+                                                onclick="$('#showModalPinjaman').modal('show')"
+                                                class="btn btn-sm btn-light shadow-sm"
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye text-primary"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center py-5">
+                                        <td colspan="8" class="text-center py-5">
                                             <div class="empty-state">
                                                 <i class="fas fa-folder-open fa-2x mb-2 d-block text-muted"></i>
                                                 <h6 class="text-muted">Belum ada data pinjaman</h6>
@@ -206,4 +216,6 @@
             </div>
         </section>
     </div>
+
+    @livewire('pengawas.pinjaman.show')
 </div>

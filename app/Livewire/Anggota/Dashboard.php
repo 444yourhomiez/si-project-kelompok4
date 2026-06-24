@@ -9,9 +9,16 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public bool $showAllTransaksi = false;
+
     protected $listeners = [
         'dataKoperasiUpdated' => '$refresh',
     ];
+
+    public function toggleTransaksi()
+    {
+        $this->showAllTransaksi = !$this->showAllTransaksi;
+    }
 
     public function render()
     {
@@ -156,38 +163,62 @@ class Dashboard extends Component
 
         $transaksiSimpanan = Simpanan::where('anggota_id', $anggotaId)
             ->latest()
-            ->take(10)
             ->get()
             ->map(fn($item) => [
-                'tipe'    => 'simpanan',
-                'id'      => $item->id,
-                'tanggal' => $item->created_at,
-                'jenis'   => 'Simpanan ' . ucfirst($item->jenis_simpanan),
-                'status'  => 'Tersimpan',
-                'nominal' => $item->jumlah,
-                'cicilan' => collect(),
+                'tipe'       => 'simpanan',
+                'id'         => $item->id,
+                'tanggal'    => $item->created_at,
+                'jenis'      => 'Simpanan ' . ucfirst($item->jenis_simpanan),
+                'sub'        => $item->jenis_simpanan,
+                'status'     => 'Tersimpan',
+                'nominal'    => $item->jumlah,
+                'keterangan' => null,
+                'cicilan'    => collect(),
             ]);
 
         $transaksiPinjaman = Pinjaman::with(['cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
             ->where('anggota_id', $anggotaId)
             ->latest()
-            ->take(10)
             ->get()
             ->map(fn($item) => [
-                'tipe'    => 'pinjaman',
-                'id'      => $item->id,
-                'tanggal' => $item->created_at,
-                'jenis'   => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
-                'status'  => ucfirst($item->status),
-                'nominal' => $item->jumlah_pengajuan,
-                'cicilan' => $item->cicilan,
+                'tipe'       => 'pinjaman',
+                'id'         => $item->id,
+                'tanggal'    => $item->created_at,
+                'jenis'      => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
+                'sub'        => $item->jenis_pinjaman,
+                'status'     => ucfirst($item->status),
+                'nominal'    => $item->jumlah_pengajuan,
+                'keterangan' => null,
+                'cicilan'    => $item->cicilan,
+            ]);
+
+        $transaksiCicilan = Cicilan::with('pinjaman')
+            ->whereHas('pinjaman', fn($q) => $q->where('anggota_id', $anggotaId))
+            ->where('status', 'lunas')
+            ->whereNotNull('tanggal_bayar')
+            ->latest()
+            ->get()
+            ->map(fn($item) => [
+                'tipe'       => 'cicilan',
+                'id'         => $item->id,
+                'tanggal'    => $item->updated_at,
+                'jenis'      => 'Cicilan Ke-' . $item->cicilan_ke,
+                'sub'        => 'cicilan',
+                'status'     => 'Lunas',
+                'nominal'    => $item->jumlah_tagihan,
+                'keterangan' => null,
+                'cicilan'    => collect(),
             ]);
 
         $transaksi_terbaru = collect()
             ->merge($transaksiSimpanan)
             ->merge($transaksiPinjaman)
-            ->sortByDesc('tanggal')
-            ->take(10);
+            ->merge($transaksiCicilan)
+            ->sortByDesc('tanggal');
+
+        $displayedTransaksi = $this->showAllTransaksi
+            ? $transaksi_terbaru
+            : $transaksi_terbaru->take(10);
 
         return view(
             'livewire.anggota.dashboard',
@@ -205,7 +236,8 @@ class Dashboard extends Component
                 'totalBelumBayar',
                 'totalLunas',
 
-                'transaksi_terbaru'
+                'transaksi_terbaru',
+                'displayedTransaksi'
             )
         );
     }

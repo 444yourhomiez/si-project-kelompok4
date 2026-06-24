@@ -76,6 +76,7 @@ class Index extends Component
                 'keterangan' => $item->anggota->nama_anggota ?? '-',
                 'masuk'      => (float) $item->jumlah,
                 'keluar'     => 0,
+                'sumber'     => 'simpanan',
             ]);
 
         $cicilanRekap = Cicilan::with('pinjaman.anggota')
@@ -85,10 +86,11 @@ class Index extends Component
             ->get()
             ->map(fn($item) => [
                 'tanggal'    => $item->tanggal_bayar,
-                'jenis'      => 'Cicilan',
+                'jenis'      => 'Cicilan Ke-' . $item->cicilan_ke . ' (' . ucfirst($item->pinjaman?->jenis_pinjaman ?? '') . ')',
                 'keterangan' => $item->pinjaman?->anggota?->nama_anggota ?? '-',
                 'masuk'      => (float) $item->jumlah_tagihan,
                 'keluar'     => 0,
+                'sumber'     => 'cicilan',
             ]);
 
         $pinjamanRekap = Pinjaman::with('anggota')
@@ -102,17 +104,20 @@ class Index extends Component
                 'keterangan' => $item->anggota->nama_anggota ?? '-',
                 'masuk'      => 0,
                 'keluar'     => (float) ($item->dana_diterima ?? $item->jumlah_pengajuan),
+                'sumber'     => 'pinjaman',
             ]);
 
-        $manualRekap = RekapHarian::whereMonth('tanggal', $bulan)
+        $manualRekap = RekapHarian::with('user')
+            ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
             ->get()
             ->map(fn($item) => [
                 'tanggal'    => $item->tanggal,
-                'jenis'      => $item->keterangan,
-                'keterangan' => $item->keterangan,
+                'jenis'      => $item->keterangan ?: ($item->jenis === 'uang_masuk' ? 'Uang Masuk' : 'Uang Keluar'),
+                'keterangan' => $item->user->nama_user ?? '-',
                 'masuk'      => $item->jenis === 'uang_masuk' ? (float) $item->nominal : 0,
                 'keluar'     => $item->jenis === 'uang_keluar' ? (float) $item->nominal : 0,
+                'sumber'     => 'manual',
             ]);
 
         $rekapData = $simpananRekap->concat($cicilanRekap)->concat($pinjamanRekap)->concat($manualRekap)

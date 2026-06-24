@@ -67,13 +67,11 @@ class DetailAnggotaMenunggu extends Component
     public function tolak()
     {
         $anggota = Anggota::with('user')->findOrFail($this->anggotaId);
-        $user    = $anggota->user;
 
-        $anggota->delete();
-        $user?->delete();
+        $anggota->user?->update(['status' => 'ditolak']);
 
         $this->dispatch('refreshAnggota');
-        session()->flash('success', 'Pengajuan anggota ditolak dan data berhasil dihapus');
+        session()->flash('success', 'Pengajuan anggota telah ditolak. Anggota akan melihat pemberitahuan penolakan.');
         return redirect()->route('manajemen.anggota.menunggu');
     }
 

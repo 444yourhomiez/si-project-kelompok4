@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         {{-- BELUM DIBAYAR --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#ffebee;">
                                     <i class="fas fa-clock" style="color:#dc3545;"></i>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         {{-- SUDAH DIBAYAR --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#e8f5e9;">
                                     <i class="fas fa-check-circle" style="color:#28a745;"></i>

@@ -49,7 +49,7 @@
                         </div>
 
                         {{-- DUM --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -66,7 +66,7 @@
                         </div>
 
                         {{-- DUK --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#ffebee;">
@@ -156,6 +156,7 @@
                                                     <i class="fas fa-arrow-up mr-1"></i> Uang Keluar
                                                 </span>
                                             @endif
+                                            {{ $item['jenis'] }}
                                         </td>
                                         <td>{{ $item['keterangan'] }}</td>
                                         <td class="text-success font-weight-bold">

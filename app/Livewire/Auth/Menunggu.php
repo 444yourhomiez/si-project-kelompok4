@@ -27,8 +27,27 @@ class Menunggu extends Component
         }
         $this->loadStatus();
         if ($this->status === 'disetujui') {
-            return redirect()->route('anggota.dashboard');
+            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            return redirect()->route('login')
+                ->with('success', 'Pendaftaran Anda disetujui! Silakan login untuk melanjutkan.');
         }
+    }
+
+    public function konfirmasiTolak()
+    {
+        $user    = Auth::user();
+        $anggota = $user?->anggota;
+
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        if ($anggota) $anggota->delete();
+        if ($user)    $user->delete();
+
+        return redirect()->route('homepage');
     }
 
     private function loadStatus()

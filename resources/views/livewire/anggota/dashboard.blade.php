@@ -233,60 +233,85 @@
                         <i class="fas fa-history mr-2 text-muted"></i>
                         Riwayat Transaksi Terbaru
                     </h5>
+                    @if ($transaksi_terbaru->count() > 10)
+                        <button wire:click="toggleTransaksi" class="btn btn-sm btn-outline-success ml-auto" style="flex-shrink:0;">
+                            {{ $showAllTransaksi ? 'Tampilkan Sedikit' : 'Lihat Semua' }}
+                        </button>
+                    @endif
                 </div>
                 <div class="card-body pt-2 pb-0">
-                    @forelse ($transaksi_terbaru as $trx)
+                    @forelse ($displayedTransaksi as $trx)
                         @php
                             $colId = 'trx-detail-' . $trx['tipe'] . '-' . $trx['id'];
                             $hasCicilan = $trx['tipe'] == 'pinjaman' && $trx['cicilan']->count() > 0;
+                            $jenisArr = explode(' ', $trx['jenis'], 2);
+                            $tipeLabel = $jenisArr[0] ?? '';
+                            $subTipe   = $trx['sub'] ?? strtolower($jenisArr[1] ?? '');
+                            $typeConfig = [
+                                'wajib'    => ['icon' => 'fa-wallet',             'bg' => '#e8f5e9', 'color' => '#28a745', 'badge' => 'success', 'label' => 'Wajib'],
+                                'pokok'    => ['icon' => 'fa-piggy-bank',          'bg' => '#e3f2fd', 'color' => '#007bff', 'badge' => 'primary', 'label' => 'Pokok'],
+                                'sukarela' => ['icon' => 'fa-hand-holding-heart',  'bg' => '#e8eaf6', 'color' => '#5c6bc0', 'badge' => 'info',    'label' => 'Sukarela'],
+                                'biasa'    => ['icon' => 'fa-file-invoice-dollar', 'bg' => '#fff8e1', 'color' => '#f97316', 'badge' => 'warning', 'label' => 'Biasa'],
+                                'khusus'   => ['icon' => 'fa-star',                'bg' => '#ffebee', 'color' => '#dc3545', 'badge' => 'danger',  'label' => 'Khusus'],
+                                'cicilan'  => ['icon' => 'fa-receipt',             'bg' => '#e0f7fa', 'color' => '#00acc1', 'badge' => 'info',    'label' => 'Bayar'],
+                            ];
+                            $cfg = $typeConfig[$subTipe] ?? ['icon' => 'fa-exchange-alt', 'bg' => '#f5f5f5', 'color' => '#6c757d', 'badge' => 'secondary', 'label' => ucfirst($subTipe)];
+                            $statusLower = strtolower($trx['status'] ?? '');
+                            $routeMap = [
+                                'wajib'    => route('anggota.simpanan.wajib'),
+                                'pokok'    => route('anggota.simpanan.pokok'),
+                                'sukarela' => route('anggota.simpanan.sukarela'),
+                                'biasa'    => route('anggota.pinjaman.biasa'),
+                                'khusus'   => route('anggota.pinjaman.khusus'),
+                                'cicilan'  => route('anggota.cicilan.index'),
+                            ];
+                            $link = $routeMap[$subTipe] ?? '#';
                         @endphp
 
-                        <div class="card border mb-2 shadow-sm" style="border-radius:8px; overflow:hidden;">
+                        <div class="card border mb-2 shadow-sm" style="border-radius:8px; overflow:hidden; cursor:pointer;"
+                            onclick="window.location.href='{{ $link }}'">
                             <div class="card-header bg-white border-bottom-0 p-0">
                                 @if($hasCicilan)
                                     <button class="btn btn-link w-100 text-left p-3 collapsed"
                                         data-toggle="collapse"
                                         data-target="#{{ $colId }}"
                                         aria-expanded="false"
+                                        onclick="event.stopPropagation()"
                                         style="text-decoration:none;">
                                 @else
                                     <div class="p-3">
                                 @endif
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <div class="d-flex align-items-center" style="gap:10px;">
-                                                {{-- ICON --}}
-                                                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
-                                                    style="width:38px;height:38px;
-                                                    background:{{ $trx['tipe'] == 'simpanan' ? '#e8f5e9' : '#ffebee' }};">
-                                                    <i class="fas {{ $trx['tipe'] == 'simpanan' ? 'fa-coins text-success' : 'fa-hand-holding-usd text-danger' }}"
-                                                        style="font-size:14px;"></i>
+                                            <div class="d-flex align-items-center" style="gap:12px; flex:1; min-width:0;">
+                                                <div class="trx-feed-icon" style="background:{{ $cfg['bg'] }};">
+                                                    <i class="fas {{ $cfg['icon'] }}" style="font-size:16px;color:{{ $cfg['color'] }};"></i>
                                                 </div>
-                                                <div>
+                                                <div style="min-width:0; overflow:hidden;">
                                                     <div class="font-weight-bold text-dark" style="font-size:0.9rem;">
-                                                        {{ $trx['jenis'] }}
+                                                        {{ $tipeLabel }}
+                                                        <span class="badge badge-{{ $cfg['badge'] }} ml-1" style="font-size:0.65rem;vertical-align:middle;">{{ $cfg['label'] }}</span>
                                                     </div>
                                                     <small class="text-muted">
-                                                        {{ \Carbon\Carbon::parse($trx['tanggal'])->format('d M Y') }}
+                                                        <i class="fas fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($trx['tanggal'])->format('d M Y') }}
                                                         &bull; <span data-timestamp="{{ \Carbon\Carbon::parse($trx['tanggal'])->timestamp }}"></span>
                                                     </small>
                                                 </div>
                                             </div>
-                                            <div class="d-flex align-items-center" style="gap:10px; flex-shrink:0;">
+                                            <div class="d-flex align-items-center" style="gap:8px; flex-shrink:0;">
                                                 <div class="text-right">
-                                                    <div class="font-weight-bold" style="font-size:0.9rem;">
+                                                    <div class="font-weight-bold" style="font-size:0.9rem;color:{{ $cfg['color'] }};">
                                                         Rp {{ number_format($trx['nominal'], 0, ',', '.') }}
                                                     </div>
-                                                    @php $s = strtolower($trx['status'] ?? '') @endphp
-                                                    @if($s == 'aktif' || $s == 'tersimpan')
-                                                        <span class="badge badge-success" style="font-size:0.7rem;">{{ $trx['status'] }}</span>
-                                                    @elseif($s == 'lunas')
-                                                        <span class="badge badge-primary" style="font-size:0.7rem;">{{ $trx['status'] }}</span>
-                                                    @elseif($s == 'pending')
-                                                        <span class="badge badge-warning" style="font-size:0.7rem;">{{ $trx['status'] }}</span>
-                                                    @elseif($s == 'ditolak')
-                                                        <span class="badge badge-danger" style="font-size:0.7rem;">{{ $trx['status'] }}</span>
+                                                    @if($statusLower == 'aktif' || $statusLower == 'tersimpan')
+                                                        <span class="badge badge-success" style="font-size:0.65rem;">{{ $trx['status'] }}</span>
+                                                    @elseif($statusLower == 'lunas')
+                                                        <span class="badge badge-primary" style="font-size:0.65rem;">{{ $trx['status'] }}</span>
+                                                    @elseif($statusLower == 'pending')
+                                                        <span class="badge badge-warning" style="font-size:0.65rem;">{{ $trx['status'] }}</span>
+                                                    @elseif($statusLower == 'ditolak')
+                                                        <span class="badge badge-danger" style="font-size:0.65rem;">{{ $trx['status'] }}</span>
                                                     @else
-                                                        <span class="badge badge-secondary" style="font-size:0.7rem;">{{ $trx['status'] ?? '-' }}</span>
+                                                        <span class="badge badge-secondary" style="font-size:0.65rem;">{{ $trx['status'] ?? '-' }}</span>
                                                     @endif
                                                 </div>
                                                 @if($hasCicilan)

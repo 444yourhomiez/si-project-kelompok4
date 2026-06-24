@@ -1491,6 +1491,25 @@ select.form-control {
     font-size: 1rem;
     flex-shrink: 0;
 }
+/* Icon bulat di dashboard transaksi terbaru — tahan override AdminLTE */
+.trx-feed-icon {
+    flex: 0 0 42px !important;   /* tidak grow, tidak shrink, basis 42px */
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+@media (max-width: 575px) {
+    .trx-feed-icon {
+        flex: 0 0 36px !important;
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
 .trx-avatar {
     width: 40px;
     height: 40px;

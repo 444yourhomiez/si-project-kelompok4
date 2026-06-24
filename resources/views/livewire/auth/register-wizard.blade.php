@@ -101,27 +101,23 @@
                                         <small class="text-muted d-block mb-1">
                                             Kode OTP dikirim ke <strong>{{ $email }}</strong> (berlaku 10 menit)
                                         </small>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" wire:model="emailOtpInput"
-                                                class="form-control @error('emailOtpInput') is-invalid @enderror"
-                                                placeholder="Masukkan 6 digit kode OTP"
-                                                maxlength="6">
-                                            <div class="input-group-append">
-                                                <button wire:click="verifyEmailOtp"
-                                                    wire:loading.attr="disabled"
-                                                    class="btn btn-success">
-                                                    <span wire:loading.remove wire:target="verifyEmailOtp">
-                                                        Verifikasi
-                                                    </span>
-                                                    <span wire:loading wire:target="verifyEmailOtp">
-                                                        <i class="fas fa-spinner fa-spin"></i>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        <input type="text" wire:model="emailOtpInput"
+                                            class="form-control @error('emailOtpInput') is-invalid @enderror"
+                                            placeholder="Masukkan 6 digit kode OTP"
+                                            maxlength="6">
                                         @error('emailOtpInput')
                                             <small class="text-danger d-block mt-1">{{ $message }}</small>
                                         @enderror
+                                        <button wire:click="verifyEmailOtp"
+                                            wire:loading.attr="disabled"
+                                            class="btn btn-success w-100 mt-2">
+                                            <span wire:loading.remove wire:target="verifyEmailOtp">
+                                                Verifikasi
+                                            </span>
+                                            <span wire:loading wire:target="verifyEmailOtp">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                            </span>
+                                        </button>
                                         <div class="mt-1">
                                             <small class="text-muted">
                                                 Tidak menerima kode?

@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         {{-- WAJIB --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <a href="{{ route('pengawas.simpanan.wajib') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -61,7 +61,7 @@
                             </a>
                         </div>
                         {{-- POKOK --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <a href="{{ route('pengawas.simpanan.pokok') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">
@@ -77,7 +77,7 @@
                             </a>
                         </div>
                         {{-- SUKARELA --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <a href="{{ route('pengawas.simpanan.sukarela') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8eaf6;">

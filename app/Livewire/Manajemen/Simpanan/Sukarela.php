@@ -20,7 +20,7 @@ class Sukarela extends Component
             ->with('anggota.user')
             ->join('anggota', 'simpanan.anggota_id', '=', 'anggota.id')
             ->select('simpanan.*')
-            ->where('jenis_simpanan', 'Sukarela')
+            ->where('jenis_simpanan', 'sukarela')
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where(
@@ -57,7 +57,7 @@ class Sukarela extends Component
             'simpananSukarela' => $simpananSukarela,
             'total_sukarela' => Simpanan::where(
                 'jenis_simpanan',
-                'Sukarela'
+                'sukarela'
             )->sum('jumlah'),
         ]);
     }
