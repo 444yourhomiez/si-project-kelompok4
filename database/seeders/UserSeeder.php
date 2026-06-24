@@ -15,124 +15,85 @@ class UserSeeder extends Seeder
     {
         $jadwalId = JadwalWawancara::first()?->id;
 
-        // ==================================================
-        // USER 1 — SUDAH DISETUJUI — SUDAH 8 BULAN
-        // ==================================================
+        for ($i = 1; $i <= 100; $i++) {
 
-        $user1 = User::create([
-            'nama_user' => 'Anggota Lama Test',
-            'email'     => 'lama@gmail.com',
-            'password'  => Hash::make('password'),
-            'role'      => 'anggota',
-            'status'    => 'disetujui',
-        ]);
+            // Status anggota
+            if ($i <= 75) {
+                $status = 'disetujui';
+            } elseif ($i <= 90) {
+                $status = 'menunggu';
+            } else {
+                $status = 'ditolak';
+            }
 
-        $tanggalDaftar1 = now()->subMonths(8);
+            // Lama keanggotaan hanya untuk yang disetujui
+            $bulan = rand(1, 24);
 
-        $anggota1 = Anggota::create([
-            'user_id'             => $user1->id,
-            'jadwal_id'           => $jadwalId,
-            'kode_anggota'        => 'A-000001',
-            'nama_anggota'        => 'Anggota Lama Test',
-            'no_ktp'              => '3201000000000001',
-            'no_hp'               => '081111111111',
-            'alamat'              => 'Cimahi',
-            'tempat_lahir'        => 'Bandung',
-            'tanggal_lahir'       => '2000-01-01',
-            'jenis_kelamin'       => 'Laki-laki',
-            'agama'               => 'Islam',
-            'nama_ibu_kandung'    => 'Ibu Test Satu',
-            'nama_ahli_waris'     => 'Ahli Waris Satu',
-            'hubungan_ahli_waris' => 'Ayah',
-            'status_rumah'        => 'Milik Sendiri',
-            'penghasilan'         => 'Rp 2.000.000 - Rp. 3.000.000',
-            'tanggal_daftar'      => $tanggalDaftar1,
-        ]);
-
-        // Simpanan pokok saat disetujui
-        Simpanan::create([
-            'anggota_id'    => $anggota1->id,
-            'jenis_simpanan' => 'pokok',
-            'jumlah'        => 500000,
-            'tanggal'       => $tanggalDaftar1,
-        ]);
-
-        // Simpanan wajib per bulan selama 8 bulan
-        for ($i = 8; $i >= 1; $i--) {
-            Simpanan::create([
-                'anggota_id'    => $anggota1->id,
-                'jenis_simpanan' => 'wajib',
-                'jumlah'        => 50000,
-                'tanggal'       => now()->subMonths($i),
+            $user = User::create([
+                'nama_user' => 'Anggota Test ' . $i,
+                'email'     => "anggota{$i}@gmail.com",
+                'password'  => Hash::make('password'),
+                'role'      => 'anggota',
+                'status'    => $status,
             ]);
-        }
 
-        // Simpanan sukarela awal
-        Simpanan::create([
-            'anggota_id'    => $anggota1->id,
-            'jenis_simpanan' => 'sukarela',
-            'jumlah'        => 100000,
-            'tanggal'       => $tanggalDaftar1,
-        ]);
+            $tanggalDaftar = now()->subMonths($bulan);
 
-        // ==================================================
-        // USER 2 — SUDAH DISETUJUI — BARU 2 BULAN
-        // ==================================================
-
-        $user2 = User::create([
-            'nama_user' => 'Anggota Baru Test',
-            'email'     => 'baru@gmail.com',
-            'password'  => Hash::make('password'),
-            'role'      => 'anggota',
-            'status'    => 'disetujui',
-        ]);
-
-        $tanggalDaftar2 = now()->subMonths(2);
-
-        $anggota2 = Anggota::create([
-            'user_id'             => $user2->id,
-            'jadwal_id'           => $jadwalId,
-            'kode_anggota'        => 'A-000002',
-            'nama_anggota'        => 'Anggota Baru Test',
-            'no_ktp'              => '3201000000000002',
-            'no_hp'               => '082222222222',
-            'alamat'              => 'Bandung',
-            'tempat_lahir'        => 'Bandung',
-            'tanggal_lahir'       => '1998-01-01',
-            'jenis_kelamin'       => 'Laki-laki',
-            'agama'               => 'Islam',
-            'nama_ibu_kandung'    => 'Ibu Test Dua',
-            'nama_ahli_waris'     => 'Ahli Waris Dua',
-            'hubungan_ahli_waris' => 'Ibu',
-            'status_rumah'        => 'Milik Sendiri',
-            'penghasilan'         => 'Diatas Rp 5.000.000',
-            'tanggal_daftar'      => $tanggalDaftar2,
-        ]);
-
-        // Simpanan pokok saat disetujui
-        Simpanan::create([
-            'anggota_id'    => $anggota2->id,
-            'jenis_simpanan' => 'pokok',
-            'jumlah'        => 500000,
-            'tanggal'       => $tanggalDaftar2,
-        ]);
-
-        // Simpanan wajib per bulan selama 2 bulan
-        for ($i = 2; $i >= 1; $i--) {
-            Simpanan::create([
-                'anggota_id'    => $anggota2->id,
-                'jenis_simpanan' => 'wajib',
-                'jumlah'        => 50000,
-                'tanggal'       => now()->subMonths($i),
+            $anggota = Anggota::create([
+                'user_id'             => $user->id,
+                'jadwal_id'           => $jadwalId,
+                'kode_anggota'        => 'A-' . str_pad($i, 6, '0', STR_PAD_LEFT),
+                'nama_anggota'        => 'Anggota Test ' . $i,
+                'no_ktp'              => '320100' . str_pad($i, 10, '0', STR_PAD_LEFT),
+                'no_hp'               => '08' . rand(1111111111, 9999999999),
+                'alamat'              => 'Bandung',
+                'tempat_lahir'        => 'Bandung',
+                'tanggal_lahir'       => now()->subYears(rand(20, 50))->format('Y-m-d'),
+                'jenis_kelamin'       => rand(0, 1) ? 'Laki-laki' : 'Perempuan',
+                'agama'               => 'Islam',
+                'nama_ibu_kandung'    => 'Ibu Test ' . $i,
+                'nama_ahli_waris'     => 'Ahli Waris ' . $i,
+                'hubungan_ahli_waris' => 'Orang Tua',
+                'status_rumah'        => 'Milik Sendiri',
+                'penghasilan'         => collect([
+                    'Kurang dari Rp 1.000.000',
+                    'Rp 1.000.000 - Rp 2.000.000',
+                    'Rp 2.000.000 - Rp. 3.000.000',
+                    'Rp 3.000.000 - Rp. 5.000.000',
+                    'Diatas Rp 5.000.000',
+                ])->random(),
+                'tanggal_daftar'      => $tanggalDaftar,
             ]);
-        }
 
-        // Simpanan sukarela awal
-        Simpanan::create([
-            'anggota_id'    => $anggota2->id,
-            'jenis_simpanan' => 'sukarela',
-            'jumlah'        => 100000,
-            'tanggal'       => $tanggalDaftar2,
-        ]);
+            // Simpanan hanya untuk anggota yang disetujui
+            if ($status === 'disetujui') {
+
+                // Simpanan Pokok
+                Simpanan::create([
+                    'anggota_id'       => $anggota->id,
+                    'jenis_simpanan'   => 'pokok',
+                    'jumlah'           => 500000,
+                    'tanggal'          => $tanggalDaftar,
+                ]);
+
+                // Simpanan Wajib Bulanan
+                for ($j = $bulan; $j >= 1; $j--) {
+                    Simpanan::create([
+                        'anggota_id'       => $anggota->id,
+                        'jenis_simpanan'   => 'wajib',
+                        'jumlah'           => 50000,
+                        'tanggal'          => now()->subMonths($j),
+                    ]);
+                }
+
+                // Simpanan Sukarela
+                Simpanan::create([
+                    'anggota_id'       => $anggota->id,
+                    'jenis_simpanan'   => 'sukarela',
+                    'jumlah'           => 100000,
+                    'tanggal'          => $tanggalDaftar,
+                ]);
+            }
+        }
     }
 }
