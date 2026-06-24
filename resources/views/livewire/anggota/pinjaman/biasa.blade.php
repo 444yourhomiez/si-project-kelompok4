@@ -110,13 +110,11 @@
                         <table class="table table-bordered table-hover">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Tanggal</th>
+                                    <th>Kode Pinjaman</th>
                                     <th>Nominal</th>
                                     <th>Tenor</th>
                                     <th>Cicilan /Bulan</th>
-                                    <th class="text-center" style="width:120px;">
-                                        <i class="fas fa-cog"></i>
-                                    </th>
+                                    <th class="text-center" style="width:120px;">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -133,9 +131,17 @@
                                             {{ number_format($item->cicilan_per_bulan, 0, ',', '.') }}
                                         </td>
                                         <td class="text-center">
-                                            <span class="badge badge-warning">
-                                                {{ ucfirst($item->status) }}
-                                            </span>
+                                            @if($item->status === 'aktif')
+                                                <span class="badge badge-success">Aktif</span>
+                                            @elseif($item->status === 'lunas')
+                                                <span class="badge badge-primary">Lunas</span>
+                                            @elseif($item->status === 'pending')
+                                                <span class="badge badge-warning">Pending</span>
+                                            @elseif($item->status === 'disetujui')
+                                                <span class="badge badge-info">Disetujui</span>
+                                            @else
+                                                <span class="badge badge-danger">{{ ucfirst($item->status) }}</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

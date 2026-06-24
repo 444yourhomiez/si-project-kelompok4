@@ -39,10 +39,10 @@ class Dashboard extends Component
                 'nominal'      => $item->jumlah,
                 'status'       => 'Berhasil',
                 'keterangan'   => null,
-                'cicilan'      => collect(),
+                'pinjaman_id'  => null,
             ]);
 
-        $pinjamanList = Pinjaman::with(['anggota', 'cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
+        $pinjamanList = Pinjaman::with('anggota')
             ->latest()->get()
             ->map(fn($item) => (object)[
                 'tipe'         => 'pinjaman',
@@ -55,12 +55,11 @@ class Dashboard extends Component
                 'nominal'      => $item->jumlah_pengajuan,
                 'status'       => ucfirst($item->status),
                 'keterangan'   => null,
-                'cicilan'      => $item->cicilan,
+                'pinjaman_id'  => null,
             ]);
 
         $rekapList = RekapHarian::with('user')
-            ->latest()
-            ->get()
+            ->latest()->get()
             ->map(fn($item) => (object)[
                 'tipe'         => 'rekap',
                 'id'           => $item->id,
@@ -68,30 +67,29 @@ class Dashboard extends Component
                 'kode_anggota' => '-',
                 'nama_anggota' => $item->user->nama_user ?? 'Manajemen',
                 'jenis'        => 'Rekap Manual',
-                'sub'          => $item->jenis == 'uang_masuk' ? 'masuk' : 'keluar',
+                'sub'          => $item->jenis === 'uang_masuk' ? 'masuk' : 'keluar',
                 'nominal'      => $item->nominal,
                 'status'       => 'Dicatat',
                 'keterangan'   => $item->keterangan,
-                'cicilan'      => collect(),
+                'pinjaman_id'  => null,
             ]);
 
         $cicilanLunasList = Cicilan::with(['pinjaman.anggota'])
             ->where('status', 'lunas')
             ->whereNotNull('tanggal_bayar')
-            ->latest()
-            ->get()
+            ->latest()->get()
             ->map(fn($item) => (object)[
                 'tipe'         => 'cicilan',
                 'id'           => $item->id,
+                'pinjaman_id'  => $item->pinjaman_id,
                 'created_at'   => $item->updated_at,
-                'kode_anggota' => $item->pinjaman->anggota->kode_anggota ?? '-',
-                'nama_anggota' => $item->pinjaman->anggota->nama_anggota ?? '-',
-                'jenis'        => 'Cicilan Ke-' . $item->cicilan_ke,
+                'kode_anggota' => $item->pinjaman?->anggota?->kode_anggota ?? '-',
+                'nama_anggota' => $item->pinjaman?->anggota?->nama_anggota ?? '-',
+                'jenis'        => 'Cicilan Ke-' . $item->cicilan_ke . ' (' . ucfirst($item->pinjaman?->jenis_pinjaman ?? '') . ')',
                 'sub'          => 'cicilan',
                 'nominal'      => $item->jumlah_tagihan,
                 'status'       => 'Lunas',
                 'keterangan'   => null,
-                'cicilan'      => collect(),
             ]);
 
         $transaksiTerbaru = $simpananList
@@ -106,85 +104,36 @@ class Dashboard extends Component
 
         $today = Carbon::today();
 
-        $totalPinjaman = Pinjaman::where(
-            'status',
-            'aktif'
-        )->sum('jumlah_pengajuan');
-
-        $pinjamanBiasa = Pinjaman::where(
-            'jenis_pinjaman',
-            'biasa'
-        )
-            ->where(
-                'status',
-                'aktif'
-            )
-            ->sum('jumlah_pengajuan');
-
-        $pinjamanKhusus = Pinjaman::where(
-            'jenis_pinjaman',
-            'khusus'
-        )
-            ->where(
-                'status',
-                'aktif'
-            )
-            ->sum('jumlah_pengajuan');
+        $totalPinjaman  = Pinjaman::where('status', 'aktif')->sum('jumlah_pengajuan');
+        $pinjamanBiasa  = Pinjaman::where('jenis_pinjaman', 'biasa')->where('status', 'aktif')->sum('jumlah_pengajuan');
+        $pinjamanKhusus = Pinjaman::where('jenis_pinjaman', 'khusus')->where('status', 'aktif')->sum('jumlah_pengajuan');
 
         $totalMasukHariIni =
-            Simpanan::whereDate(
-                'tanggal',
-                $today
-            )->sum('jumlah')
-
-            +
-
-            Cicilan::whereDate(
-                'tanggal_bayar',
-                $today
-            )->sum('jumlah_tagihan');
+            Simpanan::whereDate('tanggal', $today)->sum('jumlah')
+            + Cicilan::whereDate('tanggal_bayar', $today)->sum('jumlah_tagihan')
+            + RekapHarian::whereDate('tanggal', $today)->where('jenis', 'uang_masuk')->sum('nominal');
 
         $totalKeluarHariIni =
-            Pinjaman::whereDate(
-                'tanggal_persetujuan',
-                $today
-            )
-            ->where('status', 'aktif')
-            ->sum('dana_diterima');
+            Pinjaman::whereDate('tanggal_persetujuan', $today)->where('status', 'aktif')->sum('dana_diterima')
+            + RekapHarian::whereDate('tanggal', $today)->where('jenis', 'uang_keluar')->sum('nominal');
 
-        $transaksiHariIni =
-            $totalMasukHariIni +
-            $totalKeluarHariIni;
+        $transaksiHariIni = $totalMasukHariIni + $totalKeluarHariIni;
+
         return view('livewire.pengawas.dashboard', [
-            // ANGGOTA
-            'total_anggota' => Anggota::count(),
-            'anggota_disetujui' => User::where('role', 'anggota')
-                ->where('status', 'disetujui')
-                ->count(),
-            'anggota_menunggu' => User::where('role', 'anggota')
-                ->where('status', 'menunggu')
-                ->count(),
-            // SIMPANAN
-            'total_simpanan' => Simpanan::sum('jumlah'),
-            'simpanan_wajib' => Simpanan::where('jenis_simpanan', 'wajib')
-                ->sum('jumlah'),
-            'simpanan_pokok' => Simpanan::where('jenis_simpanan', 'pokok')
-                ->sum('jumlah'),
-            'simpanan_sukarela' => Simpanan::where('jenis_simpanan', 'sukarela')
-                ->sum('jumlah'),
-
-            'totalPinjaman' => $totalPinjaman,
-
-            'pinjamanBiasa' => $pinjamanBiasa,
-
-            'pinjamanKhusus' => $pinjamanKhusus,
-
-            'totalMasukHariIni' => $totalMasukHariIni,
-
+            'total_anggota'      => Anggota::count(),
+            'anggota_disetujui'  => User::where('role', 'anggota')->where('status', 'disetujui')->count(),
+            'anggota_menunggu'   => User::where('role', 'anggota')->where('status', 'menunggu')->count(),
+            'total_simpanan'     => Simpanan::sum('jumlah'),
+            'simpanan_wajib'     => Simpanan::where('jenis_simpanan', 'wajib')->sum('jumlah'),
+            'simpanan_pokok'     => Simpanan::where('jenis_simpanan', 'pokok')->sum('jumlah'),
+            'simpanan_sukarela'  => Simpanan::where('jenis_simpanan', 'sukarela')->sum('jumlah'),
+            'totalPinjaman'      => $totalPinjaman,
+            'pinjamanBiasa'      => $pinjamanBiasa,
+            'pinjamanKhusus'     => $pinjamanKhusus,
+            'totalMasukHariIni'  => $totalMasukHariIni,
             'totalKeluarHariIni' => $totalKeluarHariIni,
-
-            'transaksiHariIni' => $transaksiHariIni,
-            'transaksiTerbaru' => $transaksiTerbaru,
+            'transaksiHariIni'   => $transaksiHariIni,
+            'transaksiTerbaru'   => $transaksiTerbaru,
             'displayedTransaksi' => $displayedTransaksi,
         ]);
     }

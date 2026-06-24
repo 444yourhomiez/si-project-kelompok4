@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div>
         <div class="content-wrapper">
             <!-- Content Header -->
@@ -107,7 +107,7 @@
                             <div class="col-lg-3 col-md-12 mb-2">
                                 <label>Cari</label>
                                 <input type="text" wire:model.live="search" class="form-control"
-                                    placeholder="Cari nama / keterangan...">
+                                    placeholder="Nama, kode, jenis, keterangan...">
                             </div>
                             {{-- FILTER JENIS --}}
                             <div class="col-lg-2 col-md-4 col-6 mb-2">
@@ -164,7 +164,7 @@
                                         <tr>
                                             <td>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</td>
                                             <td>{{ $item['is_manual'] ? '-' : $item['kode_anggota'] }}</td>
-                                            <td>{{ $item['is_manual'] ? '-' : $item['nama_anggota'] }}</td>
+                                            <td>{{ $item['nama_anggota'] }}</td>
                                             <td>
                                                 @if ($item['jenis_key'] === 'uang_masuk')
                                                     <span class="badge badge-success">
@@ -234,7 +234,7 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <small class="text-muted">
-                                Menampilkan {{ $riwayat->firstItem() ?? 0 }}–{{ $riwayat->lastItem() ?? 0 }}
+                                Menampilkan {{ $riwayat->firstItem() ?? 0 }}â€“{{ $riwayat->lastItem() ?? 0 }}
                                 dari {{ $riwayat->total() }} data
                             </small>
                             <div class="modern-pagination">
@@ -247,3 +247,4 @@
         </div>
     </div>
 </div>
+

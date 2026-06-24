@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -110,7 +110,7 @@
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Simpanan</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari simpanan...">
+                                placeholder="Jenis simpanan (wajib/pokok/sukarela)...">
                         </div>
                         {{-- PAGINATION --}}
                         <div class="col-lg-4 col-md-12 mb-2">
@@ -204,3 +204,4 @@
         </section>
     </div>
 </div>
+

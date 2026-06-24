@@ -158,12 +158,12 @@ Route::middleware(['auth', 'role:anggota'])
 Route::get(
     '/laporan/pdf',
     [LaporanController::class, 'pdf']
-)->middleware(['auth', 'role:manajemen'])->name('laporan.pdf');
+)->middleware(['auth', 'role:manajemen,pengawas'])->name('laporan.pdf');
 
 Route::get(
     '/laporan/excel',
     [LaporanController::class, 'excel']
-)->middleware(['auth', 'role:manajemen'])->name('laporan.excel');
+)->middleware(['auth', 'role:manajemen,pengawas'])->name('laporan.excel');
 
 Route::get(
     '/shu/pdf',

@@ -19,6 +19,7 @@ class Delete extends Component
         $anggota = Anggota::find($this->idDelete);
         if ($anggota) {
             $anggota->user?->delete();
+            $anggota->delete();
         }
         $this->idDelete = null;
         $this->dispatch('refreshAnggota');

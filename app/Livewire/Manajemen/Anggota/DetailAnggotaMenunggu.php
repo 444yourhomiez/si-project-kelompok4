@@ -60,6 +60,8 @@ class DetailAnggotaMenunggu extends Component
         });
 
         $this->dispatch('refreshAnggota');
+        $this->dispatch('rekapUpdated');
+        $this->dispatch('dataKoperasiUpdated');
         session()->flash('success', 'Anggota berhasil disetujui');
         return redirect()->route('manajemen.anggota.disetujui');
     }

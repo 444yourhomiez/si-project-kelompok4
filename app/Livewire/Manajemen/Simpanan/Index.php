@@ -20,12 +20,7 @@ class Index extends Component
     }
     public function create()
     {
-        $this->reset([
-            'anggota_id',
-            'jenis_simpanan',
-            'jumlah',
-        ]);
-        $this->resetValidation();
+        $this->dispatch('openCreate');
     }
     public function render()
     {

@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -109,7 +109,7 @@
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Anggota</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari Anggota...">
+                                placeholder="Nama, kode anggota, no KTP...">
                         </div>
                         {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
@@ -279,3 +279,4 @@
         </section>
     </div>
 </div>
+

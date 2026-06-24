@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -101,7 +101,7 @@
                         <div class="col-lg-3 col-md-12 mb-2">
                             <label>Cari</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari nama / keterangan...">
+                                placeholder="Nama, kode, jenis, keterangan...">
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Jenis Transaksi</label>
@@ -194,7 +194,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <small class="text-muted">
-                            Menampilkan {{ $riwayat->firstItem() ?? 0 }}–{{ $riwayat->lastItem() ?? 0 }}
+                            Menampilkan {{ $riwayat->firstItem() ?? 0 }}â€“{{ $riwayat->lastItem() ?? 0 }}
                             dari {{ $riwayat->total() }} data
                         </small>
                         <div class="modern-pagination">
@@ -206,3 +206,4 @@
         </section>
     </div>
 </div>
+

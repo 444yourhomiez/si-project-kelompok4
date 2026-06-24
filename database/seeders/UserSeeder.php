@@ -26,6 +26,9 @@ class UserSeeder extends Seeder
 
             // Lama keanggotaan hanya untuk yang disetujui
             $bulan = rand(1, 24);
+            $tanggalDaftar = $status === 'disetujui'
+                ? now()->subMonths($bulan)
+                : now()->subDays(rand(1, 30));
 
             $user = User::create([
                 'nama_user' => 'Anggota Test ' . $i,
@@ -35,12 +38,12 @@ class UserSeeder extends Seeder
                 'status'    => $status,
             ]);
 
-            $tanggalDaftar = now()->subMonths($bulan);
-
             $anggota = Anggota::create([
                 'user_id'             => $user->id,
                 'jadwal_id'           => $jadwalId,
-                'kode_anggota'        => 'A-' . str_pad($i, 6, '0', STR_PAD_LEFT),
+                'kode_anggota'        => $status === 'disetujui'
+                    ? 'A-' . str_pad($i, 6, '0', STR_PAD_LEFT)
+                    : null,
                 'nama_anggota'        => 'Anggota Test ' . $i,
                 'no_ktp'              => '320100' . str_pad($i, 10, '0', STR_PAD_LEFT),
                 'no_hp'               => '08' . rand(1111111111, 9999999999),
@@ -76,8 +79,8 @@ class UserSeeder extends Seeder
                     'tanggal'          => $tanggalDaftar,
                 ]);
 
-                // Simpanan Wajib Bulanan
-                for ($j = $bulan; $j >= 1; $j--) {
+                // Simpanan Wajib Bulanan (termasuk bulan ini)
+                for ($j = $bulan; $j >= 0; $j--) {
                     Simpanan::create([
                         'anggota_id'       => $anggota->id,
                         'jenis_simpanan'   => 'wajib',

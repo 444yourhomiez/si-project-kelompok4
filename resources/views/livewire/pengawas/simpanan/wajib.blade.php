@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -82,7 +82,7 @@
                         <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari Simpanan</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Cari simpanan...">
+                                placeholder="Nama, kode anggota...">
                         </div>
                         {{-- SORT BY --}}
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
@@ -173,7 +173,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <small class="text-muted">
-                            Menampilkan {{ $simpananWajib->firstItem() ?? 0 }}–{{ $simpananWajib->lastItem() ?? 0 }}
+                            Menampilkan {{ $simpananWajib->firstItem() ?? 0 }}â€“{{ $simpananWajib->lastItem() ?? 0 }}
                             dari {{ $simpananWajib->total() }} data
                         </small>
                         <div class="modern-pagination">
@@ -185,3 +185,4 @@
         </section>
     </div>
 </div>
+
