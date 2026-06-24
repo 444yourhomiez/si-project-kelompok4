@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -32,6 +33,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFotoUrlAttribute(): string
+    {
+        if (! $this->foto_profile) {
+            return asset('adminlte3/dist/img/user2-160x160.jpg');
+        }
+        $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
+        return Storage::disk($disk)->url($this->foto_profile);
+    }
 
     public function sendPasswordResetNotification($token): void
     {

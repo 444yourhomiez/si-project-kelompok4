@@ -28,7 +28,7 @@ Route::get('/register', function () {
     return view('auth.register-wizard');
 })->name('register');
 Route::view('/menunggu', 'auth.menunggu')
-    ->middleware(['auth', 'role:anggota'])
+    ->middleware(['auth'])
     ->name('menunggu');
 // ======================
 // LOGIN

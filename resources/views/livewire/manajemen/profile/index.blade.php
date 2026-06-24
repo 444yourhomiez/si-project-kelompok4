@@ -55,7 +55,7 @@
                                             class="img-circle elevation-2 mb-2"
                                             style="width:110px;height:110px;object-fit:cover;">
                                     @else
-                                        <img src="{{ $user->foto_profile ? asset('storage/' . $user->foto_profile) : asset('adminlte3/dist/img/user2-160x160.jpg') }}"
+                                        <img src="{{ $fotoUrl ?? asset('adminlte3/dist/img/user2-160x160.jpg') }}"
                                             class="img-circle elevation-2 mb-2"
                                             style="width:110px;height:110px;object-fit:cover;">
                                     @endif
