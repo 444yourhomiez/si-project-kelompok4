@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             JadwalWawancaraSeeder::class,
+            AdminSeeder::class,
             UserSeeder::class,
         ]);
     }
