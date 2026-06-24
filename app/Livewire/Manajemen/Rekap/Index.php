@@ -90,7 +90,7 @@ class Index extends Component
                 'id'           => $item->id,
                 'tanggal'      => $item->tanggal,
                 'kode_anggota' => '-',
-                'nama_anggota' => '-',
+                'nama_anggota' => $item->user->nama_user ?? '-',
                 'jenis'        => $item->keterangan,
                 'jenis_key'    => $item->jenis,
                 'masuk'        => $item->jenis === 'uang_masuk' ? $item->nominal : 0,

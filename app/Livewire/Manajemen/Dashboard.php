@@ -132,25 +132,15 @@ class Dashboard extends Component
             ->sum('jumlah_pengajuan');
 
         $totalMasukHariIni =
-            Simpanan::whereDate(
-                'tanggal',
-                $today
-            )->sum('jumlah')
-
-            +
-
-            Cicilan::whereDate(
-                'tanggal_bayar',
-                $today
-            )->sum('jumlah_tagihan');
+            Simpanan::whereDate('tanggal', $today)->sum('jumlah')
+            + Cicilan::whereDate('tanggal_bayar', $today)->sum('jumlah_tagihan')
+            + RekapHarian::whereDate('tanggal', $today)->where('jenis', 'uang_masuk')->sum('nominal');
 
         $totalKeluarHariIni =
-            Pinjaman::whereDate(
-                'tanggal_persetujuan',
-                $today
-            )
-            ->where('status', 'aktif')
-            ->sum('dana_diterima');
+            Pinjaman::whereDate('tanggal_persetujuan', $today)
+                ->where('status', 'aktif')
+                ->sum('dana_diterima')
+            + RekapHarian::whereDate('tanggal', $today)->where('jenis', 'uang_keluar')->sum('nominal');
 
         $transaksiHariIni =
             $totalMasukHariIni +

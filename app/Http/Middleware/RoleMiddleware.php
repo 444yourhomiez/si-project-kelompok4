@@ -9,6 +9,9 @@ class RoleMiddleware
         if (! auth()->check() || strtolower(auth()->user()->role) != strtolower($role)) {
             abort(403);
         }
+        if ($role === 'anggota' && auth()->user()->status !== 'disetujui') {
+            return redirect()->route('menunggu');
+        }
         return $next($request);
     }
 }
