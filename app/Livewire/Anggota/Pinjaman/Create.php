@@ -52,6 +52,7 @@ class Create extends Component
             return;
         }
         $this->resetValidation('tenor');
+        $this->resetSimulasi();
         $this->hitungPinjaman();
     }
     public function updatedJenisPinjaman()

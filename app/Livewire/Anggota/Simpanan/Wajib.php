@@ -24,7 +24,10 @@ class Wajib extends Component
         $simpananWajib = Simpanan::where('anggota_id', $anggotaId)
             ->where('jenis_simpanan', 'wajib')
             ->when($this->search, function ($query) {
-                $query->where('jumlah', 'like', '%'.$this->search.'%');
+                $query->where(function ($q) {
+                    $q->where('jumlah', 'like', '%'.$this->search.'%')
+                      ->orWhere('tanggal', 'like', '%'.$this->search.'%');
+                });
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->paginate);

@@ -16,6 +16,7 @@ class DetailAnggotaDisetujui extends Component
         $anggota = Anggota::with([
             'user',
             'simpanan',
+            'pinjaman' => fn($q) => $q->with(['cicilan' => fn($q) => $q->orderBy('cicilan_ke')])->orderBy('created_at', 'desc'),
         ])->findOrFail($this->anggotaId);
 
         return view('livewire.pengawas.anggota.detail-anggota-disetujui', [

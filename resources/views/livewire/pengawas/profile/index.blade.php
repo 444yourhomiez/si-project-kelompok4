@@ -6,29 +6,31 @@
         <div class="content-wrapper">
             {{-- HEADER --}}
             <section class="content-header">
-                <div class="container-fluid">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="font-weight-bold mb-1">
-                                Detail Profile
-                            </h3>
-                            <small class="text-muted">
-                                Informasi akun pengguna
-                            </small>
-                        </div>
-                        <ol class="breadcrumb float-sm-right bg-transparent p-0 m-0">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>
+                            <i class="nav-icon fas fa-user mr-2"></i>
+                            {{ $title }}
+                        </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="#">
+                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
+                                    <i class="fas fa-th-large mr-1"></i>
                                     Dashboard
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">
-                                Profile
+                            <li class="breadcrumb-item active text-success">
+                                <i class="nav-icon fas fa-user mr-1"></i>
+                                {{ $title }}
                             </li>
                         </ol>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
             {{-- CONTENT --}}
             <section class="content">
                 <div class="container-fluid">

@@ -35,6 +35,7 @@ class Detail extends Component
             Pinjaman::find($cicilan->pinjaman_id)?->update(['status' => 'lunas']);
         }
 
+        $this->dispatch('dataKoperasiUpdated');
         session()->flash('success', 'Cicilan ke-' . $cicilan->cicilan_ke . ' berhasil ditandai lunas.');
     }
 

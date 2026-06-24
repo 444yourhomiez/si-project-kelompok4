@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -117,6 +117,9 @@
                                 <option value="aktif">Aktif</option>
                                 <option value="lunas">Lunas</option>
                                 <option value="pending">Pending</option>
+                                <option value="disetujui">Disetujui</option>
+                                <option value="ditunda">Ditunda</option>
+                                <option value="ditolak">Ditolak</option>
                                 <option value="ditolak">Ditolak</option>
                             </select>
                         </div>

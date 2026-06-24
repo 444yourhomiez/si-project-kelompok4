@@ -14,6 +14,8 @@ class Pokok extends Component
     public $paginate = 10;
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
+    public function updatingSearch()   { $this->resetPage(); }
+    public function updatingPaginate() { $this->resetPage(); }
     public function render()
     {
         $simpananPokok = Simpanan::query()

@@ -65,7 +65,7 @@ class LaporanController extends Controller
                 '_sort'      => $item->tanggal,
                 'tanggal'    => $item->tanggal->format('d M Y'),
                 'jenis'      => 'Simpanan ' . ucfirst($item->jenis_simpanan),
-                'keterangan' => $item->anggota->nama_anggota ?? '-',
+                'keterangan' => $item->anggota?->nama_anggota ?? '-',
                 'masuk'      => (float) $item->jumlah,
                 'keluar'     => 0,
             ]);
@@ -93,7 +93,7 @@ class LaporanController extends Controller
                 '_sort'      => $item->tanggal_persetujuan,
                 'tanggal'    => $item->tanggal_persetujuan->format('d M Y'),
                 'jenis'      => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
-                'keterangan' => $item->anggota->nama_anggota ?? '-',
+                'keterangan' => $item->anggota?->nama_anggota ?? '-',
                 'masuk'      => 0,
                 'keluar'     => (float) ($item->dana_diterima ?? $item->jumlah_pengajuan),
             ]);

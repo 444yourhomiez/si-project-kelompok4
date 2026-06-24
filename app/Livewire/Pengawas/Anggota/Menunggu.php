@@ -17,10 +17,8 @@ class Menunggu extends Component
         'sortBy' => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
     ];
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+    public function updatingSearch()   { $this->resetPage(); }
+    public function updatingPaginate() { $this->resetPage(); }
     public function render()
     {
         $anggota = Anggota::with('user')

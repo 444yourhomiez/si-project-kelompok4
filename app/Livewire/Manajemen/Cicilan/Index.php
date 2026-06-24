@@ -17,7 +17,8 @@ class Index extends Component
     public string $sortBy   = 'created_at';
     public string $sortDir  = 'desc';
 
-    public function updatingSearch(): void { $this->resetPage(); }
+    public function updatingSearch(): void   { $this->resetPage(); }
+    public function updatingPaginate(): void { $this->resetPage(); }
 
     public function render()
     {

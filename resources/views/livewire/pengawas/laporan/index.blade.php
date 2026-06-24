@@ -59,6 +59,29 @@
                             </select>
                         </div>
 
+                        <div class="col-md-3 mb-2">
+                            <label class="d-block">&nbsp;</label>
+                            @if($jenis_laporan === 'bulanan')
+                                <a href="{{ route('laporan.pdf', ['jenis_laporan' => 'bulanan', 'bulan' => $bulan, 'tahun' => $tahun]) }}"
+                                   target="_blank" class="btn btn-success mr-1">
+                                    <i class="fas fa-file-pdf mr-1"></i> PDF
+                                </a>
+                                <a href="{{ route('laporan.excel', ['jenis_laporan' => 'bulanan', 'bulan' => $bulan, 'tahun' => $tahun]) }}"
+                                   class="btn btn-outline-success">
+                                    <i class="fas fa-file-excel mr-1"></i> Excel
+                                </a>
+                            @else
+                                <a href="{{ route('laporan.pdf', ['jenis_laporan' => 'tahunan', 'tahun' => $tahun]) }}"
+                                   target="_blank" class="btn btn-success mr-1">
+                                    <i class="fas fa-file-pdf mr-1"></i> PDF
+                                </a>
+                                <a href="{{ route('laporan.excel', ['jenis_laporan' => 'tahunan', 'tahun' => $tahun]) }}"
+                                   class="btn btn-outline-success">
+                                    <i class="fas fa-file-excel mr-1"></i> Excel
+                                </a>
+                            @endif
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -132,7 +132,7 @@
                   </div>
                   <div class="info ml-2">
                       <span class="d-block text-white">
-                          {{ auth()->user()->anggota->nama_anggota ?? '-' }}
+                          {{ auth()->user()->anggota?->nama_anggota ?? '-' }}
                       </span>
                       <small class="text-muted">
                           {{ strtoupper(auth()->user()->role) }}
