@@ -2,5 +2,5 @@
 @section('title', 'Laporan')
 @section('menuPengawasLaporan', 'active')
 @section('content')
-    @livewire('manajemen.laporan.index')
+    @livewire('pengawas.laporan.index')
 @endsection

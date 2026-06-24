@@ -128,6 +128,7 @@ Route::middleware(['auth', 'role:pengawas'])
         Route::view('/anggota/menunggu', 'pengawas.anggota.menunggu')->name('anggota.menunggu');
         Route::view('/anggota/menunggu/{id}', 'pengawas.anggota.detail-anggota-menunggu')->name('anggota.detail-anggota-menunggu');
         Route::view('/rekap', 'pengawas.rekap.index')->name('rekap.index');
+        Route::view('/shu', 'pengawas.shu.index')->name('shu.index');
         Route::view('/laporan', 'pengawas.laporan.index')->name('laporan.index');
         Route::view('/profile', 'pengawas.profile.index')->name('profile.index')->middleware('auth');
     });

@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         {{-- WAJIB --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#e8f5e9;">
                                     <i class="fas fa-wallet" style="color:#28a745;"></i>
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         {{-- POKOK --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <div class="simpanan-stat-box border-right border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#e3f2fd;">
                                     <i class="fas fa-piggy-bank" style="color:#007bff;"></i>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         {{-- SUKARELA --}}
-                        <div class="col-md-3 col-4">
+                        <div class="col-md-3 col-12">
                             <div class="simpanan-stat-box border-bottom">
                                 <div class="simpanan-stat-icon" style="background:#e8eaf6;">
                                     <i class="fas fa-hand-holding-heart" style="color:#5c6bc0;"></i>

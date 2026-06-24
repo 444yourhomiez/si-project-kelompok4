@@ -25,7 +25,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active text-success">
-                                <i class="fas fas fa-piggy-bank mr-1"></i>
+                                <i class="fas fa-piggy-bank mr-1"></i>
                                 {{ $title }}
                             </li>
                         </ol>

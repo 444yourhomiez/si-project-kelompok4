@@ -51,7 +51,7 @@
                         </div>
 
                         {{-- ANGGOTA DISETUJUI --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.anggota.disetujui') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -68,7 +68,7 @@
                         </div>
 
                         {{-- MENUNGGU VERIFIKASI --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.anggota.menunggu') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#fff8e1;">

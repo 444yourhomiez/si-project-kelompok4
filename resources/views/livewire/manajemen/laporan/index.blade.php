@@ -254,7 +254,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</td>
-                                            <td>{{ $item['jenis'] === 'uang_masuk' ? 'Uang Masuk' : 'Uang Keluar' }}</td>
+                                            <td>{{ $item['jenis'] }}</td>
                                             <td>{{ $item['keterangan'] }}</td>
                                             <td class="text-right">{{ $item['masuk'] > 0 ? 'Rp '.number_format($item['masuk'],0,',','.') : '-' }}</td>
                                             <td class="text-right">{{ $item['keluar'] > 0 ? 'Rp '.number_format($item['keluar'],0,',','.') : '-' }}</td>

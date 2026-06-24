@@ -102,6 +102,7 @@
                                     <th>Nama Anggota</th>
                                     <th class="text-right">Nominal</th>
                                     <th class="text-center">Status</th>
+                                    <th class="text-center" style="width:70px;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,10 +132,19 @@
                                                 <span class="badge badge-warning">Pending</span>
                                             @endif
                                         </td>
+                                        <td class="text-center">
+                                            <button
+                                                wire:click="$dispatch('openShow', [{{ $item->id }}])"
+                                                onclick="$('#showModalPinjaman').modal('show')"
+                                                class="btn btn-sm btn-light shadow-sm"
+                                                title="Lihat Detail">
+                                                <i class="fas fa-eye text-primary"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center py-5">
+                                        <td colspan="7" class="text-center py-5">
                                             <div class="empty-state">
                                                 <i class="fas fa-folder-open fa-2x mb-2 d-block text-muted"></i>
                                                 <h6 class="text-muted">Belum ada data pinjaman biasa</h6>
@@ -159,4 +169,6 @@
             </div>
         </section>
     </div>
+
+    @livewire('pengawas.pinjaman.show')
 </div>

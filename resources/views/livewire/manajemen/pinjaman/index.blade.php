@@ -48,7 +48,7 @@
                         </div>
 
                         {{-- PINJAMAN BIASA --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('manajemen.pinjaman.biasa') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e8f5e9;">
@@ -65,7 +65,7 @@
                         </div>
 
                         {{-- PINJAMAN KHUSUS --}}
-                        <div class="col-md-4 col-6">
+                        <div class="col-md-4 col-12">
                             <a href="{{ route('manajemen.pinjaman.khusus') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-bottom">
                                     <div class="simpanan-stat-icon" style="background:#e3f2fd;">

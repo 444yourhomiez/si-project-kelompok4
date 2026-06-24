@@ -105,19 +105,28 @@
                 @endif
 
                 @if ($status == 'disetujui')
-                    <a href="{{ route('login') }}" class="btn btn-success w-100 mt-3">
-                        <i class="fas fa-sign-in-alt mr-1"></i>
-                        Login Sekarang
-                    </a>
+                    <div class="alert alert-success mt-3 text-center py-2">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        Pendaftaran Anda disetujui! Silakan login untuk melanjutkan.
+                    </div>
+                    <p class="text-muted text-center small">Anda akan diarahkan ke halaman login secara otomatis...</p>
                 @endif
 
                 @if ($status == 'ditolak')
                     <div class="alert alert-danger mt-3 text-center">
-                        Akun Anda ditolak dan akan dihapus otomatis.
+                        <i class="fas fa-times-circle mr-1"></i>
+                        <strong>Pendaftaran Anda Ditolak</strong><br>
+                        <small>Maaf, pengajuan Anda tidak dapat disetujui. Silakan hubungi admin koperasi untuk informasi lebih lanjut.</small>
                     </div>
-                    <a href="{{ route('homepage') }}" class="btn btn-dark w-100 mt-2">
-                        Kembali ke Beranda
-                    </a>
+                    <button wire:click="konfirmasiTolak" wire:loading.attr="disabled"
+                        class="btn btn-dark w-100 mt-2">
+                        <span wire:loading wire:target="konfirmasiTolak">
+                            <i class="fas fa-spinner fa-spin mr-1"></i> Memproses...
+                        </span>
+                        <span wire:loading.remove wire:target="konfirmasiTolak">
+                            <i class="fas fa-check mr-1"></i> Saya Mengerti, Kembali ke Beranda
+                        </span>
+                    </button>
                 @endif
             </div>
         </div>
