@@ -20,10 +20,8 @@ class UserSeeder extends Seeder
             // Status anggota
             if ($i <= 75) {
                 $status = 'disetujui';
-            } elseif ($i <= 90) {
-                $status = 'menunggu';
             } else {
-                $status = 'ditolak';
+                $status = 'menunggu';
             }
 
             // Lama keanggotaan hanya untuk yang disetujui
