@@ -79,8 +79,8 @@ class UserSeeder extends Seeder
                     'tanggal'          => $tanggalDaftar,
                 ]);
 
-                // Simpanan Wajib Bulanan
-                for ($j = $bulan; $j >= 1; $j--) {
+                // Simpanan Wajib Bulanan (termasuk bulan ini)
+                for ($j = $bulan; $j >= 0; $j--) {
                     Simpanan::create([
                         'anggota_id'       => $anggota->id,
                         'jenis_simpanan'   => 'wajib',
