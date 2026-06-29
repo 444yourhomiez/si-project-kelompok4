@@ -183,8 +183,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button wire:click="lunasi"
-                                wire:confirm="Lunasi semua sisa {{ $sisaBelum->count() }} cicilan?\n\nTotal yang dibayar: Rp {{ number_format($totalPelunasan, 0, ',', '.') }}\n(Sisa pokok + jasa 1 bulan terakhir)"
+                            <button wire:click="konfirmLunasi"
                                 class="btn btn-success px-4 shadow-sm" style="white-space:nowrap;">
                                 <i class="fas fa-check-double mr-2"></i> Lunasi Semua
                             </button>
@@ -245,8 +244,7 @@
                                             </td>
                                             <td class="text-center">
                                                 @if($cic->status === 'belum')
-                                                    <button wire:click="bayar({{ $cic->id }})"
-                                                        wire:confirm="Tandai cicilan ke-{{ $cic->cicilan_ke }} sebagai lunas?"
+                                                    <button wire:click="konfirmBayar({{ $cic->id }})"
                                                         class="btn btn-success btn-sm">
                                                         <i class="fas fa-check mr-1"></i> Bayar
                                                     </button>
@@ -282,4 +280,131 @@
             </div>
         </section>
     </div>
+
+    {{-- MODAL KONFIRMASI BAYAR --}}
+    @if($confirmCicilanId)
+    <div class="modal fade show d-block" tabindex="-1" style="background:rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden;">
+                <div class="modal-body p-0">
+                    <div style="background:#f0fdf4;padding:20px 20px 16px;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div></div>
+                            <button wire:click="batalKonfirmasi" type="button"
+                                style="width:32px;height:32px;border-radius:50%;background:#e2e8f0;border:none;font-size:1.1rem;font-weight:bold;color:#475569;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&times;</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle mb-3"
+                                style="width:64px;height:64px;background:#dcfce7;">
+                                <i class="fas fa-money-bill-wave text-success" style="font-size:1.6rem;"></i>
+                            </div>
+                            <h5 class="font-weight-bold text-dark mb-1">Konfirmasi Pembayaran</h5>
+                            <p class="text-muted text-center mb-0" style="font-size:0.9rem;">
+                                Tandai cicilan ke-<strong>{{ $confirmCicilanKe }}</strong> sebagai <strong class="text-success">Lunas</strong>?
+                            </p>
+                        </div>
+                    </div>
+                    @php $cicilanKonfirm = $pinjaman->cicilan->firstWhere('id', $confirmCicilanId); @endphp
+                    @if($cicilanKonfirm)
+                    <div class="px-4 py-3">
+                        <div class="rounded p-3" style="background:#f8f9fa;">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Anggota</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ $pinjaman->anggota->nama_anggota }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Cicilan ke</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ $confirmCicilanKe }} / {{ $pinjaman->tenor }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Jatuh Tempo</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ \Carbon\Carbon::parse($cicilanKonfirm->jatuh_tempo)->format('d M Y') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted" style="font-size:0.85rem;">Jumlah Tagihan</span>
+                                <span class="font-weight-bold text-success">Rp {{ number_format($cicilanKonfirm->jumlah_tagihan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="d-flex px-4 pb-4" style="gap:10px;">
+                        <button wire:click="batalKonfirmasi" class="btn btn-light flex-fill" style="border-radius:10px;">
+                            Batal
+                        </button>
+                        <button wire:click="bayar" class="btn btn-success flex-fill font-weight-bold" style="border-radius:10px;">
+                            <i class="fas fa-check mr-1"></i> Ya, Tandai Lunas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    {{-- MODAL KONFIRMASI LUNASI SEMUA --}}
+    @if($confirmLunasi)
+    <div class="modal fade show d-block" tabindex="-1" style="background:rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:440px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius:16px;overflow:hidden;">
+                <div class="modal-body p-0">
+                    <div style="background:#f0fdf4;padding:20px 20px 16px;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div></div>
+                            <button wire:click="batalLunasi" type="button"
+                                style="width:32px;height:32px;border-radius:50%;background:#e2e8f0;border:none;font-size:1.1rem;font-weight:bold;color:#475569;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">&times;</button>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle mb-3"
+                                style="width:64px;height:64px;background:#dcfce7;">
+                                <i class="fas fa-check-double text-success" style="font-size:1.6rem;"></i>
+                            </div>
+                            <h5 class="font-weight-bold text-dark mb-1">Lunasi Semua Cicilan?</h5>
+                            <p class="text-muted text-center mb-0" style="font-size:0.9rem;">
+                                Semua sisa cicilan akan ditandai <strong class="text-success">lunas</strong> sekaligus.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3">
+                        <div class="rounded p-3" style="background:#f8f9fa;">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Anggota</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ $pinjaman->anggota->nama_anggota }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Sisa Cicilan</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ $sisaBelum->count() }} bulan</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Sisa Pokok</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">Rp {{ number_format($sisaPokok, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted" style="font-size:0.85rem;">Jasa (1 bulan)</span>
+                                <span class="font-weight-bold" style="font-size:0.85rem;">Rp {{ number_format($jasaPerBulan, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between pt-2" style="border-top:1px solid #dee2e6;">
+                                <span class="font-weight-bold" style="font-size:0.9rem;">Total Dibayar</span>
+                                <span class="font-weight-bold text-success" style="font-size:1rem;">Rp {{ number_format($totalPelunasan, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                        <div class="mt-3 p-2 rounded" style="background:#fff3cd;border:1px solid #ffc107;">
+                            <small class="text-dark">
+                                <i class="fas fa-exclamation-triangle text-warning mr-1"></i>
+                                Tindakan ini tidak dapat dibatalkan. Pinjaman akan otomatis ditandai lunas.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="d-flex px-4 pb-4" style="gap:10px;">
+                        <button wire:click="batalLunasi" class="btn btn-light flex-fill" style="border-radius:10px;">
+                            Batal
+                        </button>
+                        <button wire:click="lunasi" class="btn btn-success flex-fill font-weight-bold" style="border-radius:10px;">
+                            <i class="fas fa-check-double mr-1"></i> Ya, Lunasi Semua
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
