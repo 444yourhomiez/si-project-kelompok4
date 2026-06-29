@@ -16,6 +16,38 @@ class Detail extends Component
         $this->pinjamanId = $id;
     }
 
+    public function lunasi(): void
+    {
+        $pinjaman = Pinjaman::with([
+            'cicilan' => fn($q) => $q->where('status', 'belum')->orderBy('cicilan_ke'),
+        ])->findOrFail($this->pinjamanId);
+
+        $sisaCicilan = $pinjaman->cicilan;
+
+        if ($sisaCicilan->isEmpty()) {
+            session()->flash('error', 'Tidak ada sisa cicilan yang belum dibayar.');
+            return;
+        }
+
+        $jasaPerBulan  = (int) round(($pinjaman->jumlah_disetujui ?? $pinjaman->jumlah_pengajuan) * ($pinjaman->bunga / 100));
+        $pokokPerBulan = $pinjaman->cicilan_per_bulan - $jasaPerBulan;
+        $tanggalBayar  = now()->toDateString();
+
+        foreach ($sisaCicilan as $index => $cicilan) {
+            $isLast = $index === $sisaCicilan->count() - 1;
+            $cicilan->update([
+                'status'         => 'lunas',
+                'tanggal_bayar'  => $tanggalBayar,
+                'jumlah_tagihan' => $isLast ? $cicilan->jumlah_tagihan : $pokokPerBulan,
+            ]);
+        }
+
+        $pinjaman->update(['status' => 'lunas']);
+
+        $this->dispatch('dataKoperasiUpdated');
+        session()->flash('success', 'Pinjaman berhasil dilunasi sepenuhnya.');
+    }
+
     public function bayar(int $id): void
     {
         $cicilan = Cicilan::findOrFail($id);

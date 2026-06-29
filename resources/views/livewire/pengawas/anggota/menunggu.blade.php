@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -9,29 +9,6 @@
                             <i class="nav-icon fas fa-user-clock mr-2"></i>
                             {{ $title }}
                         </h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            {{-- DASHBOARD --}}
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            {{-- MENU --}}
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.anggota.index') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-users mr-1"></i>
-                                    Daftar Anggota
-                                </a>
-                            </li>
-                            {{-- ACTIVE --}}
-                            <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-user-clock mr-1"></i>
-                                {{ $title }}
-                            </li>
-                        </ol>
                     </div>
                 </div>
             </div>

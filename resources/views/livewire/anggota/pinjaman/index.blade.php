@@ -10,20 +10,6 @@
                             {{ $title }}
                         </h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-hand-holding-usd mr-1"></i>
-                                {{ $title }}
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -107,7 +93,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-2">
                             <label>Cari Pinjaman</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Kode pinjaman...">
+                                placeholder="Kode pinjaman atau nominal...">
                         </div>
                         {{-- FILTER JENIS --}}
                         <div class="col-lg-2 col-md-6 col-6 mb-2">
@@ -153,19 +139,24 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>Jenis Pinjaman</th>
-                                    <th>Nominal</th>
-                                    <th class="text-center" style="width:120px;">
-                                        <i class="fas fa-cog"></i>
-                                    </th>
+                                    <th>Kode Pinjaman</th>
+                                    <th>Jenis</th>
+                                    <th class="text-right">Nominal</th>
+                                    <th class="text-center">Tenor</th>
+                                    <th class="text-right">Cicilan/Bln</th>
+                                    <th class="text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($pinjaman as $item)
                                     <tr>
                                         <td>
-                                            {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
+                                            </div>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
                                         </td>
+                                        <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>
                                             @if ($item->jenis_pinjaman == 'biasa')
                                                 <span class="badge badge-success">
@@ -177,11 +168,14 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td>
-                                            Rp
-                                            {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
+                                        <td class="font-weight-bold">
+                                            Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
                                         </td>
-                                        <td  class="text-center">
+                                        <td class="font-weight-bold">{{ $item->tenor }} Bulan</td>
+                                        <td class="font-weight-bold">
+                                            Rp {{ number_format($item->cicilan_per_bulan, 0, ',', '.') }}
+                                        </td>
+                                        <td class="text-center">
                                             @if ($item->status == 'pending')
                                                 <span class="badge badge-warning">
                                                     Pending
@@ -203,7 +197,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center">
+                                        <td colspan="7" class="text-center">
                                             Belum ada data pinjaman
                                         </td>
                                     </tr>

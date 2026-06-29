@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Anggota;
 
-use App\Models\Simpanan;
-use App\Models\Pinjaman;
 use App\Models\Cicilan;
+use App\Models\Pinjaman;
+use App\Models\Simpanan;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -161,7 +162,10 @@ class Dashboard extends Component
         |--------------------------------------------------------------------------
         */
 
+        $today = Carbon::today();
+
         $transaksiSimpanan = Simpanan::where('anggota_id', $anggotaId)
+            ->whereDate('created_at', $today)
             ->latest()
             ->get()
             ->map(fn($item) => [
@@ -178,6 +182,7 @@ class Dashboard extends Component
 
         $transaksiPinjaman = Pinjaman::with(['cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
             ->where('anggota_id', $anggotaId)
+            ->whereDate('created_at', $today)
             ->latest()
             ->get()
             ->map(fn($item) => [
@@ -196,6 +201,7 @@ class Dashboard extends Component
             ->whereHas('pinjaman', fn($q) => $q->where('anggota_id', $anggotaId))
             ->where('status', 'lunas')
             ->whereNotNull('tanggal_bayar')
+            ->whereDate('tanggal_bayar', $today)
             ->latest()
             ->get()
             ->map(fn($item) => [

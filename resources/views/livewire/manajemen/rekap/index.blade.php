@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div>
         <div class="content-wrapper">
             <!-- Content Header -->
@@ -10,20 +10,6 @@
                                 <i class="nav-icon fas fa-calendar-day mr-2"></i>
                                 {{ $title }}
                             </h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('manajemen.dashboard') }}" class="text-muted breadcrumb-green">
-                                        <i class="fas fa-th-large mr-1"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item active text-success">
-                                    <i class="fas fa-calendar-day mr-1"></i>
-                                    {{ $title }}
-                                </li>
-                            </ol>
                         </div>
                     </div>
                 </div>
@@ -162,7 +148,10 @@
                                 <tbody>
                                     @forelse($riwayat as $item)
                                         <tr>
-                                            <td>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</td>
+                                            <td>
+                                                <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
+                                                <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}"></span></small>
+                                            </td>
                                             <td>{{ $item['is_manual'] ? '-' : $item['kode_anggota'] }}</td>
                                             <td>{{ $item['nama_anggota'] }}</td>
                                             <td>

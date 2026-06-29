@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -9,24 +9,6 @@
                             <i class="nav-icon fas fa-file-invoice-dollar mr-2"></i>
                             {{ $title }}
                         </h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i> Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.pinjaman.index') }}" class="text-muted breadcrumb-green">
-                                    <i class="nav-icon fas fa-hand-holding-usd mr-1"></i> Daftar Pinjaman
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-file-invoice-dollar mr-1"></i> 
-                                {{ $title }}
-                            </li>
-                        </ol>
                     </div>
                 </div>
             </div>
@@ -78,9 +60,6 @@
                                 <option value="aktif">Aktif</option>
                                 <option value="lunas">Lunas</option>
                                 <option value="pending">Pending</option>
-                                <option value="disetujui">Disetujui</option>
-                                <option value="ditunda">Ditunda</option>
-                                <option value="ditolak">Ditolak</option>
                                 <option value="ditolak">Ditolak</option>
                             </select>
                         </div>
@@ -119,7 +98,7 @@
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>
                                             <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>
-                                            <small class="text-muted">{{ $item->anggota->kode_anggota }}</small>
+                                            <small class="text-muted">Kode: {{ $item->anggota->kode_anggota }}</small>
                                         </td>
                                         <td class="text-right font-weight-bold">
                                             Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}

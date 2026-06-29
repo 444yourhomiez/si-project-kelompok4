@@ -10,29 +10,6 @@
                             {{ $title }}
                         </h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            {{-- DASHBOARD --}}
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            {{-- MENU --}}
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('anggota.pinjaman.index') }}" class="text-muted breadcrumb-green">
-                                    <i class="nav-icon fas fa-hand-holding-usd mr-1"></i>
-                                    Daftar Pinjaman
-                                </a>
-                            </li>
-                            {{-- ACTIVE --}}
-                            <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-star mr-1"></i>
-                                {{ $title }}
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -83,7 +60,7 @@
                         <div class="col-lg-4 col-md-6 col-12 mb-2">
                             <label>Cari Pinjaman</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Kode pinjaman...">
+                                placeholder="Kode pinjaman atau nominal...">
                         </div>
                         {{-- FILTER STATUS --}}
                         <div class="col-lg-3 col-md-6 col-6 mb-2">
@@ -111,26 +88,27 @@
                         <table class="table table-bordered table-hover">
                             <thead class="thead-light">
                                 <tr>
+                                    <th>Tanggal</th>
                                     <th>Kode Pinjaman</th>
                                     <th>Nominal</th>
                                     <th>Tenor</th>
-                                    <th>Cicilan /Bulan</th>
+                                    <th>Cicilan/Bulan</th>
                                     <th class="text-center" style="width:120px;">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($pinjaman as $item)
                                     <tr>
-                                        <td>{{ $item->kode_pinjaman }}</td>
                                         <td>
-                                            Rp
-                                            {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
+                                            </div>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
                                         </td>
-                                        <td>{{ $item->tenor }} Bulan</td>
-                                        <td>
-                                            Rp
-                                            {{ number_format($item->cicilan_per_bulan, 0, ',', '.') }}
-                                        </td>
+                                        <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
+                                        <td class="font-weight-bold">Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}</td>
+                                        <td class="font-weight-bold">{{ $item->tenor }} Bulan</td>
+                                        <td class="font-weight-bold">Rp {{ number_format($item->cicilan_per_bulan, 0, ',', '.') }}</td>
                                         <td class="text-center">
                                             @if($item->status === 'aktif')
                                                 <span class="badge badge-success">Aktif</span>
@@ -147,7 +125,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">
+                                        <td colspan="6" class="text-center">
                                             Belum ada pinjaman khusus
                                         </td>
                                     </tr>

@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         <!-- Content Header -->
         <section class="content-header">
@@ -9,20 +9,6 @@
                             <i class="nav-icon fas fa-coins mr-2"></i>
                             {{ $title }}
                         </h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('manajemen.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-coins mr-1"></i>
-                                {{ $title }}
-                            </li>
-                        </ol>
                     </div>
                 </div>
             </div>
@@ -194,7 +180,7 @@
                                                 {{ $item->anggota->nama_anggota ?? '-' }}
                                             </div>
                                             <small class="text-muted">
-                                                {{ $item->anggota->no_ktp ?? '-' }}
+                                                NIK: {{ $item->anggota->no_ktp ?? '-' }}
                                             </small>
                                         </td>
                                         {{-- JENIS SIMPANAN --}}

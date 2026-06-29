@@ -10,14 +10,6 @@
                             Dashboard
                         </h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-th-large mr-1"></i>
-                                Dashboard
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>

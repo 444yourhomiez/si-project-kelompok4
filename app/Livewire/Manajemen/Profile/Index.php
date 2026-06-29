@@ -1,14 +1,18 @@
 <?php
 namespace App\Livewire\Manajemen\Profile;
 
+use App\Models\User;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
 class Index extends Component
 {
     use WithFileUploads;
 
+    /** @var TemporaryUploadedFile|null */
     public $foto;
 
     private function storageDisk(): string
@@ -19,10 +23,10 @@ class Index extends Component
     public function updatedFoto()
     {
         $this->validate([
-            'foto' => 'image|max:2048',
+            'foto' => 'image|max:5120',
         ], [
             'foto.image' => 'File harus berupa gambar.',
-            'foto.max'   => 'Ukuran gambar maksimal 2MB.',
+            'foto.max'   => 'Ukuran gambar maksimal 5MB.',
         ]);
     }
 
@@ -34,13 +38,14 @@ class Index extends Component
     public function uploadFoto()
     {
         $this->validate([
-            'foto' => 'required|image|max:2048',
+            'foto' => 'required|image|max:5120',
         ], [
             'foto.required' => 'Pilih gambar terlebih dahulu.',
             'foto.image'    => 'File harus berupa gambar.',
-            'foto.max'      => 'Ukuran gambar maksimal 2MB.',
+            'foto.max'      => 'Ukuran gambar maksimal 5MB.',
         ]);
 
+        /** @var User $user */
         $user = auth()->user();
         $disk = $this->storageDisk();
 
@@ -57,10 +62,13 @@ class Index extends Component
 
     public function render()
     {
+        /** @var User $user */
         $user    = auth()->user();
         $disk    = $this->storageDisk();
+        /** @var FilesystemAdapter $storage */
+        $storage = Storage::disk($disk);
         $fotoUrl = $user->foto_profile
-            ? Storage::disk($disk)->url($user->foto_profile)
+            ? $storage->url($user->foto_profile)
             : null;
 
         return view('livewire.manajemen.profile.index', [

@@ -109,7 +109,15 @@
                         <i class="fas fa-check-circle mr-1"></i>
                         Pendaftaran Anda disetujui! Silakan login untuk melanjutkan.
                     </div>
-                    <p class="text-muted text-center small">Anda akan diarahkan ke halaman login secara otomatis...</p>
+                    <button wire:click="goToLogin" wire:loading.attr="disabled"
+                        class="btn btn-success w-100 mt-2">
+                        <span wire:loading wire:target="goToLogin">
+                            <i class="fas fa-spinner fa-spin mr-1"></i> Memproses...
+                        </span>
+                        <span wire:loading.remove wire:target="goToLogin">
+                            <i class="fas fa-sign-in-alt mr-1"></i> Login Sekarang
+                        </span>
+                    </button>
                 @endif
 
                 @if ($status == 'ditolak')

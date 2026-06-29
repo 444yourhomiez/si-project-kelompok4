@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth;
 
+use App\Models\Anggota;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -26,18 +27,22 @@ class Menunggu extends Component
             return redirect()->route('login');
         }
         $this->loadStatus();
-        if ($this->status === 'disetujui') {
-            Auth::logout();
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
-            return redirect()->route('login')
-                ->with('success', 'Pendaftaran Anda disetujui! Silakan login untuk melanjutkan.');
-        }
+    }
+
+    public function goToLogin()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect()->route('login')
+            ->with('success', 'Pendaftaran Anda disetujui! Silakan login untuk melanjutkan.');
     }
 
     public function konfirmasiTolak()
     {
+        /** @var User $user */
         $user    = Auth::user();
+        /** @var Anggota|null $anggota */
         $anggota = $user?->anggota;
 
         Auth::logout();
@@ -64,6 +69,7 @@ class Menunggu extends Component
 
     public function kirimUlangEmail()
     {
+        /** @var User $user */
         $user = Auth::user();
         if ($user->hasVerifiedEmail()) {
             return;

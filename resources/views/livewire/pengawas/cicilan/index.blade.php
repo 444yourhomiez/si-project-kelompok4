@@ -10,18 +10,6 @@
                             {{ $title }}
                         </h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i> Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="nav-icon fas fa-money-bill-wave mr-1"></i> {{ $title }}
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -100,9 +88,18 @@
                 <div class="card-body">
                     <div class="row mb-3 align-items-end">
                         <div class="col-lg-4 col-md-12 mb-2">
-                            <label>Cari Anggota</label>
+                            <label>Cari Anggota / Kode</label>
                             <input type="text" wire:model.live="search" class="form-control"
-                                placeholder="Nama atau kode anggota...">
+                                placeholder="Nama, kode anggota, kode pinjaman...">
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+                            <label>Status Pinjaman</label>
+                            <select wire:model.live="filterStatus" class="form-control">
+                                <option value="">Semua Status</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="lunas">Lunas</option>
+                                <option value="disetujui">Disetujui</option>
+                            </select>
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Data</label>
@@ -110,6 +107,7 @@
                                 <option value="10">10 Data</option>
                                 <option value="25">25 Data</option>
                                 <option value="50">50 Data</option>
+                                <option value="100">100 Data</option>
                             </select>
                         </div>
                     </div>
@@ -119,7 +117,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th class="text-center" style="width:40px;">No</th>
-                                    <th>Kode Pinjaman</th>
+                                    <th>Tanggal Pengajuan</th>
                                     <th>Nama Anggota</th>
                                     <th>Jenis</th>
                                     <th class="text-right">Jumlah Pinjaman</th>
@@ -138,10 +136,13 @@
                                     @endphp
                                     <tr wire:key="pinjaman-{{ $item->id }}">
                                         <td class="text-center">{{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}</td>
-                                        <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
+                                        <td>
+                                            <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}</div>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
+                                        </td>
                                         <td>
                                             <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>
-                                            <small class="text-muted">{{ $item->anggota->kode_anggota }}</small>
+                                            <small class="text-muted">Kode: {{ $item->anggota->kode_anggota }}</small>
                                         </td>
                                         <td>
                                             @if($item->jenis_pinjaman === 'biasa')
