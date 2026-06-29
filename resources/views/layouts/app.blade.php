@@ -66,6 +66,20 @@
             });
         </script>
     @endif
+    {{-- Global Livewire SweetAlert Event --}}
+    <script>
+        window.addEventListener('swal', function(e) {
+            Swal.fire({
+                icon: e.detail.icon ?? 'info',
+                title: e.detail.title ?? '',
+                text: e.detail.text ?? '',
+                timer: (e.detail.icon === 'success') ? 2500 : undefined,
+                timerProgressBar: (e.detail.icon === 'success'),
+                showConfirmButton: (e.detail.icon !== 'success'),
+                confirmButtonColor: '#28a745',
+            });
+        });
+    </script>
     {{-- Logout Confirmation --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {

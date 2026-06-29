@@ -26,7 +26,8 @@
             <div class="container-fluid">
 
                 {{-- PROFILE CARD --}}
-                <div class="card border-0 modern-profile-card mb-4">
+                <div class="card border-0 shadow-sm mb-4" style="border-radius:14px;overflow:hidden;">
+                    <div style="background:linear-gradient(135deg,#1a7f3c,#28a745);height:6px;"></div>
                     <div class="card-body px-4 py-4">
                         <div class="d-flex align-items-center" style="gap:18px;">
                             <div class="modern-avatar flex-shrink-0">
@@ -38,26 +39,77 @@
                                 <h3 class="font-weight-bold mb-1" style="font-size:1.3rem;">
                                     {{ $anggota->nama_anggota }}
                                 </h3>
-                                <div class="text-muted mb-2" style="font-size:0.85rem;">
-                                    <i class="fas fa-id-badge mr-1"></i>
-                                    {{ $anggota->no_ktp }}
+                                <div class="text-muted mb-1" style="font-size:0.85rem;">
+                                    <i class="fas fa-id-badge mr-1"></i>{{ $anggota->no_ktp }}
                                 </div>
-                                <span class="modern-status">
-                                    <i class="fas fa-clock mr-1"></i>
-                                    Menunggu Verifikasi
+                                <div class="text-muted mb-2" style="font-size:0.85rem;">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    Daftar: {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d M Y') }}
+                                    <small class="ml-1">
+                                        (<span data-timestamp="{{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->timestamp }}"></span>)
+                                    </small>
+                                </div>
+                                <span class="badge px-3 py-1" style="background:#fff8e1;color:#f59e0b;border:1px solid #fde68a;border-radius:20px;font-size:0.78rem;">
+                                    <i class="fas fa-clock mr-1"></i>Menunggu Verifikasi
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                {{-- READ-ONLY NOTICE --}}
+                <div class="card border-0 shadow-sm mb-4" style="border-radius:12px;border-left:4px solid #17a2b8 !important;">
+                    <div class="card-body py-3 d-flex align-items-center" style="gap:12px;">
+                        <i class="fas fa-eye text-info" style="font-size:1.1rem;flex-shrink:0;"></i>
+                        <small class="text-muted">
+                            Pengawas hanya dapat melihat data ini. Untuk menyetujui atau menolak anggota, hubungi manajemen.
+                        </small>
+                    </div>
+                </div>
+
+                {{-- QUICK INFO STRIP --}}
+                <div class="row mb-4">
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm text-center py-3" style="border-radius:12px;">
+                            <div class="text-muted" style="font-size:0.78rem;">Jenis Kelamin</div>
+                            <div class="font-weight-bold mt-1" style="font-size:0.95rem;">
+                                {{ $anggota->jenis_kelamin ?: '-' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm text-center py-3" style="border-radius:12px;">
+                            <div class="text-muted" style="font-size:0.78rem;">Usia</div>
+                            <div class="font-weight-bold mt-1" style="font-size:0.95rem;">
+                                {{ $anggota->tanggal_lahir ? \Carbon\Carbon::parse($anggota->tanggal_lahir)->age . ' tahun' : '-' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm text-center py-3" style="border-radius:12px;">
+                            <div class="text-muted" style="font-size:0.78rem;">Status Rumah</div>
+                            <div class="font-weight-bold mt-1" style="font-size:0.95rem;">
+                                {{ $anggota->status_rumah ?: '-' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm text-center py-3" style="border-radius:12px;">
+                            <div class="text-muted" style="font-size:0.78rem;">Penghasilan</div>
+                            <div class="font-weight-bold mt-1" style="font-size:0.95rem;">
+                                {{ $anggota->penghasilan ?: '-' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- BIODATA --}}
-                <div class="card border-0 modern-detail-card mb-4">
+                <div class="card border-0 shadow-sm mb-4" style="border-radius:14px;overflow:hidden;">
                     <div class="card-header bg-white border-bottom py-3">
                         <h5 class="mb-0 font-weight-bold">
-                            <i class="fas fa-id-card text-success mr-2"></i>Biodata Anggota
+                            <i class="fas fa-id-card text-success mr-2"></i>Biodata Lengkap
                         </h5>
-                        <small class="text-muted">Informasi lengkap anggota koperasi</small>
+                        <small class="text-muted">Informasi data diri anggota koperasi</small>
                     </div>
                     <div class="card-body pt-3">
                         <div class="row">
