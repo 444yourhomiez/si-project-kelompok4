@@ -16,6 +16,8 @@ class Index extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    protected $queryString = ['search' => ['except' => '']];
+
     protected $listeners = ['rekapUpdated' => '$refresh'];
 
     public string $search      = '';
@@ -32,6 +34,13 @@ class Index extends Component
     public function updatingFilterJenis(): void { $this->resetPage(); }
     public function updatingTanggal(): void     { $this->resetPage(); }
     public function updatingPaginate(): void    { $this->resetPage(); }
+
+    public function resetFilter(): void
+    {
+        $this->reset('search', 'filterJenis');
+        $this->tanggal = today()->toDateString();
+        $this->resetPage();
+    }
 
     public function render()
     {
@@ -105,12 +114,13 @@ class Index extends Component
         $totalKeluar = $semua->sum('keluar');
         $saldo       = $totalMasuk - $totalKeluar;
 
+        $keyword = trim($this->search);
         $filtered = $semua
-            ->when($this->search, fn($col) => $col->filter(
-                fn($item) => str_contains(strtolower($item['nama_anggota']), strtolower($this->search))
-                    || str_contains(strtolower($item['kode_anggota']), strtolower($this->search))
-                    || str_contains(strtolower($item['jenis']), strtolower($this->search))
-                    || str_contains(strtolower($item['keterangan']), strtolower($this->search))
+            ->when($keyword, fn($col) => $col->filter(
+                fn($item) => str_contains(strtolower($item['nama_anggota']), strtolower($keyword))
+                    || str_contains(strtolower($item['kode_anggota']), strtolower($keyword))
+                    || str_contains(strtolower($item['jenis']), strtolower($keyword))
+                    || str_contains(strtolower($item['keterangan']), strtolower($keyword))
             ))
             ->when($this->filterJenis, fn($col) => $col->filter(
                 fn($item) => $item['jenis_key'] === $this->filterJenis

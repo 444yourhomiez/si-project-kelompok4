@@ -19,10 +19,10 @@ class Index extends Component
     public function updatedFoto()
     {
         $this->validate([
-            'foto' => 'image|max:2048',
+            'foto' => 'image|max:5120',
         ], [
             'foto.image' => 'File harus berupa gambar.',
-            'foto.max'   => 'Ukuran gambar maksimal 2MB.',
+            'foto.max'   => 'Ukuran gambar maksimal 5MB.',
         ]);
     }
 
@@ -34,11 +34,11 @@ class Index extends Component
     public function uploadFoto()
     {
         $this->validate([
-            'foto' => 'required|image|max:2048',
+            'foto' => 'required|image|max:5120',
         ], [
             'foto.required' => 'Pilih gambar terlebih dahulu.',
             'foto.image'    => 'File harus berupa gambar.',
-            'foto.max'      => 'Ukuran gambar maksimal 2MB.',
+            'foto.max'      => 'Ukuran gambar maksimal 5MB.',
         ]);
 
         $user = auth()->user();

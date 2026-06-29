@@ -7,37 +7,43 @@ class Menunggu extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $sortBy = 'created_at';
-    public $sortDirection = 'desc';
-    public $search = '';
-    public $paginate = 10;
     protected $queryString = [
-        'search' => ['except' => ''],
-        'paginate' => ['except' => 10],
-        'sortBy' => ['except' => 'created_at'],
+        'search'        => ['except' => ''],
+        'paginate'      => ['except' => 10],
+        'sortBy'        => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
     ];
-    public function updatingSearch()   { $this->resetPage(); }
-    public function updatingPaginate() { $this->resetPage(); }
+
+    public string $search        = '';
+    public int    $paginate      = 10;
+    public string $sortBy        = 'created_at';
+    public string $sortDirection = 'desc';
+
+    public function updatingSearch(): void   { $this->resetPage(); }
+    public function updatingPaginate(): void { $this->resetPage(); }
+
+    public function resetFilter(): void
+    {
+        $this->reset('search');
+        $this->resetPage();
+    }
+
     public function render()
     {
         $anggota = Anggota::with('user')
-            ->whereHas('user', function ($query) {
-                $query->where('status', 'menunggu');
-            })
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('no_ktp', 'like', '%'.$this->search.'%')
-                        ->orWhere('nama_anggota', 'like', '%'.$this->search.'%');
+            ->whereHas('user', fn($q) => $q->where('status', 'menunggu'))
+            ->when(trim($this->search), function ($query) {
+                $s = '%' . addcslashes(trim($this->search), '%_') . '%';
+                $query->where(function ($q) use ($s) {
+                    $q->where('no_ktp', 'like', $s)
+                      ->orWhere('nama_anggota', 'like', $s);
                 });
             })
-            ->orderBy(
-                $this->sortBy,
-                $this->sortDirection
-            )
+            ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->paginate);
+
         return view('livewire.manajemen.anggota.menunggu', [
-            'title' => 'Menunggu Verifikasi',
+            'title'   => 'Menunggu Verifikasi',
             'anggota' => $anggota,
         ]);
     }

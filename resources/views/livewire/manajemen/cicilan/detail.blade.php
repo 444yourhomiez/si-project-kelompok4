@@ -141,6 +141,58 @@
                     </div>
                 </div>
 
+                @php
+                    $sisaBelum      = $allCic->where('status', 'belum');
+                    $jasaPerBulan   = (int) round(($pinjaman->jumlah_disetujui ?? $pinjaman->jumlah_pengajuan) * ($pinjaman->bunga / 100));
+                    $pokokPerBulan  = $pinjaman->cicilan_per_bulan - $jasaPerBulan;
+                    $totalPelunasan = ($sisaBelum->count() * $pokokPerBulan) + $jasaPerBulan;
+                    $sisaPokok      = $sisaBelum->count() * $pokokPerBulan;
+                @endphp
+
+                {{-- BANNER PELUNASAN --}}
+                @if($sisaBelum->count() > 0 && $pinjaman->status !== 'lunas')
+                <div class="card border-0 shadow-sm mb-4" style="border-left: 4px solid #28a745 !important;">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap" style="gap:12px;">
+                            <div class="d-flex align-items-center" style="gap:14px;">
+                                <div class="d-flex align-items-center justify-content-center rounded-circle"
+                                    style="width:48px;height:48px;background:#e8f5e9;flex-shrink:0;">
+                                    <i class="fas fa-hand-holding-usd text-success" style="font-size:1.2rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="font-weight-bold text-dark mb-1">Opsi Pelunasan Dipercepat</div>
+                                    <div class="d-flex flex-wrap" style="gap:16px;">
+                                        <div>
+                                            <small class="text-muted d-block">Sisa Cicilan</small>
+                                            <span class="font-weight-bold">{{ $sisaBelum->count() }} bulan</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Sisa Pokok</small>
+                                            <span class="font-weight-bold">Rp {{ number_format($sisaPokok, 0, ',', '.') }}</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Jasa (1 bulan)</small>
+                                            <span class="font-weight-bold">Rp {{ number_format($jasaPerBulan, 0, ',', '.') }}</span>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Total Bayar</small>
+                                            <span class="font-weight-bold text-success" style="font-size:1.05rem;">
+                                                Rp {{ number_format($totalPelunasan, 0, ',', '.') }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button wire:click="lunasi"
+                                wire:confirm="Lunasi semua sisa {{ $sisaBelum->count() }} cicilan?\n\nTotal yang dibayar: Rp {{ number_format($totalPelunasan, 0, ',', '.') }}\n(Sisa pokok + jasa 1 bulan terakhir)"
+                                class="btn btn-success px-4 shadow-sm" style="white-space:nowrap;">
+                                <i class="fas fa-check-double mr-2"></i> Lunasi Semua
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 {{-- TABEL CICILAN --}}
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-white border-bottom py-3">

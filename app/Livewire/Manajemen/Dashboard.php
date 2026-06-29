@@ -26,7 +26,10 @@ class Dashboard extends Component
 
     public function render()
     {
+        $today = Carbon::today();
+
         $simpananList = Simpanan::with('anggota')
+            ->whereDate('created_at', $today)
             ->latest()->get()
             ->map(fn($item) => (object)[
                 'tipe'         => 'simpanan',
@@ -43,6 +46,7 @@ class Dashboard extends Component
             ]);
 
         $pinjamanList = Pinjaman::with(['anggota', 'cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
+            ->whereDate('created_at', $today)
             ->latest()->get()
             ->map(fn($item) => (object)[
                 'tipe'         => 'pinjaman',
@@ -59,6 +63,7 @@ class Dashboard extends Component
             ]);
 
         $rekapList = RekapHarian::with('user')
+            ->whereDate('created_at', $today)
             ->latest()
             ->get()
             ->map(fn($item) => (object)[
@@ -78,6 +83,7 @@ class Dashboard extends Component
         $cicilanLunasList = Cicilan::with(['pinjaman.anggota'])
             ->where('status', 'lunas')
             ->whereNotNull('tanggal_bayar')
+            ->whereDate('tanggal_bayar', $today)
             ->latest()
             ->get()
             ->map(fn($item) => (object)[
@@ -104,8 +110,6 @@ class Dashboard extends Component
         $displayedTransaksi = $this->showAllTransaksi
             ? $transaksiTerbaru
             : $transaksiTerbaru->take(10);
-
-        $today = Carbon::today();
 
         $totalPinjaman = Pinjaman::where(
             'status',

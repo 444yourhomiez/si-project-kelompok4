@@ -6,18 +6,6 @@
                     <div class="col-sm-6">
                         <h1><i class="fas fa-file-invoice mr-2"></i>{{ $title }}</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-file-invoice mr-1"></i>{{ $title }}
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -253,7 +241,10 @@
                                     @forelse($rekapData as $item)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</td>
+                                            <td>
+                                                <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
+                                                <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}"></span></small>
+                                            </td>
                                             <td>{{ $item['jenis'] }}</td>
                                             <td>{{ $item['keterangan'] }}</td>
                                             <td class="text-right">{{ $item['masuk'] > 0 ? 'Rp '.number_format($item['masuk'],0,',','.') : '-' }}</td>

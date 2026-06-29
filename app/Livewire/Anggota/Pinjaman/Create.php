@@ -86,10 +86,10 @@ class Create extends Component
         $this->kapitalisasi     = $this->jumlah_pengajuan * 0.01;
         $this->dana_perlindungan = $this->jumlah_pengajuan * 0.02;
         $this->dana_diterima    = $this->jumlah_pengajuan - $this->provisi - $this->kapitalisasi - $this->dana_perlindungan;
-        $pokokPerBulan          = $this->jumlah_pengajuan / $this->tenor;
-        $this->jasa_per_bulan   = $pokokPerBulan * ($this->bunga / 100);
+        $pokokPerBulan           = $this->jumlah_pengajuan / $this->tenor;
+        $this->jasa_per_bulan    = $this->jumlah_pengajuan * ($this->bunga / 100);
         $this->cicilan_per_bulan = $pokokPerBulan + $this->jasa_per_bulan;
-        $this->total_pembayaran = $this->cicilan_per_bulan * $this->tenor;
+        $this->total_pembayaran  = $this->cicilan_per_bulan * $this->tenor;
     }
     public function simpan()
     {
@@ -111,12 +111,14 @@ class Create extends Component
                 'tenor'            => 'required|integer|min:6',
                 'tujuan_pinjaman'  => 'required',
                 'tujuan_lainnya'   => $this->tujuan_pinjaman === 'Lainnya' ? 'required' : 'nullable',
+                'jaminan'          => 'required',
                 'jaminan_lainnya'  => $this->jaminan === 'Lainnya' ? 'required' : 'nullable',
             ], [
                 'tenor.min'             => 'Tenor minimal 6 bulan.',
                 'tenor.integer'         => 'Tenor harus berupa angka bulan.',
                 'tujuan_pinjaman.required' => 'Tujuan pinjaman wajib dipilih.',
                 'tujuan_lainnya.required'  => 'Mohon isi tujuan pinjaman.',
+                'jaminan.required'         => 'Jaminan wajib dipilih.',
                 'jaminan_lainnya.required' => 'Mohon isi keterangan jaminan.',
             ]);
 

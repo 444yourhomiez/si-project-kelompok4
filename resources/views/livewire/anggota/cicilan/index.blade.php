@@ -236,6 +236,43 @@
                                         </div>
                                     </div>
 
+                                    {{-- INFO PELUNASAN --}}
+                                    @php
+                                        $cicilanBelum   = $pinjaman->cicilan->where('status', 'belum');
+                                        $jasaBln        = (int) round(($pinjaman->jumlah_disetujui ?? $pinjaman->jumlah_pengajuan) * ($pinjaman->bunga / 100));
+                                        $pokokBln       = $pinjaman->cicilan_per_bulan - $jasaBln;
+                                        $totalLunasi    = ($cicilanBelum->count() * $pokokBln) + $jasaBln;
+                                    @endphp
+                                    @if($cicilanBelum->count() > 0 && $pinjaman->status === 'aktif')
+                                    <div class="rounded mb-3 p-3" style="background:#f0fdf4;border:1px solid #bbf7d0;">
+                                        <div class="d-flex align-items-center mb-2" style="gap:8px;">
+                                            <i class="fas fa-hand-holding-usd text-success"></i>
+                                            <span class="font-weight-bold text-success" style="font-size:0.85rem;">Opsi Pelunasan Dipercepat</span>
+                                        </div>
+                                        <div class="d-flex flex-wrap" style="gap:12px;">
+                                            <div>
+                                                <small class="text-muted d-block" style="font-size:0.75rem;">Sisa Cicilan</small>
+                                                <span class="font-weight-bold" style="font-size:0.85rem;">{{ $cicilanBelum->count() }} bulan</span>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted d-block" style="font-size:0.75rem;">Sisa Pokok</small>
+                                                <span class="font-weight-bold" style="font-size:0.85rem;">Rp {{ number_format($cicilanBelum->count() * $pokokBln, 0, ',', '.') }}</span>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted d-block" style="font-size:0.75rem;">Jasa (1 bulan)</small>
+                                                <span class="font-weight-bold" style="font-size:0.85rem;">Rp {{ number_format($jasaBln, 0, ',', '.') }}</span>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted d-block" style="font-size:0.75rem;">Total Pelunasan</small>
+                                                <span class="font-weight-bold text-success" style="font-size:0.9rem;">Rp {{ number_format($totalLunasi, 0, ',', '.') }}</span>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted mt-1 d-block" style="font-size:0.75rem;">
+                                            <i class="fas fa-info-circle mr-1"></i>Hubungi manajemen untuk melakukan pelunasan dipercepat.
+                                        </small>
+                                    </div>
+                                    @endif
+
                                     {{-- TABEL CICILAN --}}
                                     @if($pinjaman->cicilan->count() > 0)
                                         <div class="table-responsive">
@@ -259,13 +296,8 @@
                                                             <td class="text-center">
                                                                 <span class="badge badge-info">Ke-{{ $cicilan->cicilan_ke }}</span>
                                                             </td>
-                                                            <td>
-                                                                <div class="font-weight-bold" style="font-size:0.85rem;">
-                                                                    {{ $jatuhTempo->format('d M Y') }}
-                                                                </div>
-                                                                <small class="text-muted">
-                                                                    <span data-timestamp="{{ $jatuhTempo->timestamp }}"></span>
-                                                                </small>
+                                                            <td style="font-size:0.85rem;">
+                                                                {{ $jatuhTempo->format('d M Y') }}
                                                             </td>
                                                             <td class="font-weight-bold">
                                                                 Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}

@@ -9,20 +9,6 @@
                             {{ $title }}
                         </h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('pengawas.dashboard') }}" class="text-muted breadcrumb-green">
-                                    <i class="fas fa-th-large mr-1"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active text-success">
-                                <i class="fas fa-coins mr-1"></i>
-                                {{ $title }}
-                            </li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </section>
@@ -119,6 +105,14 @@
                                 <option value="jumlah">Nominal</option>
                             </select>
                         </div>
+                        {{-- SORT DIRECTION --}}
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+                            <label>Arah</label>
+                            <select wire:model.live="sortDirection" class="form-control">
+                                <option value="desc">Z - A</option>
+                                <option value="asc">A - Z</option>
+                            </select>
+                        </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
@@ -162,7 +156,7 @@
                                                 {{ $item->anggota->nama_anggota ?? '-' }}
                                             </div>
                                             <small class="text-muted">
-                                                {{ $item->anggota->no_ktp ?? '-' }}
+                                                NIK: {{ $item->anggota->no_ktp ?? '-' }}
                                             </small>
                                         </td>
                                         {{-- JENIS SIMPANAN --}}
