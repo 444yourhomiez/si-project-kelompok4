@@ -35,53 +35,106 @@
                         <div class="card shadow-sm border-0">
                             <div class="card-body text-center">
                                 {{-- FOTO --}}
-                                @if ($foto)
-                                    <img src="{{ $foto->temporaryUrl() }}" class="img-circle elevation-2 mb-2"
-                                        style="width:110px;height:110px;object-fit:cover;">
-                                @else
-                                    <img src="{{ $fotoUrl ?? asset('adminlte3/dist/img/user2-160x160.jpg') }}"
-                                        class="img-circle elevation-2 mb-2"
-                                        style="width:110px;height:110px;object-fit:cover;">
-                                @endif
+                                <img id="fotoPreview"
+                                    src="{{ $fotoUrl ?? asset('adminlte3/dist/img/user2-160x160.jpg') }}"
+                                    class="img-circle elevation-2 mb-2"
+                                    style="width:110px;height:110px;object-fit:cover;">
                                 {{-- UPLOAD FOTO --}}
                                 <div class="mb-3">
-                                    <input type="file" wire:model="foto" id="fotoInputAnggota"
-                                        accept="image/*" class="d-none">
-                                    @if (!$foto)
-                                        <div class="d-flex justify-content-center mb-1">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary mr-1"
-                                                onclick="var el=document.getElementById('fotoInputAnggota'); el.removeAttribute('capture'); el.click()">
-                                                <i class="fas fa-images mr-1"></i>Galeri
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                onclick="var el=document.getElementById('fotoInputAnggota'); el.setAttribute('capture','environment'); el.click()">
-                                                <i class="fas fa-camera mr-1"></i>Kamera
-                                            </button>
-                                        </div>
-                                        <small class="text-muted">JPG, PNG, GIF &bull; Maks. 5MB</small>
-                                    @else
-                                        <button type="button" wire:click="uploadFoto" wire:loading.attr="disabled"
-                                            class="btn btn-sm btn-success">
-                                            <span wire:loading wire:target="uploadFoto">
-                                                <i class="fas fa-spinner fa-spin mr-1"></i>
-                                            </span>
-                                            <span wire:loading.remove wire:target="uploadFoto">
-                                                <i class="fas fa-check mr-1"></i>
-                                            </span>
-                                            Simpan
+                                    <input type="file" id="fotoInput" accept="image/*" class="d-none">
+                                    @if (session('foto_error'))
+                                        <div class="alert alert-danger py-1 px-2 small mb-2">{{ session('foto_error') }}</div>
+                                    @endif
+                                    <div id="fotoBtnGanti">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            onclick="document.getElementById('fotoInput').click()">
+                                            <i class="fas fa-images mr-1"></i>Ganti Foto
                                         </button>
-                                        <button type="button" wire:click="batalFoto"
+                                        <br><small class="text-muted">JPG, PNG, GIF &bull; Maks. 5MB</small>
+                                    </div>
+                                    <div id="fotoBtnSimpan" style="display:none;">
+                                        <button type="button" id="fotoSimpanBtn" class="btn btn-sm btn-success">
+                                            <i class="fas fa-check mr-1"></i>Simpan
+                                        </button>
+                                        <button type="button" id="fotoBatalBtn"
                                             class="btn btn-sm btn-outline-danger ml-1">
                                             <i class="fas fa-times mr-1"></i>Batal
                                         </button>
-                                    @endif
-                                    @error('foto')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                    @enderror
-                                    <div wire:loading wire:target="foto" class="text-muted small mt-1">
-                                        <i class="fas fa-spinner fa-spin mr-1"></i> Memuat...
                                     </div>
+                                    <div id="fotoError" class="text-danger small mt-1" style="display:none;"></div>
                                 </div>
+                                @script
+                                <script>
+                                (function () {
+                                    const input     = document.getElementById('fotoInput');
+                                    const preview   = document.getElementById('fotoPreview');
+                                    const divGanti  = document.getElementById('fotoBtnGanti');
+                                    const divSimpan = document.getElementById('fotoBtnSimpan');
+                                    const btnSimpan = document.getElementById('fotoSimpanBtn');
+                                    const btnBatal  = document.getElementById('fotoBatalBtn');
+                                    const errDiv    = document.getElementById('fotoError');
+                                    const origSrc   = preview.src;
+                                    let base64 = null;
+
+                                    function resetState() {
+                                        base64 = null;
+                                        preview.src = origSrc;
+                                        divGanti.style.display = 'block';
+                                        divSimpan.style.display = 'none';
+                                        input.value = '';
+                                        errDiv.style.display = 'none';
+                                    }
+
+                                    input.addEventListener('change', function (e) {
+                                        const file = e.target.files[0];
+                                        if (!file) return;
+                                        errDiv.style.display = 'none';
+                                        if (!file.type.startsWith('image/')) {
+                                            errDiv.textContent = 'File harus berupa gambar.';
+                                            errDiv.style.display = 'block';
+                                            e.target.value = '';
+                                            return;
+                                        }
+                                        if (file.size > 5 * 1024 * 1024) {
+                                            errDiv.textContent = 'Ukuran gambar maksimal 5MB.';
+                                            errDiv.style.display = 'block';
+                                            e.target.value = '';
+                                            return;
+                                        }
+                                        const reader = new FileReader();
+                                        reader.onload = function (ev) {
+                                            const img = new Image();
+                                            img.onload = function () {
+                                                const canvas = document.createElement('canvas');
+                                                const max = 800;
+                                                let w = img.width, h = img.height;
+                                                if (w > max || h > max) {
+                                                    if (w > h) { h = Math.round(h * max / w); w = max; }
+                                                    else        { w = Math.round(w * max / h); h = max; }
+                                                }
+                                                canvas.width = w; canvas.height = h;
+                                                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                                                base64 = canvas.toDataURL('image/jpeg', 0.85);
+                                                preview.src = base64;
+                                                divGanti.style.display = 'none';
+                                                divSimpan.style.display = 'block';
+                                            };
+                                            img.src = ev.target.result;
+                                        };
+                                        reader.readAsDataURL(file);
+                                    });
+
+                                    btnSimpan.addEventListener('click', function () {
+                                        if (!base64) return;
+                                        btnSimpan.disabled = true;
+                                        btnSimpan.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Menyimpan...';
+                                        $wire.call('uploadFoto', base64);
+                                    });
+
+                                    btnBatal.addEventListener('click', resetState);
+                                })();
+                                </script>
+                                @endscript
                                 {{-- NAMA --}}
                                 <h5 class="font-weight-bold mb-1">
                                     {{ $user->nama_user }}
