@@ -4,6 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 class Pinjaman extends Model
 {
     protected $table = 'pinjaman';
+    protected $casts = [
+        'tanggal_pengajuan'   => 'date',
+        'tanggal_persetujuan' => 'date',
+    ];
     protected $fillable = [
         'anggota_id',
         'kode_pinjaman',
