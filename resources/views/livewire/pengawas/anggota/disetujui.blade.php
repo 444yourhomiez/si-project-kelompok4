@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -145,7 +145,7 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal_daftar)->format('d M Y') }}
                                             </div>
                                             <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($item->tanggal_daftar)->diffForHumans() }}
+                                                <span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_daftar)->timestamp }}"></span>
                                             </small>
                                         </td>
                                         {{-- STATUS --}}

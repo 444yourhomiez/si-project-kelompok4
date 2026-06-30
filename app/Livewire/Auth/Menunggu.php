@@ -11,6 +11,7 @@ class Menunggu extends Component
 {
     public string $status = '';
     public bool $emailTerverifikasi  = false;
+    public bool $hpTerverifikasi     = false;
 
     public function mount()
     {
@@ -63,6 +64,7 @@ class Menunggu extends Component
         }
         $this->status             = $user->status;
         $this->emailTerverifikasi = $user->hasVerifiedEmail();
+        $this->hpTerverifikasi    = $user->anggota?->no_hp_verified_at !== null;
     }
 
     public function kirimUlangEmail()

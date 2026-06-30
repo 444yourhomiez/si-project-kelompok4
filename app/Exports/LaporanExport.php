@@ -25,16 +25,12 @@ class LaporanExport implements FromArray, WithStyles, ShouldAutoSize, WithEvents
         protected int $tahun
     ) {}
 
-    public function drawings(): Drawing|array
+    public function drawings(): Drawing
     {
-        $path = public_path('images/logo_motekar.png');
-        if (! file_exists($path)) {
-            return [];
-        }
         $drawing = new Drawing();
         $drawing->setName('Logo Koperasi');
         $drawing->setDescription('Logo Koperasi Motekar');
-        $drawing->setPath($path);
+        $drawing->setPath(public_path('images/logo_motekar.png'));
         $drawing->setHeight(55);
         $drawing->setOffsetX(5);
         $drawing->setOffsetY(5);

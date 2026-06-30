@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -146,7 +146,7 @@
                                         <td class="text-center">{{ $loop->iteration + ($pinjaman->currentPage() - 1) * $pinjaman->perPage() }}</td>
                                         <td>
                                             <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}</div>
-                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
                                         </td>
                                         <td>
                                             <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>

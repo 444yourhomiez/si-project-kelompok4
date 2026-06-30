@@ -64,6 +64,12 @@ Route::post('/email/verification-notification', function () {
     return back()->with('info', 'Link verifikasi dikirim ulang.');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 // ======================
+// VERIFIKASI OTP HP
+// ======================
+Route::get('/verifikasi-hp', function () {
+    return view('auth.verifikasi-otp-hp');
+})->middleware('auth')->name('verifikasi-otp-hp');
+// ======================
 // LOGOUT
 // ======================
 Route::post('/logout', function () {
