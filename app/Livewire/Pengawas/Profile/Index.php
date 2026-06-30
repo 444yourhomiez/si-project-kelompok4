@@ -1,7 +1,6 @@
 <?php
 namespace App\Livewire\Pengawas\Profile;
 
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -10,11 +9,6 @@ class Index extends Component
     use WithFileUploads;
 
     public $foto;
-
-    private function storageDisk(): string
-    {
-        return config('filesystems.default') === 's3' ? 's3' : 'public';
-    }
 
     public function updatedFoto()
     {
@@ -41,15 +35,12 @@ class Index extends Component
             'foto.max'      => 'Ukuran gambar maksimal 5MB.',
         ]);
 
-        $user = auth()->user();
-        $disk = $this->storageDisk();
+        $user    = auth()->user();
+        $mime    = $this->foto->getMimeType();
+        $base64  = base64_encode(file_get_contents($this->foto->getRealPath()));
+        $dataUrl = "data:{$mime};base64,{$base64}";
 
-        if ($user->foto_profile) {
-            Storage::disk($disk)->delete($user->foto_profile);
-        }
-
-        $path = $this->foto->store('profiles', $disk);
-        $user->update(['foto_profile' => $path]);
+        $user->update(['foto_profile' => $dataUrl]);
 
         session()->flash('foto_success', 'Foto profil berhasil diperbarui.');
         return redirect()->route('pengawas.profile.index');
@@ -58,10 +49,7 @@ class Index extends Component
     public function render()
     {
         $user    = auth()->user();
-        $disk    = $this->storageDisk();
-        $fotoUrl = $user->foto_profile
-            ? Storage::disk($disk)->url($user->foto_profile)
-            : null;
+        $fotoUrl = $user->foto_url;
 
         return view('livewire.pengawas.profile.index', [
             'title'   => 'Profile',

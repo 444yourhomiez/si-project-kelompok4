@@ -39,6 +39,9 @@ class User extends Authenticatable implements MustVerifyEmail
         if (! $this->foto_profile) {
             return asset('adminlte3/dist/img/user2-160x160.jpg');
         }
+        if (str_starts_with($this->foto_profile, 'data:')) {
+            return $this->foto_profile;
+        }
         $disk = config('filesystems.default') === 's3' ? 's3' : 'public';
         return Storage::disk($disk)->url($this->foto_profile);
     }
