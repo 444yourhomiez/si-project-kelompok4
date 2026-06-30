@@ -233,7 +233,7 @@
                     @endif
                 </div>
                 <div class="card-body pt-2 pb-0">
-                    @forelse ($displayedTransaksi as $item)
+                    @forelse ($displayedTransaksi as $index => $item)
                         @php
                             $subTipe = $item->sub ?? '';
                             $typeConfig = [
@@ -266,7 +266,7 @@
                                 $link = $routeMap[$subTipe] ?? '#';
                             }
                         @endphp
-                        <a href="{{ $link }}" class="d-block text-decoration-none mb-2">
+                        <a href="{{ $link }}" wire:key="trx-{{ $item->tipe }}-{{ $item->id }}-{{ $index }}" class="d-block text-decoration-none mb-2">
                             <div class="card border shadow-sm" style="border-radius:8px; overflow:hidden;">
                                 <div class="p-3">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -291,6 +291,7 @@
                                                 <div>
                                                     <small class="text-muted">
                                                         <i class="fas fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                                                        &nbsp;·&nbsp;<span data-timestamp="{{ \Carbon\Carbon::parse($item->created_at)->timestamp }}"></span>
                                                     </small>
                                                 </div>
                                             </div>

@@ -94,6 +94,14 @@
                                 placeholder="Nama, kode anggota, kode pinjaman...">
                         </div>
                         <div class="col-lg-2 col-md-4 col-6 mb-2">
+                            <label>Jenis Pinjaman</label>
+                            <select wire:model.live="filterJenis" class="form-control">
+                                <option value="">Semua Jenis</option>
+                                <option value="biasa">Biasa</option>
+                                <option value="khusus">Khusus</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-6 mb-2">
                             <label>Status Pinjaman</label>
                             <select wire:model.live="filterStatus" class="form-control">
                                 <option value="">Semua Status</option>

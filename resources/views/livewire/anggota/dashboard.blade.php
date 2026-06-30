@@ -271,6 +271,7 @@
                                                 <div>
                                                     <small class="text-muted">
                                                         <i class="fas fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($trx['tanggal'])->format('d M Y') }}
+                                                        &nbsp;·&nbsp;<span data-timestamp="{{ \Carbon\Carbon::parse($trx['tanggal'])->timestamp }}"></span>
                                                     </small>
                                                 </div>
                                             </div>

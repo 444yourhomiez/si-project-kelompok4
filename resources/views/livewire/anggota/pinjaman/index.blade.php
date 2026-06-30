@@ -115,16 +115,6 @@
                                 <option value="ditolak">Ditolak</option>
                             </select>
                         </div>
-                        {{-- PAGINATION --}}
-                        <div class="col-lg-2 col-md-6 col-6 mb-2">
-                            <label>Data</label>
-                            <select wire:model.live="paginate" class="form-control">
-                                <option value="10">10 Data</option>
-                                <option value="25">25 Data</option>
-                                <option value="50">50 Data</option>
-                                <option value="100">100 Data</option>
-                            </select>
-                        </div>
                         {{-- AJUKAN PINJAMAN --}}
                         <div class="col-lg-3 col-md-12 col-12 mb-2">
                             <button wire:click="$dispatch('openCreate')" class="btn btn-success btn-block"
@@ -134,6 +124,46 @@
                             </button>
                         </div>
                     </div>
+
+                    {{-- INFO KETERANGAN PINJAMAN --}}
+                    @if($bulanBergabung < 6)
+                    <div class="alert border-0 mb-3 d-flex align-items-start" style="background:#fff3cd;border-left:4px solid #ffc107 !important;border-radius:10px;gap:12px;">
+                        <i class="fas fa-info-circle mt-1" style="color:#f59e0b;flex-shrink:0;"></i>
+                        <div style="flex:1;">
+                            <div class="font-weight-bold" style="color:#92400e;font-size:0.9rem;">Informasi Syarat Pengajuan</div>
+                            <div style="color:#78350f;font-size:0.85rem;">Pinjaman baru dapat diajukan setelah menjadi anggota minimal 6 bulan. Anda baru bergabung {{ $bulanBergabung }} bulan{{ $sisaBulan > 0 ? ', kurang ' . $sisaBulan . ' bulan lagi.' : '.' }}</div>
+                            <div class="mt-2">
+                                <div class="d-flex justify-content-between mb-1" style="font-size:0.8rem;color:#78350f;">
+                                    <span>Masa keanggotaan</span>
+                                    <span>{{ $bulanBergabung }} / 6 bulan</span>
+                                </div>
+                                <div class="progress" style="height:8px;border-radius:4px;background:#fde68a;">
+                                    <div class="progress-bar" style="width:{{ min(100, round($bulanBergabung / 6 * 100)) }}%;background:#f59e0b;border-radius:4px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    @foreach($infoPerJenis as $info)
+                    <div class="alert border-0 mb-3 d-flex align-items-start" style="background:#fff3cd;border-left:4px solid #ffc107 !important;border-radius:10px;gap:12px;">
+                        <i class="fas fa-info-circle mt-1" style="color:#f59e0b;flex-shrink:0;"></i>
+                        <div style="flex:1;">
+                            <div class="font-weight-bold" style="color:#92400e;font-size:0.9rem;">{{ $info['judul'] }}</div>
+                            <div style="color:#78350f;font-size:0.85rem;">{{ $info['pesan'] }}</div>
+                            @if(isset($info['progres']))
+                            <div class="mt-2">
+                                <div class="d-flex justify-content-between mb-1" style="font-size:0.8rem;color:#78350f;">
+                                    <span>Progress cicilan</span>
+                                    <span>{{ $info['progres'] }}% / 50% yang dibutuhkan</span>
+                                </div>
+                                <div class="progress" style="height:8px;border-radius:4px;background:#fde68a;">
+                                    <div class="progress-bar" style="width:{{ $info['progres'] }}%;background:#f59e0b;border-radius:4px;"></div>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="thead-light">

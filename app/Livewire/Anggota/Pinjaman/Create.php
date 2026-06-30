@@ -104,6 +104,32 @@ class Create extends Component
                 $this->addError('anggota_id', 'Pinjaman hanya dapat diajukan setelah menjadi anggota minimal 6 bulan.');
                 return;
             }
+
+            // Cek pinjaman pending (per jenis)
+            $pinjamanPending = Pinjaman::where('anggota_id', $anggota->id)
+                ->where('jenis_pinjaman', $this->jenis_pinjaman)
+                ->where('status', 'pending')->exists();
+            if ($pinjamanPending) {
+                $this->errorPinjaman = 'Pengajuan pinjaman ' . $this->jenis_pinjaman . ' sebelumnya masih menunggu persetujuan.';
+                return;
+            }
+
+            // Cek pinjaman aktif per jenis: minimal 50% cicilan harus lunas
+            $pinjamanAktif = Pinjaman::with('cicilan')
+                ->where('anggota_id', $anggota->id)
+                ->where('jenis_pinjaman', $this->jenis_pinjaman)
+                ->where('status', 'aktif')
+                ->first();
+            if ($pinjamanAktif) {
+                $totalCicilan = $pinjamanAktif->cicilan->count();
+                $cicilanLunas = $pinjamanAktif->cicilan->where('status', 'lunas')->count();
+                $persen = $totalCicilan > 0 ? ($cicilanLunas / $totalCicilan) * 100 : 0;
+                if ($persen < 50) {
+                    $this->errorPinjaman = 'Pinjaman ' . $this->jenis_pinjaman . ' baru hanya dapat diajukan setelah cicilan pinjaman ' . $this->jenis_pinjaman . ' aktif lunas minimal 50%. '
+                        . 'Saat ini ' . $cicilanLunas . '/' . $totalCicilan . ' cicilan lunas (' . round($persen) . '%).';
+                    return;
+                }
+            }
             $this->validate([
                 'anggota_id'       => 'required',
                 'jenis_pinjaman'   => 'required',
@@ -155,6 +181,70 @@ class Create extends Component
     }
     public function render()
     {
-        return view('livewire.anggota.pinjaman.create', ['title' => 'Mengajukan Pinjaman']);
+        $anggota        = auth()->user()->anggota;
+        $bulanBergabung = \Carbon\Carbon::parse($anggota->tanggal_daftar)->diffInMonths(now());
+        $bisaPinjam     = true;
+        $infoTidakBisa  = [];
+        $persenLunas    = null;
+
+        if ($bulanBergabung < 6) {
+            $bisaPinjam      = false;
+            $sisaBulan       = 6 - $bulanBergabung;
+            $infoTidakBisa[] = [
+                'icon'    => 'fas fa-calendar-alt',
+                'warna'   => '#f59e0b',
+                'judul'   => 'Masa Keanggotaan Belum Mencukupi',
+                'pesan'   => 'Pinjaman dapat diajukan setelah 6 bulan menjadi anggota. Anda baru bergabung ' . $bulanBergabung . ' bulan, kurang ' . $sisaBulan . ' bulan lagi.',
+                'progres' => round($bulanBergabung / 6 * 100),
+                'label'   => $bulanBergabung . ' / 6 bulan',
+            ];
+        } else {
+            // Cek per jenis pinjaman yang dipilih (biasa & khusus bisa berjalan bersamaan)
+            $jenisAktif = $this->jenis_pinjaman ?: null;
+            foreach (['biasa', 'khusus'] as $jenis) {
+                if ($jenisAktif && $jenisAktif !== $jenis) continue;
+
+                if (Pinjaman::where('anggota_id', $anggota->id)->where('jenis_pinjaman', $jenis)->where('status', 'pending')->exists()) {
+                    $bisaPinjam      = false;
+                    $infoTidakBisa[] = [
+                        'icon'    => 'fas fa-hourglass-half',
+                        'warna'   => '#f59e0b',
+                        'judul'   => 'Pinjaman ' . ucfirst($jenis) . ' Sedang Menunggu Persetujuan',
+                        'pesan'   => 'Pengajuan pinjaman ' . $jenis . ' sebelumnya masih dalam proses persetujuan.',
+                        'progres' => null,
+                        'label'   => null,
+                    ];
+                    continue;
+                }
+
+                $pinjamanAktif = Pinjaman::with('cicilan')
+                    ->where('anggota_id', $anggota->id)
+                    ->where('jenis_pinjaman', $jenis)
+                    ->where('status', 'aktif')
+                    ->first();
+                if ($pinjamanAktif) {
+                    $totalCic    = $pinjamanAktif->cicilan->count();
+                    $lunasCount  = $pinjamanAktif->cicilan->where('status', 'lunas')->count();
+                    $persenLunas = $totalCic > 0 ? round(($lunasCount / $totalCic) * 100) : 0;
+                    if ($persenLunas < 50) {
+                        $bisaPinjam      = false;
+                        $infoTidakBisa[] = [
+                            'icon'    => 'fas fa-chart-pie',
+                            'warna'   => '#f59e0b',
+                            'judul'   => 'Cicilan Pinjaman ' . ucfirst($jenis) . ' Belum 50%',
+                            'pesan'   => 'Pinjaman ' . $jenis . ' baru dapat diajukan setelah cicilan lunas minimal 50%. Saat ini ' . $lunasCount . ' dari ' . $totalCic . ' cicilan sudah lunas.',
+                            'progres' => $persenLunas,
+                            'label'   => $persenLunas . '% / 50% yang dibutuhkan',
+                        ];
+                    }
+                }
+            }
+        }
+
+        return view('livewire.anggota.pinjaman.create', [
+            'title'         => 'Mengajukan Pinjaman',
+            'bisaPinjam'    => $bisaPinjam,
+            'infoTidakBisa' => $infoTidakBisa,
+        ]);
     }
 }
