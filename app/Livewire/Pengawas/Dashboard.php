@@ -98,7 +98,8 @@ class Dashboard extends Component
                 'keterangan'   => null,
             ]);
 
-        $transaksiTerbaru = $simpananList
+        $transaksiTerbaru = collect()
+            ->merge($simpananList)
             ->merge($pinjamanList)
             ->merge($rekapList)
             ->merge($cicilanLunasList)
