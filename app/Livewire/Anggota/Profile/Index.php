@@ -2,48 +2,20 @@
 namespace App\Livewire\Anggota\Profile;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Index extends Component
 {
-    use WithFileUploads;
-
-    public $foto;
-
-    public function updatedFoto()
+    public function uploadFoto(string $fotoBase64)
     {
-        $this->validate([
-            'foto' => 'image|max:5120',
-        ], [
-            'foto.image' => 'File harus berupa gambar.',
-            'foto.max'   => 'Ukuran gambar maksimal 5MB.',
-        ]);
-    }
+        if (! str_starts_with($fotoBase64, 'data:image/')) {
+            session()->flash('foto_error', 'File harus berupa gambar.');
+            return $this->redirect(route('anggota.profile.index'));
+        }
 
-    public function batalFoto()
-    {
-        $this->foto = null;
-    }
-
-    public function uploadFoto()
-    {
-        $this->validate([
-            'foto' => 'required|image|max:5120',
-        ], [
-            'foto.required' => 'Pilih gambar terlebih dahulu.',
-            'foto.image'    => 'File harus berupa gambar.',
-            'foto.max'      => 'Ukuran gambar maksimal 5MB.',
-        ]);
-
-        $user    = auth()->user();
-        $mime    = $this->foto->getMimeType();
-        $base64  = base64_encode(file_get_contents($this->foto->getRealPath()));
-        $dataUrl = "data:{$mime};base64,{$base64}";
-
-        $user->update(['foto_profile' => $dataUrl]);
+        auth()->user()->update(['foto_profile' => $fotoBase64]);
 
         session()->flash('foto_success', 'Foto profil berhasil diperbarui.');
-        return redirect()->route('anggota.profile.index');
+        return $this->redirect(route('anggota.profile.index'));
     }
 
     public function render()
