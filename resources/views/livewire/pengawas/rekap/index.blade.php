@@ -19,7 +19,6 @@
                 <div class="card-body p-0">
                     <div class="row no-gutters">
 
-                        {{-- TOTAL REKAP --}}
                         <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
@@ -36,7 +35,6 @@
                             </a>
                         </div>
 
-                        {{-- DUM --}}
                         <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
@@ -53,7 +51,6 @@
                             </a>
                         </div>
 
-                        {{-- DUK --}}
                         <div class="col-md-4 col-12">
                             <a href="{{ route('pengawas.rekap.index') }}" class="text-decoration-none">
                                 <div class="simpanan-stat-box simpanan-stat-link border-right border-bottom">
@@ -73,20 +70,21 @@
                     </div>
                 </div>
             </div>
+
             {{-- TABLE --}}
             <div class="card table-modern border-0 shadow-sm">
                 <div class="card-header bg-white border-bottom py-3">
                     <div>
-                        <h5 class="font-weight-bold mb-0">
+                        <h4 class="font-weight-bold mb-1">
                             Riwayat Rekapitulasi Harian
-                        </h5>
-                        <small class="opacity-75">Data uang masuk dan uang keluar</small>
+                        </h4>
+                        <small class="text-muted">Data uang masuk dan uang keluar</small>
                     </div>
                 </div>
                 <div class="card-body">
                     {{-- FILTER --}}
                     <div class="row mb-3 align-items-end">
-                        <div class="col-lg-3 col-md-12 mb-2">
+                        <div class="col-lg-4 col-md-12 mb-2">
                             <label>Cari</label>
                             <input type="text" wire:model.live="search" class="form-control"
                                 placeholder="Nama, kode, jenis, keterangan...">
@@ -103,7 +101,7 @@
                             <label>Tanggal</label>
                             <input type="date" wire:model.live="tanggal" class="form-control">
                         </div>
-                        <div class="col-lg-2 col-md-4 col-6 mb-2">
+                        <div class="col-lg-3 col-md-4 col-6 mb-2">
                             <label>Data</label>
                             <select wire:model.live="paginate" class="form-control">
                                 <option value="10">10 Data</option>
@@ -114,9 +112,9 @@
                     </div>
 
                     {{-- TABLE --}}
-                    <div class=”table-responsive”>
-                        <table class=”table table-bordered table-hover”>
-                            <thead class=”thead-light”>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>ID Anggota</th>
@@ -131,45 +129,51 @@
                                 @forelse($riwayat as $item)
                                     <tr>
                                         <td>
-                                            <div class=”font-weight-bold”>{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
-                                            <small class=”text-muted”><span data-timestamp=”{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}”>{{ \Carbon\Carbon::parse($item['tanggal'])->locale('id')->diffForHumans() }}</span></small>
+                                            <div class="font-weight-bold">
+                                                {{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}
+                                            </div>
+                                            <small class="text-muted">
+                                                <span data-timestamp="{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}">
+                                                    {{ \Carbon\Carbon::parse($item['tanggal'])->locale('id')->diffForHumans() }}
+                                                </span>
+                                            </small>
                                         </td>
                                         <td>{{ $item['is_manual'] ? '-' : $item['kode_anggota'] }}</td>
                                         <td>{{ $item['nama_anggota'] }}</td>
                                         <td>
                                             @if ($item['jenis_key'] === 'uang_masuk')
-                                                <span class=”badge badge-success”>
-                                                    <i class=”fas fa-arrow-down mr-1”></i>
+                                                <span class="badge badge-success">
+                                                    <i class="fas fa-arrow-down mr-1"></i>
                                                     {{ $item['is_manual'] ? 'Uang Masuk' : $item['jenis'] }}
                                                 </span>
                                             @else
-                                                <span class=”badge badge-danger”>
-                                                    <i class=”fas fa-arrow-up mr-1”></i>
+                                                <span class="badge badge-danger">
+                                                    <i class="fas fa-arrow-up mr-1"></i>
                                                     {{ $item['is_manual'] ? 'Uang Keluar' : $item['jenis'] }}
                                                 </span>
                                             @endif
                                         </td>
                                         <td>{{ $item['is_manual'] ? $item['keterangan'] : '-' }}</td>
-                                        <td class=”text-success font-weight-bold”>
+                                        <td class="text-success font-weight-bold">
                                             @if ($item['masuk'] > 0)
                                                 Rp {{ number_format($item['masuk'], 0, ',', '.') }}
                                             @else
-                                                -
+                                                –
                                             @endif
                                         </td>
-                                        <td class=”text-danger font-weight-bold”>
+                                        <td class="text-danger font-weight-bold">
                                             @if ($item['keluar'] > 0)
                                                 Rp {{ number_format($item['keluar'], 0, ',', '.') }}
                                             @else
-                                                -
+                                                –
                                             @endif
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan=”7” class=”text-center text-muted py-5”>
-                                            <div class=”empty-state”>
-                                                <i class=”fas fa-folder-open fa-2x mb-2 d-block”></i>
+                                        <td colspan="7" class="text-center text-muted py-5">
+                                            <div class="empty-state">
+                                                <i class="fas fa-folder-open fa-2x mb-2 d-block"></i>
                                                 <p>Tidak ada data transaksi</p>
                                             </div>
                                         </td>
@@ -177,21 +181,23 @@
                                 @endforelse
                             </tbody>
                             <tfoot>
-                                <tr class=”font-weight-bold bg-light”>
-                                    <td colspan=”5” class=”text-right”>Saldo</td>
-                                    <td class=”text-success”>Rp {{ number_format($totalMasuk, 0, ',', '.') }}</td>
-                                    <td class=”text-danger”>Rp {{ number_format($totalKeluar, 0, ',', '.') }}</td>
+                                <tr class="font-weight-bold bg-light">
+                                    <td colspan="5" class="text-right">Saldo</td>
+                                    <td class="text-success">Rp {{ number_format($totalMasuk, 0, ',', '.') }}</td>
+                                    <td class="text-danger">Rp {{ number_format($totalKeluar, 0, ',', '.') }}</td>
                                 </tr>
-                                <tr class=”font-weight-bold” style=”background:#d4edda;”>
-                                    <td colspan=”5” class=”text-right”>Total Saldo</td>
-                                    <td colspan=”2” class=”text-dark”>Rp {{ number_format($saldo, 0, ',', '.') }}</td>
+                                <tr class="font-weight-bold" style="background:#d4edda;">
+                                    <td colspan="5" class="text-right">Total Saldo</td>
+                                    <td colspan="2" class="text-dark">
+                                        Rp {{ number_format($saldo, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
-                    <div class=”d-flex justify-content-between align-items-center mt-3”>
-                        <small class=”text-muted”>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <small class="text-muted">
                             Menampilkan {{ $riwayat->firstItem() ?? 0 }}–{{ $riwayat->lastItem() ?? 0 }}
                             dari {{ $riwayat->total() }} data
                         </small>
@@ -204,4 +210,3 @@
         </section>
     </div>
 </div>
-

@@ -1,0 +1,13 @@
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader",
+    "php artisan storage:link",
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache"
+]
+
+[variables]
+PHP_MEMORY_LIMIT = "256M"
+PHP_UPLOAD_MAX_FILESIZE = "10M"
+PHP_POST_MAX_SIZE = "12M"

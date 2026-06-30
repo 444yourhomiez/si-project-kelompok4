@@ -45,14 +45,20 @@
                                 @endif
                                 {{-- UPLOAD FOTO --}}
                                 <div class="mb-3">
-                                    <input type="file" wire:model="foto" id="fotoInputAnggota" accept="image/*"
-                                        class="d-none">
+                                    <input type="file" wire:model="foto" id="fotoInputAnggota"
+                                        accept="image/*" class="d-none">
                                     @if (!$foto)
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                            onclick="document.getElementById('fotoInputAnggota').click()">
-                                            <i class="fas fa-camera mr-1"></i>
-                                            Ganti Foto
-                                        </button>
+                                        <div class="d-flex justify-content-center mb-1">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary mr-1"
+                                                onclick="var el=document.getElementById('fotoInputAnggota'); el.removeAttribute('capture'); el.click()">
+                                                <i class="fas fa-images mr-1"></i>Galeri
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                onclick="var el=document.getElementById('fotoInputAnggota'); el.setAttribute('capture','environment'); el.click()">
+                                                <i class="fas fa-camera mr-1"></i>Kamera
+                                            </button>
+                                        </div>
+                                        <small class="text-muted">JPG, PNG, GIF &bull; Maks. 5MB</small>
                                     @else
                                         <button type="button" wire:click="uploadFoto" wire:loading.attr="disabled"
                                             class="btn btn-sm btn-success">
@@ -66,8 +72,7 @@
                                         </button>
                                         <button type="button" wire:click="batalFoto"
                                             class="btn btn-sm btn-outline-danger ml-1">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Batal
+                                            <i class="fas fa-times mr-1"></i>Batal
                                         </button>
                                     @endif
                                     @error('foto')
