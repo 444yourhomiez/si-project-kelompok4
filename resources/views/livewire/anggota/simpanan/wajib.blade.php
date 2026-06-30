@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -86,7 +86,7 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                                             </div>
                                             <small class="text-muted">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->diffForHumans() }}
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->diffForHumans() }}
                                             </small>
                                         </td>
                                         {{-- NOMINAL --}}

@@ -296,7 +296,8 @@
                                                                 <span class="badge badge-info">Ke-{{ $cicilan->cicilan_ke }}</span>
                                                             </td>
                                                             <td style="font-size:0.85rem;">
-                                                                {{ $jatuhTempo->format('d M Y') }}
+                                                                <div class="font-weight-bold">{{ $jatuhTempo->format('d M Y') }}</div>
+                                                                <small class="text-muted">{{ $jatuhTempo->locale('id')->diffForHumans() }}</small>
                                                             </td>
                                                             <td class="font-weight-bold">
                                                                 Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}

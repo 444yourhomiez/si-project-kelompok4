@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -271,7 +271,7 @@
                                                 <div>
                                                     <small class="text-muted">
                                                         <i class="fas fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($trx['tanggal'])->format('d M Y') }}
-                                                        &nbsp;·&nbsp;{{ \Carbon\Carbon::parse($trx['tanggal'])->diffForHumans() }}
+                                                        &nbsp;·&nbsp;{{ \Carbon\Carbon::parse($trx['tanggal'])->locale('id')->diffForHumans() }}
                                                     </small>
                                                 </div>
                                             </div>

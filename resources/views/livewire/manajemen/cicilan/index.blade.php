@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -149,7 +149,7 @@
                                         </td>
                                         <td>
                                             <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}</div>
-                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
+                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->locale('id')->diffForHumans() }}</small>
                                         </td>
                                         <td>
                                             <div class="font-weight-bold">{{ $item->anggota->nama_anggota }}</div>

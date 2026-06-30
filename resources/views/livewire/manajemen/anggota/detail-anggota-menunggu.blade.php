@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper modern-wrapper">
         {{-- HEADER --}}
         <section class="content-header modern-header">
@@ -56,7 +56,7 @@
                                         <i class="fas fa-calendar-alt mr-1"></i>
                                         Daftar: {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d M Y') }}
                                         <small class="ml-1">
-                                            ({{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->diffForHumans() }})
+                                            ({{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->locale('id')->diffForHumans() }})
                                         </small>
                                     </div>
                                     <span class="badge px-3 py-1" style="background:#fff8e1;color:#f59e0b;border:1px solid #fde68a;border-radius:20px;font-size:0.78rem;">

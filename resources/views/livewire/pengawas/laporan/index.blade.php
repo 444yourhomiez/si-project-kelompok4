@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
@@ -243,7 +243,7 @@
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>
                                                 <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
-                                                <small class="text-muted">{{ \Carbon\Carbon::parse($item['tanggal'])->diffForHumans() }}</small>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($item['tanggal'])->locale('id')->diffForHumans() }}</small>
                                             </td>
                                             <td>{{ $item['jenis'] }}</td>
                                             <td>{{ $item['keterangan'] }}</td>

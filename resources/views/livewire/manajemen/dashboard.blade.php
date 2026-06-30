@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -291,7 +291,7 @@
                                                 <div>
                                                     <small class="text-muted">
                                                         <i class="fas fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
-                                                        &nbsp;·&nbsp;{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                                        &nbsp;·&nbsp;{{ \Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}
                                                     </small>
                                                 </div>
                                             </div>
