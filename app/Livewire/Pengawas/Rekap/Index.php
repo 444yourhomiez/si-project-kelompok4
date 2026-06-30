@@ -56,6 +56,7 @@ class Index extends Component
                 'masuk'        => $item->jumlah,
                 'keluar'       => 0,
                 'keterangan'   => '-',
+                'is_manual'    => false,
             ]);
 
         $cicilan = Cicilan::with('pinjaman.anggota')
@@ -70,6 +71,7 @@ class Index extends Component
                 'masuk'        => $item->jumlah_tagihan,
                 'keluar'       => 0,
                 'keterangan'   => '-',
+                'is_manual'    => false,
             ]);
 
         $pinjaman = Pinjaman::with('anggota')
@@ -85,6 +87,7 @@ class Index extends Component
                 'masuk'        => 0,
                 'keluar'       => $item->dana_diterima ?? $item->jumlah_pengajuan,
                 'keterangan'   => '-',
+                'is_manual'    => false,
             ]);
 
         $rekapManual = RekapHarian::with('user')
@@ -93,12 +96,13 @@ class Index extends Component
             ->map(fn($item) => [
                 'tanggal'      => $item->tanggal,
                 'kode_anggota' => '-',
-                'nama_anggota' => '-',
+                'nama_anggota' => $item->user->nama_user ?? '-',
                 'jenis'        => $item->keterangan,
                 'jenis_key'    => $item->jenis,
                 'masuk'        => $item->jenis === 'uang_masuk' ? $item->nominal : 0,
                 'keluar'       => $item->jenis === 'uang_keluar' ? $item->nominal : 0,
                 'keterangan'   => $item->keterangan,
+                'is_manual'    => true,
             ]);
 
         $semua = $simpanan->concat($cicilan)->concat($pinjaman)->concat($rekapManual);

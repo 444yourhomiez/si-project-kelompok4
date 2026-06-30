@@ -149,7 +149,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <small class="text-muted">
-                            Menampilkan {{ $simpananPokok->firstItem() ?? 0 }}â€“{{ $simpananPokok->lastItem() ?? 0 }}
+                            Menampilkan {{ $simpananPokok->firstItem() ?? 0 }}–{{ $simpananPokok->lastItem() ?? 0 }}
                             dari {{ $simpananPokok->total() }} data
                         </small>
                         <div class="modern-pagination">

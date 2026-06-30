@@ -172,7 +172,7 @@
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <small class="text-muted">
                             Menampilkan
-                            {{ $simpananSukarela->firstItem() ?? 0 }}-{{ $simpananSukarela->lastItem() ?? 0 }}
+                            {{ $simpananSukarela->firstItem() ?? 0 }}–{{ $simpananSukarela->lastItem() ?? 0 }}
                             dari {{ $simpananSukarela->total() }} data
                         </small>
                         <div class="modern-pagination">
