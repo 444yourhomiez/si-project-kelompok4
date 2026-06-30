@@ -103,6 +103,9 @@
                             <div class="col-md-3 col-6 mb-3">
                                 <small class="text-muted d-block">Tanggal Persetujuan</small>
                                 <strong>{{ $pinjaman->tanggal_persetujuan ? \Carbon\Carbon::parse($pinjaman->tanggal_persetujuan)->format('d M Y') : '-' }}</strong>
+                                @if($pinjaman->tanggal_persetujuan)
+                                    <small class="text-muted d-block">{{ \Carbon\Carbon::parse($pinjaman->tanggal_persetujuan)->locale('id')->diffForHumans() }}</small>
+                                @endif
                             </div>
                             <div class="col-md-3 col-6 mb-3">
                                 <small class="text-muted d-block">Tujuan Pinjaman</small>
