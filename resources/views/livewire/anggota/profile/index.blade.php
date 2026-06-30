@@ -50,7 +50,6 @@
                                             onclick="document.getElementById('fotoInput').click()">
                                             <i class="fas fa-images mr-1"></i>Ganti Foto
                                         </button>
-                                        <br><small class="text-muted">JPG, PNG, GIF &bull; Maks. 5MB</small>
                                     </div>
                                     <div id="fotoBtnSimpan" style="display:none;">
                                         <button type="button" id="fotoSimpanBtn" class="btn btn-sm btn-success">
