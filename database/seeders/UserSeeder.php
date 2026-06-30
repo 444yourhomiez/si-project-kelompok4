@@ -58,17 +58,17 @@ class UserSeeder extends Seeder
         $nominalPinjaman = [1_000_000, 2_000_000, 3_000_000, 5_000_000, 7_500_000, 10_000_000, 15_000_000];
         $tenorList       = [6, 12, 18, 24];
 
-        // ── Distribusi 150 anggota ──────────────────────────────────────────
-        // i   1 –  15 : disetujui + pinjaman PENDING
-        // i  16 –  35 : disetujui + pinjaman LUNAS
-        // i  36 –  95 : disetujui + pinjaman AKTIF
-        // i  96 – 120 : disetujui + tanpa pinjaman
-        // i 121 – 150 : menunggu
+        // ── Distribusi 50 anggota ───────────────────────────────────────────
+        // i  1 –  5  : disetujui + pinjaman PENDING
+        // i  6 – 12  : disetujui + pinjaman LUNAS
+        // i 13 – 35  : disetujui + pinjaman AKTIF
+        // i 36 – 42  : disetujui + tanpa pinjaman
+        // i 43 – 50  : menunggu
         // ────────────────────────────────────────────────────────────────────
 
-        for ($i = 1; $i <= 150; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
 
-            $status = $i <= 120 ? 'disetujui' : 'menunggu';
+            $status = $i <= 42 ? 'disetujui' : 'menunggu';
 
             $namaD = $namaDepan[($i - 1) % count($namaDepan)];
             $namaB = $namaBelakang[($i - 1) % count($namaBelakang)];
@@ -90,17 +90,19 @@ class UserSeeder extends Seeder
             }
 
             // ── User ────────────────────────────────────────────────────────
-            $user = User::create([
-                'nama_user' => $nama,
-                'email'     => "anggota{$i}@gmail.com",
-                'password'  => Hash::make('password'),
-                'role'      => 'anggota',
-                'status'    => $status,
+            $user = User::forceCreate([
+                'nama_user'  => $nama,
+                'email'      => "anggota{$i}@gmail.com",
+                'password'   => Hash::make('password'),
+                'role'       => 'anggota',
+                'status'     => $status,
+                'created_at' => $tanggalDaftar,
+                'updated_at' => $tanggalDaftar,
             ]);
 
             // ── Anggota ─────────────────────────────────────────────────────
             $kotaItem = $kota[$i % count($kota)];
-            $anggota  = Anggota::create([
+            $anggota  = Anggota::forceCreate([
                 'user_id'             => $user->id,
                 'jadwal_id'           => $jadwalId,
                 'kode_anggota'        => $status === 'disetujui' ? 'A-' . str_pad($i, 6, '0', STR_PAD_LEFT) : null,
@@ -118,27 +120,33 @@ class UserSeeder extends Seeder
                 'status_rumah'        => $statusRumah[$i % count($statusRumah)],
                 'penghasilan'         => $penghasilan[$i % count($penghasilan)],
                 'tanggal_daftar'      => $tanggalDaftar->format('Y-m-d'),
+                'created_at'          => $tanggalDaftar,
+                'updated_at'          => $tanggalDaftar,
             ]);
 
             if ($status !== 'disetujui') continue;
 
             // ── Simpanan Pokok (sekali saat mendaftar — Rp 500.000) ─────────
-            Simpanan::create([
+            Simpanan::forceCreate([
                 'anggota_id'     => $anggota->id,
                 'jenis_simpanan' => 'pokok',
                 'jumlah'         => 500_000,
                 'tanggal'        => $tanggalDaftar->format('Y-m-d'),
+                'created_at'     => $tanggalDaftar,
+                'updated_at'     => $tanggalDaftar,
             ]);
             $this->rekap($manajemenId, 'uang_masuk', 500_000, "Simpanan Pokok - {$nama}", $tanggalDaftar->format('Y-m-d'));
 
             // ── Simpanan Wajib (tiap bulan — Rp 50.000) ────────────────────
             for ($j = $bulanKeanggotaan; $j >= 0; $j--) {
                 $tgl = $tanggalDaftar->copy()->addMonths($bulanKeanggotaan - $j)->startOfMonth();
-                Simpanan::create([
+                Simpanan::forceCreate([
                     'anggota_id'     => $anggota->id,
                     'jenis_simpanan' => 'wajib',
                     'jumlah'         => 50_000,
                     'tanggal'        => $tgl->format('Y-m-d'),
+                    'created_at'     => $tgl,
+                    'updated_at'     => $tgl,
                 ]);
                 $this->rekap($manajemenId, 'uang_masuk', 50_000, "Simpanan Wajib - {$nama}", $tgl->format('Y-m-d'));
             }
@@ -146,24 +154,25 @@ class UserSeeder extends Seeder
             // ── Simpanan Sukarela (beberapa kali acak — Rp 100.000) ────────
             $jumlahSukarela = rand(1, 5);
             for ($j = 0; $j < $jumlahSukarela; $j++) {
-                $offsetBulan = rand(0, $bulanKeanggotaan);
-                $tglSukarela = $tanggalDaftar->copy()->addMonths($offsetBulan)->format('Y-m-d');
-                Simpanan::create([
+                $tglSukarela = $tanggalDaftar->copy()->addMonths(rand(0, $bulanKeanggotaan));
+                Simpanan::forceCreate([
                     'anggota_id'     => $anggota->id,
                     'jenis_simpanan' => 'sukarela',
                     'jumlah'         => 100_000,
-                    'tanggal'        => $tglSukarela,
+                    'tanggal'        => $tglSukarela->format('Y-m-d'),
+                    'created_at'     => $tglSukarela,
+                    'updated_at'     => $tglSukarela,
                 ]);
-                $this->rekap($manajemenId, 'uang_masuk', 100_000, "Simpanan Sukarela - {$nama}", $tglSukarela);
+                $this->rekap($manajemenId, 'uang_masuk', 100_000, "Simpanan Sukarela - {$nama}", $tglSukarela->format('Y-m-d'));
             }
 
-            // Anggota i 96–120 tidak punya pinjaman
-            if ($i > 95) continue;
+            // Anggota i 36–42 tidak punya pinjaman
+            if ($i > 35) continue;
 
             // ── Pinjaman ────────────────────────────────────────────────────
             $jumlah        = $nominalPinjaman[$i % count($nominalPinjaman)];
             $tenor         = $tenorList[$i % count($tenorList)];
-            $jenisPinjaman = $i <= 55 ? 'biasa' : 'khusus';
+            $jenisPinjaman = $i <= 20 ? 'biasa' : 'khusus';
             $bunga         = $jenisPinjaman === 'biasa' ? 0.6 : 1.2;  // jasa: biasa 0.6%, khusus 1.2%
             $bungaPerBulan = (int) round($jumlah * ($bunga / 100));   // jumlah × jasa% (flat, tetap tiap bulan)
             $pokokPerBulan = (int) round($jumlah / $tenor);
@@ -175,13 +184,13 @@ class UserSeeder extends Seeder
             $danaDiterima  = $jumlah - $provisi - $kapitalisasi - $danaPerl;
             $totalSimpanan = ($bulanKeanggotaan + 1) * 50_000 + 500_000;
 
-            if ($i <= 15) {
+            if ($i <= 5) {
                 // PENDING — baru diajukan
                 $tanggalPengajuan   = now()->subDays(rand(1, 10));
                 $tanggalPersetujuan = null;
                 $statusPinjaman     = 'pending';
 
-            } elseif ($i <= 35) {
+            } elseif ($i <= 12) {
                 // LUNAS — sudah selesai dilunasi
                 $tanggalPengajuan   = $tanggalDaftar->copy()->addMonths(rand(1, 3));
                 $tanggalPersetujuan = $tanggalPengajuan->copy()->addDays(rand(3, 7));
@@ -195,7 +204,7 @@ class UserSeeder extends Seeder
                 $statusPinjaman     = 'aktif';
             }
 
-            $pinjaman = Pinjaman::create([
+            $pinjaman = Pinjaman::forceCreate([
                 'anggota_id'          => $anggota->id,
                 'jenis_pinjaman'      => $jenisPinjaman,
                 'jumlah_pengajuan'    => $jumlah,
@@ -214,15 +223,19 @@ class UserSeeder extends Seeder
                 'status'              => $statusPinjaman,
                 'tanggal_pengajuan'   => $tanggalPengajuan->format('Y-m-d'),
                 'tanggal_persetujuan' => $tanggalPersetujuan?->format('Y-m-d'),
+                'created_at'          => $tanggalPengajuan,
+                'updated_at'          => $tanggalPersetujuan ?? $tanggalPengajuan,
             ]);
 
             // Kapitalisasi → simpanan sukarela + rekap
             if ($statusPinjaman !== 'pending') {
-                Simpanan::create([
+                Simpanan::forceCreate([
                     'anggota_id'     => $anggota->id,
                     'jenis_simpanan' => 'sukarela',
                     'jumlah'         => $kapitalisasi,
                     'tanggal'        => $tanggalPersetujuan->format('Y-m-d'),
+                    'created_at'     => $tanggalPersetujuan,
+                    'updated_at'     => $tanggalPersetujuan,
                 ]);
                 $this->rekap(
                     $manajemenId,
@@ -263,13 +276,18 @@ class UserSeeder extends Seeder
                     }
                 }
 
-                Cicilan::create([
+                $tsCicilan = $tanggalBayar
+                    ? \Carbon\Carbon::parse($tanggalBayar)
+                    : $tanggalPersetujuan;
+                Cicilan::forceCreate([
                     'pinjaman_id'    => $pinjaman->id,
                     'cicilan_ke'     => $k,
                     'jumlah_tagihan' => $cicilan,
                     'jatuh_tempo'    => $jatuhTempo->format('Y-m-d'),
                     'tanggal_bayar'  => $tanggalBayar,
                     'status'         => $statusCicilan,
+                    'created_at'     => $tsCicilan,
+                    'updated_at'     => $tsCicilan,
                 ]);
 
                 // Rekap pembayaran cicilan yang sudah lunas
@@ -290,12 +308,15 @@ class UserSeeder extends Seeder
     {
         if (!$userId) return;
 
-        RekapHarian::create([
+        $ts = \Carbon\Carbon::parse($tanggal);
+        RekapHarian::forceCreate([
             'user_id'    => $userId,
             'jenis'      => $jenis,
             'nominal'    => $nominal,
             'keterangan' => $keterangan,
             'tanggal'    => $tanggal,
+            'created_at' => $ts,
+            'updated_at' => $ts,
         ]);
     }
 }

@@ -86,7 +86,6 @@
                                 <option value="10">10 Data</option>
                                 <option value="25">25 Data</option>
                                 <option value="50">50 Data</option>
-                                <option value="100">100 Data</option>
                             </select>
                         </div>
                     </div>
@@ -145,7 +144,7 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal_daftar)->format('d M Y') }}
                                             </div>
                                             <small class="text-muted">
-                                                <span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_daftar)->timestamp }}">{{ \Carbon\Carbon::parse($item->tanggal_daftar)->locale('id')->diffForHumans() }}</span>
+                                                <span data-timestamp="{{ \Carbon\Carbon::parse($item->created_at)->timestamp }}">{{ \Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}</span>
                                             </small>
                                         </td>
                                         {{-- STATUS --}}

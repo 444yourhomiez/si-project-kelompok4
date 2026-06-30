@@ -104,7 +104,7 @@
                                 <small class="text-muted d-block">Tanggal Persetujuan</small>
                                 <strong>{{ $pinjaman->tanggal_persetujuan ? \Carbon\Carbon::parse($pinjaman->tanggal_persetujuan)->format('d M Y') : '-' }}</strong>
                                 @if($pinjaman->tanggal_persetujuan)
-                                    <small class="text-muted d-block"><span data-timestamp="{{ \Carbon\Carbon::parse($pinjaman->tanggal_persetujuan)->timestamp }}">{{ \Carbon\Carbon::parse($pinjaman->tanggal_persetujuan)->locale('id')->diffForHumans() }}</span></small>
+                                    <small class="text-muted d-block"><span data-timestamp="{{ \Carbon\Carbon::parse($pinjaman->created_at)->timestamp }}">{{ \Carbon\Carbon::parse($pinjaman->created_at)->locale('id')->diffForHumans() }}</span></small>
                                 @endif
                             </div>
                             <div class="col-md-3 col-6 mb-3">
@@ -232,7 +232,7 @@
                                             <td>
                                                 @if($cic->tanggal_bayar)
                                                     <div class="font-weight-bold">{{ \Carbon\Carbon::parse($cic->tanggal_bayar)->format('d M Y') }}</div>
-                                                    <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($cic->tanggal_bayar)->timestamp }}">{{ \Carbon\Carbon::parse($cic->tanggal_bayar)->locale('id')->diffForHumans() }}</span></small>
+                                                    <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($cic->created_at)->timestamp }}">{{ \Carbon\Carbon::parse($cic->created_at)->locale('id')->diffForHumans() }}</span></small>
                                                 @else
                                                     <span class="text-muted">—</span>
                                                 @endif

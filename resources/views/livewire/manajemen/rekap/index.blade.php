@@ -116,7 +116,6 @@
                                     <option value="10">10 Data</option>
                                     <option value="25">25 Data</option>
                                     <option value="50">50 Data</option>
-                                    <option value="100">100 Data</option>
                                 </select>
                             </div>
                             {{-- TAMBAH --}}
