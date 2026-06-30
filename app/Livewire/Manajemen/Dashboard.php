@@ -30,7 +30,7 @@ class Dashboard extends Component
 
         $simpananList = Simpanan::with('anggota')
             ->whereDate('created_at', $today)
-            ->latest()->get()
+            ->latest()->get()->toBase()
             ->map(fn($item) => (object)[
                 'tipe'         => 'simpanan',
                 'id'           => $item->id,
@@ -45,9 +45,9 @@ class Dashboard extends Component
                 'cicilan'      => collect(),
             ]);
 
-        $pinjamanList = Pinjaman::with(['anggota', 'cicilan' => fn($q) => $q->orderBy('cicilan_ke')])
+        $pinjamanList = Pinjaman::with('anggota')
             ->whereDate('created_at', $today)
-            ->latest()->get()
+            ->latest()->get()->toBase()
             ->map(fn($item) => (object)[
                 'tipe'         => 'pinjaman',
                 'id'           => $item->id,
@@ -59,13 +59,13 @@ class Dashboard extends Component
                 'nominal'      => $item->jumlah_pengajuan,
                 'status'       => ucfirst($item->status),
                 'keterangan'   => null,
-                'cicilan'      => $item->cicilan,
+                'cicilan'      => collect(),
             ]);
 
         $rekapList = RekapHarian::with('user')
             ->whereDate('created_at', $today)
             ->latest()
-            ->get()
+            ->get()->toBase()
             ->map(fn($item) => (object)[
                 'tipe'         => 'rekap',
                 'id'           => $item->id,
@@ -85,7 +85,7 @@ class Dashboard extends Component
             ->whereNotNull('tanggal_bayar')
             ->whereDate('tanggal_bayar', $today)
             ->latest()
-            ->get()
+            ->get()->toBase()
             ->map(fn($item) => (object)[
                 'tipe'         => 'cicilan',
                 'id'           => $item->id,
@@ -105,7 +105,8 @@ class Dashboard extends Component
             ->merge($pinjamanList)
             ->merge($rekapList)
             ->merge($cicilanLunasList)
-            ->sortByDesc('created_at');
+            ->sortByDesc('created_at')
+            ->values();
 
         $displayedTransaksi = $this->showAllTransaksi
             ? $transaksiTerbaru

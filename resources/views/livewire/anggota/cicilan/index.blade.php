@@ -107,6 +107,15 @@
                             <input type="text" wire:model.live="search" class="form-control"
                                 placeholder="Kode pinjaman...">
                         </div>
+                        {{-- FILTER JENIS --}}
+                        <div class="col-lg-2 col-md-6 col-6 mb-2">
+                            <label>Jenis Pinjaman</label>
+                            <select wire:model.live="filterJenis" class="form-control">
+                                <option value="">Semua Jenis</option>
+                                <option value="biasa">Biasa</option>
+                                <option value="khusus">Khusus</option>
+                            </select>
+                        </div>
                         {{-- FILTER STATUS --}}
                         <div class="col-lg-3 col-md-6 col-6 mb-2">
                             <label>Status Pinjaman</label>
@@ -116,16 +125,6 @@
                                 <option value="lunas">Lunas</option>
                                 <option value="pending">Pending</option>
                                 <option value="ditolak">Ditolak</option>
-                            </select>
-                        </div>
-                        {{-- PAGINATION --}}
-                        <div class="col-lg-3 col-md-6 col-6 mb-2">
-                            <label>Data</label>
-                            <select wire:model.live="paginate" class="form-control">
-                                <option value="10">10 Data</option>
-                                <option value="25">25 Data</option>
-                                <option value="50">50 Data</option>
-                                <option value="100">100 Data</option>
                             </select>
                         </div>
                     </div>

@@ -49,16 +49,53 @@ class Index extends Component
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate($this->paginate);
 
-        $totalPinjaman = Pinjaman::where('anggota_id', $anggota->id)->where('status', 'aktif')->sum('jumlah_pengajuan');
-        $totalPinjamanBiasa = Pinjaman::where('anggota_id', $anggota->id)->where('jenis_pinjaman', 'biasa')->where('status', 'aktif')->sum('jumlah_pengajuan');
+        $totalPinjaman       = Pinjaman::where('anggota_id', $anggota->id)->where('status', 'aktif')->sum('jumlah_pengajuan');
+        $totalPinjamanBiasa  = Pinjaman::where('anggota_id', $anggota->id)->where('jenis_pinjaman', 'biasa')->where('status', 'aktif')->sum('jumlah_pengajuan');
         $totalPinjamanKhusus = Pinjaman::where('anggota_id', $anggota->id)->where('jenis_pinjaman', 'khusus')->where('status', 'aktif')->sum('jumlah_pengajuan');
 
+        // Info per jenis pinjaman (biasa & khusus bisa berjalan bersamaan)
+        $bulanBergabung = \Carbon\Carbon::parse($anggota->tanggal_daftar)->diffInMonths(now());
+        $sisaBulan      = max(0, 6 - $bulanBergabung);
+        $infoPerJenis   = [];
+
+        if ($bulanBergabung >= 6) {
+            foreach (['biasa', 'khusus'] as $jenis) {
+                if (Pinjaman::where('anggota_id', $anggota->id)->where('jenis_pinjaman', $jenis)->where('status', 'pending')->exists()) {
+                    $infoPerJenis[] = [
+                        'judul' => 'Pinjaman ' . ucfirst($jenis) . ' Menunggu Persetujuan',
+                        'pesan' => 'Pengajuan pinjaman ' . $jenis . ' sebelumnya masih dalam proses persetujuan.',
+                    ];
+                    continue;
+                }
+                $aktif = Pinjaman::with('cicilan')
+                    ->where('anggota_id', $anggota->id)
+                    ->where('jenis_pinjaman', $jenis)
+                    ->where('status', 'aktif')
+                    ->first();
+                if ($aktif) {
+                    $total  = $aktif->cicilan->count();
+                    $lunas  = $aktif->cicilan->where('status', 'lunas')->count();
+                    $persen = $total > 0 ? round($lunas / $total * 100) : 0;
+                    if ($persen < 50) {
+                        $infoPerJenis[] = [
+                            'judul'   => 'Cicilan Pinjaman ' . ucfirst($jenis) . ' Belum 50%',
+                            'pesan'   => 'Pinjaman ' . $jenis . ' baru dapat diajukan setelah cicilan lunas minimal 50%. Saat ini ' . $lunas . '/' . $total . ' cicilan lunas (' . $persen . '%).',
+                            'progres' => $persen,
+                        ];
+                    }
+                }
+            }
+        }
+
         return view('livewire.anggota.pinjaman.index', [
-            'title'              => 'Daftar Pinjaman',
-            'pinjaman'           => $pinjaman,
-            'totalPinjaman'      => $totalPinjaman,
-            'totalPinjamanBiasa' => $totalPinjamanBiasa,
+            'title'               => 'Daftar Pinjaman',
+            'pinjaman'            => $pinjaman,
+            'totalPinjaman'       => $totalPinjaman,
+            'totalPinjamanBiasa'  => $totalPinjamanBiasa,
             'totalPinjamanKhusus' => $totalPinjamanKhusus,
+            'infoPerJenis'        => $infoPerJenis,
+            'bulanBergabung'      => $bulanBergabung,
+            'sisaBulan'           => $sisaBulan,
         ]);
     }
 }

@@ -19,6 +19,37 @@
                 </div>
                 {{-- BODY --}}
                 <div class="modal-body px-4 py-4">
+
+                    {{-- KETERANGAN TIDAK BISA PINJAM --}}
+                    @if(!$bisaPinjam)
+                        @foreach($infoTidakBisa as $info)
+                        <div class="rounded p-3 mb-4 d-flex align-items-start" style="background:#fffbeb;border:1px solid #fde68a;gap:12px;">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                                style="width:40px;height:40px;background:#fef3c7;">
+                                <i class="{{ $info['icon'] }}" style="color:#f59e0b;"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <div class="font-weight-bold mb-1" style="color:#92400e;font-size:0.9rem;">
+                                    {{ $info['judul'] }}
+                                </div>
+                                <div style="color:#78350f;font-size:0.83rem;line-height:1.5;">
+                                    {{ $info['pesan'] }}
+                                </div>
+                                @if($info['progres'] !== null)
+                                <div class="mt-2">
+                                    <div class="d-flex justify-content-between mb-1" style="font-size:0.78rem;color:#92400e;">
+                                        <span>{{ $info['label'] }}</span>
+                                    </div>
+                                    <div class="progress" style="height:6px;border-radius:4px;background:#fde68a;">
+                                        <div class="progress-bar" style="width:{{ $info['progres'] }}%;background:#f59e0b;border-radius:4px;"></div>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
+
                     {{-- JENIS PINJAMAN --}}
                     <div class="col-md-12 mb-4">
                         <label class="font-weight-bold">
@@ -144,6 +175,7 @@
                     <div class="col-md-12 mb-4">
                         <label class="font-weight-bold">
                             Jaminan
+                            <span class="text-danger">*</span>
                         </label>
                         <select wire:model.live="jaminan"
                             class="form-control @error('jaminan') is-invalid @enderror">
@@ -158,6 +190,9 @@
                             <option>Emas / Perhiasan</option>
                             <option>Lainnya</option>
                         </select>
+                        @error('jaminan')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
                         @if ($jaminan === 'Lainnya')
                             <input type="text" wire:model.live="jaminan_lainnya"
                                 class="form-control mt-2 @error('jaminan_lainnya') is-invalid @enderror"

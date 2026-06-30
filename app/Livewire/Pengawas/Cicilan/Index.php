@@ -14,10 +14,12 @@ class Index extends Component
     protected $queryString = [
         'search'       => ['except' => ''],
         'filterStatus' => ['except' => ''],
+        'filterJenis'  => ['except' => ''],
     ];
 
     public string $search       = '';
     public string $filterStatus = '';
+    public string $filterJenis  = '';
     public int    $paginate     = 10;
     public string $sortBy       = 'created_at';
     public string $sortDir      = 'desc';
@@ -25,10 +27,11 @@ class Index extends Component
     public function updatingSearch(): void       { $this->resetPage(); }
     public function updatingPaginate(): void     { $this->resetPage(); }
     public function updatingFilterStatus(): void { $this->resetPage(); }
+    public function updatingFilterJenis(): void  { $this->resetPage(); }
 
     public function resetFilter(): void
     {
-        $this->reset('search', 'filterStatus');
+        $this->reset('search', 'filterStatus', 'filterJenis');
         $this->resetPage();
     }
 
@@ -46,6 +49,7 @@ class Index extends Component
                 });
             })
             ->when($this->filterStatus, fn($q) => $q->where('status', $this->filterStatus))
+            ->when($this->filterJenis,  fn($q) => $q->where('jenis_pinjaman', $this->filterJenis))
             ->orderBy($this->sortBy, $this->sortDir)
             ->paginate($this->paginate);
 
