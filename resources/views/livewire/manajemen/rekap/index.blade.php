@@ -222,7 +222,7 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <small class="text-muted">
-                                Menampilkan {{ $riwayat->firstItem() ?? 0 }}â€“{{ $riwayat->lastItem() ?? 0 }}
+                                Menampilkan {{ $riwayat->firstItem() ?? 0 }}–{{ $riwayat->lastItem() ?? 0 }}
                                 dari {{ $riwayat->total() }} data
                             </small>
                             <div class="modern-pagination">

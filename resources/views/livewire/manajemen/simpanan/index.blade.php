@@ -245,7 +245,7 @@
 
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <small class="text-muted">
-                            Menampilkan {{ $simpanan->firstItem() ?? 0 }}â€“{{ $simpanan->lastItem() ?? 0 }}
+                            Menampilkan {{ $simpanan->firstItem() ?? 0 }}–{{ $simpanan->lastItem() ?? 0 }}
                             dari {{ $simpanan->total() }} data
                         </small>
                         <div class="modern-pagination">
