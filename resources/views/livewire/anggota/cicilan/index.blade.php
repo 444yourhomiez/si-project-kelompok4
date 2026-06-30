@@ -297,7 +297,7 @@
                                                             </td>
                                                             <td style="font-size:0.85rem;">
                                                                 <div class="font-weight-bold">{{ $jatuhTempo->format('d M Y') }}</div>
-                                                                <small class="text-muted">{{ $jatuhTempo->locale('id')->diffForHumans() }}</small>
+                                                                <small class="text-muted"><span data-timestamp="{{ $jatuhTempo->timestamp }}">{{ $jatuhTempo->locale('id')->diffForHumans() }}</span></small>
                                                             </td>
                                                             <td class="font-weight-bold">
                                                                 Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}

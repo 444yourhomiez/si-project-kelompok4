@@ -103,7 +103,7 @@
                                             <div class="font-weight-bold">
                                                 {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
                                             </div>
-                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->locale('id')->diffForHumans() }}</small>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->locale('id')->diffForHumans() }}</span></small>
                                         </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td class="font-weight-bold">Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}</td>

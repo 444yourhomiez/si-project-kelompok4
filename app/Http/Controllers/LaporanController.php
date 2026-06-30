@@ -129,6 +129,7 @@ class LaporanController extends Controller
 
     public function pdf(Request $request)
     {
+        ini_set('memory_limit', '512M');
         $jenisLaporan = $request->get('jenis_laporan', 'bulanan');
         $logo         = $this->logoBase64();
 
@@ -159,6 +160,7 @@ class LaporanController extends Controller
 
     public function shuPdf(Request $request)
     {
+        ini_set('memory_limit', '512M');
         $request->validate([
             'tahun' => 'required|integer|min:2000|max:2100',
         ]);
