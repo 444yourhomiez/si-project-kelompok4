@@ -1,4 +1,4 @@
-<div>
+﻿<div>
     <div class="content-wrapper">
         {{-- HEADER --}}
         <section class="content-header">
@@ -97,7 +97,7 @@
                                                 {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
                                             </div>
                                             <small
-                                                class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}"></span></small>
+                                                class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->diffForHumans() }}</small>
                                         </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td>
