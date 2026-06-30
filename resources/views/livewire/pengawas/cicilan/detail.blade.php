@@ -196,14 +196,18 @@
                                         <tr>
                                             <td class="text-center font-weight-bold">Ke-{{ $cic->cicilan_ke }}</td>
                                             <td>
-                                                {{ \Carbon\Carbon::parse($cic->jatuh_tempo)->format('d M Y') }}
-                                                @if($cic->status === 'belum' && \Carbon\Carbon::parse($cic->jatuh_tempo)->isPast())
-                                                    <span class="badge badge-danger ml-1">Terlambat</span>
-                                                @endif
+                                                <div class="font-weight-bold">
+                                                    {{ \Carbon\Carbon::parse($cic->jatuh_tempo)->format('d M Y') }}
+                                                    @if($cic->status === 'belum' && \Carbon\Carbon::parse($cic->jatuh_tempo)->isPast())
+                                                        <span class="badge badge-danger ml-1">Terlambat</span>
+                                                    @endif
+                                                </div>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($cic->jatuh_tempo)->locale('id')->diffForHumans() }}</small>
                                             </td>
                                             <td>
                                                 @if($cic->tanggal_bayar)
-                                                    {{ \Carbon\Carbon::parse($cic->tanggal_bayar)->format('d M Y') }}
+                                                    <div class="font-weight-bold">{{ \Carbon\Carbon::parse($cic->tanggal_bayar)->format('d M Y') }}</div>
+                                                    <small class="text-muted">{{ \Carbon\Carbon::parse($cic->tanggal_bayar)->locale('id')->diffForHumans() }}</small>
                                                 @else
                                                     <span class="text-muted">—</span>
                                                 @endif

@@ -243,7 +243,7 @@
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>
                                                 <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
-                                                <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}"></span></small>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($item['tanggal'])->locale('id')->diffForHumans() }}</small>
                                             </td>
                                             <td>{{ $item['jenis'] }}</td>
                                             <td>{{ $item['keterangan'] }}</td>

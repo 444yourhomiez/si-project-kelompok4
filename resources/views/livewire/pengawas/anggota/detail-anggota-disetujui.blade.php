@@ -196,7 +196,7 @@
                                     <tr>
                                         <td>
                                             <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</div>
-                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal)->timestamp }}"></span></small>
+                                            <small class="text-muted">{{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->diffForHumans() }}</small>
                                         </td>
                                         <td>
                                             @if ($item->jenis_simpanan == 'wajib')
@@ -353,7 +353,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="font-weight-bold">{{ $jatuhTempo->format('d M Y') }}</div>
-                                                                    <small class="text-muted"><span data-timestamp="{{ $jatuhTempo->timestamp }}"></span></small>
+                                                                    <small class="text-muted">{{ $jatuhTempo->locale('id')->diffForHumans() }}</small>
                                                                 </td>
                                                                 <td class="text-right font-weight-bold">
                                                                     Rp {{ number_format($cicilan->jumlah_tagihan, 0, ',', '.') }}

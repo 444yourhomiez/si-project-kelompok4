@@ -150,7 +150,7 @@
                                         <tr>
                                             <td>
                                                 <div class="font-weight-bold">{{ \Carbon\Carbon::parse($item['tanggal'])->format('d M Y') }}</div>
-                                                <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item['tanggal'])->timestamp }}"></span></small>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($item['tanggal'])->locale('id')->diffForHumans() }}</small>
                                             </td>
                                             <td>{{ $item['is_manual'] ? '-' : $item['kode_anggota'] }}</td>
                                             <td>{{ $item['nama_anggota'] }}</td>
