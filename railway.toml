@@ -1,2 +1,2 @@
 [deploy]
-startCommand = "php artisan migrate --force && apache2-foreground"
+healthcheckPath = "/"
