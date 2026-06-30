@@ -51,7 +51,7 @@
         }
         refreshAgo();
         setInterval(refreshAgo, 1000);
-        document.addEventListener('livewire:updated', refreshAgo);
+        document.addEventListener('livewire:commit', refreshAgo);
     })();
     </script>
     {{-- Pesan Berhasil Login --}}

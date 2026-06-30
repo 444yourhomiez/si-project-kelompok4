@@ -18,8 +18,11 @@ class LaporanController extends Controller
     private function getLaporanBulanan(int $bulan, int $tahun): array
     {
         $simpananData = Anggota::with([
-            'simpanan' => fn($q) => $q->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun),
+            'simpanan' => fn($q) => $q
+                ->select(['anggota_id', 'jenis_simpanan', 'jumlah'])
+                ->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun),
         ])
+        ->select(['id', 'kode_anggota', 'nama_anggota'])
         ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
         ->get()
         ->map(function ($anggota) {
@@ -39,8 +42,11 @@ class LaporanController extends Controller
         ->values();
 
         $pinjamanData = Anggota::with([
-            'pinjaman' => fn($q) => $q->whereMonth('tanggal_pengajuan', $bulan)->whereYear('tanggal_pengajuan', $tahun),
+            'pinjaman' => fn($q) => $q
+                ->select(['anggota_id', 'jenis_pinjaman', 'jumlah_pengajuan'])
+                ->whereMonth('tanggal_pengajuan', $bulan)->whereYear('tanggal_pengajuan', $tahun),
         ])
+        ->select(['id', 'kode_anggota', 'nama_anggota'])
         ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
         ->get()
         ->map(function ($anggota) {
@@ -57,59 +63,72 @@ class LaporanController extends Controller
         ->filter(fn($item) => $item['total'] > 0)
         ->values();
 
-        $simpananRekap = Simpanan::with('anggota')
-            ->whereMonth('tanggal', $bulan)
-            ->whereYear('tanggal', $tahun)
-            ->get()
-            ->map(fn($item) => [
-                '_sort'      => $item->tanggal,
-                'tanggal'    => $item->tanggal->format('d M Y'),
-                'jenis'      => 'Simpanan ' . ucfirst($item->jenis_simpanan),
-                'keterangan' => $item->anggota?->nama_anggota ?? '-',
-                'masuk'      => (float) $item->jumlah,
-                'keluar'     => 0,
-            ]);
+        $simpananRekap = Simpanan::with([
+            'anggota' => fn($q) => $q->select(['id', 'nama_anggota']),
+        ])
+        ->select(['tanggal', 'jenis_simpanan', 'jumlah', 'anggota_id'])
+        ->whereMonth('tanggal', $bulan)
+        ->whereYear('tanggal', $tahun)
+        ->get()
+        ->map(fn($item) => [
+            '_sort'      => $item->tanggal,
+            'tanggal'    => $item->tanggal->format('d M Y'),
+            'jenis'      => 'Simpanan ' . ucfirst($item->jenis_simpanan),
+            'keterangan' => $item->anggota?->nama_anggota ?? '-',
+            'masuk'      => (float) $item->jumlah,
+            'keluar'     => 0,
+        ]);
 
-        $cicilanRekap = Cicilan::with('pinjaman.anggota')
-            ->whereMonth('tanggal_bayar', $bulan)
-            ->whereYear('tanggal_bayar', $tahun)
-            ->where('status', 'lunas')
-            ->get()
-            ->map(fn($item) => [
-                '_sort'      => $item->tanggal_bayar,
-                'tanggal'    => $item->tanggal_bayar->format('d M Y'),
-                'jenis'      => 'Cicilan Ke-' . $item->cicilan_ke . ' (' . ucfirst($item->pinjaman?->jenis_pinjaman ?? '') . ')',
-                'keterangan' => $item->pinjaman?->anggota?->nama_anggota ?? '-',
-                'masuk'      => (float) $item->jumlah_tagihan,
-                'keluar'     => 0,
-            ]);
+        $cicilanRekap = Cicilan::with([
+            'pinjaman'         => fn($q) => $q->select(['id', 'jenis_pinjaman', 'anggota_id']),
+            'pinjaman.anggota' => fn($q) => $q->select(['id', 'nama_anggota']),
+        ])
+        ->select(['tanggal_bayar', 'cicilan_ke', 'jumlah_tagihan', 'pinjaman_id'])
+        ->whereMonth('tanggal_bayar', $bulan)
+        ->whereYear('tanggal_bayar', $tahun)
+        ->where('status', 'lunas')
+        ->get()
+        ->map(fn($item) => [
+            '_sort'      => $item->tanggal_bayar,
+            'tanggal'    => $item->tanggal_bayar->format('d M Y'),
+            'jenis'      => 'Cicilan Ke-' . $item->cicilan_ke . ' (' . ucfirst($item->pinjaman?->jenis_pinjaman ?? '') . ')',
+            'keterangan' => $item->pinjaman?->anggota?->nama_anggota ?? '-',
+            'masuk'      => (float) $item->jumlah_tagihan,
+            'keluar'     => 0,
+        ]);
 
-        $pinjamanRekap = Pinjaman::with('anggota')
-            ->whereMonth('tanggal_persetujuan', $bulan)
-            ->whereYear('tanggal_persetujuan', $tahun)
-            ->where('status', 'aktif')
-            ->get()
-            ->map(fn($item) => [
-                '_sort'      => $item->tanggal_persetujuan,
-                'tanggal'    => $item->tanggal_persetujuan->format('d M Y'),
-                'jenis'      => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
-                'keterangan' => $item->anggota?->nama_anggota ?? '-',
-                'masuk'      => 0,
-                'keluar'     => (float) ($item->dana_diterima ?? $item->jumlah_pengajuan),
-            ]);
+        $pinjamanRekap = Pinjaman::with([
+            'anggota' => fn($q) => $q->select(['id', 'nama_anggota']),
+        ])
+        ->select(['tanggal_persetujuan', 'jenis_pinjaman', 'dana_diterima', 'jumlah_pengajuan', 'anggota_id'])
+        ->whereMonth('tanggal_persetujuan', $bulan)
+        ->whereYear('tanggal_persetujuan', $tahun)
+        ->where('status', 'aktif')
+        ->get()
+        ->map(fn($item) => [
+            '_sort'      => $item->tanggal_persetujuan,
+            'tanggal'    => $item->tanggal_persetujuan->format('d M Y'),
+            'jenis'      => 'Pinjaman ' . ucfirst($item->jenis_pinjaman),
+            'keterangan' => $item->anggota?->nama_anggota ?? '-',
+            'masuk'      => 0,
+            'keluar'     => (float) ($item->dana_diterima ?? $item->jumlah_pengajuan),
+        ]);
 
-        $manualRekap = RekapHarian::with('user')
-            ->whereMonth('tanggal', $bulan)
-            ->whereYear('tanggal', $tahun)
-            ->get()
-            ->map(fn($item) => [
-                '_sort'      => $item->tanggal,
-                'tanggal'    => $item->tanggal->format('d M Y'),
-                'jenis'      => $item->keterangan ?: ($item->jenis === 'uang_masuk' ? 'Uang Masuk' : 'Uang Keluar'),
-                'keterangan' => $item->user->nama_user ?? '-',
-                'masuk'      => $item->jenis === 'uang_masuk' ? (float) $item->nominal : 0,
-                'keluar'     => $item->jenis === 'uang_keluar' ? (float) $item->nominal : 0,
-            ]);
+        $manualRekap = RekapHarian::with([
+            'user' => fn($q) => $q->select(['id', 'nama_user']),
+        ])
+        ->select(['tanggal', 'keterangan', 'jenis', 'nominal', 'user_id'])
+        ->whereMonth('tanggal', $bulan)
+        ->whereYear('tanggal', $tahun)
+        ->get()
+        ->map(fn($item) => [
+            '_sort'      => $item->tanggal,
+            'tanggal'    => $item->tanggal->format('d M Y'),
+            'jenis'      => $item->keterangan ?: ($item->jenis === 'uang_masuk' ? 'Uang Masuk' : 'Uang Keluar'),
+            'keterangan' => $item->user->nama_user ?? '-',
+            'masuk'      => $item->jenis === 'uang_masuk' ? (float) $item->nominal : 0,
+            'keluar'     => $item->jenis === 'uang_keluar' ? (float) $item->nominal : 0,
+        ]);
 
         $rekapData = $simpananRekap->concat($cicilanRekap)->concat($pinjamanRekap)->concat($manualRekap)
             ->sortBy('_sort')
@@ -127,9 +146,22 @@ class LaporanController extends Controller
             : '';
     }
 
+    private function pdfOptions(): array
+    {
+        return [
+            'isRemoteEnabled'       => false,
+            'isHtml5ParserEnabled'  => true,
+            'isFontSubsettingEnabled' => false,
+            'dpi'                   => 96,
+            'defaultPaperSize'      => 'a4',
+        ];
+    }
+
     public function pdf(Request $request)
     {
-        ini_set('memory_limit', '512M');
+        ini_set('memory_limit', '256M');
+        gc_collect_cycles();
+
         $jenisLaporan = $request->get('jenis_laporan', 'bulanan');
         $logo         = $this->logoBase64();
 
@@ -138,7 +170,10 @@ class LaporanController extends Controller
             $tahun   = (int) $request->tahun;
             $shuData = $this->getShuData($tahun);
             $pdf     = Pdf::loadView('pdf.laporan', compact('shuData', 'tahun', 'logo') + ['jenis_laporan' => 'tahunan'])
+                ->setOptions($this->pdfOptions())
                 ->setPaper('a4', 'landscape');
+            unset($shuData, $logo);
+            gc_collect_cycles();
             return $pdf->stream('laporan-shu-' . $tahun . '.pdf');
         }
 
@@ -153,14 +188,20 @@ class LaporanController extends Controller
         $shuData = $this->getShuData($tahun);
 
         $pdf = Pdf::loadView('pdf.laporan', array_merge($data, compact('bulan', 'tahun', 'shuData', 'logo')) + ['jenis_laporan' => 'bulanan'])
+            ->setOptions($this->pdfOptions())
             ->setPaper('a4', 'portrait');
+
+        unset($data, $shuData, $logo);
+        gc_collect_cycles();
 
         return $pdf->stream('laporan-bulanan-' . $bulan . '-' . $tahun . '.pdf');
     }
 
     public function shuPdf(Request $request)
     {
-        ini_set('memory_limit', '512M');
+        ini_set('memory_limit', '256M');
+        gc_collect_cycles();
+
         $request->validate([
             'tahun' => 'required|integer|min:2000|max:2100',
         ]);
@@ -172,13 +213,19 @@ class LaporanController extends Controller
             'rows'   => $shuData['rows'],
             'totals' => $shuData,
             'tahun'  => $tahun,
-        ])->setPaper('a4', 'landscape');
+        ])->setOptions($this->pdfOptions())->setPaper('a4', 'landscape');
+
+        unset($shuData);
+        gc_collect_cycles();
 
         return $pdf->stream('laporan-shu-' . $tahun . '.pdf');
     }
 
     public function shuExcel(Request $request)
     {
+        ini_set('memory_limit', '256M');
+        gc_collect_cycles();
+
         $request->validate([
             'tahun' => 'required|integer|min:2000|max:2100',
         ]);
@@ -194,7 +241,8 @@ class LaporanController extends Controller
 
     private function getShuData(int $tahun): array
     {
-        $pinjamanTahun = Pinjaman::whereYear('tanggal_persetujuan', $tahun)
+        $pinjamanTahun = Pinjaman::select(['total_pembayaran', 'jumlah_disetujui', 'jumlah_pengajuan', 'provisi'])
+            ->whereYear('tanggal_persetujuan', $tahun)
             ->whereIn('status', ['aktif', 'lunas', 'disetujui'])
             ->get();
 
@@ -203,15 +251,21 @@ class LaporanController extends Controller
         );
         $totalProvisi = $pinjamanTahun->sum(fn($p) => (float) $p->provisi);
         $nilaiShu     = $totalJasa + $totalProvisi;
+        unset($pinjamanTahun);
 
         $alokasiDeviden = $nilaiShu * 0.30;
         $alokasiBjp     = $nilaiShu * 0.20;
 
         $anggotaList = Anggota::with([
-            'simpanan' => fn($q) => $q->whereYear('tanggal', $tahun),
-            'pinjaman' => fn($q) => $q->whereYear('tanggal_persetujuan', $tahun)
+            'simpanan' => fn($q) => $q
+                ->select(['anggota_id', 'jenis_simpanan', 'jumlah'])
+                ->whereYear('tanggal', $tahun),
+            'pinjaman' => fn($q) => $q
+                ->select(['anggota_id', 'total_pembayaran', 'jumlah_disetujui', 'jumlah_pengajuan'])
+                ->whereYear('tanggal_persetujuan', $tahun)
                 ->whereIn('status', ['aktif', 'lunas', 'disetujui']),
         ])
+        ->select(['id', 'nama_anggota'])
         ->whereHas('user', fn($q) => $q->where('status', 'disetujui'))
         ->get();
 
@@ -260,6 +314,9 @@ class LaporanController extends Controller
 
     public function excel(Request $request)
     {
+        ini_set('memory_limit', '256M');
+        gc_collect_cycles();
+
         $jenisLaporan = $request->get('jenis_laporan', 'bulanan');
 
         if ($jenisLaporan === 'tahunan') {

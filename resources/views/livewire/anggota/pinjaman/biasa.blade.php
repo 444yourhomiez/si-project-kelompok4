@@ -79,7 +79,6 @@
                                 <option value="10">10 Data</option>
                                 <option value="25">25 Data</option>
                                 <option value="50">50 Data</option>
-                                <option value="100">100 Data</option>
                             </select>
                         </div>
                     </div>
@@ -102,7 +101,7 @@
                                             <div class="font-weight-bold">
                                                 {{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d M Y') }}
                                             </div>
-                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->timestamp }}">{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->locale('id')->diffForHumans() }}</span></small>
+                                            <small class="text-muted"><span data-timestamp="{{ \Carbon\Carbon::parse($item->created_at)->timestamp }}">{{ \Carbon\Carbon::parse($item->created_at)->locale('id')->diffForHumans() }}</span></small>
                                         </td>
                                         <td class="font-weight-bold">{{ $item->kode_pinjaman }}</td>
                                         <td class="font-weight-bold">Rp {{ number_format($item->jumlah_pengajuan, 0, ',', '.') }}</td>
